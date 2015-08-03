@@ -12,7 +12,7 @@ import org.maepaysoh.maepaysoh.R;
  * Created by Ye Lin Aung on 15/08/03.
  */
 public class HomeActivity extends AppCompatActivity {
-  private Toolbar mToolBar;
+  private Toolbar mToolbar;
   private View mToolBarShadow;
   private Button mPartyListBtn;
 
@@ -20,11 +20,11 @@ public class HomeActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
 
-    mToolBar = (Toolbar) findViewById(R.id.home_toolbar);
+    mToolbar = (Toolbar) findViewById(R.id.home_toolbar);
     mToolBarShadow = findViewById(R.id.home_toolbar_shadow);
     mPartyListBtn = (Button) findViewById(R.id.home_party_list_btn);
 
-    mToolBar.setTitle(getString(R.string.app_name));
+    mToolbar.setTitle(getString(R.string.app_name));
 
     mPartyListBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
