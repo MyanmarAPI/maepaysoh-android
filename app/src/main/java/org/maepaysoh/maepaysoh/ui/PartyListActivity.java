@@ -2,20 +2,26 @@ package org.maepaysoh.maepaysoh.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import org.maepaysoh.maepaysoh.R;
 
-public class PartyListActivity extends AppCompatActivity {
+public class PartyListActivity extends BaseActivity {
 
   private Toolbar mToolbar;
+  private View mToolbarShadow;
+  private RecyclerView mPartyListRecyclerView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_list);
 
     mToolbar = (Toolbar) findViewById(R.id.party_list_toolbar);
+    mToolbarShadow = findViewById(R.id.party_list_toolbar_shadow);
+    mPartyListRecyclerView = (RecyclerView) findViewById(R.id.party_list_recycler_view);
+
     mToolbar.setTitle(getString(R.string.PartyList));
 
     setSupportActionBar(mToolbar);
