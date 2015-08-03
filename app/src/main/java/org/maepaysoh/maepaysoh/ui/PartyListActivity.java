@@ -23,6 +23,7 @@ public class PartyListActivity extends BaseActivity {
     mPartyListRecyclerView = (RecyclerView) findViewById(R.id.party_list_recycler_view);
 
     mToolbar.setTitle(getString(R.string.PartyList));
+    hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
 
     setSupportActionBar(mToolbar);
 

@@ -12,7 +12,7 @@ import org.maepaysoh.maepaysoh.R;
  */
 public class HomeActivity extends BaseActivity {
   private Toolbar mToolbar;
-  private View mToolBarShadow;
+  private View mToolbarShadow;
   private Button mPartyListBtn;
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -20,10 +20,11 @@ public class HomeActivity extends BaseActivity {
     setContentView(R.layout.activity_home);
 
     mToolbar = (Toolbar) findViewById(R.id.home_toolbar);
-    mToolBarShadow = findViewById(R.id.home_toolbar_shadow);
+    mToolbarShadow = findViewById(R.id.home_toolbar_shadow);
     mPartyListBtn = (Button) findViewById(R.id.home_party_list_btn);
 
     mToolbar.setTitle(getString(R.string.app_name));
+    hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
 
     mPartyListBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
