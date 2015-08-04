@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysoh.models.Party;
+import org.maepaysoh.maepaysoh.models.PartyData;
 
 /**
  * Created by yemyatthu on 8/4/15.
@@ -32,7 +32,8 @@ public class PartyDetailActivity extends AppCompatActivity {
   private TextView mPartyHeadquarters;
   private TextView mPartyContact;
   private TextView mPartyPolicy;
-  private Party mParty;
+  private PartyData mPartyData;
+  private ImageView mPartySeal;
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_detail);
@@ -52,26 +53,28 @@ public class PartyDetailActivity extends AppCompatActivity {
     mPartyHeadquarters = (TextView) findViewById(R.id.party_headquaters);
     mPartyContact = (TextView) findViewById(R.id.party_contact);
     mPartyPolicy = (TextView) findViewById(R.id.party_policy);
+    mPartySeal = (ImageView) findViewById(R.id.party_seal);
     setSupportActionBar(mToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    mParty = (Party) getIntent().getSerializableExtra(PARTY_CONSTANT);
-    if(mParty!=null) {
-      Glide.with(this).load(mParty.getPartyFlag()).into(mPartyFlag);
-
-      mPartyNameEnglish.setText(mParty.getPartyNameEnglish());
-      mPartyNameMyanmar.setText(mParty.getPartyName());
-      mPartyLeader.setText(mParty.getLeadership());
-      mPartyChairman.setText(mParty.getChairman());
-      mPartyMemberCount.setText(mParty.getMemberCount());
-      mPartyEstbDate.setText(mParty.getEstablishmentDate());
-      mPartyEstbApprovalDate.setText(mParty.getEstablishmentApprovalDate());
-      mPartyRegApplicationDate.setText(mParty.getRegistrationApplicationDate());
-      mPartyRegApprovalDate.setText(mParty.getRegistrationApprovalDate());
-      mPartyApprovedNo.setText(mParty.getApprovedPartyNumber());
-      mPartyRegion.setText(mParty.getRegion());
-      mPartyHeadquarters.setText(mParty.getHeadquarters());
-      mPartyContact.setText(mParty.getContact());
-      mPartyPolicy.setText(mParty.getPolicy());
+    mPartyData = (PartyData) getIntent().getSerializableExtra(PARTY_CONSTANT);
+    if(mPartyData !=null) {
+      Glide.with(this).load(mPartyData.getPartyFlag()).into(mPartyFlag);
+      Glide.with(this).load(mPartyData.getPartySeal())
+          .into(mPartySeal);
+      mPartyNameEnglish.setText(mPartyData.getPartyNameEnglish());
+      mPartyNameMyanmar.setText(mPartyData.getPartyName());
+      mPartyLeader.setText(mPartyData.getLeadership());
+      mPartyChairman.setText(mPartyData.getChairman());
+      mPartyMemberCount.setText(mPartyData.getMemberCount());
+      mPartyEstbDate.setText(mPartyData.getEstablishmentDate());
+      mPartyEstbApprovalDate.setText(mPartyData.getEstablishmentApprovalDate());
+      mPartyRegApplicationDate.setText(mPartyData.getRegistrationApplicationDate());
+      mPartyRegApprovalDate.setText(mPartyData.getRegistrationApprovalDate());
+      mPartyApprovedNo.setText(mPartyData.getApprovedPartyNumber());
+      mPartyRegion.setText(mPartyData.getRegion());
+      mPartyHeadquarters.setText(mPartyData.getHeadquarters());
+      mPartyContact.setText(mPartyData.getContact());
+      mPartyPolicy.setText(mPartyData.getPolicy());
       Linkify.addLinks(mPartyPolicy,Linkify.WEB_URLS);
     }
   }
