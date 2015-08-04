@@ -33,6 +33,7 @@ public class PartyDetailActivity extends AppCompatActivity {
   private TextView mPartyContact;
   private TextView mPartyPolicy;
   private PartyData mPartyData;
+  private ImageView mPartySeal;
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_detail);
@@ -52,12 +53,14 @@ public class PartyDetailActivity extends AppCompatActivity {
     mPartyHeadquarters = (TextView) findViewById(R.id.party_headquaters);
     mPartyContact = (TextView) findViewById(R.id.party_contact);
     mPartyPolicy = (TextView) findViewById(R.id.party_policy);
+    mPartySeal = (ImageView) findViewById(R.id.party_seal);
     setSupportActionBar(mToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     mPartyData = (PartyData) getIntent().getSerializableExtra(PARTY_CONSTANT);
     if(mPartyData !=null) {
       Glide.with(this).load(mPartyData.getPartyFlag()).into(mPartyFlag);
-
+      Glide.with(this).load(mPartyData.getPartySeal())
+          .into(mPartySeal);
       mPartyNameEnglish.setText(mPartyData.getPartyNameEnglish());
       mPartyNameMyanmar.setText(mPartyData.getPartyName());
       mPartyLeader.setText(mPartyData.getLeadership());
