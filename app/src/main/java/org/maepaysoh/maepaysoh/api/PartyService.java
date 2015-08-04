@@ -1,7 +1,6 @@
 package org.maepaysoh.maepaysoh.api;
 
-import java.util.List;
-import org.maepaysoh.maepaysoh.models.Party;
+import org.maepaysoh.maepaysoh.models.PartyReturnObject;
 import retrofit.Callback;
 import retrofit.http.GET;
 
@@ -11,6 +10,6 @@ import retrofit.http.GET;
 public interface PartyService {
   @GET("/party")
   void listParties(
-      Callback<List<Party>> partyCallback
+      Callback<PartyReturnObject> partyCallback
   );
 }

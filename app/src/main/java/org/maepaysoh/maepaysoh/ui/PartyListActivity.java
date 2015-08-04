@@ -9,13 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Party;
+import org.maepaysoh.maepaysoh.models.PartyReturnObject;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -70,14 +70,14 @@ public class PartyListActivity extends BaseActivity {
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
     mPartyRestAdapter = RetrofitHelper.getResAdapter();
     mPartyService = mPartyRestAdapter.create(PartyService.class);
-    mPartyService.listParties(new Callback<List<Party>>() {
-      @Override public void success(List<Party> parties, Response response) {
+    mPartyService.listParties(new Callback<PartyReturnObject>() {
+      @Override public void success(PartyReturnObject returnObject, Response response) {
 
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
           case 200:
-            mParties = parties;
+            mParties = returnObject.getData();
             mPartyAdapter.setParties(mParties);
             break;
         }
