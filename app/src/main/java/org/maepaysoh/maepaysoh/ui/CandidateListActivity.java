@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -44,6 +45,10 @@ public class CandidateListActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+    viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, true);
+    mLayoutManager = new LinearLayoutManager(this);
+    mCandidateListRecyclerView.setLayoutManager(mLayoutManager);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {

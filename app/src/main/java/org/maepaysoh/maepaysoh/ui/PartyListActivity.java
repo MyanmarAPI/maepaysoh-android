@@ -3,7 +3,6 @@ package org.maepaysoh.maepaysoh.ui;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -32,7 +31,6 @@ public class PartyListActivity extends BaseActivity {
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
   private List<Party> mParties;
-  private LinearLayoutManager mLayoutManager;
   private PartyAdapter mPartyAdapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class PartyListActivity extends BaseActivity {
 
     // Show Progress on start
     viewUtils.showProgress(mPartyListRecyclerView, mProgressView, true);
-    mLayoutManager = new LinearLayoutManager(this);
+
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
