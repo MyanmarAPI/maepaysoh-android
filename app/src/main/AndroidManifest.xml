@@ -25,6 +25,11 @@
         android:label="@string/PartyList"
         >
     </activity>
+    <activity
+        android:name=".ui.PartyDetailActivity"
+        android:label="@string/party_detail_title"
+        >
+        </activity>
   </application>
 
 </manifest>

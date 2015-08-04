@@ -48,7 +48,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
   public void setOnItemClickListener(ClickInterface clickInterface){
     mClickInterface = clickInterface;
   }
-  interface ClickInterface{
+  public interface ClickInterface{
      void onItemClick(View view,int position);
   }
   @Override public int getItemCount() {
