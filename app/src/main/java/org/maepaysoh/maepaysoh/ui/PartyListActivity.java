@@ -80,11 +80,6 @@ public class PartyListActivity extends BaseActivity {
             mParties = parties;
             mPartyAdapter.setParties(mParties);
             break;
-          case 500:
-            Toast.makeText(PartyListActivity.this, "There's an error, it's not because of you!",
-                Toast.LENGTH_SHORT).show();
-            // TODO: 8/4/15 DO SOMETHING MEANINGFUL WITH SERVER ERROR
-            break;
         }
       }
 
