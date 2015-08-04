@@ -3,6 +3,7 @@ package org.maepaysoh.maepaysoh.ui;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Party;
 import org.maepaysoh.maepaysoh.models.PartyReturnObject;
+import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -32,6 +34,8 @@ public class PartyListActivity extends BaseActivity {
   private PartyService mPartyService;
   private List<Party> mParties;
   private PartyAdapter mPartyAdapter;
+
+  private ViewUtils viewUtils;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,9 +60,12 @@ public class PartyListActivity extends BaseActivity {
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    viewUtils = new ViewUtils(this);
+
     // Show Progress on start
     viewUtils.showProgress(mPartyListRecyclerView, mProgressView, true);
 
+    LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
