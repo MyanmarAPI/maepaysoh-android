@@ -16,7 +16,6 @@ import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Party;
 import org.maepaysoh.maepaysoh.models.PartyReturnObject;
-import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -33,7 +32,6 @@ public class PartyListActivity extends BaseActivity {
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
   private List<Party> mParties;
-  private ViewUtils viewUtils;
   private LinearLayoutManager mLayoutManager;
   private PartyAdapter mPartyAdapter;
 
@@ -59,8 +57,6 @@ public class PartyListActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
-
-    viewUtils = new ViewUtils(this);
 
     // Show Progress on start
     viewUtils.showProgress(mPartyListRecyclerView, mProgressView, true);
