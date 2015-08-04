@@ -19,6 +19,7 @@ import org.maepaysoh.maepaysoh.models.Party;
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
   private Context mContext;
   private List<Party> mParties;
+  private ClickInterface mClickInterface;
   public PartyAdapter(){
     mParties = new ArrayList<>();
   }
@@ -44,22 +45,34 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         .centerCrop()
         .into(holder.mPartyFlag);
   }
-
+  public void setOnItemClickListener(ClickInterface clickInterface){
+    mClickInterface = clickInterface;
+  }
+  interface ClickInterface{
+     void onItemClick(View view,int position);
+  }
   @Override public int getItemCount() {
     return mParties != null?mParties.size():0;
   }
 
-  class PartyViewHolder extends RecyclerView.ViewHolder {
+  class PartyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private TextView mPartyNameEnglish;
     private TextView mPartyNameMyanmar;
     private TextView mPartyLeader;
     private ImageView mPartyFlag;
     public PartyViewHolder(View itemView) {
       super(itemView);
+      itemView.setOnClickListener(this);
       mPartyNameEnglish = (TextView) itemView.findViewById(R.id.party_name_english);
       mPartyNameMyanmar = (TextView) itemView.findViewById(R.id.party_name_myanmar);
       mPartyLeader = (TextView) itemView.findViewById(R.id.party_leader);
       mPartyFlag = (ImageView) itemView.findViewById(R.id.party_flag);
+    }
+
+    @Override public void onClick(View view) {
+      if(mClickInterface!=null){
+        mClickInterface.onItemClick(view,getAdapterPosition());
+      }
     }
   }
 }
