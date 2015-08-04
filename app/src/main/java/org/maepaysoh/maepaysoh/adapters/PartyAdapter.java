@@ -11,20 +11,20 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysoh.models.Party;
+import org.maepaysoh.maepaysoh.models.PartyData;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
   private Context mContext;
-  private List<Party> mParties;
+  private List<PartyData> mParties;
   private ClickInterface mClickInterface;
   public PartyAdapter() {
     mParties = new ArrayList<>();
   }
 
-  public void setParties(List<Party> parties) {
+  public void setParties(List<PartyData> parties) {
     mParties = parties;
     notifyDataSetChanged();
   }
@@ -36,11 +36,11 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
   }
 
   @Override public void onBindViewHolder(PartyViewHolder holder, int position) {
-    Party party = mParties.get(position);
-    holder.mPartyNameMyanmar.setText(party.getPartyName());
-    holder.mPartyNameEnglish.setText(party.getPartyNameEnglish());
-    holder.mPartyLeader.setText(party.getLeadership());
-    Glide.with(mContext).load(party.getPartyFlag()).centerCrop().into(holder.mPartyFlag);
+    PartyData partyData = mParties.get(position);
+    holder.mPartyNameMyanmar.setText(partyData.getPartyName());
+    holder.mPartyNameEnglish.setText(partyData.getPartyNameEnglish());
+    holder.mPartyLeader.setText(partyData.getLeadership());
+    Glide.with(mContext).load(partyData.getPartyFlag()).centerCrop().into(holder.mPartyFlag);
   }
   public void setOnItemClickListener(ClickInterface clickInterface){
     mClickInterface = clickInterface;

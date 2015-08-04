@@ -15,8 +15,8 @@ import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
+import org.maepaysoh.maepaysoh.models.PartyData;
 import org.maepaysoh.maepaysoh.models.Party;
-import org.maepaysoh.maepaysoh.models.PartyReturnObject;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -33,7 +33,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
-  private List<Party> mParties;
+  private List<PartyData> mParties;
   private PartyAdapter mPartyAdapter;
 
   private ViewUtils viewUtils;
@@ -72,8 +72,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
     mPartyRestAdapter = RetrofitHelper.getResAdapter();
     mPartyService = mPartyRestAdapter.create(PartyService.class);
-    mPartyService.listParties(new Callback<PartyReturnObject>() {
-      @Override public void success(PartyReturnObject returnObject, Response response) {
+    mPartyService.listParties(new Callback<Party>() {
+      @Override public void success(Party returnObject, Response response) {
 
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
