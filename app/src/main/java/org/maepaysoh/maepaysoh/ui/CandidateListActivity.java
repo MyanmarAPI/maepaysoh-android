@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import java.util.List;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
 import org.maepaysoh.maepaysoh.api.CandidateService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Candidate;
+import org.maepaysoh.maepaysoh.models.CandidateData;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -36,6 +39,9 @@ public class CandidateListActivity extends BaseActivity {
   private CandidateService mCandidateListService;
 
   private ViewUtils viewUtils;
+  private List<CandidateData> mCandidateDatas;
+  private LinearLayoutManager mLayoutManager;
+  private CandidateAdapter mCandidateAdapter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -65,6 +71,8 @@ public class CandidateListActivity extends BaseActivity {
 
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
     mCandidateListRecyclerView.setLayoutManager(mLayoutManager);
+    mCandidateAdapter = new CandidateAdapter();
+    mCandidateListRecyclerView.setAdapter(mCandidateAdapter);
 
     mCandidateRestAdapter = RetrofitHelper.getResAdapter();
     mCandidateListService = mCandidateRestAdapter.create(CandidateService.class);
@@ -75,6 +83,8 @@ public class CandidateListActivity extends BaseActivity {
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
           case 200:
+            mCandidateDatas =returnObject.getData();
+            mCandidateAdapter.setCandidates(mCandidateDatas);
             Log.i("candidate", "total candidate : " + returnObject.getData().size());
             break;
         }
