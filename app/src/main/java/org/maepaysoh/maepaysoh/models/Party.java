@@ -200,7 +200,50 @@ public class Party {
   /**
    * @param Region The Region
    */
+
   public void setRegion(String Region) {
     this.Region = Region;
+  }
+
+  /**
+   * @return The Contact
+   */
+  public String getContact() {
+    return Contact;
+  }
+
+  /**
+   * @param contact The Contact
+   */
+  public void setContact(String contact) {
+    Contact = contact;
+  }
+
+  /**
+   * @return The Headquarters
+   */
+  public String getHeadquarters() {
+    return Headquarters;
+  }
+
+  /**
+   * @param headquarters The Headquarters
+   */
+  public void setHeadquarters(String headquarters) {
+    Headquarters = headquarters;
+  }
+
+  /**
+   * @return The Policy
+   */
+  public String getPolicy() {
+    return Policy;
+  }
+
+  /**
+   * @param policy The Policy
+   */
+  public void setPolicy(String policy) {
+    Policy = policy;
   }
 }
