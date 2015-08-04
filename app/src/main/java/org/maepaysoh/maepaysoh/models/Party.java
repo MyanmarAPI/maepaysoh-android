@@ -1,9 +1,11 @@
 package org.maepaysoh.maepaysoh.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class Party {
+public class Party implements Serializable{
 
   private String PartyName;
   private String PartyNameEnglish;
