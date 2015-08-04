@@ -1,17 +1,20 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Party;
+import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -19,12 +22,17 @@ import retrofit.client.Response;
 
 public class PartyListActivity extends BaseActivity {
 
+  // Ui components
   private Toolbar mToolbar;
   private View mToolbarShadow;
   private RecyclerView mPartyListRecyclerView;
+  private ProgressBar mProgressView;
+
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
   private List<Party> mParties;
+
+  private ViewUtils viewUtils;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,6 +41,10 @@ public class PartyListActivity extends BaseActivity {
     mToolbar = (Toolbar) findViewById(R.id.party_list_toolbar);
     mToolbarShadow = findViewById(R.id.party_list_toolbar_shadow);
     mPartyListRecyclerView = (RecyclerView) findViewById(R.id.party_list_recycler_view);
+    mProgressView = (ProgressBar) findViewById(R.id.party_list_progress_bar);
+
+    mProgressView.getIndeterminateDrawable()
+        .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
     mToolbar.setTitle(getString(R.string.PartyList));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
@@ -44,10 +56,19 @@ public class PartyListActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+    viewUtils = new ViewUtils(this);
+
+    // Show Progress on start
+    viewUtils.showProgress(mPartyListRecyclerView, mProgressView, true);
+
     mPartyRestAdapter = RetrofitHelper.getResAdapter();
     mPartyService = mPartyRestAdapter.create(PartyService.class);
     mPartyService.listParties(new Callback<List<Party>>() {
       @Override public void success(List<Party> parties, Response response) {
+
+        // Hide Progress on success
+        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
           case 200:
             mParties = parties;
@@ -61,7 +82,8 @@ public class PartyListActivity extends BaseActivity {
       }
 
       @Override public void failure(RetrofitError error) {
-
+        // Hide Progress on failure too
+        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
       }
     });
   }
