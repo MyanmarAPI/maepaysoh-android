@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -22,7 +23,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class PartyListActivity extends BaseActivity {
+public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface{
 
   // Ui components
   private Toolbar mToolbar;
@@ -80,6 +81,7 @@ public class PartyListActivity extends BaseActivity {
           case 200:
             mParties = returnObject.getData();
             mPartyAdapter.setParties(mParties);
+            mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
             break;
         }
       }
@@ -109,5 +111,12 @@ public class PartyListActivity extends BaseActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override public void onItemClick(View view, int position) {
+    Intent goToPartyDetailIntent = new Intent();
+    goToPartyDetailIntent.setClass(PartyListActivity.this,PartyDetailActivity.class);
+    goToPartyDetailIntent.putExtra(PartyDetailActivity.PARTY_CONSTANT,mParties.get(position));
+    startActivity(goToPartyDetailIntent);
   }
 }
