@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.models;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +12,14 @@ public class CandidateData {
   private String id;
   private String name;
   private String legislature;
-  //@SerializedName("national_id")
-  private String nationalId;
+  @SerializedName("national_id") private String nationalId;
   private int birthdate;
   private List<String> education = new ArrayList<String>();
   private List<String> occupation = new ArrayList<String>();
-  //@SerializedName("nationality_religion")
-  private String nationalityReligion;
+  @SerializedName("nationality_religion") private String nationalityReligion;
   private Residency residency;
   private Constituency constituency;
-  //@SerializedName("party_id")
-  private String partyId;
+  @SerializedName("party_id") private String partyId;
   private Mother mother;
   private Father father;
 

@@ -1,5 +1,7 @@
 package org.maepaysoh.maepaysoh.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
@@ -7,12 +9,9 @@ public class CandidatePagination {
 
   private int total;
   private int count;
-  // @SerializedName("per_page")
-  private int perPage;
-  // @SerializedName("current_page")
-  private int currentPage;
-  // @SerializedName("total_pages")
-  private int totalPages;
+  @SerializedName("per_page") private int perPage;
+  @SerializedName("current_page") private int currentPage;
+  @SerializedName("total_pages") private int totalPages;
   private CandidateLinks links;
 
   public CandidatePagination() {
