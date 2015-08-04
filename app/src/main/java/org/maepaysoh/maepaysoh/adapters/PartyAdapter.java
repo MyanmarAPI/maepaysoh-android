@@ -19,13 +19,8 @@ import org.maepaysoh.maepaysoh.models.Party;
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
   private Context mContext;
   private List<Party> mParties;
-<<<<<<< HEAD
   private ClickInterface mClickInterface;
-  public PartyAdapter(){
-=======
-
   public PartyAdapter() {
->>>>>>> 2660e2863c54cc40ade8f1ec8498ed971845f9d9
     mParties = new ArrayList<>();
   }
 
