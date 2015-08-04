@@ -12,11 +12,13 @@
     android:foreground="?attr/selectableItemBackground"
     app:cardUseCompatPadding="true"
     >
+
   <LinearLayout
       android:orientation="horizontal"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
       >
+
     <ImageView
         android:id="@+id/party_flag"
         android:layout_width="100dp"
