@@ -34,5 +34,12 @@ public class HomeActivity extends BaseActivity {
         startActivity(goToPartyList);
       }
     });
+
+    mCandidateListBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent goToCandidateList = new Intent(HomeActivity.this, CandidateListActivity.class);
+        startActivity(goToCandidateList);
+      }
+    });
   }
 }

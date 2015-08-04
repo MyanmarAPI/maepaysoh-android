@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.maepaysoh.maepaysoh"
     >
+
   <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
@@ -23,6 +24,11 @@
     <activity
         android:name=".ui.PartyListActivity"
         android:label="@string/PartyList"
+        >
+    </activity>
+    <activity
+        android:name=".ui.CandidateListActivity"
+        android:label="@string/CandidateList"
         >
     </activity>
   </application>
