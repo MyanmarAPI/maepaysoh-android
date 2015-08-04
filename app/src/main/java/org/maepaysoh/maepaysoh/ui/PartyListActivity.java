@@ -6,13 +6,25 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+import java.util.List;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.api.PartyService;
+import org.maepaysoh.maepaysoh.api.RetrofitHelper;
+import org.maepaysoh.maepaysoh.models.Party;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class PartyListActivity extends BaseActivity {
 
   private Toolbar mToolbar;
   private View mToolbarShadow;
   private RecyclerView mPartyListRecyclerView;
+  private RestAdapter mPartyRestAdapter;
+  private PartyService mPartyService;
+  private List<Party> mParties;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,7 +44,26 @@ public class PartyListActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
+    mPartyRestAdapter = RetrofitHelper.getResAdapter();
+    mPartyService = mPartyRestAdapter.create(PartyService.class);
+    mPartyService.listParties(new Callback<List<Party>>() {
+      @Override public void success(List<Party> parties, Response response) {
+        switch (response.getStatus()) {
+          case 200:
+            mParties = parties;
+            break;
+          case 500:
+            Toast.makeText(PartyListActivity.this, "There's an error, it's not because of you!",
+                Toast.LENGTH_SHORT).show();
+            // TODO: 8/4/15 DO SOMETHING MEANINGFUL WITH SERVER ERROR
+            break;
+        }
+      }
 
+      @Override public void failure(RetrofitError error) {
+
+      }
+    });
   }
 
   //@Override public boolean onCreateOptionsMenu(Menu menu) {
