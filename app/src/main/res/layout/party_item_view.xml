@@ -14,6 +14,7 @@
             android:id="@+id/party_flag"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:layout_marginRight="@dimen/margin_normal"/>
         <LinearLayout
             android:orientation="vertical"
@@ -23,12 +24,18 @@
                 android:id="@+id/party_name_myanmar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_small"
+                android:paddingRight="@dimen/margin_small"
+                android:paddingTop="@dimen/margin_small"
                 style="@style/TextAppearance.AppCompat.Title"
                 tools:text="National Democratic Party"/>
             <TextView
                 android:id="@+id/party_name_english"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_small"
+                android:paddingRight="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_small"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 tools:text="National Democratic Party"/>
           <TextView
@@ -36,6 +43,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               style="@style/TextAppearance.AppCompat.Medium"
+              android:padding="@dimen/margin_small"
               android:layout_gravity="bottom"
               tools:text="Aung San Su Kyi"/>
         </LinearLayout>
