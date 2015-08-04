@@ -19,19 +19,24 @@ import org.maepaysoh.maepaysoh.models.Party;
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
   private Context mContext;
   private List<Party> mParties;
+<<<<<<< HEAD
   private ClickInterface mClickInterface;
   public PartyAdapter(){
+=======
+
+  public PartyAdapter() {
+>>>>>>> 2660e2863c54cc40ade8f1ec8498ed971845f9d9
     mParties = new ArrayList<>();
   }
 
-  public void setParties(List<Party> parties){
+  public void setParties(List<Party> parties) {
     mParties = parties;
     notifyDataSetChanged();
   }
+
   @Override public PartyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     mContext = parent.getContext();
-    View view = LayoutInflater.from(mContext)
-        .inflate(R.layout.party_item_view,parent,false);
+    View view = LayoutInflater.from(mContext).inflate(R.layout.party_item_view, parent, false);
     return new PartyViewHolder(view);
   }
 
@@ -40,10 +45,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     holder.mPartyNameMyanmar.setText(party.getPartyName());
     holder.mPartyNameEnglish.setText(party.getPartyNameEnglish());
     holder.mPartyLeader.setText(party.getLeadership());
-    Glide.with(mContext)
-        .load(party.getPartyFlag())
-        .centerCrop()
-        .into(holder.mPartyFlag);
+    Glide.with(mContext).load(party.getPartyFlag()).centerCrop().into(holder.mPartyFlag);
   }
   public void setOnItemClickListener(ClickInterface clickInterface){
     mClickInterface = clickInterface;
@@ -52,7 +54,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
      void onItemClick(View view,int position);
   }
   @Override public int getItemCount() {
-    return mParties != null?mParties.size():0;
+    return mParties != null ? mParties.size() : 0;
   }
 
   class PartyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -60,6 +62,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     private TextView mPartyNameMyanmar;
     private TextView mPartyLeader;
     private ImageView mPartyFlag;
+
     public PartyViewHolder(View itemView) {
       super(itemView);
       itemView.setOnClickListener(this);

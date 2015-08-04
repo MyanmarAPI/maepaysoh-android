@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/spacing_minor"
+        android:orientation="vertical"
         >
 
       <Button
@@ -27,6 +28,13 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/PartyList"
+          />
+
+      <Button
+          android:id="@+id/home_candidate_list_btn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/CandidateList"
           />
 
     </LinearLayout>
