@@ -1,12 +1,14 @@
 package org.maepaysoh.maepaysoh.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by yemyatthu on 8/4/15.
  */
 public class PartyMetaData {
   private String status;
   private int count;
-  private int api_verison;
+  @SerializedName("api_version") private int apiVersion;
   private boolean unicode;
   private String format;
 
@@ -42,12 +44,12 @@ public class PartyMetaData {
     this.count = count;
   }
 
-  public int getApi_verison() {
-    return api_verison;
+  public int getApiVersion() {
+    return apiVersion;
   }
 
-  public void setApi_verison(int api_verison) {
-    this.api_verison = api_verison;
+  public void setApiVersion(int apiVersion) {
+    this.apiVersion = apiVersion;
   }
 }
 

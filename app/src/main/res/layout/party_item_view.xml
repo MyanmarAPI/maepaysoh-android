@@ -5,53 +5,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/margin_small"
-    android:layout_marginLeft="@dimen/margin_small"
-    android:layout_marginTop="@dimen/margin_tiny"
-    android:layout_marginBottom="@dimen/margin_tiny"
+    android:layout_marginRight="@dimen/spacing_minor"
+    android:layout_marginLeft="@dimen/spacing_minor"
+    android:layout_marginTop="@dimen/spacing_micro"
+    android:layout_marginBottom="@dimen/spacing_micro"
     android:foreground="?attr/selectableItemBackground"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    >
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      >
+    <ImageView
+        android:id="@+id/party_flag"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="@dimen/spacing_massive"
+        android:layout_marginEnd="@dimen/spacing_massive"
+        />
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/party_flag"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:layout_marginRight="@dimen/margin_normal"/>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/party_name_myanmar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_small"
-                android:paddingRight="@dimen/margin_small"
-                android:paddingTop="@dimen/margin_small"
-                style="@style/TextAppearance.AppCompat.Title"
-                tools:text="National Democratic Party"/>
-            <TextView
-                android:id="@+id/party_name_english"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/margin_small"
-                android:paddingRight="@dimen/margin_small"
-                android:paddingBottom="@dimen/margin_small"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                tools:text="National Democratic Party"/>
-          <TextView
-              android:id="@+id/party_leader"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              style="@style/TextAppearance.AppCompat.Medium"
-              android:padding="@dimen/margin_small"
-              android:layout_gravity="bottom"
-              tools:text="Aung San Su Kyi"/>
-        </LinearLayout>
-
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+      <TextView
+          android:id="@+id/party_name_myanmar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingLeft="@dimen/spacing_minor"
+          android:paddingRight="@dimen/spacing_minor"
+          android:paddingTop="@dimen/spacing_minor"
+          style="@style/TextAppearance.AppCompat.Title"
+          tools:text="National Democratic Party"
+          />
+      <TextView
+          android:id="@+id/party_name_english"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingLeft="@dimen/spacing_minor"
+          android:paddingRight="@dimen/spacing_minor"
+          android:paddingBottom="@dimen/spacing_minor"
+          style="@style/TextAppearance.AppCompat.Subhead"
+          tools:text="National Democratic Party"
+          />
+      <TextView
+          android:id="@+id/party_leader"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          style="@style/TextAppearance.AppCompat.Medium"
+          android:padding="@dimen/spacing_minor"
+          android:layout_gravity="bottom"
+          tools:text="Aung San Su Kyi"
+          />
     </LinearLayout>
+
+  </LinearLayout>
 </android.support.v7.widget.CardView>
