@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Registration Application Date"
-            android:padding="@dimen/margin_small"/>
+            android:padding="@dimen/spacing_minor"/>
         <TextView android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
