@@ -10,13 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
-import org.maepaysoh.maepaysoh.models.PartyData;
 import org.maepaysoh.maepaysoh.models.Party;
+import org.maepaysoh.maepaysoh.models.PartyData;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -88,6 +89,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
       @Override public void failure(RetrofitError error) {
         // Hide Progress on failure too
+        Toast.makeText(PartyListActivity.this,error.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
       }
     });
