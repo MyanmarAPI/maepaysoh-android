@@ -30,8 +30,8 @@
         android:name=".ui.PartyDetailActivity"
         android:label="@string/party_detail_title"
         >
-      </activity>
-        <activity
+    </activity>
+    <activity
         android:name=".ui.CandidateListActivity"
         android:label="@string/CandidateList"
         >

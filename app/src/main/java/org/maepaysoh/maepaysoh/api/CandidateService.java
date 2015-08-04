@@ -8,8 +8,5 @@ import retrofit.http.GET;
  * Created by Ye Lin Aung on 15/08/04.
  */
 public interface CandidateService {
-  @GET("/candidate/list")
-  void listCandidates(
-      Callback<Candidate> candidateCallback
-  );
+  @GET("/candidate/list") void listCandidates(Callback<Candidate> candidateCallback);
 }

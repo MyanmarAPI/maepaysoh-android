@@ -20,6 +20,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
   private Context mContext;
   private List<PartyData> mParties;
   private ClickInterface mClickInterface;
+
   public PartyAdapter() {
     mParties = new ArrayList<>();
   }
@@ -42,17 +43,20 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     holder.mPartyLeader.setText(partyData.getLeadership());
     Glide.with(mContext).load(partyData.getPartyFlag()).centerCrop().into(holder.mPartyFlag);
   }
-  public void setOnItemClickListener(ClickInterface clickInterface){
+
+  public void setOnItemClickListener(ClickInterface clickInterface) {
     mClickInterface = clickInterface;
   }
-  public interface ClickInterface{
-     void onItemClick(View view,int position);
-  }
+
   @Override public int getItemCount() {
     return mParties != null ? mParties.size() : 0;
   }
 
-  class PartyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+  public interface ClickInterface {
+    void onItemClick(View view, int position);
+  }
+
+  class PartyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView mPartyNameEnglish;
     private TextView mPartyNameMyanmar;
     private TextView mPartyLeader;
@@ -68,8 +72,8 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     }
 
     @Override public void onClick(View view) {
-      if(mClickInterface!=null){
-        mClickInterface.onItemClick(view,getAdapterPosition());
+      if (mClickInterface != null) {
+        mClickInterface.onItemClick(view, getAdapterPosition());
       }
     }
   }

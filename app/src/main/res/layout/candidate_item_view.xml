@@ -13,26 +13,26 @@
     app:cardUseCompatPadding="true"
     >
 
-    <LinearLayout
-        android:orientation="vertical"
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <TextView
+        android:id="@+id/candidate_name"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:padding="@dimen/spacing_minor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        tools:text="Ye Myat Thu"/>
+    <TextView
+        android:id="@+id/candidate_occupation"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:padding="@dimen/spacing_minor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Programmer, Certified Wizard, Proficient Fiend"/>
 
-      <TextView
-          android:id="@+id/candidate_name"
-          style="@style/TextAppearance.AppCompat.Headline"
-          android:padding="@dimen/spacing_minor"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          tools:text="Ye Myat Thu"/>
-        <TextView
-            android:id="@+id/candidate_occupation"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:padding="@dimen/spacing_minor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Programmer, Certified Wizard, Proficient Fiend"/>
-
-    </LinearLayout>
+  </LinearLayout>
 </android.support.v7.widget.CardView>

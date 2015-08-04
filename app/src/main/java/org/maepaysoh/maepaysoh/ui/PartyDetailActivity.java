@@ -15,7 +15,8 @@ import org.maepaysoh.maepaysoh.models.PartyData;
  * Created by yemyatthu on 8/4/15.
  */
 public class PartyDetailActivity extends AppCompatActivity {
-  public static final String PARTY_CONSTANT = "org.maepaysoh.maepaysoh.ui.PartyDetailActivity.PARTY_CONSTANT";
+  public static final String PARTY_CONSTANT =
+      "org.maepaysoh.maepaysoh.ui.PartyDetailActivity.PARTY_CONSTANT";
   private Toolbar mToolbar;
   private ImageView mPartyFlag;
   private TextView mPartyNameMyanmar;
@@ -34,6 +35,7 @@ public class PartyDetailActivity extends AppCompatActivity {
   private TextView mPartyPolicy;
   private PartyData mPartyData;
   private ImageView mPartySeal;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_detail);
@@ -57,10 +59,9 @@ public class PartyDetailActivity extends AppCompatActivity {
     setSupportActionBar(mToolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     mPartyData = (PartyData) getIntent().getSerializableExtra(PARTY_CONSTANT);
-    if(mPartyData !=null) {
+    if (mPartyData != null) {
       Glide.with(this).load(mPartyData.getPartyFlag()).into(mPartyFlag);
-      Glide.with(this).load(mPartyData.getPartySeal())
-          .into(mPartySeal);
+      Glide.with(this).load(mPartyData.getPartySeal()).into(mPartySeal);
       mPartyNameEnglish.setText(mPartyData.getPartyNameEnglish());
       mPartyNameMyanmar.setText(mPartyData.getPartyName());
       mPartyLeader.setText(mPartyData.getLeadership());
@@ -75,13 +76,12 @@ public class PartyDetailActivity extends AppCompatActivity {
       mPartyHeadquarters.setText(mPartyData.getHeadquarters());
       mPartyContact.setText(mPartyData.getContact());
       mPartyPolicy.setText(mPartyData.getPolicy());
-      Linkify.addLinks(mPartyPolicy,Linkify.WEB_URLS);
+      Linkify.addLinks(mPartyPolicy, Linkify.WEB_URLS);
     }
   }
 
-
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()){
+    switch (item.getItemId()) {
       case android.R.id.home:
         finish();
         return true;

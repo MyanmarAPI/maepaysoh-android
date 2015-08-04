@@ -10,6 +10,7 @@ import retrofit.client.OkClient;
  */
 public class RetrofitHelper {
   private static String token = "3db8827d-2521-57be-987a-e9e366874d4b";
+
   public static RestAdapter getResAdapter() {
     return new RestAdapter.Builder().setClient(new OkClient(new OkHttpClient()))
         .setEndpoint("http://api.maepaysoh.org")

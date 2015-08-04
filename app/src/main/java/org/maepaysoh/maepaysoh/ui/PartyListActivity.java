@@ -24,7 +24,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface{
+public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface {
 
   // Ui components
   private Toolbar mToolbar;
@@ -89,7 +89,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
       @Override public void failure(RetrofitError error) {
         // Hide Progress on failure too
-        Toast.makeText(PartyListActivity.this,error.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT)
+            .show();
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
       }
     });
@@ -117,8 +118,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
   @Override public void onItemClick(View view, int position) {
     Intent goToPartyDetailIntent = new Intent();
-    goToPartyDetailIntent.setClass(PartyListActivity.this,PartyDetailActivity.class);
-    goToPartyDetailIntent.putExtra(PartyDetailActivity.PARTY_CONSTANT,mParties.get(position));
+    goToPartyDetailIntent.setClass(PartyListActivity.this, PartyDetailActivity.class);
+    goToPartyDetailIntent.putExtra(PartyDetailActivity.PARTY_CONSTANT, mParties.get(position));
     startActivity(goToPartyDetailIntent);
   }
 }

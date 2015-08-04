@@ -83,7 +83,7 @@ public class CandidateListActivity extends BaseActivity {
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
           case 200:
-            mCandidateDatas =returnObject.getData();
+            mCandidateDatas = returnObject.getData();
             mCandidateAdapter.setCandidates(mCandidateDatas);
             Log.i("candidate", "total candidate : " + returnObject.getData().size());
             break;
