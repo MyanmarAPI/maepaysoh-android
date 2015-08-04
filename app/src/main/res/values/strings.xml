@@ -2,5 +2,6 @@
   <string name="app_name">MaePaySoh</string>
 
   <string name="PartyList">Party List</string>
+  <string name="CandidateList">Candidate List</string>
 
 </resources>

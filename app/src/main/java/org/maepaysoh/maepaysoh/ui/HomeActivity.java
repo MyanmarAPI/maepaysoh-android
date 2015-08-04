@@ -14,6 +14,7 @@ public class HomeActivity extends BaseActivity {
   private Toolbar mToolbar;
   private View mToolbarShadow;
   private Button mPartyListBtn;
+  private Button mCandidateListBtn;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -22,6 +23,7 @@ public class HomeActivity extends BaseActivity {
     mToolbar = (Toolbar) findViewById(R.id.home_toolbar);
     mToolbarShadow = findViewById(R.id.home_toolbar_shadow);
     mPartyListBtn = (Button) findViewById(R.id.home_party_list_btn);
+    mCandidateListBtn = (Button) findViewById(R.id.home_candidate_list_btn);
 
     mToolbar.setTitle(getString(R.string.app_name));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
