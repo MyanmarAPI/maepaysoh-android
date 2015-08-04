@@ -3,6 +3,7 @@ package org.maepaysoh.maepaysoh.ui;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Party;
@@ -31,8 +33,9 @@ public class PartyListActivity extends BaseActivity {
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
   private List<Party> mParties;
-
   private ViewUtils viewUtils;
+  private LinearLayoutManager mLayoutManager;
+  private PartyAdapter mPartyAdapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,7 +64,10 @@ public class PartyListActivity extends BaseActivity {
 
     // Show Progress on start
     viewUtils.showProgress(mPartyListRecyclerView, mProgressView, true);
-
+    mLayoutManager = new LinearLayoutManager(this);
+    mPartyListRecyclerView.setLayoutManager(mLayoutManager);
+    mPartyAdapter = new PartyAdapter();
+    mPartyListRecyclerView.setAdapter(mPartyAdapter);
     mPartyRestAdapter = RetrofitHelper.getResAdapter();
     mPartyService = mPartyRestAdapter.create(PartyService.class);
     mPartyService.listParties(new Callback<List<Party>>() {
@@ -72,6 +78,7 @@ public class PartyListActivity extends BaseActivity {
         switch (response.getStatus()) {
           case 200:
             mParties = parties;
+            mPartyAdapter.setParties(mParties);
             break;
           case 500:
             Toast.makeText(PartyListActivity.this, "There's an error, it's not because of you!",

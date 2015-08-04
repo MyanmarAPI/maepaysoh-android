@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.models.Party;
@@ -19,7 +20,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
   private Context mContext;
   private List<Party> mParties;
   public PartyAdapter(){
-
+    mParties = new ArrayList<>();
   }
 
   public void setParties(List<Party> parties){
