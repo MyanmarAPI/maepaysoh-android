@@ -32,6 +32,7 @@ public class PartyListActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
+
   }
 
   //@Override public boolean onCreateOptionsMenu(Menu menu) {
