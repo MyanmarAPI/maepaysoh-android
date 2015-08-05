@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.models.PartyData;
 
@@ -64,8 +65,22 @@ public class PartyDetailActivity extends AppCompatActivity {
       Glide.with(this).load(mPartyData.getPartySeal()).into(mPartySeal);
       mPartyNameEnglish.setText(mPartyData.getPartyNameEnglish());
       mPartyNameMyanmar.setText(mPartyData.getPartyName());
-      mPartyLeader.setText(mPartyData.getLeadership());
-      mPartyChairman.setText(mPartyData.getChairman());
+      List<String> leaders = mPartyData.getLeadership();
+      for (String leader : leaders) {
+        if (leaders.indexOf(leader) == leaders.size() - 1) {
+          mPartyLeader.setText(leader);
+        } else {
+          mPartyLeader.setText(leader + "၊ ");
+        }
+      }
+      List<String> chairmans = mPartyData.getChairman();
+      for (String chairman : chairmans) {
+        if (leaders.indexOf(chairman) == chairmans.size() - 1) {
+          mPartyChairman.setText(chairman);
+        } else {
+          mPartyChairman.setText(chairman + "၊ ");
+        }
+      }
       mPartyMemberCount.setText(mPartyData.getMemberCount());
       mPartyEstbDate.setText(mPartyData.getEstablishmentDate());
       mPartyEstbApprovalDate.setText(mPartyData.getEstablishmentApprovalDate());
@@ -74,7 +89,14 @@ public class PartyDetailActivity extends AppCompatActivity {
       mPartyApprovedNo.setText(mPartyData.getApprovedPartyNumber());
       mPartyRegion.setText(mPartyData.getRegion());
       mPartyHeadquarters.setText(mPartyData.getHeadquarters());
-      mPartyContact.setText(mPartyData.getContact());
+      List<String> contacts = mPartyData.getContact();
+      for (String contact : contacts) {
+        if (contacts.indexOf(contact) == contacts.size() - 1) {
+          mPartyContact.setText(contact);
+        } else {
+          mPartyContact.setText(contact + "၊ ");
+        }
+      }
       mPartyPolicy.setText(mPartyData.getPolicy());
       Linkify.addLinks(mPartyPolicy, Linkify.WEB_URLS);
     }

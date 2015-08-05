@@ -40,7 +40,14 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     PartyData partyData = mParties.get(position);
     holder.mPartyNameMyanmar.setText(partyData.getPartyName());
     holder.mPartyNameEnglish.setText(partyData.getPartyNameEnglish());
-    holder.mPartyLeader.setText(partyData.getLeadership());
+    List<String> leaders = partyData.getLeadership();
+    for (String leader : leaders) {
+      if (leaders.indexOf(leader) == leaders.size() - 1) {
+        holder.mPartyLeader.setText(leader);
+      } else {
+        holder.mPartyLeader.setText(leader + "၊ ");
+      }
+    }
     Glide.with(mContext).load(partyData.getPartyFlag()).centerCrop().into(holder.mPartyFlag);
   }
 
