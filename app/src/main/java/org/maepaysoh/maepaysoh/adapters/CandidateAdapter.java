@@ -17,7 +17,7 @@ import org.maepaysoh.maepaysoh.models.CandidateData;
 public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private List<CandidateData> mCandidateDatas;
   private Context mContext;
-
+  private ClickInterface mClickInterface;
   public CandidateAdapter() {
     mCandidateDatas = new ArrayList<>();
   }
@@ -50,14 +50,30 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     return mCandidateDatas != null ? mCandidateDatas.size() : 0;
   }
 
-  class CandidateViewHolder extends RecyclerView.ViewHolder {
+  public void setOnItemClickListener(ClickInterface clickInterface) {
+    mClickInterface = clickInterface;
+  }
+
+  public interface ClickInterface {
+    void onItemClick(View view, int position);
+  }
+
+
+  class CandidateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private TextView mCandidateName;
     private TextView mCandidateOccupation;
 
     public CandidateViewHolder(View itemView) {
       super(itemView);
+      itemView.setOnClickListener(this);
       mCandidateName = (TextView) itemView.findViewById(R.id.candidate_name);
       mCandidateOccupation = (TextView) itemView.findViewById(R.id.candidate_occupation);
+    }
+
+    @Override public void onClick(View view) {
+      if(mClickInterface!=null){
+        mClickInterface.onItemClick(view,getAdapterPosition());
+      }
     }
   }
 }

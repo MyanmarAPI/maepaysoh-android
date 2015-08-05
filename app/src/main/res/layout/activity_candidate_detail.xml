@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
+  <include
+      android:id="@+id/candidate_detail_toolbar"
+      layout="@layout/include_toolbar"/>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <ProgressBar
+        android:id="@+id/candidate_detail_progress_bar"
+        style="?android:progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+<ScrollView  android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_minor">
         <TextView
-            android:id="@+id/party_name_myanmar"
+            android:id="@+id/candidate_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/spacing_massive"
@@ -17,7 +39,7 @@
             style="@style/TextAppearance.AppCompat.Title"
             tools:text="U Ye Myat Thu"/>
         <TextView
-            android:id="@+id/party_name_english"
+            android:id="@+id/candidate_party"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_minor"
@@ -50,14 +72,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Chairman"
+                android:text="National ID"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_chairman"
+                android:id="@+id/candidate_national_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="Aung San Su Kyi"
+                tools:text="12/Ah Sa Na (N) 208573"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -68,28 +90,10 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Member Count"
+                android:text="Birth Date"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_member_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                tools:text="100000"
-                android:padding="@dimen/spacing_minor"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3">
-            <TextView android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Establishment Date"
-                android:padding="@dimen/spacing_minor"/>
-            <TextView
-                android:id="@+id/party_estb_date"
+                android:id="@+id/candidate_birth_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -104,14 +108,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Establishment Approval Date"
+                android:text="Education"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_estb_approval_date"
+                android:id="@+id/candidate_education"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="31.1.1990"
+                tools:text="Phd (Pharmactual Science) \nBsc (Computer Science)"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -122,14 +126,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Registration Application Date"
+                android:text="Occupation"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_reg_application_date"
+                android:id="@+id/candidate_occupation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="31.1.1990"
+                tools:text="Associate Professor (RIT)"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -140,14 +144,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Registration Approval Date"
+                android:text="Religion"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_reg_approval_date"
+                android:id="@+id/candidate_religion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="31.1.1990"
+                tools:text="Atheist"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -158,14 +162,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Approved Party Number"
+                android:text="Residency"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_approved_no"
+                android:id="@+id/candidate_residency"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="31.1.1990"
+                tools:text="Bld. 21, Rm. 302, Aung Zaya Housing, Insein, Yangon"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -176,14 +180,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Region"
+                android:text="Constituency"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_region"
+                android:id="@+id/candidate_constituency"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="Kokk Mhuu"
+                tools:text="Bahan"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -194,14 +198,14 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Headquaters"
+                android:text="Mother"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_headquaters"
+                android:id="@+id/candidate_mother"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="31.1.1990"
+                tools:text="Daw Soe Soe Yi"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
         <LinearLayout
@@ -212,33 +216,23 @@
             <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Contact"
+                android:text="Father"
                 android:padding="@dimen/spacing_minor"/>
             <TextView
-                android:id="@+id/party_contact"
+                android:id="@+id/candidate_father"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                tools:text="31.1.1990"
-                android:padding="@dimen/spacing_minor"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3">
-            <TextView android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Policy"
-                android:padding="@dimen/spacing_minor"/>
-            <TextView
-                android:id="@+id/party_policy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                tools:text="31.1.1990"
+                tools:text="U Aung Kyaw Myint"
                 android:padding="@dimen/spacing_minor"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
+  <!-- Toolbar Shadow -->
+  <include
+      layout="@layout/include_toolbar_shadow"
+      android:id="@+id/candidate_detail_toolbar_shadow"
+      />
+
+</FrameLayout>
+</LinearLayout>
