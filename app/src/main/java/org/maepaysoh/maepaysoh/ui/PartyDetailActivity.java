@@ -68,17 +68,17 @@ public class PartyDetailActivity extends AppCompatActivity {
       List<String> leaders = mPartyData.getLeadership();
       for (String leader : leaders) {
         if (leaders.indexOf(leader) == leaders.size() - 1) {
-          mPartyLeader.setText(leader);
+          mPartyLeader.append(leader);
         } else {
-          mPartyLeader.setText(leader + "၊ ");
+          mPartyLeader.append(leader + "၊ ");
         }
       }
       List<String> chairmans = mPartyData.getChairman();
       for (String chairman : chairmans) {
         if (leaders.indexOf(chairman) == chairmans.size() - 1) {
-          mPartyChairman.setText(chairman);
+          mPartyChairman.append(chairman);
         } else {
-          mPartyChairman.setText(chairman + "၊ ");
+          mPartyChairman.append(chairman + "၊ ");
         }
       }
       mPartyMemberCount.setText(mPartyData.getMemberCount());
@@ -92,9 +92,9 @@ public class PartyDetailActivity extends AppCompatActivity {
       List<String> contacts = mPartyData.getContact();
       for (String contact : contacts) {
         if (contacts.indexOf(contact) == contacts.size() - 1) {
-          mPartyContact.setText(contact);
+          mPartyContact.append(contact);
         } else {
-          mPartyContact.setText(contact + "၊ ");
+          mPartyContact.append(contact + "၊ ");
         }
       }
       mPartyPolicy.setText(mPartyData.getPolicy());

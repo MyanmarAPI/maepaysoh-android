@@ -61,17 +61,17 @@ public class CandidateDetailActivity extends AppCompatActivity {
       List<String> educations = mCandidateData.getEducation();
       for (String occupation : occupations) {
         if (occupations.indexOf(occupation) == occupations.size() - 1) {
-         mOccupation.setText(occupation);
+         mOccupation.append(occupation);
         } else {
-          mOccupation.setText(occupation + "၊ ");
+          mOccupation.append(occupation + "၊ ");
         }
       }
 
       for (String education : educations) {
         if (occupations.indexOf(education) == occupations.size() - 1) {
-          mEducation.setText(education);
+          mEducation.append(education);
         } else {
-          mEducation.setText(education + "၊ ");
+          mEducation.append(education + "၊ ");
         }
       }
     }

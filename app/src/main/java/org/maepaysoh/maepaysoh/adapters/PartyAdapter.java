@@ -41,11 +41,12 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     holder.mPartyNameMyanmar.setText(partyData.getPartyName());
     holder.mPartyNameEnglish.setText(partyData.getPartyNameEnglish());
     List<String> leaders = partyData.getLeadership();
+    holder.mPartyLeader.setText(""); //Reset the textview unless you want some weird shit to happen
     for (String leader : leaders) {
       if (leaders.indexOf(leader) == leaders.size() - 1) {
-        holder.mPartyLeader.setText(leader);
+        holder.mPartyLeader.append(leader);
       } else {
-        holder.mPartyLeader.setText(leader + "၊ ");
+        holder.mPartyLeader.append(leader + "၊ ");
       }
     }
     Glide.with(mContext).load(partyData.getPartyFlag()).centerCrop().into(holder.mPartyFlag);

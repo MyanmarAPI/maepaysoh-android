@@ -36,12 +36,13 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     CandidateData candidateData = mCandidateDatas.get(position);
     ((CandidateViewHolder) holder).mCandidateName.setText(candidateData.getName());
+    ((CandidateViewHolder) holder).mCandidateOccupation.setText("");//Reset the textview unless you want some weird shit to happen
     List<String> occupations = candidateData.getOccupation();
     for (String occupation : occupations) {
       if (occupations.indexOf(occupation) == occupations.size() - 1) {
-        ((CandidateViewHolder) holder).mCandidateOccupation.setText(occupation);
+        ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation);
       } else {
-        ((CandidateViewHolder) holder).mCandidateOccupation.setText(occupation + "၊ ");
+        ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation + "၊ ");
       }
     }
   }
