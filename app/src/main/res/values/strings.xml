@@ -4,8 +4,10 @@
   <string name="PartyList">Party List</string>
   <string name="PartyDetailTitle">Party Detail</string>
   <string name="CandidateList">Candidate List</string>
+  <string name="Retry">Retry</string>
 
   <!-- Error messages -->
   <string name="PleaseCheckNetwork">Please check your network connection.</string>
+  <string name="PleaseCheckNetworkAndTryAgain">Check your connection and try again.</string>
 
 </resources>
