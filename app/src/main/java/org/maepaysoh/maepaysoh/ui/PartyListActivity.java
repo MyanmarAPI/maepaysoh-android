@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -16,6 +17,7 @@ import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
+import org.maepaysoh.maepaysoh.models.Error;
 import org.maepaysoh.maepaysoh.models.Party;
 import org.maepaysoh.maepaysoh.models.PartyData;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
@@ -75,7 +77,6 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyService = mPartyRestAdapter.create(PartyService.class);
     mPartyService.listParties(new Callback<Party>() {
       @Override public void success(Party returnObject, Response response) {
-
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
@@ -89,6 +90,9 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
       @Override public void failure(RetrofitError error) {
         // Hide Progress on failure too
+        Error mError = (Error) error.getBodyAs(Error.class);
+        Log.i("mError", "mError " + mError.getError().getMessage());
+        Log.i("mError", "mError " + mError.getError().getType());
         Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT)
             .show();
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);

@@ -27,7 +27,8 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE.*;
+import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE._with;
+import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE.page;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
@@ -49,6 +50,7 @@ public class CandidateListActivity extends BaseActivity {
   private CandidateAdapter mCandidateAdapter;
   private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
   private int mCurrentPage = 1;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_candidate_list);
@@ -78,11 +80,12 @@ public class CandidateListActivity extends BaseActivity {
     mLayoutManager = new LinearLayoutManager(this);
     mCandidateListRecyclerView.setLayoutManager(mLayoutManager);
     mCandidateAdapter = new CandidateAdapter();
-    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(this, mCandidateAdapter, new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
-      @Override public void onLoadMoreRequested() {
-        loadData();
-      }
-    });
+    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(this, mCandidateAdapter,
+        new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
+          @Override public void onLoadMoreRequested() {
+            loadData();
+          }
+        });
     mCandidateListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
 
     mCandidateRestAdapter = RetrofitHelper.getResAdapter();
@@ -98,27 +101,27 @@ public class CandidateListActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private void loadData(){
-    Map<CandidateService.PARAM_TYPE,String> options= new HashMap<>();
-    options.put(_with,"party");
-    options.put(page,String.valueOf(mCurrentPage));
-    mCandidateListService.listCandidates(options,new Callback<Candidate>() {
+  private void loadData() {
+    Map<CandidateService.PARAM_TYPE, String> options = new HashMap<>();
+    options.put(_with, "party");
+    options.put(page, String.valueOf(mCurrentPage));
+    mCandidateListService.listCandidates(options, new Callback<Candidate>() {
       @Override public void success(Candidate returnObject, Response response) {
 
         // Hide Progress on success
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
           case 200:
-            if(returnObject.getData()!=null && returnObject.getData().size() >0) {
-              if(mCurrentPage==1) {
+            if (returnObject.getData() != null && returnObject.getData().size() > 0) {
+              if (mCurrentPage == 1) {
                 mCandidateDatas = returnObject.getData();
-              }else{
+              } else {
                 mCandidateDatas.addAll(returnObject.getData());
               }
               mCandidateAdapter.setCandidates(mCandidateDatas);
               mEndlessRecyclerViewAdapter.onDataReady(true);
               mCurrentPage++;
-            }else{
+            } else {
               mEndlessRecyclerViewAdapter.onDataReady(false);
             }
             Log.i("candidate", "total candidate : " + returnObject.getData().size());
@@ -133,5 +136,4 @@ public class CandidateListActivity extends BaseActivity {
       }
     });
   }
-
 }
