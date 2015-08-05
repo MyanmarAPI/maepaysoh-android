@@ -1,10 +1,12 @@
 package org.maepaysoh.maepaysoh.adapters;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.maepaysoh.maepaysoh.R;
 
@@ -104,10 +106,12 @@ public class EndlessRecyclerViewAdapter extends RecyclerViewAdapterWrapper {
         void onLoadMoreRequested();
     }
 
-    static class PendingViewHolder extends ViewHolder {
+     class PendingViewHolder extends ViewHolder {
 
         public PendingViewHolder(View itemView) {
             super(itemView);
+            ((ProgressBar)itemView).getIndeterminateDrawable()
+                .setColorFilter(context.getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         }
     }
 }
