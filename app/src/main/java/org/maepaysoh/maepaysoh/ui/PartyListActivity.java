@@ -129,16 +129,19 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
       }
 
       @Override public void failure(RetrofitError error) {
-        // Hide Progress on failure too
         switch (error.getKind()) {
           case HTTP:
             Error mError = (Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
             Toast.makeText(PartyListActivity.this, mError.getError().getMessage(),
                 Toast.LENGTH_SHORT).show();
+            break;
           case NETWORK:
             Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork),
                 Toast.LENGTH_SHORT).show();
+            break;
         }
+       
+        // Hide Progress on failure too
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         mErrorView.setVisibility(View.VISIBLE);
       }
