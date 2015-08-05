@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -29,11 +28,15 @@ import retrofit.client.Response;
 
 import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE._with;
 import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE.page;
+import static org.maepaysoh.maepaysoh.utils.Logger.LOGI;
+import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
 public class CandidateListActivity extends BaseActivity {
+
+  private static String TAG = makeLogTag(CandidateListActivity.class);
 
   // Ui components
   private Toolbar mToolbar;
@@ -124,7 +127,7 @@ public class CandidateListActivity extends BaseActivity {
             } else {
               mEndlessRecyclerViewAdapter.onDataReady(false);
             }
-            Log.i("candidate", "total candidate : " + returnObject.getData().size());
+            LOGI(TAG, "total candidate : " + returnObject.getData().size());
             break;
         }
       }
