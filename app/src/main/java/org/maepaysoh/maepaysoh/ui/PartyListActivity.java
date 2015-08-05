@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.util.List;
@@ -28,11 +29,10 @@ import retrofit.client.Response;
 
 public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface {
 
-  // Ui components
-  private Toolbar mToolbar;
-  private View mToolbarShadow;
   private RecyclerView mPartyListRecyclerView;
   private ProgressBar mProgressView;
+  private View mErrorView;
+  private Button mRetryBtn;
 
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
@@ -45,10 +45,12 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_list);
 
-    mToolbar = (Toolbar) findViewById(R.id.party_list_toolbar);
-    mToolbarShadow = findViewById(R.id.party_list_toolbar_shadow);
+    Toolbar mToolbar = (Toolbar) findViewById(R.id.party_list_toolbar);
+    View mToolbarShadow = findViewById(R.id.party_list_toolbar_shadow);
+    mErrorView = findViewById(R.id.party_list_error_view);
     mPartyListRecyclerView = (RecyclerView) findViewById(R.id.party_list_recycler_view);
     mProgressView = (ProgressBar) findViewById(R.id.party_list_progress_bar);
+    mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
 
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
@@ -68,34 +70,17 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
     // Show Progress on start
     viewUtils.showProgress(mPartyListRecyclerView, mProgressView, true);
-
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
-    mPartyRestAdapter = RetrofitHelper.getResAdapter();
-    mPartyService = mPartyRestAdapter.create(PartyService.class);
-    mPartyService.listParties(new Callback<Party>() {
-      @Override public void success(Party returnObject, Response response) {
-        // Hide Progress on success
-        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
-        switch (response.getStatus()) {
-          case 200:
-            mParties = returnObject.getData();
-            mPartyAdapter.setParties(mParties);
-            mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
-            break;
-        }
-      }
 
-      @Override public void failure(RetrofitError error) {
-        // Hide Progress on failure too
-        Error mError = (Error) error.getBodyAs(Error.class);
-        Log.i("mError", "mError " + mError.getError().getMessage());
-        Log.i("mError", "mError " + mError.getError().getType());
-        Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT)
-            .show();
-        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
+    downloadPartyList();
+
+    mRetryBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Log.i("retry", "retry click");
+        downloadPartyList();
       }
     });
   }
@@ -125,5 +110,41 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     goToPartyDetailIntent.setClass(PartyListActivity.this, PartyDetailActivity.class);
     goToPartyDetailIntent.putExtra(PartyDetailActivity.PARTY_CONSTANT, mParties.get(position));
     startActivity(goToPartyDetailIntent);
+  }
+
+  private void downloadPartyList() {
+    mPartyRestAdapter = RetrofitHelper.getResAdapter();
+    mPartyService = mPartyRestAdapter.create(PartyService.class);
+    mPartyService.listParties(new Callback<Party>() {
+      @Override public void success(Party returnObject, Response response) {
+        // Hide Progress on success
+        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
+        switch (response.getStatus()) {
+          case 200:
+            mParties = returnObject.getData();
+            mPartyAdapter.setParties(mParties);
+            mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+            break;
+        }
+      }
+
+      @Override public void failure(RetrofitError error) {
+        switch (error.getKind()) {
+          case HTTP:
+            Error mError = (Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
+            Toast.makeText(PartyListActivity.this, mError.getError().getMessage(),
+                Toast.LENGTH_SHORT).show();
+            break;
+          case NETWORK:
+            Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork),
+                Toast.LENGTH_SHORT).show();
+            break;
+        }
+       
+        // Hide Progress on failure too
+        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
+        mErrorView.setVisibility(View.VISIBLE);
+      }
+    });
   }
 }

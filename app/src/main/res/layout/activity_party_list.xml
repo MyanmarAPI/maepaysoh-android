@@ -25,11 +25,18 @@
         android:visibility="gone"
         />
 
+    <include
+        layout="@layout/include_error_view"
+        android:visibility="gone"
+        android:id="@+id/party_list_error_view"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/party_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
 
     <!-- Toolbar Shadow -->
     <include

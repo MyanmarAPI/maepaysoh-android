@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+
+  <TextView
+      android:id="@+id/error_view_error_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/PleaseCheckNetworkAndTryAgain"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:padding="@dimen/spacing_minor"
+      style="@style/TextAppearance.AppCompat.Medium"
+      />
+
+  <Button
+      android:id="@+id/error_view_retry_btn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/Retry"
+      android:layout_gravity="center"
+      android:clickable="true"
+      android:focusable="true"
+      />
+
+</LinearLayout>
+
