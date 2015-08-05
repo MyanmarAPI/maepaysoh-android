@@ -140,7 +140,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
                 Toast.LENGTH_SHORT).show();
             break;
         }
-       
+
         // Hide Progress on failure too
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         mErrorView.setVisibility(View.VISIBLE);
