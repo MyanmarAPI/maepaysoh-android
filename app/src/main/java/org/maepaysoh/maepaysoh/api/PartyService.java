@@ -8,5 +8,8 @@ import retrofit.http.GET;
  * Created by Ye Lin Aung on 15/08/04.
  */
 public interface PartyService {
-  @GET("/party") void listParties(Callback<Party> partyCallback);
+  @GET("/party")
+  void listParties(
+      Callback<Party> partyCallback
+  );
 }
