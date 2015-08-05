@@ -1,13 +1,14 @@
 package org.maepaysoh.maepaysoh.models;
 
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class CandidateData {
+public class CandidateData implements Serializable{
 
   private String id;
   private String name;

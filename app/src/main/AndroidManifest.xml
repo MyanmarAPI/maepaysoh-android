@@ -36,6 +36,11 @@
         android:label="@string/CandidateList"
         >
     </activity>
+    <activity
+        android:name=".ui.CandidateDetailActivity"
+        android:label="@string/CandidateList"
+        >
+    </activity>
   </application>
 
 </manifest>

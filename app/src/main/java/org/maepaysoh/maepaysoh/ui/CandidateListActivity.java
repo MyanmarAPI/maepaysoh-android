@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,7 +35,7 @@ import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
-public class CandidateListActivity extends BaseActivity {
+public class CandidateListActivity extends BaseActivity implements CandidateAdapter.ClickInterface{
 
   private static String TAG = makeLogTag(CandidateListActivity.class);
 
@@ -83,6 +84,7 @@ public class CandidateListActivity extends BaseActivity {
     mLayoutManager = new LinearLayoutManager(this);
     mCandidateListRecyclerView.setLayoutManager(mLayoutManager);
     mCandidateAdapter = new CandidateAdapter();
+    mCandidateAdapter.setOnItemClickListener(this);
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(this, mCandidateAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
@@ -138,5 +140,12 @@ public class CandidateListActivity extends BaseActivity {
         mEndlessRecyclerViewAdapter.onDataReady(false);
       }
     });
+  }
+
+  @Override public void onItemClick(View view, int position) {
+    Intent goToCandiDetailIntent = new Intent();
+    goToCandiDetailIntent.setClass(CandidateListActivity.this, CandidateDetailActivity.class);
+    goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT, mCandidateDatas.get(position));
+    startActivity(goToCandiDetailIntent);
   }
 }
