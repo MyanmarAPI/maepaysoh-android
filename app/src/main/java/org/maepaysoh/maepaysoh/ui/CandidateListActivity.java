@@ -8,10 +8,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import org.maepaysoh.maepaysoh.api.CandidateService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.models.Candidate;
 import org.maepaysoh.maepaysoh.models.CandidateData;
+import org.maepaysoh.maepaysoh.models.Error;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -30,17 +32,23 @@ import retrofit.client.Response;
 
 import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE._with;
 import static org.maepaysoh.maepaysoh.api.CandidateService.PARAM_TYPE.page;
+import static org.maepaysoh.maepaysoh.utils.Logger.LOGI;
+import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
-public class CandidateListActivity extends BaseActivity implements CandidateAdapter.ClickInterface{
+public class CandidateListActivity extends BaseActivity implements CandidateAdapter.ClickInterface {
+
+  private static String TAG = makeLogTag(CandidateListActivity.class);
 
   // Ui components
   private Toolbar mToolbar;
   private View mToolbarShadow;
   private RecyclerView mCandidateListRecyclerView;
   private ProgressBar mProgressView;
+  private View mErrorView;
+  private Button mRetryBtn;
 
   private RestAdapter mCandidateRestAdapter;
   private CandidateService mCandidateListService;
@@ -60,6 +68,8 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mToolbarShadow = findViewById(R.id.candidate_list_toolbar_shadow);
     mCandidateListRecyclerView = (RecyclerView) findViewById(R.id.candidate_list_recycler_view);
     mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
+    mErrorView = findViewById(R.id.candidate_list_error_view);
+    mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
 
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
@@ -85,14 +95,20 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(this, mCandidateAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
-            loadData();
+            downloadCandidateList();
           }
         });
     mCandidateListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
 
     mCandidateRestAdapter = RetrofitHelper.getResAdapter();
     mCandidateListService = mCandidateRestAdapter.create(CandidateService.class);
-    loadData();
+    downloadCandidateList();
+
+    mRetryBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        downloadCandidateList();
+      }
+    });
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -103,7 +119,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     return super.onOptionsItemSelected(item);
   }
 
-  private void loadData() {
+  private void downloadCandidateList() {
     Map<CandidateService.PARAM_TYPE, String> options = new HashMap<>();
     options.put(_with, "party");
     options.put(page, String.valueOf(mCurrentPage));
@@ -126,15 +142,29 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
             } else {
               mEndlessRecyclerViewAdapter.onDataReady(false);
             }
-            Log.i("candidate", "total candidate : " + returnObject.getData().size());
+            LOGI(TAG, "total candidate : " + returnObject.getData().size());
             break;
         }
       }
 
       @Override public void failure(RetrofitError error) {
+        switch (error.getKind()) {
+          case HTTP:
+            org.maepaysoh.maepaysoh.models.Error mError =
+                (Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
+            Toast.makeText(CandidateListActivity.this, mError.getError().getMessage(),
+                Toast.LENGTH_SHORT).show();
+            break;
+          case NETWORK:
+            Toast.makeText(CandidateListActivity.this, getString(R.string.PleaseCheckNetwork),
+                Toast.LENGTH_SHORT).show();
+            break;
+        }
+
         // Hide Progress on failure too
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         mEndlessRecyclerViewAdapter.onDataReady(false);
+        mErrorView.setVisibility(View.VISIBLE);
       }
     });
   }
@@ -142,7 +172,8 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   @Override public void onItemClick(View view, int position) {
     Intent goToCandiDetailIntent = new Intent();
     goToCandiDetailIntent.setClass(CandidateListActivity.this, CandidateDetailActivity.class);
-    goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT, mCandidateDatas.get(position));
+    goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
+        mCandidateDatas.get(position));
     startActivity(goToCandiDetailIntent);
   }
 }

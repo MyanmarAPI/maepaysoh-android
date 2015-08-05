@@ -37,6 +37,12 @@
         android:id="@+id/candidate_list_toolbar_shadow"
         />
 
+    <include
+        layout="@layout/include_error_view"
+        android:visibility="gone"
+        android:id="@+id/candidate_list_error_view"
+        />
+
   </FrameLayout>
 
 </LinearLayout>
