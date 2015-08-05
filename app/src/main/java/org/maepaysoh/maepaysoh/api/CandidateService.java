@@ -1,14 +1,18 @@
 package org.maepaysoh.maepaysoh.api;
 
+import java.util.Map;
 import org.maepaysoh.maepaysoh.models.Candidate;
 import retrofit.Callback;
 import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit.http.QueryMap;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
 public interface CandidateService {
-  @GET("/candidate/list") void listCandidates(@Query("_with") String with,@Query("font") String font,@Query("per_page") String perpage,
+  enum PARAM_TYPE{
+    _with, font, per_page,page
+  }
+  @GET("/candidate/list") void listCandidates(@QueryMap Map<PARAM_TYPE,String> options,
       Callback<Candidate> candidateCallback);
 }
