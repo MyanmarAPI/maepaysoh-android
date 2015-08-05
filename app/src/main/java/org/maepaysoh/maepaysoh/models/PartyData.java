@@ -1,28 +1,31 @@
 package org.maepaysoh.maepaysoh.models;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
 public class PartyData implements Serializable {
 
-  private String PartyName;
-  private String PartyNameEnglish;
-  private String EstablishmentDate;
-  private String MemberCount;
-  private String Leadership;
-  private String EstablishmentApprovalDate;
-  private String RegistrationApplicationDate;
-  private String RegistrationApprovalDate;
-  private String ApprovedPartyNumber;
-  private String PartyFlag;
-  private String PartySeal;
-  private String Chairman;
-  private String Region;
-  private String Headquarters;
-  private String Contact;
-  private String Policy;
+  @SerializedName("party_name")private String PartyName;
+  @SerializedName("party_name_english")private String PartyNameEnglish;
+  @SerializedName("establishment_date")private String EstablishmentDate;
+  @SerializedName("member_count")private String MemberCount;
+  @SerializedName("leadership")private List<String> Leadership = new ArrayList<>();
+  @SerializedName("establishment_approval_date")private String EstablishmentApprovalDate;
+  @SerializedName("registration_application_date")private String RegistrationApplicationDate;
+  @SerializedName("registration_approval_date")private String RegistrationApprovalDate;
+  @SerializedName("approved_party_number")private String ApprovedPartyNumber;
+  @SerializedName("party_flag")private String PartyFlag;
+  @SerializedName("party_seal")private String PartySeal;
+  @SerializedName("chair_man")private List<String> Chairman = new ArrayList<>();
+  @SerializedName("region")private String Region;
+  @SerializedName("headquarters")private String Headquarters;
+  @SerializedName("contact")private List<String > Contact = new ArrayList<>();
+  @SerializedName("policy")private String Policy;
 
   /**
    * @return The PartyName
@@ -83,14 +86,14 @@ public class PartyData implements Serializable {
   /**
    * @return The Leadership
    */
-  public String getLeadership() {
+  public List<String> getLeadership() {
     return Leadership;
   }
 
   /**
    * @param Leadership The Leadership
    */
-  public void setLeadership(String Leadership) {
+  public void setLeadership(List<String> Leadership) {
     this.Leadership = Leadership;
   }
 
@@ -181,14 +184,14 @@ public class PartyData implements Serializable {
   /**
    * @return The Chairman
    */
-  public String getChairman() {
+  public List<String> getChairman() {
     return Chairman;
   }
 
   /**
    * @param Chairman The Chairman
    */
-  public void setChairman(String Chairman) {
+  public void setChairman(List<String> Chairman) {
     this.Chairman = Chairman;
   }
 
@@ -210,14 +213,14 @@ public class PartyData implements Serializable {
   /**
    * @return The Contact
    */
-  public String getContact() {
+  public List<String> getContact() {
     return Contact;
   }
 
   /**
    * @param contact The Contact
    */
-  public void setContact(String contact) {
+  public void setContact(List<String> contact) {
     Contact = contact;
   }
 
