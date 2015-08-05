@@ -37,6 +37,7 @@
         layout="@layout/include_toolbar_shadow"
         android:id="@+id/party_list_toolbar_shadow"
         />
+
     <include
         layout="@layout/include_error_view"
         android:visibility="gone"
