@@ -21,7 +21,7 @@ public class PartyData implements Serializable {
   @SerializedName("approved_party_number")private String ApprovedPartyNumber;
   @SerializedName("party_flag")private String PartyFlag;
   @SerializedName("party_seal")private String PartySeal;
-  @SerializedName("chair_man")private List<String> Chairman = new ArrayList<>();
+  @SerializedName("chairman")private List<String> Chairman = new ArrayList<>();
   @SerializedName("region")private String Region;
   @SerializedName("headquarters")private String Headquarters;
   @SerializedName("contact")private List<String > Contact = new ArrayList<>();
