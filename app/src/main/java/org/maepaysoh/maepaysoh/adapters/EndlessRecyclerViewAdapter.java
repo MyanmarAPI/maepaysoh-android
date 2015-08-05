@@ -18,7 +18,7 @@ import static android.support.v7.widget.RecyclerView.ViewHolder;
  */
 public class EndlessRecyclerViewAdapter extends RecyclerViewAdapterWrapper {
     public static final int TYPE_PENDING = 999;
-    private final Context context;
+  private final Context context;
     private final int pendingViewResId;
     private AtomicBoolean keepOnAppending;
     private AtomicBoolean dataPending;
