@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -90,11 +89,17 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
       @Override public void failure(RetrofitError error) {
         // Hide Progress on failure too
-        Error mError = (Error) error.getBodyAs(Error.class);
-        Log.i("mError", "mError " + mError.getError().getMessage());
-        Log.i("mError", "mError " + mError.getError().getType());
-        Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT)
-            .show();
+        switch (error.getKind()) {
+          case HTTP:
+            Error mError = (Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
+            Toast.makeText(PartyListActivity.this, mError.getError().getMessage(),
+                Toast.LENGTH_SHORT).show();
+          case NETWORK:
+            Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork),
+                Toast.LENGTH_SHORT).show();
+          case UNEXPECTED:
+            throw error;
+        }
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
       }
     });
