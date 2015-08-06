@@ -42,4 +42,6 @@
   <string name="CandidateMother">Mother</string>
   <string name="CandidateFather">Father</string>
 
+  //Menu Title
+  <string name="search_faq">Search FAQs</string>
 </resources>

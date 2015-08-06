@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -99,6 +100,11 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
         loadFaqDatas();
       }
     });
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_faq,menu);
+    return true;
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
