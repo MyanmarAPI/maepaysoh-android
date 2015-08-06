@@ -2,9 +2,9 @@ package org.maepaysoh.maepaysoh.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
@@ -13,10 +13,13 @@ import org.maepaysoh.maepaysoh.models.CandidateData;
 /**
  * Created by yemyatthu on 8/5/15.
  */
-public class CandidateDetailActivity extends AppCompatActivity {
+public class CandidateDetailActivity extends BaseActivity {
   public static final String CANDIDATE_CONSTANT =
       "org.maepaysoh.maepaysoh.ui.CandidateDetailActivity";
+
+  // Ui elements
   private Toolbar mToolbar;
+  private View mToolbarShadow;
   private TextView mCandidateName;
   private TextView mLegislature;
   private TextView mNationalId;
@@ -29,12 +32,16 @@ public class CandidateDetailActivity extends AppCompatActivity {
   private TextView mParty;
   private TextView mMotherName;
   private TextView mFatherName;
+
   private CandidateData mCandidateData;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_candidate_detail);
     mToolbar = (Toolbar) findViewById(R.id.candidate_detail_toolbar);
+    mToolbarShadow = findViewById(R.id.candidate_detail_toolbar_shadow);
+    hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
+
     mCandidateName = (TextView) findViewById(R.id.candidate_name);
     mLegislature = (TextView) findViewById(R.id.candidate_legislature);
     mNationalId = (TextView) findViewById(R.id.candidate_national_id);
