@@ -15,6 +15,7 @@ public class HomeActivity extends BaseActivity {
   private View mToolbarShadow;
   private Button mPartyListBtn;
   private Button mCandidateListBtn;
+  private Button mFaqListBtn;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -39,6 +40,13 @@ public class HomeActivity extends BaseActivity {
       @Override public void onClick(View v) {
         Intent goToCandidateList = new Intent(HomeActivity.this, CandidateListActivity.class);
         startActivity(goToCandidateList);
+      }
+    });
+
+    mFaqListBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent goToFaqList = new Intent(HomeActivity.this, FaqListActivity.class);
+        startActivity(goToFaqList);
       }
     });
   }
