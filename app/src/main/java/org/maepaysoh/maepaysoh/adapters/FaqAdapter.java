@@ -22,7 +22,7 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     mFaqDatums = new ArrayList<>();
   }
 
-  public void setCandidates(List<FaqDatum> faqDatums) {
+  public void setFaqs(List<FaqDatum> faqDatums) {
     mFaqDatums = faqDatums;
     notifyDataSetChanged();
   }

@@ -17,6 +17,11 @@ public interface FaqService {
   );
 
   enum PARAM_TYPE {
-    font, per_page, page
+    font, per_page, page,q
   }
+  @GET("/faq/search")
+  void searchFaqs(
+      @QueryMap Map<PARAM_TYPE, String> options,
+      Callback<FAQ> faqCallback
+  );
 }
