@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             tools:text="Ye Myat Thu"
             />
-        <TextView
+        <org.maepaysoh.maepaysoh.ui.widget.ExpandableTextView
             android:id="@+id/faq_answer"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:padding="@dimen/spacing_minor"
