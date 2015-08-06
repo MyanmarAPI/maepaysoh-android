@@ -27,4 +27,16 @@
   <string name="PartyPolicy">Policy</string>
   <string name="PartySeal">Party Seal</string>
 
+  <!-- Candidate Detail labels -->
+  <string name="CandidateLegislature">Legislature</string>
+  <string name="CandidateNationalID">National ID</string>
+  <string name="CandidateBirthDate">Birth Date</string>
+  <string name="CandidateEducation">Education</string>
+  <string name="CandidateOccupation">Occupation</string>
+  <string name="CandidateReligion">Religion</string>
+  <string name="CandidateResidency">Residency</string>
+  <string name="CandidateConstituency">Constituency</string>
+  <string name="CandidateMother">Mother</string>
+  <string name="CandidateFather">Father</string>
+
 </resources>
