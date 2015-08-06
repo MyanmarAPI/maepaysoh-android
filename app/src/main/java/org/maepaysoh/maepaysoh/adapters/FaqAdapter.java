@@ -18,6 +18,7 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private List<FaqDatum> mFaqDatums;
   private Context mContext;
   private ClickInterface mClickInterface;
+
   public FaqAdapter() {
     mFaqDatums = new ArrayList<>();
   }
@@ -37,7 +38,6 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     FaqDatum faqDatum = mFaqDatums.get(position);
     ((CandidateViewHolder) holder).mFaqQuetion.setText(faqDatum.getQuestion());
     ((CandidateViewHolder) holder).mFaqAnswer.setText(faqDatum.getAnswer());
-
   }
 
   @Override public int getItemCount() {
@@ -52,8 +52,7 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     void onItemClick(View view, int position);
   }
 
-
-  class CandidateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+  class CandidateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView mFaqQuetion;
     private TextView mFaqAnswer;
 
@@ -65,8 +64,8 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override public void onClick(View view) {
-      if(mClickInterface!=null){
-        mClickInterface.onItemClick(view,getAdapterPosition());
+      if (mClickInterface != null) {
+        mClickInterface.onItemClick(view, getAdapterPosition());
       }
     }
   }

@@ -41,8 +41,8 @@ import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 /**
  * Created by Ye Lin Aung on 15/08/06.
  */
-public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInterface,
-    android.support.v7.widget.SearchView.OnQueryTextListener{
+public class FaqListActivity extends BaseActivity
+    implements FaqAdapter.ClickInterface, android.support.v7.widget.SearchView.OnQueryTextListener {
 
   private static String TAG = makeLogTag(FaqListActivity.class);
   private RecyclerView mFaqListRecyclerView;
@@ -59,6 +59,7 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
   private List<FaqDatum> mFaqDatas;
   private android.support.v7.widget.SearchView mSearchView;
   private MenuItem mSearchMenu;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_faq_list);
@@ -91,26 +92,25 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
     mFaqRestAdapter = RetrofitHelper.getResAdapter();
     mFaqService = mFaqRestAdapter.create(FaqService.class);
     mFaqAdapter = new FaqAdapter();
-    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this,
-        mFaqAdapter, new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
-      @Override public void onLoadMoreRequested() {
-        loadFaqDatas(null);
-      }
-    });
+    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
+        new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
+          @Override public void onLoadMoreRequested() {
+            loadFaqData(null);
+          }
+        });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    loadFaqDatas(null);
+    loadFaqData(null);
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        loadFaqDatas(null);
+        loadFaqData(null);
       }
     });
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_faq,menu);
+    getMenuInflater().inflate(R.menu.menu_faq, menu);
     mSearchMenu = menu.findItem(R.id.menu_search);
-    mSearchView =
-        (android.support.v7.widget.SearchView) mSearchMenu.getActionView();
+    mSearchView = (android.support.v7.widget.SearchView) mSearchMenu.getActionView();
     mSearchView.setOnQueryTextListener(this);
     return true;
   }
@@ -123,20 +123,20 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
     return super.onOptionsItemSelected(item);
   }
 
-  private void loadFaqDatas(@Nullable String query){
+  private void loadFaqData(@Nullable String query) {
     TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
     errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
     mRetryBtn.setVisibility(View.VISIBLE);
-    if(mErrorView.getVisibility()==View.VISIBLE){
+    if (mErrorView.getVisibility() == View.VISIBLE) {
       mErrorView.setVisibility(View.GONE);
     }
     Map<PARAM_TYPE, String> options = new HashMap<>();
     options.put(page, String.valueOf(mCurrentPage));
-    if(mCurrentPage==1){
+    if (mCurrentPage == 1) {
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     }
-    if(query!=null && query.length()>0){
-      options.put(q,query);
+    if (query != null && query.length() > 0) {
+      options.put(q, query);
       mFaqService.searchFaqs(options, new Callback<FAQ>() {
         @Override public void success(FAQ returnObject, Response response) {
 
@@ -178,8 +178,8 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
               org.maepaysoh.maepaysoh.models.Error mError =
                   (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(
                       org.maepaysoh.maepaysoh.models.Error.class);
-              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(), Toast.LENGTH_SHORT)
-                  .show();
+              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
+                  Toast.LENGTH_SHORT).show();
               break;
             case NETWORK:
               Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
@@ -193,7 +193,7 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
           mErrorView.setVisibility(View.VISIBLE);
         }
       });
-    }else {
+    } else {
       mFaqService.listFaqs(options, new Callback<FAQ>() {
         @Override public void success(FAQ returnObject, Response response) {
 
@@ -222,11 +222,14 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
           switch (error.getKind()) {
             case HTTP:
               org.maepaysoh.maepaysoh.models.Error mError =
-                  (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
-              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                  (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(
+                      org.maepaysoh.maepaysoh.models.Error.class);
+              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
+                  Toast.LENGTH_SHORT).show();
               break;
             case NETWORK:
-              Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork), Toast.LENGTH_SHORT).show();
+              Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
+                  Toast.LENGTH_SHORT).show();
               break;
           }
 
@@ -252,7 +255,7 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
 
   @Override public boolean onQueryTextChange(String newText) {
     mCurrentPage = 1;
-    loadFaqDatas(newText);
+    loadFaqData(newText);
     LOGD(TAG, "searching");
     return true;
   }
