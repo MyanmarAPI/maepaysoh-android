@@ -9,5 +9,6 @@
   <!-- Error messages -->
   <string name="PleaseCheckNetwork">Please check your network connection.</string>
   <string name="PleaseCheckNetworkAndTryAgain">Check your connection and try again.</string>
+  <string name="SomethingWentWrong">Sorry. Something went wrong.</string>
 
 </resources>

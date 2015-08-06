@@ -137,6 +137,9 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
             Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork),
                 Toast.LENGTH_SHORT).show();
             break;
+          case CONVERSION:
+            Toast.makeText(PartyListActivity.this, getString(R.string.SomethingWentWrong),
+                Toast.LENGTH_SHORT).show();
         }
 
         // Hide Progress on failure too

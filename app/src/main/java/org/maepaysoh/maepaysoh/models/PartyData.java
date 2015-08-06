@@ -10,22 +10,22 @@ import java.util.List;
  */
 public class PartyData implements Serializable {
 
-  @SerializedName("party_name")private String PartyName;
-  @SerializedName("party_name_english")private String PartyNameEnglish;
-  @SerializedName("establishment_date")private String EstablishmentDate;
-  @SerializedName("member_count")private String MemberCount;
-  @SerializedName("leadership")private List<String> Leadership = new ArrayList<>();
-  @SerializedName("establishment_approval_date")private String EstablishmentApprovalDate;
-  @SerializedName("registration_application_date")private String RegistrationApplicationDate;
-  @SerializedName("registration_approval_date")private String RegistrationApprovalDate;
-  @SerializedName("approved_party_number")private String ApprovedPartyNumber;
-  @SerializedName("party_flag")private String PartyFlag;
-  @SerializedName("party_seal")private String PartySeal;
-  @SerializedName("chairman")private List<String> Chairman = new ArrayList<>();
-  @SerializedName("region")private String Region;
-  @SerializedName("headquarters")private String Headquarters;
-  @SerializedName("contact")private List<String > Contact = new ArrayList<>();
-  @SerializedName("policy")private String Policy;
+  @SerializedName("party_name") private String PartyName;
+  @SerializedName("party_name_english") private String PartyNameEnglish;
+  @SerializedName("establishment_date") private String EstablishmentDate;
+  @SerializedName("member_count") private String MemberCount;
+  @SerializedName("leadership") private List<String> Leadership = new ArrayList<>();
+  @SerializedName("establishment_approval_date") private String EstablishmentApprovalDate;
+  @SerializedName("registration_application_date") private String RegistrationApplicationDate;
+  @SerializedName("registration_approval_date") private String RegistrationApprovalDate;
+  @SerializedName("approved_party_number") private String ApprovedPartyNumber;
+  @SerializedName("party_flag") private String PartyFlag;
+  @SerializedName("party_seal") private String PartySeal;
+  @SerializedName("chairman") private List<String> Chairman = new ArrayList<>();
+  @SerializedName("region") private String Region;
+  @SerializedName("headquarters") private String Headquarters;
+  @SerializedName("contact") private List<String> Contact = new ArrayList<>();
+  @SerializedName("policy") private String Policy;
 
   /**
    * @return The PartyName
