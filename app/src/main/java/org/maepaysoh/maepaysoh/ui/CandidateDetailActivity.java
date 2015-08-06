@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -13,7 +14,8 @@ import org.maepaysoh.maepaysoh.models.CandidateData;
  * Created by yemyatthu on 8/5/15.
  */
 public class CandidateDetailActivity extends AppCompatActivity {
-  public static final String CANDIDATE_CONSTANT = "org.maepaysoh.maepaysoh.ui.CandidateDetailActivity";
+  public static final String CANDIDATE_CONSTANT =
+      "org.maepaysoh.maepaysoh.ui.CandidateDetailActivity";
   private Toolbar mToolbar;
   private TextView mCandidateName;
   private TextView mLegislature;
@@ -28,6 +30,7 @@ public class CandidateDetailActivity extends AppCompatActivity {
   private TextView mMotherName;
   private TextView mFatherName;
   private CandidateData mCandidateData;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_candidate_detail);
@@ -38,14 +41,18 @@ public class CandidateDetailActivity extends AppCompatActivity {
     mBirthDate = (TextView) findViewById(R.id.candidate_birth_date);
     mEducation = (TextView) findViewById(R.id.candidate_education);
     mOccupation = (TextView) findViewById(R.id.candidate_occupation);
-    mReligion= (TextView) findViewById(R.id.candidate_religion);
+    mReligion = (TextView) findViewById(R.id.candidate_religion);
     mResidency = (TextView) findViewById(R.id.candidate_residency);
     mConstituency = (TextView) findViewById(R.id.candidate_constituency);
     mParty = (TextView) findViewById(R.id.candidate_party);
     mMotherName = (TextView) findViewById(R.id.candidate_mother);
     mFatherName = (TextView) findViewById(R.id.candidate_father);
     setSupportActionBar(mToolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    ActionBar mActionBar = getSupportActionBar();
+    if (mActionBar != null) {
+      // Showing Back Arrow  <-
+      mActionBar.setDisplayHomeAsUpEnabled(true);
+    }
     mCandidateData = (CandidateData) getIntent().getSerializableExtra(CANDIDATE_CONSTANT);
     if (mCandidateData != null) {
       mCandidateName.setText(mCandidateData.getName());
@@ -61,7 +68,7 @@ public class CandidateDetailActivity extends AppCompatActivity {
       List<String> educations = mCandidateData.getEducation();
       for (String occupation : occupations) {
         if (occupations.indexOf(occupation) == occupations.size() - 1) {
-         mOccupation.append(occupation);
+          mOccupation.append(occupation);
         } else {
           mOccupation.append(occupation + "၊ ");
         }

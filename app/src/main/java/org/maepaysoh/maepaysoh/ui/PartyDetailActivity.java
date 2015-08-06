@@ -1,10 +1,11 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.util.Linkify;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -15,10 +16,14 @@ import org.maepaysoh.maepaysoh.models.PartyData;
 /**
  * Created by yemyatthu on 8/4/15.
  */
-public class PartyDetailActivity extends AppCompatActivity {
+public class PartyDetailActivity extends BaseActivity {
   public static final String PARTY_CONSTANT =
       "org.maepaysoh.maepaysoh.ui.PartyDetailActivity.PARTY_CONSTANT";
+
+  // Ui elements
   private Toolbar mToolbar;
+  private View mToolbarShadow;
+
   private ImageView mPartyFlag;
   private TextView mPartyNameMyanmar;
   private TextView mPartyNameEnglish;
@@ -41,6 +46,10 @@ public class PartyDetailActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_detail);
     mToolbar = (Toolbar) findViewById(R.id.party_detail_toolbar);
+    mToolbarShadow = findViewById(R.id.party_detail_toolbar_shadow);
+
+    hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
+
     mPartyFlag = (ImageView) findViewById(R.id.party_flag);
     mPartyNameMyanmar = (TextView) findViewById(R.id.party_name_myanmar);
     mPartyNameEnglish = (TextView) findViewById(R.id.party_name_english);
@@ -57,8 +66,13 @@ public class PartyDetailActivity extends AppCompatActivity {
     mPartyContact = (TextView) findViewById(R.id.party_contact);
     mPartyPolicy = (TextView) findViewById(R.id.party_policy);
     mPartySeal = (ImageView) findViewById(R.id.party_seal);
+
     setSupportActionBar(mToolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    ActionBar mActionBar = getSupportActionBar();
+    if (mActionBar != null) {
+      // Showing Back Arrow  <-
+      mActionBar.setDisplayHomeAsUpEnabled(true);
+    }
     mPartyData = (PartyData) getIntent().getSerializableExtra(PARTY_CONSTANT);
     if (mPartyData != null) {
       Glide.with(this).load(mPartyData.getPartyFlag()).into(mPartyFlag);

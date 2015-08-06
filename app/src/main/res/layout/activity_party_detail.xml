@@ -30,26 +30,31 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
       <LinearLayout
           android:orientation="vertical"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          >
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_minor">
+            android:layout_marginBottom="@dimen/spacing_minor"
+            >
           <ImageView
               android:id="@+id/party_flag"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:scaleType="fitCenter"
-              android:layout_marginRight="@dimen/spacing_major"/>
+              android:layout_marginRight="@dimen/spacing_major"
+              />
           <LinearLayout
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              >
             <TextView
                 android:id="@+id/party_name_myanmar"
                 android:layout_width="wrap_content"
@@ -58,7 +63,8 @@
                 android:paddingRight="@dimen/spacing_minor"
                 android:paddingTop="@dimen/spacing_minor"
                 style="@style/TextAppearance.AppCompat.Title"
-                tools:text="National Democratic Party"/>
+                tools:text="National Democratic Party"
+                />
             <TextView
                 android:id="@+id/party_name_english"
                 android:layout_width="wrap_content"
@@ -67,244 +73,300 @@
                 android:paddingRight="@dimen/spacing_minor"
                 android:paddingBottom="@dimen/spacing_minor"
                 style="@style/TextAppearance.AppCompat.Subhead"
-                tools:text="National Democratic Party"/>
+                tools:text="National Democratic Party"
+                />
           </LinearLayout>
+
         </LinearLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Leadership"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_leader"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="Aung San Su Kyi"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Chairman"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_chairman"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="Aung San Su Kyi"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Member Count"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_member_count"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="100000"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Establishment Date"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_estb_date"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Establishment Approval Date"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_estb_approval_date"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Registration Application Date"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_reg_application_date"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Registration Approval Date"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_reg_approval_date"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Approved Party Number"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_approved_no"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Region"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_region"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="Kokk Mhuu"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Headquaters"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_headquaters"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Contact"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_contact"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Policy"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <TextView
               android:id="@+id/party_policy"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
               tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3">
-          <TextView android:layout_width="0dp"
+            android:weightSum="3"
+            >
+          <TextView
+              android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:text="Party Seal"
-              android:padding="@dimen/spacing_minor"/>
+              android:padding="@dimen/spacing_minor"
+              />
           <ImageView
               android:id="@+id/party_seal"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="2"
-              android:layout_margin="@dimen/spacing_minor"/>
+              android:layout_margin="@dimen/spacing_minor"
+              />
         </LinearLayout>
       </LinearLayout>
     </ScrollView>
+
     <!-- Toolbar Shadow -->
     <include
         layout="@layout/include_toolbar_shadow"
