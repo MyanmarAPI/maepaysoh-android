@@ -1,12 +1,13 @@
 package org.maepaysoh.maepaysoh.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Ye Lin Aung on 15/08/06.
  */
-public class FaqDatum {
+public class FaqDatum implements Serializable{
   private String id;
   private String question;
   private String answer;
