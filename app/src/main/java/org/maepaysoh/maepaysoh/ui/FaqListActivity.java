@@ -85,17 +85,17 @@ public class FaqListActivity extends BaseActivity {
     mFaqRestAdapter = RetrofitHelper.getResAdapter();
     mFaqService = mFaqRestAdapter.create(FaqService.class);
     mFaqAdapter = new FaqAdapter();
-    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this,
-        mFaqAdapter, new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
-      @Override public void onLoadMoreRequested() {
-        loadFaqDatas();
-      }
-    });
+    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
+        new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
+          @Override public void onLoadMoreRequested() {
+            loadFaqData();
+          }
+        });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    loadFaqDatas();
+    loadFaqData();
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        loadFaqDatas();
+        loadFaqData();
       }
     });
   }
@@ -108,7 +108,7 @@ public class FaqListActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private void loadFaqDatas(){
+  private void loadFaqData() {
     Map<PARAM_TYPE, String> options = new HashMap<>();
     options.put(page, String.valueOf(mCurrentPage));
     mFaqService.listFaqs(options, new Callback<FAQ>() {
@@ -120,7 +120,7 @@ public class FaqListActivity extends BaseActivity {
           case 200:
             if (returnObject.getData() != null && returnObject.getData().size() > 0) {
               if (mCurrentPage == 1) {
-                 mFaqDatas = returnObject.getData();
+                mFaqDatas = returnObject.getData();
               } else {
                 mFaqDatas.addAll(returnObject.getData());
               }
@@ -139,9 +139,10 @@ public class FaqListActivity extends BaseActivity {
         switch (error.getKind()) {
           case HTTP:
             org.maepaysoh.maepaysoh.models.Error mError =
-                (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
-            Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
-                Toast.LENGTH_SHORT).show();
+                (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(
+                    org.maepaysoh.maepaysoh.models.Error.class);
+            Toast.makeText(FaqListActivity.this, mError.getError().getMessage(), Toast.LENGTH_SHORT)
+                .show();
             break;
           case NETWORK:
             Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
