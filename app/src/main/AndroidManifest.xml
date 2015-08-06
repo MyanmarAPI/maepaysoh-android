@@ -46,6 +46,11 @@
         android:label="@string/FaqList"
         >
     </activity>
+    <activity
+        android:name=".ui.FaqDetailActivity"
+        android:label="@string/FaqList"
+        >
+    </activity>
   </application>
 
 </manifest>

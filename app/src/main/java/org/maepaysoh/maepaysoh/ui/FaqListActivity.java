@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,7 +37,7 @@ import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 /**
  * Created by Ye Lin Aung on 15/08/06.
  */
-public class FaqListActivity extends BaseActivity {
+public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInterface{
 
   private static String TAG = makeLogTag(FaqListActivity.class);
   private RecyclerView mFaqListRecyclerView;
@@ -85,6 +86,7 @@ public class FaqListActivity extends BaseActivity {
     mFaqRestAdapter = RetrofitHelper.getResAdapter();
     mFaqService = mFaqRestAdapter.create(FaqService.class);
     mFaqAdapter = new FaqAdapter();
+    mFaqAdapter.setOnItemClickListener(this);
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this,
         mFaqAdapter, new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
       @Override public void onLoadMoreRequested() {
@@ -155,5 +157,13 @@ public class FaqListActivity extends BaseActivity {
         mErrorView.setVisibility(View.VISIBLE);
       }
     });
+  }
+
+  @Override public void onItemClick(View view, int position) {
+    Intent goToFaqDetailIntent = new Intent();
+    goToFaqDetailIntent.setClass(FaqListActivity.this, FaqDetailActivity.class);
+    goToFaqDetailIntent.putExtra(FaqDetailActivity.FAQ_CONSTANT,
+        mFaqDatas.get(position));
+    startActivity(goToFaqDetailIntent);
   }
 }
