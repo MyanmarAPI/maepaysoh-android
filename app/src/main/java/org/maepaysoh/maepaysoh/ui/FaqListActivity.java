@@ -79,6 +79,7 @@ public class FaqListActivity extends BaseActivity {
     }
 
     viewUtils = new ViewUtils(this);
+    viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     mLayoutManager = new LinearLayoutManager(this);
     mFaqListRecyclerView.setLayoutManager(mLayoutManager);
     mFaqRestAdapter = RetrofitHelper.getResAdapter();
