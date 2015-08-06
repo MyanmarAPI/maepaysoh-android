@@ -86,7 +86,6 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
     mFaqRestAdapter = RetrofitHelper.getResAdapter();
     mFaqService = mFaqRestAdapter.create(FaqService.class);
     mFaqAdapter = new FaqAdapter();
-    mFaqAdapter.setOnItemClickListener(this);
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this,
         mFaqAdapter, new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
       @Override public void onLoadMoreRequested() {
