@@ -95,14 +95,14 @@ public class FaqListActivity extends BaseActivity
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
-            loadFaqDatas(null);
+            loadFaqData(null);
           }
         });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    loadFaqDatas(null);
+    loadFaqData(null);
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        loadFaqDatas(null);
+        loadFaqData(null);
       }
     });
   }
@@ -123,7 +123,7 @@ public class FaqListActivity extends BaseActivity
     return super.onOptionsItemSelected(item);
   }
 
-  private void loadFaqDatas(@Nullable String query) {
+  private void loadFaqData(@Nullable String query) {
     TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
     errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
     mRetryBtn.setVisibility(View.VISIBLE);
@@ -255,7 +255,7 @@ public class FaqListActivity extends BaseActivity
 
   @Override public boolean onQueryTextChange(String newText) {
     mCurrentPage = 1;
-    loadFaqDatas(newText);
+    loadFaqData(newText);
     LOGD(TAG, "searching");
     return true;
   }
