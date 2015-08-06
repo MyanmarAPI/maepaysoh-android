@@ -42,8 +42,7 @@ import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
  * Created by Ye Lin Aung on 15/08/06.
  */
 public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInterface,
-    android.support.v7.widget.SearchView.OnQueryTextListener,
-    android.support.v7.widget.SearchView.OnCloseListener{
+    android.support.v7.widget.SearchView.OnQueryTextListener{
 
   private static String TAG = makeLogTag(FaqListActivity.class);
   private RecyclerView mFaqListRecyclerView;
@@ -59,6 +58,7 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
   private int mCurrentPage = 1;
   private List<FaqDatum> mFaqDatas;
   private android.support.v7.widget.SearchView mSearchView;
+  private MenuItem mSearchMenu;
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_faq_list);
@@ -108,10 +108,10 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_faq,menu);
+    mSearchMenu = menu.findItem(R.id.menu_search);
     mSearchView =
-        (android.support.v7.widget.SearchView) menu.findItem(R.id.menu_search).getActionView();
+        (android.support.v7.widget.SearchView) mSearchMenu.getActionView();
     mSearchView.setOnQueryTextListener(this);
-    mSearchView.setOnCloseListener(this);
     return true;
   }
 
@@ -242,15 +242,11 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
   @Override public void onItemClick(View view, int position) {
     Intent goToFaqDetailIntent = new Intent();
     goToFaqDetailIntent.setClass(FaqListActivity.this, FaqDetailActivity.class);
-    goToFaqDetailIntent.putExtra(FaqDetailActivity.FAQ_CONSTANT,
-        mFaqDatas.get(position));
+    goToFaqDetailIntent.putExtra(FaqDetailActivity.FAQ_CONSTANT, mFaqDatas.get(position));
     startActivity(goToFaqDetailIntent);
   }
 
   @Override public boolean onQueryTextSubmit(String query) {
-    mCurrentPage = 1;
-    loadFaqDatas(query);
-    LOGD(TAG,"searching");
     return true;
   }
 
@@ -258,12 +254,6 @@ public class FaqListActivity extends BaseActivity implements FaqAdapter.ClickInt
     mCurrentPage = 1;
     loadFaqDatas(newText);
     LOGD(TAG, "searching");
-    return true;
-  }
-
-  @Override public boolean onClose() {
-    mCurrentPage = 1;
-    loadFaqDatas(null);
     return true;
   }
 }
