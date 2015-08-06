@@ -62,7 +62,7 @@ public class PartyDetailActivity extends BaseActivity {
     mPartyRegApprovalDate = (TextView) findViewById(R.id.party_reg_approval_date);
     mPartyApprovedNo = (TextView) findViewById(R.id.party_approved_no);
     mPartyRegion = (TextView) findViewById(R.id.party_region);
-    mPartyHeadquarters = (TextView) findViewById(R.id.party_headquaters);
+    mPartyHeadquarters = (TextView) findViewById(R.id.party_headquarters);
     mPartyContact = (TextView) findViewById(R.id.party_contact);
     mPartyPolicy = (TextView) findViewById(R.id.party_policy);
     mPartySeal = (ImageView) findViewById(R.id.party_seal);

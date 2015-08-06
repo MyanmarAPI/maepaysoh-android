@@ -11,4 +11,20 @@
   <string name="PleaseCheckNetworkAndTryAgain">Check your connection and try again.</string>
   <string name="SomethingWentWrong">Sorry. Something went wrong.</string>
 
+  <!-- Party Detail labels -->
+  <string name="PartyFlag">Party Flag</string>
+  <string name="PartyLeadership">Leadership</string>
+  <string name="PartyChairman">Chairman</string>
+  <string name="PartyMemberCount">Member Count</string>
+  <string name="PartyEstablishmentDate">Establishment Date</string>
+  <string name="PartyEstablishmentApprovalDate">Establishment Approval Date</string>
+  <string name="PartyRegistrationApplicationDate">Registration Application Date</string>
+  <string name="PartyRegistrationApprovalDate">Registration Approval Date</string>
+  <string name="PartyApprovedPartyNumber">Approved Party Number</string>
+  <string name="PartyRegion">Region</string>
+  <string name="PartyHeadquarters">Headquarters</string>
+  <string name="PartyContact">Contact</string>
+  <string name="PartyPolicy">Policy</string>
+  <string name="PartySeal">Party Seal</string>
+
 </resources>
