@@ -87,9 +87,9 @@ public class PartyDetailActivity extends BaseActivity {
           mPartyLeader.append(leader + "၊ ");
         }
       }
-      List<String> chairmans = mPartyData.getChairman();
-      for (String chairman : chairmans) {
-        if (leaders.indexOf(chairman) == chairmans.size() - 1) {
+      List<String> chairmen = mPartyData.getChairman();
+      for (String chairman : chairmen) {
+        if (leaders.indexOf(chairman) == chairmen.size() - 1) {
           mPartyChairman.append(chairman);
         } else {
           mPartyChairman.append(chairman + "၊ ");

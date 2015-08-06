@@ -25,6 +25,7 @@ public class HomeActivity extends BaseActivity {
     mToolbarShadow = findViewById(R.id.home_toolbar_shadow);
     mPartyListBtn = (Button) findViewById(R.id.home_party_list_btn);
     mCandidateListBtn = (Button) findViewById(R.id.home_candidate_list_btn);
+    mFaqListBtn = (Button) findViewById(R.id.home_faq_list_btn);
 
     mToolbar.setTitle(getString(R.string.app_name));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
