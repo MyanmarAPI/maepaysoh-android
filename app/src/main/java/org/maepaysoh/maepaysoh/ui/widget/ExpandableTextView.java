@@ -28,7 +28,6 @@ public class ExpandableTextView extends TextView {
 
     public ExpandableTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView);
         this.trimLength = typedArray.getInt(R.styleable.ExpandableTextView_trimLength, DEFAULT_TRIM_LENGTH);
         typedArray.recycle();
@@ -38,7 +37,6 @@ public class ExpandableTextView extends TextView {
             public void onClick(View v) {
                 trim = !trim;
                 setText();
-                requestFocusFromTouch();
             }
         });
     }
