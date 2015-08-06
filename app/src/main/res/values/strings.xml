@@ -4,6 +4,8 @@
   <string name="PartyList">Party List</string>
   <string name="PartyDetailTitle">Party Detail</string>
   <string name="CandidateList">Candidate List</string>
+  <string name="FaqList">FAQ List</string>
+
   <string name="Retry">Retry</string>
 
   <!-- Error messages -->

@@ -37,6 +37,13 @@
           android:text="@string/CandidateList"
           />
 
+      <Button
+          android:id="@+id/home_faq_list_btn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/FaqList"
+          />
+
     </LinearLayout>
 
     <!-- Toolbar Shadow -->
