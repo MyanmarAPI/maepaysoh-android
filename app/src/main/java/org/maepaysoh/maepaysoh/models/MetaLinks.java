@@ -3,10 +3,10 @@ package org.maepaysoh.maepaysoh.models;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class CandidateLinks {
+public class MetaLinks {
   private String next;
 
-  public CandidateLinks() {
+  public MetaLinks() {
   }
 
   /**

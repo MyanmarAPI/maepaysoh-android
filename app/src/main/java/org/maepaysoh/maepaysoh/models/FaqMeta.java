@@ -1,9 +1,9 @@
 package org.maepaysoh.maepaysoh.models;
 
 /**
- * Created by Ye Lin Aung on 15/08/03.
+ * Created by Ye Lin Aung on 15/08/06.
  */
-public class CandidateMeta {
+public class FaqMeta {
   private MetaPagination pagination;
 
   /**

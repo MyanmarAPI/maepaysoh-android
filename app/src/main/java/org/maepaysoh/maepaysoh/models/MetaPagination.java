@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class CandidatePagination {
+public class MetaPagination {
 
   private int total;
   private int count;
   @SerializedName("per_page") private int perPage;
   @SerializedName("current_page") private int currentPage;
   @SerializedName("total_pages") private int totalPages;
-  private CandidateLinks links;
+  private MetaLinks links;
 
-  public CandidatePagination() {
+  public MetaPagination() {
   }
 
   /**
@@ -90,14 +90,14 @@ public class CandidatePagination {
   /**
    * @return The links
    */
-  public CandidateLinks getLinks() {
+  public MetaLinks getLinks() {
     return links;
   }
 
   /**
    * @param links The links
    */
-  public void setLinks(CandidateLinks links) {
+  public void setLinks(MetaLinks links) {
     this.links = links;
   }
 }
