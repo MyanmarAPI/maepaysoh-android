@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
@@ -49,7 +50,11 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         holder.mPartyLeader.append(leader + "၊ ");
       }
     }
-    Glide.with(mContext).load(partyData.getPartyFlag()).centerCrop().into(holder.mPartyFlag);
+    Glide.with(mContext)
+        .load(partyData.getPartyFlag())
+        .centerCrop()
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(holder.mPartyFlag);
   }
 
   public void setOnItemClickListener(ClickInterface clickInterface) {
