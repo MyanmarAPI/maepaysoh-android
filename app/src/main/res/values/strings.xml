@@ -8,6 +8,7 @@
   <string name="FaqList">FAQ List</string>
 
   <string name="Retry">Retry</string>
+  <string name="Share">Share</string>
 
   <!-- Error messages -->
   <string name="PleaseCheckNetwork">Please check your network connection.</string>

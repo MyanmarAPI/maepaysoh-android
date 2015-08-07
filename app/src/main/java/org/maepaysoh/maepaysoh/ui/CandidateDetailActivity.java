@@ -54,12 +54,14 @@ public class CandidateDetailActivity extends BaseActivity {
     mParty = (TextView) findViewById(R.id.candidate_party);
     mMotherName = (TextView) findViewById(R.id.candidate_mother);
     mFatherName = (TextView) findViewById(R.id.candidate_father);
+
     setSupportActionBar(mToolbar);
     ActionBar mActionBar = getSupportActionBar();
     if (mActionBar != null) {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
+
     mCandidateData = (CandidateData) getIntent().getSerializableExtra(CANDIDATE_CONSTANT);
     if (mCandidateData != null) {
       mCandidateName.setText(mCandidateData.getName());

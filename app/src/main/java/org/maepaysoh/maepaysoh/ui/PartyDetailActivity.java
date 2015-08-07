@@ -73,6 +73,7 @@ public class PartyDetailActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
+
     mPartyData = (PartyData) getIntent().getSerializableExtra(PARTY_CONSTANT);
     if (mPartyData != null) {
       Glide.with(this).load(mPartyData.getPartyFlag()).into(mPartyFlag);
