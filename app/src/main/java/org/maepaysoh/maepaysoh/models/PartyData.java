@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class PartyData implements Serializable {
 
+  @SerializedName("_id") private String partyId;
   @SerializedName("party_name") private String PartyName;
   @SerializedName("party_name_english") private String PartyNameEnglish;
   @SerializedName("establishment_date") private String EstablishmentDate;
@@ -26,6 +27,14 @@ public class PartyData implements Serializable {
   @SerializedName("headquarters") private String Headquarters;
   @SerializedName("contact") private List<String> Contact = new ArrayList<>();
   @SerializedName("policy") private String Policy;
+
+  public String getPartyId() {
+    return partyId;
+  }
+
+  public void setPartyId(String partyId) {
+    this.partyId = partyId;
+  }
 
   /**
    * @return The PartyName
