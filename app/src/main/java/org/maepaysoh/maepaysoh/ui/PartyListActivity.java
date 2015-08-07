@@ -158,8 +158,9 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         }
 
         // Hide Progress on failure too
-        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
-        mErrorView.setVisibility(View.VISIBLE);
+        //  viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
+        //  mErrorView.setVisibility(View.VISIBLE);
+        loadFromCache();
       }
     });
   }
