@@ -31,7 +31,8 @@ public class PartyDao {
     mMaepaysohDbHelper.close();
   }
 
-  public boolean createParty(PartyData partyData) {
+  public boolean createParty(PartyData partyData) throws SQLException {
+    open();
     ContentValues partyContentValues = new ContentValues();
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ID, partyData.getPartyId());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_NAME, partyData.getPartyName());
@@ -40,7 +41,7 @@ public class PartyDao {
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER,
         partyData.getApprovedPartyNumber());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE,
-        partyData.getEstablishmentDate());
+        partyData.getEstablishmentApprovalDate());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE,
         partyData.getEstablishmentApprovalDate());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT, partyData.getMemberCount());
@@ -61,13 +62,16 @@ public class PartyDao {
     mMaepaysohDb.endTransaction();
     if (insertId > 0) {
       mMaepaysohDb.setTransactionSuccessful();
+      close();
       return true;
     } else {
+      close();
       return false;
     }
   }
 
-  public List<PartyData> getAllPartyData() {
+  public List<PartyData> getAllPartyData() throws SQLException {
+    open();
     List<PartyData> partyDatas = new ArrayList<>();
     Cursor cursor =
         mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY, null, null, null, null, null, null);
@@ -78,14 +82,17 @@ public class PartyDao {
       cursor.moveToNext();
     }
     cursor.close();
+    close();
     return partyDatas;
   }
 
-  public PartyData getPartyById(String id) {
+  public PartyData getPartyById(String id) throws SQLException {
+    open();
     Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY, null,
         MaepaysohDbHelper.COLUMN_PARTY_ID + " = " + id, null, null, null, null);
     PartyData partyData = cursorToParty(cursor);
     cursor.close();
+    close();
     return partyData;
   }
 

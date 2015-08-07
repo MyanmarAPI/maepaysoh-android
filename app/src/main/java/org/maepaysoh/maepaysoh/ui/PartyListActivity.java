@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import java.sql.SQLException;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
+import org.maepaysoh.maepaysoh.db.PartyDao;
 import org.maepaysoh.maepaysoh.models.Error;
 import org.maepaysoh.maepaysoh.models.Party;
 import org.maepaysoh.maepaysoh.models.PartyData;
@@ -39,6 +41,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   private PartyAdapter mPartyAdapter;
 
   private ViewUtils viewUtils;
+  private PartyDao mPartyDao;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,7 +76,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
-
+    mPartyDao = new PartyDao(this);
     downloadPartyList();
 
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +125,13 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
             mParties = returnObject.getData();
             mPartyAdapter.setParties(mParties);
             mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+            for(PartyData data:mParties){
+              try {
+                mPartyDao.createParty(data);
+              } catch (SQLException e) {
+                e.printStackTrace();
+              }
+            }
             break;
         }
       }
