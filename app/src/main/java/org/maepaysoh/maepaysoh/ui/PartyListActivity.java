@@ -172,6 +172,9 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         mPartyAdapter.setParties(mParties);
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+      }else{
+        viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
+        mErrorView.setVisibility(View.VISIBLE);
       }
     } catch (SQLException e) {
       viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);

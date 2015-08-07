@@ -278,14 +278,17 @@ public class FaqListActivity extends BaseActivity
   }
 
   private void loadFromCache() {
+    //Disable pagination in cache
+    mEndlessRecyclerViewAdapter.onDataReady(false);
     try {
       mFaqDatas = mFaqDao.getAllFaqData();
       if (mFaqDatas != null && mFaqDatas.size() > 0) {
         viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
         mFaqAdapter.setFaqs(mFaqDatas);
         mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
-        //Disable pagination in cache
-        mEndlessRecyclerViewAdapter.onDataReady(false);
+      }else{
+        viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);
+        mErrorView.setVisibility(View.VISIBLE);
       }
     } catch (SQLException e) {
       viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);
