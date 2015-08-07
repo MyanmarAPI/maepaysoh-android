@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.models.PartyData;
+import org.maepaysoh.maepaysoh.utils.JsonUtils;
 
 /**
  * Created by yemyatthu on 8/7/15.
@@ -41,6 +44,11 @@ public class PartyDao {
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_REGION, partyData.getRegion());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_PARTY_FLAG, partyData.getPartyFlag());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_PARTY_SEAL, partyData.getPartySeal());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_CONTACT, JsonUtils.convertToJson(
+        partyData.getContact()));
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_CHAIRMAN,JsonUtils.convertToJson(partyData.getChairman()));
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP,JsonUtils.convertToJson(partyData.getLeadership()));
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER,partyData.getHeadquarters());
     mMaepaysohDb.beginTransaction();
     long insertId = mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY,null,partyContentValues);
     mMaepaysohDb.endTransaction();
@@ -65,9 +73,20 @@ public class PartyDao {
     return partyDatas;
   }
 
+  public PartyData getPartyById(String id){
+    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY,null,MaepaysohDbHelper.COLUMN_PARTY_ID+" = "+id,null,null,null,null);
+    PartyData partyData = cursorToParty(cursor);
+    cursor.close();
+    return partyData;
+  }
+
   private PartyData cursorToParty(Cursor cursor){
+    Type type = new TypeToken<List<String>>() {
+    }.getType();
+
     PartyData partyData = new PartyData();
-    partyData.setPartyId(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ID)));
+    partyData.setPartyId(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ID)));
     partyData.setPartyName(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME)));
     partyData.setPartyNameEnglish(
@@ -78,7 +97,26 @@ public class PartyDao {
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
     partyData.setEstablishmentDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE)));
-    partyData.setMemberCount(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
+    partyData.setMemberCount(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
+    partyData.setHeadquarters(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER)));
+    partyData.setChairman(JsonUtils.convertToJava(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_CHAIRMAN)),
+        type));
+    partyData.setLeadership(JsonUtils.convertToJava(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP)),
+        type));
+    partyData.setContact(JsonUtils.convertToJava(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_CONTACT)),
+        type));
+    partyData.setPartyFlag(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_PARTY_FLAG)));
+    partyData.setPartySeal(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_PARTY_SEAL)));
+    partyData.setPolicy(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_POLICY)));
+    partyData.setRegion(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGION)));
     return partyData;
   }
 }

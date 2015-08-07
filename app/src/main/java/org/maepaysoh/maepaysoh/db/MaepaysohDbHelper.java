@@ -29,6 +29,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String COLUMN_PARTY_CONTACT = "contact";
   public static final String COLUMN_PARTY_POLICY = "policy";
   public static final String COLUMN_PARTY_HEADQUARTER = "party_headquarter";
+  public static final String COLUMN_PARTY_LEADERSHIP = "leadership";
   public static final int DATABASE_VERSION = 1;
   public static final String DATABASE_NAME = "maepaysoh.db";
   private static final String COMMA_SEP = ",";
@@ -38,6 +39,9 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_PARTY + " (" +
           MaepaysohDbHelper.COLUMN_PARTY_ID + " INTEGER PRIMARY KEY," +
           MaepaysohDbHelper.COLUMN_PARTY_NAME + TEXT_TYPE + COMMA_SEP +
+           MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH + TEXT_TYPE + COMMA_SEP +
+           MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE + TEXT_TYPE + COMMA_SEP +
