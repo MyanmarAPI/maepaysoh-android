@@ -27,19 +27,42 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String COLUMN_PARTY_REGION = "region";
   public static final String COLUMN_PARTY_CONTACT = "contact";
   public static final String COLUMN_PARTY_POLICY = "policy";
-
   public static final int DATABASE_VERSION = 1;
   public static final String DATABASE_NAME = "maepaysoh.db";
+  private static final String COMMA_SEP = ",";
+  private static final String TEXT_TYPE = " TEXT";
+
+  private static final String SQL_CREATE_PARTY_TABLE =
+      "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_PARTY + " (" +
+          MaepaysohDbHelper.COLUMN_PARTY_ID + " INTEGER PRIMARY KEY," +
+          MaepaysohDbHelper.COLUMN_PARTY_NAME + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPLICATION_DATE + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPROVAL_DATE + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_PARTY_FLAG + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_PARTY_SEAL + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_CHAIRMAN + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_REGION + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_CONTACT + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_POLICY + TEXT_TYPE + COMMA_SEP +
+          " )";
+
+  private static final String SQL_DELETE_PARTIES =
+      "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_PARTY;
 
   public MaepaysohDbHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
   }
 
   @Override public void onCreate(SQLiteDatabase db) {
-
+    db.execSQL(SQL_CREATE_PARTY_TABLE);
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+    db.execSQL(SQL_DELETE_PARTIES);
+    onCreate(db);
   }
 }
