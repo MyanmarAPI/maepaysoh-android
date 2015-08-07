@@ -14,6 +14,8 @@ import org.maepaysoh.maepaysoh.models.Residency;
 /**
  * Created by Ye Lin Aung on 15/08/07.
  */
+
+// TODO: 8/7/15 CREATE SEPERATE TABLE FOR ALL NESTED OBJECTS
 public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final int DATABASE_VERSION = 1;
   public static final String DATABASE_NAME = "maepaysoh.db";

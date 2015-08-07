@@ -22,6 +22,7 @@ import org.maepaysoh.maepaysoh.utils.JsonUtils;
 /**
  * Created by yemyatthu on 8/7/15.
  */
+// TODO: 8/7/15 USE SQL RELATIONSHIP IN PLACE OF JSON SERIALIZATION
 public class CandidateDao {
   private SQLiteDatabase mMaepaysohDb;
   private MaepaysohDbHelper mMaepaysohDbHelper;
@@ -118,7 +119,7 @@ public class CandidateDao {
     candidateData.setBirthdate(
         cursor.getInt(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE)));
     candidateData.setConstituency(gson.fromJson(cursor.getString(
-        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY)),
+            cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY)),
         Constituency.class));
     candidateData.setEducation(JsonUtils.convertToJava(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION)), type));
@@ -134,10 +135,9 @@ public class CandidateDao {
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE)));
     candidateData.setNationalityReligion(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION)));
-    candidateData.setPartyId(
-        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID)));
-    candidateData.setResidency(gson.fromJson(cursor.getString(
-        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY)), Residency.class));
+    candidateData.setPartyId(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID)));
+    candidateData.setResidency(gson.fromJson(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY)), Residency.class));
     return candidateData;
   }
 

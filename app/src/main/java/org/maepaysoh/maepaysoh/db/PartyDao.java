@@ -17,6 +17,7 @@ import org.maepaysoh.maepaysoh.utils.JsonUtils;
 /**
  * Created by yemyatthu on 8/7/15.
  */
+// TODO: 8/7/15 USE SQL RELATIONSHIP IN PLACE OF JSON SERIALIZATION
 public class PartyDao {
   private SQLiteDatabase mMaepaysohDb;
   private MaepaysohDbHelper mMaepaysohDbHelper;
