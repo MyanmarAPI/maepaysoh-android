@@ -22,6 +22,7 @@ import org.maepaysoh.maepaysoh.db.PartyDao;
 import org.maepaysoh.maepaysoh.models.Error;
 import org.maepaysoh.maepaysoh.models.Party;
 import org.maepaysoh.maepaysoh.models.PartyData;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -77,7 +78,11 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
     mPartyDao = new PartyDao(this);
-    downloadPartyList();
+    if(InternetUtils.isNetworkAvailable(this)) {
+      downloadPartyList();
+    }else{
+      loadFromCache();
+    }
 
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -125,7 +130,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
             mParties = returnObject.getData();
             mPartyAdapter.setParties(mParties);
             mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
-            for(PartyData data:mParties){
+            for (PartyData data : mParties) {
               try {
                 mPartyDao.createParty(data);
               } catch (SQLException e) {
@@ -157,5 +162,19 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         mErrorView.setVisibility(View.VISIBLE);
       }
     });
+  }
+
+  private void loadFromCache(){
+    try {
+      mParties = mPartyDao.getAllPartyData();
+      if(mParties!=null && mParties.size()>0) {
+        viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
+        mPartyAdapter.setParties(mParties);
+        mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+      }
+    } catch (SQLException e) {
+      mErrorView.setVisibility(View.VISIBLE);
+      e.printStackTrace();
+    }
   }
 }
