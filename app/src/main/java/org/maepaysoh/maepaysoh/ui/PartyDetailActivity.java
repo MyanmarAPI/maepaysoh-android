@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import java.util.List;
@@ -42,6 +44,8 @@ public class PartyDetailActivity extends BaseActivity {
   private TextView mPartyPolicy;
   private PartyData mPartyData;
   private ImageView mPartySeal;
+
+  private ShareActionProvider mShareActionProvider;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -120,6 +124,9 @@ public class PartyDetailActivity extends BaseActivity {
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_party_detail, menu);
+    //MenuItem item = menu.findItem(R.id.party_detail_action_share);
+    //mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+    //share(mShareActionProvider.);
     return true;
   }
 
@@ -128,8 +135,20 @@ public class PartyDetailActivity extends BaseActivity {
       case android.R.id.home:
         finish();
         return true;
+      case R.id.party_detail_action_share:
+        share();
+        return true;
       default:
         return super.onOptionsItemSelected(item);
     }
+  }
+
+  private void share() {
+    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+    sharingIntent.setType("text/plain");
+    String shareBody = "Here is the share content body";
+    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+    startActivity(Intent.createChooser(sharingIntent, "Share via"));
   }
 }
