@@ -50,7 +50,7 @@ public class CandidateDao {
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION,
         candidateData.getNationalityReligion());
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE,
-        String.valueOf(candidateData.getBirthdate()));
+        (long)candidateData.getBirthdate());
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION,
         JsonUtils.convertToJson(candidateData.getEducation()));
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_OCCUPATION,
@@ -117,7 +117,8 @@ public class CandidateDao {
     candidateData.setNationalId(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID)));
     candidateData.setBirthdate(
-        Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE))));
+        (int) cursor.getLong(
+            cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE)));
     candidateData.setConstituency(gson.fromJson(cursor.getString(
             cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY)),
         Constituency.class));

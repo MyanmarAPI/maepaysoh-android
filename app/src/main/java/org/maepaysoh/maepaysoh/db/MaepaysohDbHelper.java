@@ -21,7 +21,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String DATABASE_NAME = "maepaysoh.db";
   private static final String COMMA_SEP = ",";
   private static final String TEXT_TYPE = " TEXT";
-  private static final String NUMERIC_TYPE = "INTEGER";
+  private static final String NUMERIC_TYPE = " LONG";
 
   // Party
   public static final String TABLE_NAME_PARTY = "parties";
@@ -129,7 +129,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID + TEXT_TYPE + COMMA_SEP +
-          MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE + NUMERIC_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_OCCUPATION + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY + TEXT_TYPE + COMMA_SEP +
