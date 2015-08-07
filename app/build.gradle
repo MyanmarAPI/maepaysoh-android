@@ -30,7 +30,6 @@ android {
     }
 
     debug {
-      applicationIdSuffix ".debug"
       versionNameSuffix "-debug" + "-build" + buildTime()
     }
   }
@@ -58,4 +57,5 @@ dependencies {
   compile 'com.squareup.okhttp:okhttp:2.4.0'
   compile 'com.github.bumptech.glide:glide:3.6.1'
   compile 'com.google.android.gms:play-services:7.5.0'
+  compile 'com.google.maps.android:android-maps-utils:0.4'
 }
