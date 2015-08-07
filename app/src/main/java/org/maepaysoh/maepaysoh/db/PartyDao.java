@@ -57,8 +57,12 @@ public class PartyDao {
     Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY,null,null,null,null,null,null);
     cursor.moveToFirst();
     while(!cursor.isAfterLast()){
-      PartyData partyData =
+      PartyData partyData = cursorToParty(cursor);
+      partyDatas.add(partyData);
+      cursor.moveToNext();
     }
+    cursor.close();
+    return partyDatas;
   }
 
   private PartyData cursorToParty(Cursor cursor){
@@ -70,7 +74,11 @@ public class PartyDao {
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH)));
     partyData.setEstablishmentApprovalDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE)));
-    partyData.setApprovedPartyNumber(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
+    partyData.setApprovedPartyNumber(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
+    partyData.setEstablishmentDate(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE)));
+    partyData.setMemberCount(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
     return partyData;
   }
 }
