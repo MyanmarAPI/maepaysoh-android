@@ -103,6 +103,7 @@ public class FaqListActivity extends BaseActivity
           }
         });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
+    mFaqDao = new FaqDao(this);
     if(InternetUtils.isNetworkAvailable(this)) {
       loadFaqData(null);
     }else{
@@ -113,7 +114,6 @@ public class FaqListActivity extends BaseActivity
         loadFaqData(null);
       }
     });
-    mFaqDao = new FaqDao(this);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -198,6 +198,7 @@ public class FaqListActivity extends BaseActivity
 
           // Hide Progress on failure too
           viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+          mFaqAdapter.setFaqs(null);
           mEndlessRecyclerViewAdapter.onDataReady(false);
           mErrorView.setVisibility(View.VISIBLE);
         }
@@ -283,6 +284,8 @@ public class FaqListActivity extends BaseActivity
         viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
         mFaqAdapter.setFaqs(mFaqDatas);
         mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
+        //Disable pagination in cache
+        mEndlessRecyclerViewAdapter.onDataReady(false);
       }
     } catch (SQLException e) {
       viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);

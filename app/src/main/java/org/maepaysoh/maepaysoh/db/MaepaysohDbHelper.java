@@ -77,7 +77,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_FAQ_basis + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_type + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_sections + TEXT_TYPE + COMMA_SEP +
-          MaepaysohDbHelper.COLUMN_FAQ_url + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_FAQ_url + TEXT_TYPE +
           " )";
 
   private static final String SQL_DELETE_FAQS =
