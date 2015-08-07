@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,9 +22,11 @@ import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
 import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
 import org.maepaysoh.maepaysoh.api.CandidateService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
+import org.maepaysoh.maepaysoh.db.CandidateDao;
 import org.maepaysoh.maepaysoh.models.Candidate;
 import org.maepaysoh.maepaysoh.models.CandidateData;
 import org.maepaysoh.maepaysoh.models.Error;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -59,6 +62,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private CandidateAdapter mCandidateAdapter;
   private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
   private int mCurrentPage = 1;
+  private CandidateDao mCandidateDao;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -102,7 +106,13 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
 
     mCandidateRestAdapter = RetrofitHelper.getResAdapter();
     mCandidateListService = mCandidateRestAdapter.create(CandidateService.class);
-    downloadCandidateList();
+    mCandidateDao = new CandidateDao(this);
+    if(InternetUtils.isNetworkAvailable(this)){
+      downloadCandidateList();
+    }else{
+      loadFromCache();
+    }
+
 
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -131,6 +141,9 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         switch (response.getStatus()) {
           case 200:
             if (returnObject.getData() != null && returnObject.getData().size() > 0) {
+              for(CandidateData candidateData: returnObject.getData()){
+                mCandidateDao.createCandidate(candidateData);
+              }
               if (mCurrentPage == 1) {
                 mCandidateDatas = returnObject.getData();
               } else {
@@ -162,9 +175,13 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         }
 
         // Hide Progress on failure too
-        viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
-        mEndlessRecyclerViewAdapter.onDataReady(false);
-        mErrorView.setVisibility(View.VISIBLE);
+        if(mCurrentPage==1){
+          loadFromCache();
+        }else {
+          viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+          mEndlessRecyclerViewAdapter.onDataReady(false);
+          mErrorView.setVisibility(View.VISIBLE);
+        }
       }
     });
   }
@@ -175,5 +192,25 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
         mCandidateDatas.get(position));
     startActivity(goToCandiDetailIntent);
+  }
+
+  private void loadFromCache() {
+    //Disable pagination in cache
+    mEndlessRecyclerViewAdapter.onDataReady(false);
+    try {
+      mCandidateDatas = mCandidateDao.getAllCandidateData();
+      if (mCandidateDatas != null && mCandidateDatas.size() > 0) {
+        viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+        mCandidateAdapter.setCandidates(mCandidateDatas);
+        mCandidateAdapter.setOnItemClickListener(CandidateListActivity.this);
+      }else{
+        viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);
+        mErrorView.setVisibility(View.VISIBLE);
+      }
+    } catch (SQLException e) {
+      viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);
+      mErrorView.setVisibility(View.VISIBLE);
+      e.printStackTrace();
+    }
   }
 }
