@@ -13,6 +13,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String TABLE_NAME_PARTY = "parties";
   public static final String COLUMN_PARTY_ID = "_id";
   public static final String COLUMN_PARTY_NAME = "name";
+  public static final String COLUMN_PARTY_NAME_ENGLISH = "name_english";
   public static final String COLUMN_PARTY_ESTABLISHMENT_DATE = "establishment_date";
   public static final String COLUMN_PARTY_MEMBER_COUNT = "member_count";
   public static final String COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE =
