@@ -57,15 +57,11 @@ public class PartyDao {
     mMaepaysohDb.beginTransaction();
     long insertId =
         mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues);
-    mMaepaysohDb.endTransaction();
-    if (insertId > 0) {
+    if(insertId>0){
       mMaepaysohDb.setTransactionSuccessful();
-      close();
-      return true;
-    } else {
-      close();
-      return false;
     }
+    mMaepaysohDb.endTransaction();
+    return true;
   }
 
   public List<PartyData> getAllPartyData() throws SQLException {
