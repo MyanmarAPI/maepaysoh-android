@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,5 +23,13 @@ public class BaseActivity extends AppCompatActivity {
       shadowView.setVisibility(View.GONE);
       mToolbar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation_height));
     }
+  }
+
+  protected void share(String title, String body) {
+    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+    sharingIntent.setType("text/plain");
+    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
+    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
+    startActivity(Intent.createChooser(sharingIntent, "Share via"));
   }
 }

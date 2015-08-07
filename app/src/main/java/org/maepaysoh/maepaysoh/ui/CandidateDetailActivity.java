@@ -3,6 +3,7 @@ package org.maepaysoh.maepaysoh.ui;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -93,11 +94,19 @@ public class CandidateDetailActivity extends BaseActivity {
     }
   }
 
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_candidate_detail, menu);
+    return true;
+  }
+
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home:
         finish();
         return true;
+      case R.id.candidate_detail_action_share:
+        // TODO What do we want to share
+        share(mCandidateData.getName(), mCandidateData.getId());
       default:
         return super.onOptionsItemSelected(item);
     }
