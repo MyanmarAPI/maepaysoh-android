@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,8 +24,10 @@ import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
 import org.maepaysoh.maepaysoh.adapters.FaqAdapter;
 import org.maepaysoh.maepaysoh.api.FaqService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
+import org.maepaysoh.maepaysoh.db.FaqDao;
 import org.maepaysoh.maepaysoh.models.FAQ;
 import org.maepaysoh.maepaysoh.models.FaqDatum;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -59,6 +62,7 @@ public class FaqListActivity extends BaseActivity
   private List<FaqDatum> mFaqDatas;
   private android.support.v7.widget.SearchView mSearchView;
   private MenuItem mSearchMenu;
+  private FaqDao mFaqDao;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -99,12 +103,17 @@ public class FaqListActivity extends BaseActivity
           }
         });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    loadFaqData(null);
+    if(InternetUtils.isNetworkAvailable(this)) {
+      loadFaqData(null);
+    }else{
+      loadFromCache();
+    }
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         loadFaqData(null);
       }
     });
+    mFaqDao = new FaqDao(this);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -202,6 +211,9 @@ public class FaqListActivity extends BaseActivity
           switch (response.getStatus()) {
             case 200:
               if (returnObject.getData() != null && returnObject.getData().size() > 0) {
+                for(FaqDatum faqDatum: returnObject.getData()){
+                  mFaqDao.createFaq(faqDatum);
+                }
                 if (mCurrentPage == 1) {
                   mFaqDatas = returnObject.getData();
                 } else {
@@ -234,9 +246,13 @@ public class FaqListActivity extends BaseActivity
           }
 
           // Hide Progress on failure too
-          viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-          mEndlessRecyclerViewAdapter.onDataReady(false);
-          mErrorView.setVisibility(View.VISIBLE);
+          if(mCurrentPage==1){
+            loadFromCache();
+          }else {
+            viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+            mEndlessRecyclerViewAdapter.onDataReady(false);
+            mErrorView.setVisibility(View.VISIBLE);
+          }
         }
       });
     }
@@ -258,5 +274,20 @@ public class FaqListActivity extends BaseActivity
     loadFaqData(newText);
     LOGD(TAG, "searching");
     return true;
+  }
+
+  private void loadFromCache() {
+    try {
+      mFaqDatas = mFaqDao.getAllFaqData();
+      if (mFaqDatas != null && mFaqDatas.size() > 0) {
+        viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+        mFaqAdapter.setFaqs(mFaqDatas);
+        mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
+      }
+    } catch (SQLException e) {
+      viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);
+      mErrorView.setVisibility(View.VISIBLE);
+      e.printStackTrace();
+    }
   }
 }
