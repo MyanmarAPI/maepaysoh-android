@@ -25,6 +25,11 @@ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
         android:name=".ui.HomeActivity"
         android:label="@string/app_name"
         >
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
     </activity>
     <activity
         android:name=".ui.PartyListActivity"
@@ -59,14 +64,8 @@ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
 
     <activity
         android:name=".ui.LocationListActivity"
-        android:label="@string/app_name"
-        android:exported="true"
+        android:label="@string/LocationList"
         >
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
     </activity>
 
     <meta-data
