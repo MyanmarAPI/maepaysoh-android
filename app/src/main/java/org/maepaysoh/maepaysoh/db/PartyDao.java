@@ -48,11 +48,13 @@ public class PartyDao {
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_REGION, partyData.getRegion());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_PARTY_FLAG, partyData.getPartyFlag());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_PARTY_SEAL, partyData.getPartySeal());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_CONTACT, JsonUtils.convertToJson(
-        partyData.getContact()));
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_CHAIRMAN,JsonUtils.convertToJson(partyData.getChairman()));
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP,JsonUtils.convertToJson(partyData.getLeadership()));
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER,partyData.getHeadquarters());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_CONTACT,
+        JsonUtils.convertToJson(partyData.getContact()));
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_CHAIRMAN,
+        JsonUtils.convertToJson(partyData.getChairman()));
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP,
+        JsonUtils.convertToJson(partyData.getLeadership()));
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER, partyData.getHeadquarters());
     mMaepaysohDb.beginTransaction();
     long insertId =
         mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues);
@@ -79,8 +81,9 @@ public class PartyDao {
     return partyDatas;
   }
 
-  public PartyData getPartyById(String id){
-    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY,null,MaepaysohDbHelper.COLUMN_PARTY_ID+" = "+id,null,null,null,null);
+  public PartyData getPartyById(String id) {
+    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY, null,
+        MaepaysohDbHelper.COLUMN_PARTY_ID + " = " + id, null, null, null, null);
     PartyData partyData = cursorToParty(cursor);
     cursor.close();
     return partyData;
@@ -102,8 +105,8 @@ public class PartyDao {
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
     partyData.setEstablishmentDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE)));
-    partyData.setMemberCount(
-        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
+    partyData.setMemberCount(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
     partyData.setHeadquarters(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER)));
     partyData.setChairman(JsonUtils.convertToJava(
@@ -121,7 +124,8 @@ public class PartyDao {
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_PARTY_SEAL)));
     partyData.setPolicy(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_POLICY)));
-    partyData.setRegion(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGION)));
+    partyData.setRegion(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGION)));
     return partyData;
   }
 }
