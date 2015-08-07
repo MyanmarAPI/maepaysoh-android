@@ -108,6 +108,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   private Father father;
   public static final String TABLE_NAME_CANDIDATE = "candidates";
   public static final String COLUMN_CANDIDATE_ID = "_id";
+  public static final String COLUMN_CANDIDATE_NAME = "name";
   public static final String COLUMN_CANDIDATE_LEGISLATURE = "legislature";
   public static final String COLUMN_CANDIDATE_NATIONAL_ID = "national_id";
   public static final String COLUMN_CANDIDATE_BIRTHDATE = "birthdate";
@@ -123,6 +124,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   private static final String SQL_CREATE_CANDIDATE_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE + " (" +
           MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE + NUMERIC_TYPE + COMMA_SEP +
