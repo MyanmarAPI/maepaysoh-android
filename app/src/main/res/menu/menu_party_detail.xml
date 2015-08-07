@@ -8,6 +8,7 @@
       android:id="@+id/party_detail_action_share"
       android:title="@string/Share"
       android:orderInCategory="100"
-      app:showAsAction="never"
+      app:showAsAction="ifRoom"
+      android:icon="@mipmap/ic_share_white_36dp"
       />
 </menu>

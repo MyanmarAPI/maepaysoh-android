@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.util.Linkify;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -115,6 +116,11 @@ public class PartyDetailActivity extends BaseActivity {
       mPartyPolicy.setText(mPartyData.getPolicy());
       Linkify.addLinks(mPartyPolicy, Linkify.WEB_URLS);
     }
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_party_detail, menu);
+    return true;
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
