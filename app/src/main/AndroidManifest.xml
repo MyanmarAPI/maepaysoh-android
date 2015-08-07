@@ -58,7 +58,7 @@ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
     </activity>
 
     <activity
-        android:name=".ui.GeolocationActivity"
+        android:name=".ui.LocationListActivity"
         android:label="@string/app_name"
         android:exported="true"
         >

@@ -16,6 +16,7 @@ public class HomeActivity extends BaseActivity {
   private Button mPartyListBtn;
   private Button mCandidateListBtn;
   private Button mFaqListBtn;
+  private Button mLocationListBtn;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,6 +49,13 @@ public class HomeActivity extends BaseActivity {
       @Override public void onClick(View v) {
         Intent goToFaqList = new Intent(HomeActivity.this, FaqListActivity.class);
         startActivity(goToFaqList);
+      }
+    });
+
+    mLocationListBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent goToLocationList = new Intent(HomeActivity.this, LocationListActivity.class);
+        startActivity(goToLocationList);
       }
     });
   }

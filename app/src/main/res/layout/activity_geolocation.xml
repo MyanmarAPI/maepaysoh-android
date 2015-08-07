@@ -3,5 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/map"
-    tools:context="org.maepaysoh.maepaysoh.ui.GeolocationActivity"
+    tools:context="org.maepaysoh.maepaysoh.ui.LocationListActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment"/>

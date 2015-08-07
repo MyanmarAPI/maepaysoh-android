@@ -14,7 +14,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.maepaysoh.maepaysoh.R;
 
-public class GeolocationActivity extends FragmentActivity {
+public class LocationListActivity extends FragmentActivity {
 
   private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
