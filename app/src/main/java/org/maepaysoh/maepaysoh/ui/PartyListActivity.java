@@ -173,6 +173,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
       }
     } catch (SQLException e) {
+      viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
       mErrorView.setVisibility(View.VISIBLE);
       e.printStackTrace();
     }
