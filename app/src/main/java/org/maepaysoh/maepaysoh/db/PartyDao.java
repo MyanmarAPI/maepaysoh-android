@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
@@ -55,12 +57,15 @@ public class PartyDao {
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP,JsonUtils.convertToJson(partyData.getLeadership()));
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER,partyData.getHeadquarters());
     mMaepaysohDb.beginTransaction();
-    long insertId =
-        mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues);
-    if(insertId>0){
+    try {
+      long insertId =
+          mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues);
       mMaepaysohDb.setTransactionSuccessful();
+    }catch (SQLiteException e){
+      Log.e("error: ",e.getLocalizedMessage());
+    }finally {
+      mMaepaysohDb.endTransaction();
     }
-    mMaepaysohDb.endTransaction();
     return true;
   }
 
