@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class Residency implements Serializable{
+public class Residency implements Serializable {
   private String type;
   private String name;
   private int count;

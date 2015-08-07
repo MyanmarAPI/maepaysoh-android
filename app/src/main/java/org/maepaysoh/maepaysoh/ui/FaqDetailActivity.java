@@ -13,15 +13,13 @@ import org.maepaysoh.maepaysoh.models.FaqDatum;
  * Created by yemyatthu on 8/6/15.
  */
 public class FaqDetailActivity extends BaseActivity {
-  public static final String FAQ_CONSTANT =
-      "org.maepaysoh.maepaysoh.ui.FaqDetailActivity";
+  public static final String FAQ_CONSTANT = "org.maepaysoh.maepaysoh.ui.FaqDetailActivity";
 
   // Ui elements
   private Toolbar mToolbar;
   private View mToolbarShadow;
   private TextView mQuestion;
   private TextView mAnswer;
-
 
   private FaqDatum mFaqDatum;
 
@@ -47,14 +45,13 @@ public class FaqDetailActivity extends BaseActivity {
     }
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item){
-      switch (item.getItemId()) {
-        case android.R.id.home:
-          finish();
-          return true;
-        default:
-          return super.onOptionsItemSelected(item);
-      }
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
-
+  }
 }

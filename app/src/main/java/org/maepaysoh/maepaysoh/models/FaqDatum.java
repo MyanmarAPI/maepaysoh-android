@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Ye Lin Aung on 15/08/06.
  */
-public class FaqDatum implements Serializable{
+public class FaqDatum implements Serializable {
   private String id;
   private String question;
   private String answer;

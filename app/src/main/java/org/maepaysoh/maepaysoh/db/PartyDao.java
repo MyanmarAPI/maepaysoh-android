@@ -67,9 +67,9 @@ public class PartyDao {
       long insertId =
           mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues);
       mMaepaysohDb.setTransactionSuccessful();
-    }catch (SQLiteException e){
-      Log.e("error: ",e.getLocalizedMessage());
-    }finally {
+    } catch (SQLiteException e) {
+      Log.e("error: ", e.getLocalizedMessage());
+    } finally {
       mMaepaysohDb.endTransaction();
     }
     return true;
@@ -109,15 +109,14 @@ public class PartyDao {
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ID)));
     partyData.setPartyName(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME)));
-    partyData.setPartyNameEnglish(
-        cursor.getString(
+    partyData.setPartyNameEnglish(cursor.getString(
             cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH)));
     partyData.setEstablishmentApprovalDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE)));
     partyData.setRegistrationApprovalDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPROVAL_DATE)));
-    partyData.setRegistrationApplicationDate(cursor.getString(
-        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPLICATION_DATE)));
+    partyData.setRegistrationApplicationDate(cursor.getString(cursor.getColumnIndexOrThrow(
+        MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPLICATION_DATE)));
     partyData.setApprovedPartyNumber(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
     partyData.setEstablishmentDate(cursor.getString(

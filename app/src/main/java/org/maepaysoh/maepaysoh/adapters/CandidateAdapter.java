@@ -18,6 +18,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
   private List<CandidateData> mCandidateDatas;
   private Context mContext;
   private ClickInterface mClickInterface;
+
   public CandidateAdapter() {
     mCandidateDatas = new ArrayList<>();
   }
@@ -36,7 +37,8 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     CandidateData candidateData = mCandidateDatas.get(position);
     ((CandidateViewHolder) holder).mCandidateName.setText(candidateData.getName());
-    ((CandidateViewHolder) holder).mCandidateOccupation.setText("");//Reset the textview unless you want some weird shit to happen
+    ((CandidateViewHolder) holder).mCandidateOccupation.setText(
+        "");//Reset the textview unless you want some weird shit to happen
     List<String> occupations = candidateData.getOccupation();
     for (String occupation : occupations) {
       if (occupations.indexOf(occupation) == occupations.size() - 1) {
@@ -59,8 +61,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     void onItemClick(View view, int position);
   }
 
-
-  class CandidateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+  class CandidateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView mCandidateName;
     private TextView mCandidateOccupation;
 
@@ -72,8 +73,8 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override public void onClick(View view) {
-      if(mClickInterface!=null){
-        mClickInterface.onItemClick(view,getAdapterPosition());
+      if (mClickInterface != null) {
+        mClickInterface.onItemClick(view, getAdapterPosition());
       }
     }
   }

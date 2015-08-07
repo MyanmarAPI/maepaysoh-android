@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class Constituency implements Serializable{
+public class Constituency implements Serializable {
   private String type;
   private String name;
   private int count;

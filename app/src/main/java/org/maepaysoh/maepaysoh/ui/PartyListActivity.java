@@ -78,9 +78,9 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
     mPartyDao = new PartyDao(this);
-    if(InternetUtils.isNetworkAvailable(this)) {
+    if (InternetUtils.isNetworkAvailable(this)) {
       downloadPartyList();
-    }else{
+    } else {
       loadFromCache();
     }
 
@@ -164,11 +164,11 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     });
   }
 
-  private void loadFromCache(){
+  private void loadFromCache() {
     try {
       mParties = mPartyDao.getAllPartyData();
-      if(mParties!=null && mParties.size()>0) {
-        viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
+      if (mParties != null && mParties.size() > 0) {
+        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         mPartyAdapter.setParties(mParties);
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
       }

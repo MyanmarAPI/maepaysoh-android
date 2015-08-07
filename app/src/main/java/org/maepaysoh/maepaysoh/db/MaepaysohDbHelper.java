@@ -39,8 +39,8 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_PARTY + " (" +
           MaepaysohDbHelper.COLUMN_PARTY_ID + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_NAME + TEXT_TYPE + COMMA_SEP +
-           MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH + TEXT_TYPE + COMMA_SEP +
-           MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_LEADERSHIP + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT + TEXT_TYPE + COMMA_SEP +
@@ -53,7 +53,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_PARTY_CHAIRMAN + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_REGION + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_CONTACT + TEXT_TYPE + COMMA_SEP +
-          MaepaysohDbHelper.COLUMN_PARTY_POLICY + TEXT_TYPE+
+          MaepaysohDbHelper.COLUMN_PARTY_POLICY + TEXT_TYPE +
           " )";
 
   private static final String SQL_DELETE_PARTIES =

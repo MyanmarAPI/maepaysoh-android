@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class CandidateData implements Serializable{
+public class CandidateData implements Serializable {
 
   private String id;
   private String name;

@@ -8,7 +8,9 @@ import android.net.ConnectivityManager;
  */
 public class InternetUtils {
   public static boolean isNetworkAvailable(final Context context) {
-    final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-    return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    final ConnectivityManager connectivityManager =
+        ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+    return connectivityManager.getActiveNetworkInfo() != null
+        && connectivityManager.getActiveNetworkInfo().isConnected();
   }
 }
