@@ -46,6 +46,10 @@ public class PartyDao {
         partyData.getEstablishmentApprovalDate());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE,
         partyData.getEstablishmentApprovalDate());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPLICATION_DATE,
+        partyData.getRegistrationApplicationDate());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPROVAL_DATE,
+        partyData.getRegistrationApprovalDate());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT, partyData.getMemberCount());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_POLICY, partyData.getPolicy());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_REGION, partyData.getRegion());
@@ -105,10 +109,15 @@ public class PartyDao {
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ID)));
     partyData.setPartyName(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME)));
-    partyData.setPartyNameEnglish(cursor.getString(
-        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH)));
+    partyData.setPartyNameEnglish(
+        cursor.getString(
+            cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH)));
     partyData.setEstablishmentApprovalDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE)));
+    partyData.setRegistrationApprovalDate(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPROVAL_DATE)));
+    partyData.setRegistrationApplicationDate(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_REGISTRATION_APPLICATION_DATE)));
     partyData.setApprovedPartyNumber(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
     partyData.setEstablishmentDate(cursor.getString(
