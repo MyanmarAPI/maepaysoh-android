@@ -3,6 +3,13 @@ package org.maepaysoh.maepaysoh.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import java.util.List;
+import org.maepaysoh.maepaysoh.models.Constituency;
+import org.maepaysoh.maepaysoh.models.Father;
+import org.maepaysoh.maepaysoh.models.Mother;
+import org.maepaysoh.maepaysoh.models.Residency;
 
 /**
  * Created by Ye Lin Aung on 15/08/07.
@@ -12,6 +19,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String DATABASE_NAME = "maepaysoh.db";
   private static final String COMMA_SEP = ",";
   private static final String TEXT_TYPE = " TEXT";
+  private static final String NUMERIC_TYPE = "NUMERIC";
 
   // Party
   public static final String TABLE_NAME_PARTY = "parties";
@@ -83,6 +91,54 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   private static final String SQL_DELETE_FAQS =
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_FAQ;
 
+
+  //candidate
+  private String id;
+  private String name;
+  private String legislature;
+  @SerializedName("national_id") private String nationalId;
+  private int birthdate;
+  private List<String> education = new ArrayList<String>();
+  private List<String> occupation = new ArrayList<String>();
+  @SerializedName("nationality_religion") private String nationalityReligion;
+  private Residency residency;
+  private Constituency constituency;
+  @SerializedName("party_id") private String partyId;
+  private Mother mother;
+  private Father father;
+  public static final String TABLE_NAME_CANDIDATE = "candidates";
+  public static final String COLUMN_CANDIDATE_ID = "_id";
+  public static final String COLUMN_CANDIDATE_LEGISLATURE = "legislature";
+  public static final String COLUMN_CANDIDATE_NATIONAL_ID = "national_id";
+  public static final String COLUMN_CANDIDATE_BIRTHDATE = "birthdate";
+  public static final String COLUMN_CANDIDATE_EDUCATION= "education";
+  public static final String COLUMN_CANDIDATE_OCCUPATION = "occupation";
+  public static final String COLUMN_CANDIDATE_RESIDENCY = "residence";
+  public static final String COLUMN_CANDIDATE_CONSTITUENCY = "constituency";
+  public static final String COLUMN_CANDIDATE_NATIONALITY_RELIGION = "nationality_religion";
+  public static final String COLUMN_CANDIDATE_PARTY_ID = "party_id";
+  public static final String COLUMN_CANDIDATE_FATHER = "father";
+  public static final String COLUMN_CANDIDATE_MOTHER = "mother";
+
+  private static final String SQL_CREATE_CANDIDATE_TABLE =
+      "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE + " (" +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE + NUMERIC_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_OCCUPATION + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER + TEXT_TYPE +
+          " )";
+
+  private static final String SQL_DELETE_CANDIDATES =
+      "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE;
+
   public MaepaysohDbHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
   }
@@ -90,11 +146,13 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   @Override public void onCreate(SQLiteDatabase db) {
     db.execSQL(SQL_CREATE_PARTY_TABLE);
     db.execSQL(SQL_CREATE_FAQ_TABLE);
+    db.execSQL(SQL_CREATE_CANDIDATE_TABLE);
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     db.execSQL(SQL_DELETE_PARTIES);
     db.execSQL(SQL_DELETE_FAQS);
+    db.execSQL(SQL_DELETE_CANDIDATES);
     onCreate(db);
   }
 }
