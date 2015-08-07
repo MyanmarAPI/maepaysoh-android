@@ -4,6 +4,7 @@ import java.util.Map;
 import org.maepaysoh.maepaysoh.models.FAQ;
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.QueryMap;
 
 /**
@@ -16,12 +17,20 @@ public interface FaqService {
       Callback<FAQ> faqCallback
   );
 
-  enum PARAM_TYPE {
-    font, per_page, page,q
-  }
   @GET("/faq/search")
   void searchFaqs(
       @QueryMap Map<PARAM_TYPE, String> options,
       Callback<FAQ> faqCallback
   );
+
+  @GET("/faq/{faq_id}")
+  void searchFaqById(
+      @Path("faq_id") String faqId,
+      @QueryMap Map<PARAM_TYPE, String> options,
+      Callback<FAQ> faqCallback
+  );
+
+  enum PARAM_TYPE {
+    font, per_page, page, q
+  }
 }

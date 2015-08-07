@@ -16,47 +16,53 @@ public class PartyDao {
   private SQLiteDatabase mMaepaysohDb;
   private MaepaysohDbHelper mMaepaysohDbHelper;
 
-  public PartyDao(Context context){
+  public PartyDao(Context context) {
     mMaepaysohDbHelper = new MaepaysohDbHelper(context);
   }
 
-  public void open() throws SQLException{
+  public void open() throws SQLException {
     mMaepaysohDb = mMaepaysohDbHelper.getWritableDatabase();
   }
 
-  public void close() throws SQLException{
+  public void close() throws SQLException {
     mMaepaysohDbHelper.close();
   }
 
-  public boolean createParty(PartyData partyData){
+  public boolean createParty(PartyData partyData) {
     ContentValues partyContentValues = new ContentValues();
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ID,partyData.getPartyId());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_NAME,partyData.getPartyName());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH,partyData.getPartyNameEnglish());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER,partyData.getApprovedPartyNumber());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE,partyData.getEstablishmentDate());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE,partyData.getEstablishmentApprovalDate());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT,partyData.getMemberCount());
-    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_POLICY,partyData.getPolicy());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ID, partyData.getPartyId());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_NAME, partyData.getPartyName());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH,
+        partyData.getPartyNameEnglish());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER,
+        partyData.getApprovedPartyNumber());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE,
+        partyData.getEstablishmentDate());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE,
+        partyData.getEstablishmentApprovalDate());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT, partyData.getMemberCount());
+    partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_POLICY, partyData.getPolicy());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_REGION, partyData.getRegion());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_PARTY_FLAG, partyData.getPartyFlag());
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_PARTY_SEAL, partyData.getPartySeal());
     mMaepaysohDb.beginTransaction();
-    long insertId = mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY,null,partyContentValues);
+    long insertId =
+        mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues);
     mMaepaysohDb.endTransaction();
-    if(insertId>0) {
+    if (insertId > 0) {
       mMaepaysohDb.setTransactionSuccessful();
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  public List<PartyData> getAllPartyData(){
+  public List<PartyData> getAllPartyData() {
     List<PartyData> partyDatas = new ArrayList<>();
-    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY,null,null,null,null,null,null);
+    Cursor cursor =
+        mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY, null, null, null, null, null, null);
     cursor.moveToFirst();
-    while(!cursor.isAfterLast()){
+    while (!cursor.isAfterLast()) {
       PartyData partyData = cursorToParty(cursor);
       partyDatas.add(partyData);
       cursor.moveToNext();
@@ -65,20 +71,22 @@ public class PartyDao {
     return partyDatas;
   }
 
-  private PartyData cursorToParty(Cursor cursor){
+  private PartyData cursorToParty(Cursor cursor) {
     PartyData partyData = new PartyData();
-    partyData.setPartyId(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ID)));
+    partyData.setPartyId(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ID)));
     partyData.setPartyName(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME)));
-    partyData.setPartyNameEnglish(
-        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH)));
+    partyData.setPartyNameEnglish(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH)));
     partyData.setEstablishmentApprovalDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_APPROVAL_DATE)));
     partyData.setApprovedPartyNumber(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_APPROVED_PARTY_NUMBER)));
     partyData.setEstablishmentDate(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_ESTABLISHMENT_DATE)));
-    partyData.setMemberCount(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
+    partyData.setMemberCount(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_PARTY_MEMBER_COUNT)));
     return partyData;
   }
 }
