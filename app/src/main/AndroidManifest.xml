@@ -68,6 +68,13 @@ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
         >
     </activity>
 
+    <activity
+        android:name=".ui.LocationDetailActivity"
+        android:label="@string/LocationDetail"
+        >
+    </activity>
+
+
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version"

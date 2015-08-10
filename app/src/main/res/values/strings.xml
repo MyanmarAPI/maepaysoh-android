@@ -7,6 +7,7 @@
   <string name="CandidateDetailTitle">Candidate Detail</string>
   <string name="FaqList">FAQ List</string>
   <string name="LocationList">Location List</string>
+  <string name="LocationDetail">Location Detail</string>
 
   <string name="Retry">Retry</string>
   <string name="Share">Share</string>

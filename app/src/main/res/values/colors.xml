@@ -4,5 +4,6 @@
   <color name="primary_dark">#1A237E</color>
   <color name="accent">#fff</color>
   
-  <color name="transparent">#30303f9f</color>
+  <color name="geojson_background_color">#30303f9f</color>
+  <color name="geojson_stroke_color">#30000000</color>
 </resources>
