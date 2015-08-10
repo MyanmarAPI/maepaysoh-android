@@ -16,6 +16,7 @@ public class HomeActivity extends BaseActivity {
   private Button mPartyListBtn;
   private Button mCandidateListBtn;
   private Button mFaqListBtn;
+  private Button mLocationListBtn;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -26,6 +27,7 @@ public class HomeActivity extends BaseActivity {
     mPartyListBtn = (Button) findViewById(R.id.home_party_list_btn);
     mCandidateListBtn = (Button) findViewById(R.id.home_candidate_list_btn);
     mFaqListBtn = (Button) findViewById(R.id.home_faq_list_btn);
+    mLocationListBtn = (Button) findViewById(R.id.home_location_list_btn);
 
     mToolbar.setTitle(getString(R.string.app_name));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
@@ -48,6 +50,13 @@ public class HomeActivity extends BaseActivity {
       @Override public void onClick(View v) {
         Intent goToFaqList = new Intent(HomeActivity.this, FaqListActivity.class);
         startActivity(goToFaqList);
+      }
+    });
+
+    mLocationListBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent goToLocationList = new Intent(HomeActivity.this, LocationListActivity.class);
+        startActivity(goToLocationList);
       }
     });
   }
