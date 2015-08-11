@@ -11,12 +11,11 @@ import retrofit.RestAdapter;
 /**
  * Created by yemyatthu on 8/11/15.
  */
-public class CandidateAPIHelper {
+public class CandidateAPIHelper{
   private RestAdapter mCandidateRestAdapter;
   private CandidateService mCandidateService;
-  private Map<CandidateService.PARAM_FIELD,String> optionParams;
-  public CandidateAPIHelper(){
-    mCandidateRestAdapter = RetrofitHelper.getResAdapter();
+  public CandidateAPIHelper(String token){
+    mCandidateRestAdapter = RetrofitHelper.getResAdapter(token);
     mCandidateService = mCandidateRestAdapter.create(CandidateService.class);
   }
 
@@ -55,7 +54,7 @@ public class CandidateAPIHelper {
    * @param callback
    */
   public void getCandidates(Boolean withParty,Boolean unicode,int firstPage,Callback<Candidate> callback){
-    getCandidates(withParty,unicode,firstPage,15,callback);
+    getCandidates(withParty, unicode, firstPage, 15, callback);
   }
 
   /**
@@ -67,7 +66,7 @@ public class CandidateAPIHelper {
    * @param callback
    */
   public void getCandidates(Boolean withParty,Boolean unicode,int firstPage,int perPage,Callback<Candidate> callback){
-   optionParams = new HashMap<>();
+    Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
     }
@@ -78,7 +77,20 @@ public class CandidateAPIHelper {
     }
     optionParams.put(CandidateService.PARAM_FIELD.page,String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page,String.valueOf(perPage));
-    mCandidateService.listCandidates(optionParams, callback);
+    mCandidateService.listCandidates(optionParams,callback);
+  }
+
+  public void getCandidateById(String candidateId,Boolean withParty,Boolean unicode,Callback<Candidate> callback){
+    Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
+    if(withParty) {
+      optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
+    }
+    if(unicode) {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.UNICODE);
+    }else{
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
+    }
+    mCandidateService.getCandidateById(candidateId,optionParams,callback);
   }
 
 }

@@ -10,9 +10,8 @@ import retrofit.client.OkClient;
  * Created by yemyatthu on 8/4/15.
  */
 public class RetrofitHelper {
-  private static String token = "3db8827d-2521-57be-987a-e9e366874d4b";
 
-  public static RestAdapter getResAdapter() {
+  public static RestAdapter getResAdapter(final String token) {
     if (BuildConfig.DEBUG) {
       return new RestAdapter.Builder().setClient(new OkClient(new OkHttpClient()))
           .setEndpoint("http://api.maepaysoh.org")

@@ -12,8 +12,8 @@ import retrofit.RestAdapter;
 public class PartyAPIHelper {
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
-  public PartyAPIHelper(){
-    mPartyRestAdapter = RetrofitHelper.getResAdapter();
+  public PartyAPIHelper(String token){
+    mPartyRestAdapter = RetrofitHelper.getResAdapter(token);
     mPartyService = mPartyRestAdapter.create(PartyService.class);
   }
 
