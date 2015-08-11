@@ -85,7 +85,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        downloadPartyList();
+        downloadListSync();
       }
     });
   }
@@ -164,8 +164,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void loadFromCache() {
-    try {
-      mParties = mPartyDao.getAllPartyData();
+      //mParties = mPartyDao.getAllPartyData();
+      mParties = mPartyAPIHelper.getPartiesFromCache(PartyListActivity.this);
       if (mParties != null && mParties.size() > 0) {
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         mPartyAdapter.setParties(mParties);
@@ -174,11 +174,6 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
         mErrorView.setVisibility(View.VISIBLE);
       }
-    } catch (SQLException e) {
-      viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
-      mErrorView.setVisibility(View.VISIBLE);
-      e.printStackTrace();
-    }
   }
 
   private void downloadListSync(){
@@ -188,7 +183,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   class DownloadPartyListAsync extends AsyncTask<Void,Void,Party>{
 
     @Override protected Party doInBackground(Void... voids) {
-      return mPartyAPIHelper.getParties();
+      return mPartyAPIHelper.getParties(PartyListActivity.this,true);
     }
 
     @Override protected void onPostExecute(Party party) {
@@ -197,15 +192,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         mParties = party.getData();
         mPartyAdapter.setParties(mParties);
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
-        for (PartyData data : mParties) {
-          try {
-            mPartyDao.createParty(data);
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-      else{
+      } else{
         Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork), Toast.LENGTH_SHORT)
             .show();
         loadFromCache();
