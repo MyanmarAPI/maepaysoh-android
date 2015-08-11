@@ -4,5 +4,6 @@ package org.maepaysoh.maepaysoh;
  * Created by yemyatthu on 8/11/15.
  */
 public class Constants {
-  public static final String API_KEY="YOUR_KEY_HERE";
+  //Your api key here
+  public static final String API_KEY="3db8827d-2521-57be-987a-e9e366874d4b";
 }

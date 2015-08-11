@@ -16,6 +16,10 @@ public class PartyAPIHelper {
     mPartyService = mPartyRestAdapter.create(PartyService.class);
   }
 
+  /**
+   * 
+   * @param party
+   */
   public void getParties(Callback<Party> party){
     mPartyService.listParties(party);
   }

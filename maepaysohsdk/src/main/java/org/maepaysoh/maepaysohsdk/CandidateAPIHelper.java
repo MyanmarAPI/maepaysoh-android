@@ -81,13 +81,32 @@ public class CandidateAPIHelper{
     mCandidateService.listCandidates(optionParams, callback);
   }
 
+  /**
+   *
+   * @param candidateId
+   * @param callback
+   */
   public void getCandidateById(String candidateId,Callback<Candidate> callback){
     getCandidateById(candidateId,true,true,callback);
   }
+
+  /**
+   *
+   * @param candidateId
+   * @param withParty
+   * @param callback
+   */
   public void getCandidateById(String candidateId,boolean withParty,Callback<Candidate> callback){
     getCandidateById(candidateId,withParty,true,callback);
   }
 
+  /**
+   *
+   * @param candidateId
+   * @param withParty
+   * @param unicode
+   * @param callback
+   */
   public void getCandidateById(String candidateId,Boolean withParty,boolean unicode,Callback<Candidate> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {

@@ -19,19 +19,40 @@ public class FaqAPIHelper {
     mFaqService = mFaqRestAdapter.create(FaqService.class);
   }
 
+  /**
+   *
+   * @param callback
+   */
   public void getFaqs(Callback<FAQ> callback){
     getFaqs(true,1,15,callback);
   }
 
-
+  /**
+   *
+   * @param page
+   * @param callback
+   */
   public void getFaqs(int page,Callback<FAQ> callback){
     getFaqs(true,page,15,callback);
   }
 
+  /**
+   *
+   * @param unicode
+   * @param page
+   * @param callback
+   */
   public void getFaqs(boolean unicode,int page,Callback<FAQ> callback){
     getFaqs(unicode,page,callback);
   }
 
+  /**
+   *
+   * @param unicode
+   * @param page
+   * @param per_page
+   * @param callback
+   */
   public void getFaqs(boolean unicode, int page,int per_page,Callback<FAQ> callback){
     Map<PARAM_FIELD,String> optionParams = new HashMap<>();
     if(unicode) {
