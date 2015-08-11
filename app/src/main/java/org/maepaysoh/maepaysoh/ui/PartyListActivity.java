@@ -192,6 +192,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     }
 
     @Override protected void onPostExecute(Party party) {
+      viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
       if(party!=null){
         mParties = party.getData();
         mPartyAdapter.setParties(mParties);
