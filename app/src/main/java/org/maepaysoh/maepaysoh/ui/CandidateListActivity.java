@@ -124,7 +124,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void downloadCandidateList() {
-    mCandidateAPIHelper.getCandidates(new Callback<Candidate>() {
+    mCandidateAPIHelper.getCandidates(true,true,mCurrentPage,15,new Callback<Candidate>() {
       @Override public void success(Candidate returnObject, Response response) {
         // Hide Progress on success
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);

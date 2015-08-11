@@ -193,7 +193,7 @@ public class FaqListActivity extends BaseActivity
       //  }
       //});
     } else {
-      mFaqAPIHelper.getFaqs(new Callback<FAQ>() {
+      mFaqAPIHelper.getFaqs(mCurrentPage,new Callback<FAQ>() {
         @Override public void success(FAQ returnObject, Response response) {
 
           // Hide Progress on success
