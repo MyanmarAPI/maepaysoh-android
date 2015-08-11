@@ -75,7 +75,7 @@ public class FaqAPIHelper {
     optionParams.put(PARAM_FIELD.q,keyword);
     mFaqService.searchFaqs(optionParams, callback);
   }
-  
+
   public enum PARAM_FIELD {
     font, per_page, page, q
   }
