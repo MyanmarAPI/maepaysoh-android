@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.yemyatthu.maepaesohsdk.models.PartyData;
-import java.util.ArrayList;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysohsdk.models.PartyData;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.

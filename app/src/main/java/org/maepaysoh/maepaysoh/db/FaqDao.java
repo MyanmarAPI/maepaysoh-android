@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import com.google.gson.reflect.TypeToken;
-import com.yemyatthu.maepaesohsdk.models.FaqDatum;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.utils.JsonUtils;
+import org.maepaysoh.maepaysohsdk.models.FaqDatum;
 
 /**
  * Created by yemyatthu on 8/7/15.

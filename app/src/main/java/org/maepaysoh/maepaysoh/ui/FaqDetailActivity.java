@@ -6,8 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import com.yemyatthu.maepaesohsdk.models.FaqDatum;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysohsdk.models.FaqDatum;
 
 /**
  * Created by yemyatthu on 8/6/15.

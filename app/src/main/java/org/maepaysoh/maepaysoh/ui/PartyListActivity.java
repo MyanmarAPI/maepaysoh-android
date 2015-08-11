@@ -12,21 +12,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.yemyatthu.maepaesohsdk.PartyAPIHelper;
-import com.yemyatthu.maepaesohsdk.models.Error;
-import com.yemyatthu.maepaesohsdk.models.Party;
-import com.yemyatthu.maepaesohsdk.models.PartyData;
 import java.sql.SQLException;
 import java.util.List;
+import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
-import org.maepaysoh.maepaysoh.api.PartyService;
-import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.db.PartyDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
+import org.maepaysoh.maepaysohsdk.PartyAPIHelper;
+import org.maepaysoh.maepaysohsdk.models.Party;
+import org.maepaysoh.maepaysohsdk.models.PartyData;
 import retrofit.Callback;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -36,9 +33,6 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   private ProgressBar mProgressView;
   private View mErrorView;
   private Button mRetryBtn;
-
-  private RestAdapter mPartyRestAdapter;
-  private PartyService mPartyService;
   private List<PartyData> mParties;
   private PartyAdapter mPartyAdapter;
 
@@ -79,7 +73,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
-    mPartyAPIHelper = new PartyAPIHelper();
+    mPartyAPIHelper = new PartyAPIHelper(Constants.API_KEY);
     mPartyDao = new PartyDao(this);
     if (InternetUtils.isNetworkAvailable(this)) {
       downloadPartyList();
@@ -145,7 +139,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
       @Override public void failure(RetrofitError error) {
         switch (error.getKind()) {
           case HTTP:
-            com.yemyatthu.maepaesohsdk.models.Error mError = (Error) error.getBodyAs(Error.class);
+            org.maepaysoh.maepaysohsdk.models.Error mError = (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(Error.class);
             Toast.makeText(PartyListActivity.this, mError.getError().getMessage(),
                 Toast.LENGTH_SHORT).show();
             break;
@@ -164,8 +158,6 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         loadFromCache();
       }
     });
-    mPartyRestAdapter = RetrofitHelper.getResAdapter();
-    mPartyService = mPartyRestAdapter.create(PartyService.class);
   }
 
   private void loadFromCache() {

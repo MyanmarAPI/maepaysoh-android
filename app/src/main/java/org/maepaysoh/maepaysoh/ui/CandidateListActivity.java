@@ -14,19 +14,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.yemyatthu.maepaesohsdk.CandidateAPIHelper;
-import com.yemyatthu.maepaesohsdk.models.Candidate;
-import com.yemyatthu.maepaesohsdk.models.CandidateData;
-import com.yemyatthu.maepaesohsdk.models.Error;
 import java.util.List;
+import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
 import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
-import org.maepaysoh.maepaysoh.api.CandidateService;
-import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.db.CandidateDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
+import org.maepaysoh.maepaysohsdk.CandidateAPIHelper;
+import org.maepaysoh.maepaysohsdk.api.CandidateService;
+import org.maepaysoh.maepaysohsdk.models.Candidate;
+import org.maepaysoh.maepaysohsdk.models.CandidateData;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -72,7 +71,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
     mErrorView = findViewById(R.id.candidate_list_error_view);
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
-    mCandidateAPIHelper = new CandidateAPIHelper();
+    mCandidateAPIHelper = new CandidateAPIHelper(Constants.API_KEY);
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
@@ -101,9 +100,6 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
           }
         });
     mCandidateListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-
-    mCandidateRestAdapter = RetrofitHelper.getResAdapter();
-    mCandidateListService = mCandidateRestAdapter.create(CandidateService.class);
     mCandidateDao = new CandidateDao(this);
     if(InternetUtils.isNetworkAvailable(this)){
       downloadCandidateList();
@@ -157,7 +153,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
       @Override public void failure(RetrofitError error) {
         switch (error.getKind()) {
           case HTTP:
-            com.yemyatthu.maepaesohsdk.models.Error mError = (Error) error.getBodyAs(Error.class);
+            org.maepaysoh.maepaysohsdk.models.Error mError = (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(Error.class);
             Toast.makeText(CandidateListActivity.this, mError.getError().getMessage(),
                 Toast.LENGTH_SHORT).show();
             break;

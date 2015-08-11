@@ -9,15 +9,15 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.yemyatthu.maepaesohsdk.models.CandidateData;
-import com.yemyatthu.maepaesohsdk.models.Constituency;
-import com.yemyatthu.maepaesohsdk.models.Father;
-import com.yemyatthu.maepaesohsdk.models.Mother;
-import com.yemyatthu.maepaesohsdk.models.Residency;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.utils.JsonUtils;
+import org.maepaysoh.maepaysohsdk.models.CandidateData;
+import org.maepaysoh.maepaysohsdk.models.Constituency;
+import org.maepaysoh.maepaysohsdk.models.Father;
+import org.maepaysoh.maepaysohsdk.models.Mother;
+import org.maepaysoh.maepaysohsdk.models.Residency;
 
 /**
  * Created by yemyatthu on 8/7/15.
