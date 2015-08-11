@@ -26,5 +26,6 @@ public class PartyAPIHelper {
 
   public Party getParties(){
     Party party = mPartyService.listParties();
+    return party;
   }
 }

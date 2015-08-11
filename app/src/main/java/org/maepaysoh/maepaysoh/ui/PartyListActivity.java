@@ -2,6 +2,7 @@ package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -76,7 +77,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyAPIHelper = new PartyAPIHelper(Constants.API_KEY);
     mPartyDao = new PartyDao(this);
     if (InternetUtils.isNetworkAvailable(this)) {
-      downloadPartyList();
+      //downloadPartyList();
+      downloadListSync();
     } else {
       loadFromCache();
     }
@@ -145,7 +147,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
                 Toast.LENGTH_SHORT).show();
             break;
           case NETWORK:
-            Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT)
+            Toast.makeText(PartyListActivity.this,  getString(R.string.PleaseCheckNetwork), Toast.LENGTH_SHORT)
                 .show();
             break;
           case CONVERSION:
@@ -178,4 +180,37 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
       e.printStackTrace();
     }
   }
+
+  private void downloadListSync(){
+    new DownloadPartyListAsync().execute();
+  }
+
+  class DownloadPartyListAsync extends AsyncTask<Void,Void,Party>{
+
+    @Override protected Party doInBackground(Void... voids) {
+      return mPartyAPIHelper.getParties();
+    }
+
+    @Override protected void onPostExecute(Party party) {
+      if(party!=null){
+        mParties = party.getData();
+        mPartyAdapter.setParties(mParties);
+        mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+        for (PartyData data : mParties) {
+          try {
+            mPartyDao.createParty(data);
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+      else{
+        Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork), Toast.LENGTH_SHORT)
+            .show();
+        loadFromCache();
+      }
+      super.onPostExecute(party);
+    }
+  }
 }
+
