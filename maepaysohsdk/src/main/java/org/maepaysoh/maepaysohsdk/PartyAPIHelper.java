@@ -20,7 +20,11 @@ public class PartyAPIHelper {
    * 
    * @param party
    */
-  public void getParties(Callback<Party> party){
-    mPartyService.listParties(party);
+  public void getPartiesAsync(Callback<Party> party){
+    mPartyService.listPartiesAsync(party);
+  }
+
+  public Party getParties(){
+    Party party = mPartyService.listParties();
   }
 }

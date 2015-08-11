@@ -116,7 +116,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void downloadPartyList() {
-    mPartyAPIHelper.getParties(new Callback<Party>() {
+    mPartyAPIHelper.getPartiesAsync(new Callback<Party>() {
       @Override public void success(Party returnObject, Response response) {
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
@@ -139,13 +139,14 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
       @Override public void failure(RetrofitError error) {
         switch (error.getKind()) {
           case HTTP:
-            org.maepaysoh.maepaysohsdk.models.Error mError = (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(Error.class);
+            org.maepaysoh.maepaysohsdk.models.Error mError =
+                (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(Error.class);
             Toast.makeText(PartyListActivity.this, mError.getError().getMessage(),
                 Toast.LENGTH_SHORT).show();
             break;
           case NETWORK:
-            Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(),
-                Toast.LENGTH_SHORT).show();
+            Toast.makeText(PartyListActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT)
+                .show();
             break;
           case CONVERSION:
             Toast.makeText(PartyListActivity.this, getString(R.string.SomethingWentWrong),
