@@ -32,9 +32,10 @@ public class CandidateAPIHelper{
    * @param withParty
    * @param callback
    */
-  public void getCandidates(Boolean withParty,Callback<Candidate> callback){
+  public void getCandidates(boolean withParty,Callback<Candidate> callback){
     getCandidates(withParty,true,1,15,callback);
   }
+
 
   /**
    *
@@ -42,7 +43,7 @@ public class CandidateAPIHelper{
    * @param unicode
    * @param callback
    */
-  public void getCandidates(Boolean withParty,Boolean unicode,Callback<Candidate> callback){
+  public void getCandidates(Boolean withParty,boolean unicode,Callback<Candidate> callback){
     getCandidates(withParty,unicode,1,15,callback);
   }
 
@@ -53,7 +54,7 @@ public class CandidateAPIHelper{
    * @param firstPage
    * @param callback
    */
-  public void getCandidates(Boolean withParty,Boolean unicode,int firstPage,Callback<Candidate> callback){
+  public void getCandidates(Boolean withParty,boolean unicode,int firstPage,Callback<Candidate> callback){
     getCandidates(withParty, unicode, firstPage, 15, callback);
   }
 
@@ -65,7 +66,7 @@ public class CandidateAPIHelper{
    * @param perPage
    * @param callback
    */
-  public void getCandidates(Boolean withParty,Boolean unicode,int firstPage,int perPage,Callback<Candidate> callback){
+  public void getCandidates(boolean withParty,boolean unicode,int firstPage,int perPage,Callback<Candidate> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -77,10 +78,17 @@ public class CandidateAPIHelper{
     }
     optionParams.put(CandidateService.PARAM_FIELD.page,String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page,String.valueOf(perPage));
-    mCandidateService.listCandidates(optionParams,callback);
+    mCandidateService.listCandidates(optionParams, callback);
   }
 
-  public void getCandidateById(String candidateId,Boolean withParty,Boolean unicode,Callback<Candidate> callback){
+  public void getCandidateById(String candidateId,Callback<Candidate> callback){
+    getCandidateById(candidateId,true,true,callback);
+  }
+  public void getCandidateById(String candidateId,boolean withParty,Callback<Candidate> callback){
+    getCandidateById(candidateId,withParty,true,callback);
+  }
+
+  public void getCandidateById(String candidateId,Boolean withParty,boolean unicode,Callback<Candidate> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
