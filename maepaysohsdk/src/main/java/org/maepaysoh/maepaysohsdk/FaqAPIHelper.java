@@ -62,9 +62,20 @@ public class FaqAPIHelper {
     }
     optionParams.put(PARAM_FIELD.page,String.valueOf(page));
     optionParams.put(PARAM_FIELD.per_page,String.valueOf(per_page));
-    mFaqService.listFaqs(optionParams,callback);
+    mFaqService.listFaqs(optionParams, callback);
   }
 
+  /**
+   *
+   * @param keyword
+   * @param callback
+   */
+  public void searchFaqs(String keyword,Callback<FAQ> callback){
+    Map<PARAM_FIELD,String> optionParams = new HashMap<>();
+    optionParams.put(PARAM_FIELD.q,keyword);
+    mFaqService.searchFaqs(optionParams, callback);
+  }
+  
   public enum PARAM_FIELD {
     font, per_page, page, q
   }
