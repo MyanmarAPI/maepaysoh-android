@@ -18,7 +18,7 @@ import java.util.List;
 // TODO: 8/7/15 CREATE SEPERATE TABLE FOR ALL NESTED OBJECTS
 public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final int DATABASE_VERSION = 1;
-  public static final String DATABASE_NAME = "maepaysoh.db";
+  public static final String DATABASE_NAME = "maepaesoh.db";
   private static final String COMMA_SEP = ",";
   private static final String TEXT_TYPE = " TEXT";
   private static final String NUMERIC_TYPE = " LONG";

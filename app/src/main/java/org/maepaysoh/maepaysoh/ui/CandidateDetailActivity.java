@@ -17,7 +17,7 @@ import org.maepaysoh.maepaysoh.R;
  */
 public class CandidateDetailActivity extends BaseActivity {
   public static final String CANDIDATE_CONSTANT =
-      "org.maepaysoh.maepaysoh.ui.CandidateDetailActivity";
+      "org.maepaesoh.maepaesoh.ui.CandidateDetailActivity";
 
   // Ui elements
   private Toolbar mToolbar;

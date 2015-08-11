@@ -143,9 +143,9 @@ public class FaqListActivity extends BaseActivity{
   //      @Override public void failure(RetrofitError error) {
   //        switch (error.getKind()) {
   //          case HTTP:
-  //            org.maepaysoh.maepaysoh.models.Error mError =
-  //                (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(
-  //                    org.maepaysoh.maepaysoh.models.Error.class);
+  //            org.maepaesoh.maepaesoh.models.Error mError =
+  //                (org.maepaesoh.maepaesoh.models.Error) error.getBodyAs(
+  //                    org.maepaesoh.maepaesoh.models.Error.class);
   //            Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
   //                Toast.LENGTH_SHORT).show();
   //            break;
@@ -193,9 +193,9 @@ public class FaqListActivity extends BaseActivity{
   //      @Override public void failure(RetrofitError error) {
   //        switch (error.getKind()) {
   //          case HTTP:
-  //            org.maepaysoh.maepaysoh.models.Error mError =
-  //                (org.maepaysoh.maepaysoh.models.Error) error.getBodyAs(
-  //                    org.maepaysoh.maepaysoh.models.Error.class);
+  //            org.maepaesoh.maepaesoh.models.Error mError =
+  //                (org.maepaesoh.maepaesoh.models.Error) error.getBodyAs(
+  //                    org.maepaesoh.maepaesoh.models.Error.class);
   //            Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
   //                Toast.LENGTH_SHORT).show();
   //            break;

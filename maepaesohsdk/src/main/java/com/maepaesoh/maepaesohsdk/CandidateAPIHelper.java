@@ -1,8 +1,8 @@
-package com.yemyatthu.maepaesohsdk;
+package com.maepaesoh.maepaesohsdk;
 
-import com.yemyatthu.maepaesohsdk.api.CandidateService;
-import com.yemyatthu.maepaesohsdk.api.RetrofitHelper;
-import com.yemyatthu.maepaesohsdk.models.Candidate;
+import com.maepaesoh.maepaesohsdk.api.CandidateService;
+import com.maepaesoh.maepaesohsdk.api.RetrofitHelper;
+import com.maepaesoh.maepaesohsdk.models.Candidate;
 import java.util.HashMap;
 import java.util.Map;
 import retrofit.Callback;
@@ -69,12 +69,12 @@ public class CandidateAPIHelper{
   public void getCandidates(boolean withParty,boolean unicode,int firstPage,int perPage,Callback<Candidate> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
-      optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
+      optionParams.put(CandidateService.PARAM_FIELD._with, com.maepaesoh.maepaesohsdk.Constants.WITH_PARTY);
     }
     if(unicode) {
-      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(CandidateService.PARAM_FIELD.font, com.maepaesoh.maepaesohsdk.Constants.UNICODE);
     }else{
-      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(CandidateService.PARAM_FIELD.font, com.maepaesoh.maepaesohsdk.Constants.ZAWGYI);
     }
     optionParams.put(CandidateService.PARAM_FIELD.page,String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page,String.valueOf(perPage));
@@ -91,12 +91,12 @@ public class CandidateAPIHelper{
   public void getCandidateById(String candidateId,Boolean withParty,boolean unicode,Callback<Candidate> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
-      optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
+      optionParams.put(CandidateService.PARAM_FIELD._with, com.maepaesoh.maepaesohsdk.Constants.WITH_PARTY);
     }
     if(unicode) {
-      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(CandidateService.PARAM_FIELD.font, com.maepaesoh.maepaesohsdk.Constants.UNICODE);
     }else{
-      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(CandidateService.PARAM_FIELD.font, com.maepaesoh.maepaesohsdk.Constants.ZAWGYI);
     }
     mCandidateService.getCandidateById(candidateId,optionParams,callback);
   }

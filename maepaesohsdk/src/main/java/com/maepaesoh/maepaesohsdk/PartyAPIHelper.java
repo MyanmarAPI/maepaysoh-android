@@ -1,13 +1,13 @@
-package com.yemyatthu.maepaesohsdk;
+package com.maepaesoh.maepaesohsdk;
 
-import com.yemyatthu.maepaesohsdk.api.PartyService;
-import com.yemyatthu.maepaesohsdk.api.RetrofitHelper;
-import com.yemyatthu.maepaesohsdk.models.Party;
+import com.maepaesoh.maepaesohsdk.api.PartyService;
+import com.maepaesoh.maepaesohsdk.api.RetrofitHelper;
+import com.maepaesoh.maepaesohsdk.models.Party;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
 /**
- * Created by yemyatthu on 8/11/15.
+ * Created by maepaesoh on 8/11/15.
  */
 public class PartyAPIHelper {
   private RestAdapter mPartyRestAdapter;

@@ -21,7 +21,7 @@ import org.maepaysoh.maepaysoh.R;
  */
 public class PartyDetailActivity extends BaseActivity {
   public static final String PARTY_CONSTANT =
-      "org.maepaysoh.maepaysoh.ui.PartyDetailActivity.PARTY_CONSTANT";
+      "org.maepaesoh.maepaesoh.ui.PartyDetailActivity.PARTY_CONSTANT";
 
   // Ui elements
   private Toolbar mToolbar;

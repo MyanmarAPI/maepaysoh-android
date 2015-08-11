@@ -1,4 +1,4 @@
-package com.yemyatthu.maepaesohsdk;
+package com.maepaesoh.maepaesohsdk;
 
 /**
  * Created by yemyatthu on 8/11/15.

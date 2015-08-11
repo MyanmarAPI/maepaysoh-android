@@ -1,6 +1,6 @@
-package com.yemyatthu.maepaesohsdk.api;
+package com.maepaesoh.maepaesohsdk.api;
 
-import com.yemyatthu.maepaesohsdk.models.Party;
+import com.maepaesoh.maepaesohsdk.models.Party;
 import retrofit.Callback;
 import retrofit.http.GET;
 

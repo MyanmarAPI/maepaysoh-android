@@ -1,16 +1,16 @@
-package com.yemyatthu.maepaesohsdk.models;
+package com.maepaesoh.maepaesohsdk.models;
 
 import java.io.Serializable;
 
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class Residency implements Serializable {
+public class Constituency implements Serializable {
   private String type;
   private String name;
   private int count;
 
-  public Residency() {
+  public Constituency() {
   }
 
   /**

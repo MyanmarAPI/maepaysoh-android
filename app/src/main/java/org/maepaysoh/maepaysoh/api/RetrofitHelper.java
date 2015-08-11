@@ -15,7 +15,7 @@ public class RetrofitHelper {
   public static RestAdapter getResAdapter() {
     if (BuildConfig.DEBUG) {
       return new RestAdapter.Builder().setClient(new OkClient(new OkHttpClient()))
-          .setEndpoint("http://api.maepaysoh.org")
+          .setEndpoint("http://api.maepaesoh.org")
           .setLogLevel(RestAdapter.LogLevel.BASIC)
           .setRequestInterceptor(new RequestInterceptor() {
             @Override public void intercept(RequestFacade request) {
@@ -25,7 +25,7 @@ public class RetrofitHelper {
           .build();
     } else {
       return new RestAdapter.Builder().setClient(new OkClient(new OkHttpClient()))
-          .setEndpoint("http://api.maepaysoh.org")
+          .setEndpoint("http://api.maepaesoh.org")
           .setLogLevel(RestAdapter.LogLevel.NONE)
           .setRequestInterceptor(new RequestInterceptor() {
             @Override public void intercept(RequestFacade request) {

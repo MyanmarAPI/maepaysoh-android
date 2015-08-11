@@ -1,6 +1,6 @@
-package com.yemyatthu.maepaesohsdk.api;
+package com.maepaesoh.maepaesohsdk.api;
 
-import com.yemyatthu.maepaesohsdk.models.Candidate;
+import com.maepaesoh.maepaesohsdk.models.Candidate;
 import java.util.Map;
 import retrofit.Callback;
 import retrofit.http.GET;

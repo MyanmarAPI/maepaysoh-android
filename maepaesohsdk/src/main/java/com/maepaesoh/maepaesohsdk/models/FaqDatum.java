@@ -1,4 +1,4 @@
-package com.yemyatthu.maepaesohsdk.models;
+package com.maepaesoh.maepaesohsdk.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;

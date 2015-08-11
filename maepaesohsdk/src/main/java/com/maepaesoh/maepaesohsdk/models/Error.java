@@ -1,9 +1,9 @@
-package com.yemyatthu.maepaesohsdk.models;
+package com.maepaesoh.maepaesohsdk.models;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by yemyatthu on 8/4/15.
+ * Created by maepaesoh on 8/4/15.
  */
 public class Error {
   @SerializedName("errors") private Errors error;

@@ -1,4 +1,4 @@
-package com.yemyatthu.maepaesohsdk.models;
+package com.maepaesoh.maepaesohsdk.models;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
@@ -18,11 +18,11 @@ public class CandidateData implements Serializable {
   private List<String> education = new ArrayList<String>();
   private List<String> occupation = new ArrayList<String>();
   @SerializedName("nationality_religion") private String nationalityReligion;
-  private Residency residency;
-  private Constituency constituency;
+  private com.maepaesoh.maepaesohsdk.models.Residency residency;
+  private com.maepaesoh.maepaesohsdk.models.Constituency constituency;
   @SerializedName("party_id") private String partyId;
-  private Mother mother;
-  private Father father;
+  private com.maepaesoh.maepaesohsdk.models.Mother mother;
+  private com.maepaesoh.maepaesohsdk.models.Father father;
 
   public CandidateData() {
   }
@@ -142,28 +142,28 @@ public class CandidateData implements Serializable {
   /**
    * @return The residency
    */
-  public Residency getResidency() {
+  public com.maepaesoh.maepaesohsdk.models.Residency getResidency() {
     return residency;
   }
 
   /**
    * @param residency The residency
    */
-  public void setResidency(Residency residency) {
+  public void setResidency(com.maepaesoh.maepaesohsdk.models.Residency residency) {
     this.residency = residency;
   }
 
   /**
    * @return The constituency
    */
-  public Constituency getConstituency() {
+  public com.maepaesoh.maepaesohsdk.models.Constituency getConstituency() {
     return constituency;
   }
 
   /**
    * @param constituency The constituency
    */
-  public void setConstituency(Constituency constituency) {
+  public void setConstituency(com.maepaesoh.maepaesohsdk.models.Constituency constituency) {
     this.constituency = constituency;
   }
 
@@ -184,28 +184,28 @@ public class CandidateData implements Serializable {
   /**
    * @return The mother
    */
-  public Mother getMother() {
+  public com.maepaesoh.maepaesohsdk.models.Mother getMother() {
     return mother;
   }
 
   /**
    * @param mother The mother
    */
-  public void setMother(Mother mother) {
+  public void setMother(com.maepaesoh.maepaesohsdk.models.Mother mother) {
     this.mother = mother;
   }
 
   /**
    * @return The father
    */
-  public Father getFather() {
+  public com.maepaesoh.maepaesohsdk.models.Father getFather() {
     return father;
   }
 
   /**
    * @param father The father
    */
-  public void setFather(Father father) {
+  public void setFather(com.maepaesoh.maepaesohsdk.models.Father father) {
     this.father = father;
   }
 }

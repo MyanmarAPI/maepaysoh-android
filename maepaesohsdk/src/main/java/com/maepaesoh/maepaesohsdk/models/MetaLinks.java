@@ -1,4 +1,4 @@
-package com.yemyatthu.maepaesohsdk.models;
+package com.maepaesoh.maepaesohsdk.models;
 
 /**
  * Created by Ye Lin Aung on 15/08/03.

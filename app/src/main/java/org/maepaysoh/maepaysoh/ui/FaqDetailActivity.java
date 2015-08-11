@@ -13,7 +13,7 @@ import org.maepaysoh.maepaysoh.R;
  * Created by yemyatthu on 8/6/15.
  */
 public class FaqDetailActivity extends BaseActivity {
-  public static final String FAQ_CONSTANT = "org.maepaysoh.maepaysoh.ui.FaqDetailActivity";
+  public static final String FAQ_CONSTANT = "org.maepaesoh.maepaesoh.ui.FaqDetailActivity";
 
   // Ui elements
   private Toolbar mToolbar;

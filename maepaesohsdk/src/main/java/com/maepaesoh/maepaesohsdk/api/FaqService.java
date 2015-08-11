@@ -1,7 +1,7 @@
-package com.yemyatthu.maepaesohsdk.api;
+package com.maepaesoh.maepaesohsdk.api;
 
-import com.yemyatthu.maepaesohsdk.FaqAPIHelper;
-import com.yemyatthu.maepaesohsdk.models.FAQ;
+import com.maepaesoh.maepaesohsdk.FaqAPIHelper;
+import com.maepaesoh.maepaesohsdk.models.FAQ;
 import java.util.Map;
 import retrofit.Callback;
 import retrofit.http.GET;
