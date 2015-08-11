@@ -11,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.yemyatthu.maepaesohsdk.models.PartyData;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysoh.models.PartyData;
+
 
 /**
  * Created by yemyatthu on 8/4/15.

@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.yemyatthu.maepaesohsdk.PartyAPIHelper;
+import com.yemyatthu.maepaesohsdk.models.Error;
+import com.yemyatthu.maepaesohsdk.models.Party;
+import com.yemyatthu.maepaesohsdk.models.PartyData;
 import java.sql.SQLException;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
@@ -19,9 +23,6 @@ import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.api.PartyService;
 import org.maepaysoh.maepaysoh.api.RetrofitHelper;
 import org.maepaysoh.maepaysoh.db.PartyDao;
-import org.maepaysoh.maepaysoh.models.Error;
-import org.maepaysoh.maepaysoh.models.Party;
-import org.maepaysoh.maepaysoh.models.PartyData;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import retrofit.Callback;
@@ -43,6 +44,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
   private ViewUtils viewUtils;
   private PartyDao mPartyDao;
+  private PartyAPIHelper mPartyAPIHelper;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -77,6 +79,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
+    mPartyAPIHelper = new PartyAPIHelper();
     mPartyDao = new PartyDao(this);
     if (InternetUtils.isNetworkAvailable(this)) {
       downloadPartyList();
@@ -119,9 +122,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void downloadPartyList() {
-    mPartyRestAdapter = RetrofitHelper.getResAdapter();
-    mPartyService = mPartyRestAdapter.create(PartyService.class);
-    mPartyService.listParties(new Callback<Party>() {
+    mPartyAPIHelper.getParties(new Callback<Party>() {
       @Override public void success(Party returnObject, Response response) {
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
@@ -144,7 +145,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
       @Override public void failure(RetrofitError error) {
         switch (error.getKind()) {
           case HTTP:
-            Error mError = (Error) error.getBodyAs(org.maepaysoh.maepaysoh.models.Error.class);
+            com.yemyatthu.maepaesohsdk.models.Error mError = (Error) error.getBodyAs(Error.class);
             Toast.makeText(PartyListActivity.this, mError.getError().getMessage(),
                 Toast.LENGTH_SHORT).show();
             break;
@@ -163,6 +164,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         loadFromCache();
       }
     });
+    mPartyRestAdapter = RetrofitHelper.getResAdapter();
+    mPartyService = mPartyRestAdapter.create(PartyService.class);
   }
 
   private void loadFromCache() {

@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import com.google.gson.reflect.TypeToken;
+import com.yemyatthu.maepaesohsdk.models.PartyData;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.maepaysoh.maepaysoh.models.PartyData;
 import org.maepaysoh.maepaysoh.utils.JsonUtils;
 
 /**

@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.google.gson.annotations.SerializedName;
+import com.yemyatthu.maepaesohsdk.models.Constituency;
+import com.yemyatthu.maepaesohsdk.models.Father;
+import com.yemyatthu.maepaesohsdk.models.Mother;
+import com.yemyatthu.maepaesohsdk.models.Residency;
 import java.util.ArrayList;
 import java.util.List;
-import org.maepaysoh.maepaysoh.models.Constituency;
-import org.maepaysoh.maepaysoh.models.Father;
-import org.maepaysoh.maepaysoh.models.Mother;
-import org.maepaysoh.maepaysoh.models.Residency;
 
 /**
  * Created by Ye Lin Aung on 15/08/07.

@@ -3,6 +3,7 @@ package com.yemyatthu.maepaesohsdk;
 import com.yemyatthu.maepaesohsdk.api.CandidateService;
 import com.yemyatthu.maepaesohsdk.api.RetrofitHelper;
 import com.yemyatthu.maepaesohsdk.models.Candidate;
+import java.util.HashMap;
 import java.util.Map;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -66,7 +67,7 @@ public class CandidateAPIHelper {
    * @param callback
    */
   public void getCandidates(Boolean withParty,Boolean unicode,int firstPage,int perPage,Callback<Candidate> callback){
-    optionParams.clear();
+   optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
     }

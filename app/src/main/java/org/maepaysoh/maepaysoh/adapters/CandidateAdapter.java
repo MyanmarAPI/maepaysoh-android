@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.yemyatthu.maepaesohsdk.models.CandidateData;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysoh.models.CandidateData;
 
 /**
  * Created by yemyatthu on 8/4/15.

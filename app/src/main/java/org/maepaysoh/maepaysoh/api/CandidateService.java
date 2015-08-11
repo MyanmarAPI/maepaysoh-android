@@ -1,7 +1,7 @@
 package org.maepaysoh.maepaysoh.api;
 
+import com.yemyatthu.maepaesohsdk.models.Candidate;
 import java.util.Map;
-import org.maepaysoh.maepaysoh.models.Candidate;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;

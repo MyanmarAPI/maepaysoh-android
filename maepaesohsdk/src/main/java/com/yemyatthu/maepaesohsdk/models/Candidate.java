@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class Candidate {
+public class Candidate{
   private List<CandidateData> data = new ArrayList<CandidateData>();
   private CandidateMeta meta;
 
