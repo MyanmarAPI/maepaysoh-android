@@ -23,5 +23,7 @@ public class MaePaySohApiWrapper {
     return new FaqAPIHelper(mToken,mContext);
   }
 
-
+  public CandidateAPIHelper getCandidateApiHelper(){
+    return new CandidateAPIHelper(mToken,mContext);
+  }
 }

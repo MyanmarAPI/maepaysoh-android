@@ -124,55 +124,57 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void downloadCandidateList() {
-    mCandidateAPIHelper.getCandidates(true,true,mCurrentPage,15,new Callback<CandidateReturnObject>() {
-      @Override public void success(CandidateReturnObject returnObject, Response response) {
-        // Hide Progress on success
-        viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
-        switch (response.getStatus()) {
-          case 200:
-            if (returnObject.getData() != null && returnObject.getData().size() > 0) {
-              for (Candidate candidate : returnObject.getData()) {
-                mCandidateDao.createCandidate(candidate);
-              }
-              if (mCurrentPage == 1) {
-                mCandidates = returnObject.getData();
-              } else {
-                mCandidates.addAll(returnObject.getData());
-              }
-              mCandidateAdapter.setCandidates(mCandidates);
-              mEndlessRecyclerViewAdapter.onDataReady(true);
-              mCurrentPage++;
-            } else {
-              mEndlessRecyclerViewAdapter.onDataReady(false);
+    mCandidateAPIHelper.getCandidatesAsync(true, true, mCurrentPage, 15,
+        new Callback<CandidateReturnObject>() {
+          @Override public void success(CandidateReturnObject returnObject, Response response) {
+            // Hide Progress on success
+            viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+            switch (response.getStatus()) {
+              case 200:
+                if (returnObject.getData() != null && returnObject.getData().size() > 0) {
+                  for (Candidate candidate : returnObject.getData()) {
+                    mCandidateDao.createCandidate(candidate);
+                  }
+                  if (mCurrentPage == 1) {
+                    mCandidates = returnObject.getData();
+                  } else {
+                    mCandidates.addAll(returnObject.getData());
+                  }
+                  mCandidateAdapter.setCandidates(mCandidates);
+                  mEndlessRecyclerViewAdapter.onDataReady(true);
+                  mCurrentPage++;
+                } else {
+                  mEndlessRecyclerViewAdapter.onDataReady(false);
+                }
+                LOGI(TAG, "total candidate : " + returnObject.getData().size());
+                break;
             }
-            LOGI(TAG, "total candidate : " + returnObject.getData().size());
-            break;
-        }
-      }
+          }
 
-      @Override public void failure(RetrofitError error) {
-        switch (error.getKind()) {
-          case HTTP:
-            org.maepaysoh.maepaysohsdk.models.Error mError = (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(Error.class);
-            Toast.makeText(CandidateListActivity.this, mError.getError().getMessage(),
-                Toast.LENGTH_SHORT).show();
-            break;
-          case NETWORK:
-            Toast.makeText(CandidateListActivity.this, getString(R.string.PleaseCheckNetwork),
-                Toast.LENGTH_SHORT).show();
-            break;
-        }
+          @Override public void failure(RetrofitError error) {
+            switch (error.getKind()) {
+              case HTTP:
+                org.maepaysoh.maepaysohsdk.models.Error mError =
+                    (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(Error.class);
+                Toast.makeText(CandidateListActivity.this, mError.getError().getMessage(),
+                    Toast.LENGTH_SHORT).show();
+                break;
+              case NETWORK:
+                Toast.makeText(CandidateListActivity.this, getString(R.string.PleaseCheckNetwork),
+                    Toast.LENGTH_SHORT).show();
+                break;
+            }
 
-        // Hide Progress on failure too
-        if (mCurrentPage == 1) {
-          loadFromCache();
-        } else {
-          viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
-          mEndlessRecyclerViewAdapter.onDataReady(false);
-          mErrorView.setVisibility(View.VISIBLE);
-        }
-      }
-    });
+            // Hide Progress on failure too
+            if (mCurrentPage == 1) {
+              loadFromCache();
+            } else {
+              viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+              mEndlessRecyclerViewAdapter.onDataReady(false);
+              mErrorView.setVisibility(View.VISIBLE);
+            }
+          }
+        });
   }
 
     @Override public void onItemClick(View view, int position) {
