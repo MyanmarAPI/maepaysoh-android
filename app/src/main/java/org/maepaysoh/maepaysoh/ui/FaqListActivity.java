@@ -198,58 +198,59 @@ public class FaqListActivity extends BaseActivity
         }
       });
     } else {
-      mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQReturnObject>() {
-        @Override public void success(FAQReturnObject returnObject, Response response) {
-
-          // Hide Progress on success
-          viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-          switch (response.getStatus()) {
-            case 200:
-              if (returnObject.getData() != null && returnObject.getData().size() > 0) {
-                for (FAQ FAQ : returnObject.getData()) {
-                  mFaqDao.createFaq(FAQ);
-                }
-                if (mCurrentPage == 1) {
-                  mFaqDatas = returnObject.getData();
-                } else {
-                  mFaqDatas.addAll(returnObject.getData());
-                }
-                mFaqAdapter.setFaqs(mFaqDatas);
-                mEndlessRecyclerViewAdapter.onDataReady(true);
-                mCurrentPage++;
-              } else {
-                mEndlessRecyclerViewAdapter.onDataReady(false);
-              }
-              LOGI(TAG, "total candidate : " + returnObject.getData().size());
-              break;
-          }
-        }
-
-        @Override public void failure(RetrofitError error) {
-          switch (error.getKind()) {
-            case HTTP:
-              org.maepaysoh.maepaysohsdk.models.Error mError =
-                  (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(
-                      org.maepaysoh.maepaysohsdk.models.Error.class);
-              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
-                  Toast.LENGTH_SHORT).show();
-              break;
-            case NETWORK:
-              Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
-                  Toast.LENGTH_SHORT).show();
-              break;
-          }
-
-          // Hide Progress on failure too
-          if (mCurrentPage == 1) {
-            loadFromCache();
-          } else {
-            viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-            mEndlessRecyclerViewAdapter.onDataReady(false);
-            mErrorView.setVisibility(View.VISIBLE);
-          }
-        }
-      });
+      //mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQReturnObject>() {
+      //  @Override public void success(FAQReturnObject returnObject, Response response) {
+      //
+      //    // Hide Progress on success
+      //    viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+      //    switch (response.getStatus()) {
+      //      case 200:
+      //        if (returnObject.getData() != null && returnObject.getData().size() > 0) {
+      //          for (FAQ FAQ : returnObject.getData()) {
+      //            mFaqDao.createFaq(FAQ);
+      //          }
+      //          if (mCurrentPage == 1) {
+      //            mFaqDatas = returnObject.getData();
+      //          } else {
+      //            mFaqDatas.addAll(returnObject.getData());
+      //          }
+      //          mFaqAdapter.setFaqs(mFaqDatas);
+      //          mEndlessRecyclerViewAdapter.onDataReady(true);
+      //          mCurrentPage++;
+      //        } else {
+      //          mEndlessRecyclerViewAdapter.onDataReady(false);
+      //        }
+      //        LOGI(TAG, "total candidate : " + returnObject.getData().size());
+      //        break;
+      //    }
+      //  }
+      //
+      //  @Override public void failure(RetrofitError error) {
+      //    switch (error.getKind()) {
+      //      case HTTP:
+      //        org.maepaysoh.maepaysohsdk.models.Error mError =
+      //            (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(
+      //                org.maepaysoh.maepaysohsdk.models.Error.class);
+      //        Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
+      //            Toast.LENGTH_SHORT).show();
+      //        break;
+      //      case NETWORK:
+      //        Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
+      //            Toast.LENGTH_SHORT).show();
+      //        break;
+      //    }
+      //
+      //    // Hide Progress on failure too
+      //    if (mCurrentPage == 1) {
+      //      loadFromCache();
+      //    } else {
+      //      viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+      //      mEndlessRecyclerViewAdapter.onDataReady(false);
+      //      mErrorView.setVisibility(View.VISIBLE);
+      //    }
+      //  }
+      //});
+      new DownFaqListAsync().execute(mCurrentPage);
     }
   }
 
@@ -300,22 +301,25 @@ public class FaqListActivity extends BaseActivity
 
     @Override protected void onPostExecute(List<FAQ> faqs) {
       super.onPostExecute(faqs);
-
       TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
       errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
       mRetryBtn.setVisibility(View.VISIBLE);
       if (mErrorView.getVisibility() == View.VISIBLE) {
         mErrorView.setVisibility(View.GONE);
       }
-      if (mCurrentPage == 1) {
-        viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-        mFaqDatas =faqs;
-      } else {
-        mFaqDatas.addAll(faqs);
+      if (faqs.size() > 0) {
+        if (mCurrentPage == 1) {
+          viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+          mFaqDatas = faqs;
+        } else {
+          mFaqDatas.addAll(faqs);
+        }
+        mFaqAdapter.setFaqs(mFaqDatas);
+        mEndlessRecyclerViewAdapter.onDataReady(true);
+        mCurrentPage++;
+      }else{
+        mEndlessRecyclerViewAdapter.onDataReady(false);
       }
-      mFaqAdapter.setFaqs(mFaqDatas);
-      mEndlessRecyclerViewAdapter.onDataReady(true);
-      mCurrentPage++;
     }
   }
 }
