@@ -283,6 +283,7 @@ public class FaqListActivity extends BaseActivity
         mEndlessRecyclerViewAdapter.onDataReady(true);
         mCurrentPage++;
       }else{
+        mFaqListRecyclerView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.VISIBLE);
         TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
         errorText.setText(R.string.search_not_found);
