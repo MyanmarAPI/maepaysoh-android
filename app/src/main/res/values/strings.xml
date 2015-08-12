@@ -17,7 +17,7 @@
   <string name="PleaseCheckNetworkAndTryAgain">Check your connection and try again.</string>
   <string name="SomethingWentWrong">Sorry. Something went wrong.</string>
 
-  <!-- Party Detail labels -->
+  <!-- PartyReturnObject Detail labels -->
   <string name="PartyFlag">Party Flag</string>
   <string name="PartyLeadership">Leadership</string>
   <string name="PartyChairman">Chairman</string>
@@ -33,7 +33,7 @@
   <string name="PartyPolicy">Policy</string>
   <string name="PartySeal">Party Seal</string>
 
-  <!-- Candidate Detail labels -->
+  <!-- CandidateReturnObject Detail labels -->
   <string name="CandidateLegislature">Legislature</string>
   <string name="CandidateNationalID">National ID</string>
   <string name="CandidateBirthDate">Birth Date</string>

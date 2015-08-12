@@ -18,4 +18,10 @@ public class MaePaySohApiWrapper {
   public PartyAPIHelper getPartyApiHelper(){
     return new PartyAPIHelper(mToken,mContext);
   }
+
+  public FaqAPIHelper getFaqApiHelper(){
+    return new FaqAPIHelper(mToken,mContext);
+  }
+
+
 }

@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import org.maepaysoh.maepaysohsdk.models.FaqDatum;
+import org.maepaysoh.maepaysohsdk.models.FAQ;
 import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 
 /**
@@ -35,17 +35,17 @@ public class FaqDao {
     mMaepaysohDbHelper.close();
   }
 
-  public boolean createFaq(FaqDatum faqDatum) throws SQLException {
+  public boolean createFaq(FAQ FAQ) throws SQLException {
     open();
     ContentValues faqContentValues = new ContentValues();
-    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_ID, faqDatum.getId());
-    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_question,faqDatum.getQuestion());
-    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_answer,faqDatum.getAnswer());
-    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_basis,faqDatum.getBasis());
-    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_type,faqDatum.getType());
-    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_url,faqDatum.getUrl());
+    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_ID, FAQ.getId());
+    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_question, FAQ.getQuestion());
+    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_answer, FAQ.getAnswer());
+    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_basis, FAQ.getBasis());
+    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_type, FAQ.getType());
+    faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_url, FAQ.getUrl());
     faqContentValues.put(MaepaysohDbHelper.COLUMN_FAQ_sections,
-        JsonUtils.convertToJson(faqDatum.getSections()));
+        JsonUtils.convertToJson(FAQ.getSections()));
     mMaepaysohDb.beginTransaction();
     try {
       long insertId =
@@ -59,48 +59,48 @@ public class FaqDao {
     return true;
   }
 
-  public List<FaqDatum> getAllFaqData() throws SQLException {
+  public List<FAQ> getAllFaqData() throws SQLException {
     open();
-    List<FaqDatum> faqDatums = new ArrayList<>();
+    List<FAQ> FAQs = new ArrayList<>();
     Cursor cursor =
         mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_FAQ, null, null, null, null, null, null);
     cursor.moveToFirst();
     while (!cursor.isAfterLast()) {
-      FaqDatum faqDatum = cursorToFaq(cursor);
-      faqDatums.add(faqDatum);
+      FAQ FAQ = cursorToFaq(cursor);
+      FAQs.add(FAQ);
       cursor.moveToNext();
     }
     cursor.close();
     close();
-    return faqDatums;
+    return FAQs;
   }
 
-  public FaqDatum get(String id) throws SQLException {
+  public FAQ get(String id) throws SQLException {
     open();
     Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_FAQ, null,
         MaepaysohDbHelper.COLUMN_FAQ_ID + " = " + id, null, null, null, null);
-    FaqDatum faqDatum = cursorToFaq(cursor);
+    FAQ FAQ = cursorToFaq(cursor);
     cursor.close();
     close();
-    return faqDatum;
+    return FAQ;
   }
 
-  private FaqDatum cursorToFaq(Cursor cursor) {
+  private FAQ cursorToFaq(Cursor cursor) {
     Type type = new TypeToken<List<String>>() {
     }.getType();
-    FaqDatum faqDatum = new FaqDatum();
-    faqDatum.setId(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_ID)));
-    faqDatum.setQuestion(
+    FAQ FAQ = new FAQ();
+    FAQ.setId(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_ID)));
+    FAQ.setQuestion(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_question)));
-    faqDatum.setAnswer(
+    FAQ.setAnswer(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_answer)));
-    faqDatum.setBasis(
+    FAQ.setBasis(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_basis)));
-    faqDatum.setSections(JsonUtils.convertToJava(
+    FAQ.setSections(JsonUtils.convertToJava(
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_sections)),
         type));
-    faqDatum.setType(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_type)));
+    FAQ.setType(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_FAQ_type)));
 
-    return faqDatum;
+    return FAQ;
   }
 }

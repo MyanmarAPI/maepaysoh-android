@@ -22,8 +22,8 @@ import org.maepaysoh.maepaysoh.db.PartyDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.PartyAPIHelper;
+import org.maepaysoh.maepaysohsdk.models.PartyReturnObject;
 import org.maepaysoh.maepaysohsdk.models.Party;
-import org.maepaysoh.maepaysohsdk.models.PartyData;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -34,7 +34,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   private ProgressBar mProgressView;
   private View mErrorView;
   private Button mRetryBtn;
-  private List<PartyData> mParties;
+  private List<Party> mParties;
   private PartyAdapter mPartyAdapter;
 
   private ViewUtils viewUtils;
@@ -118,8 +118,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void downloadPartyList() {
-    mPartyAPIHelper.getPartiesAsync(new Callback<Party>() {
-      @Override public void success(Party returnObject, Response response) {
+    mPartyAPIHelper.getPartiesAsync(new Callback<PartyReturnObject>() {
+      @Override public void success(PartyReturnObject returnObject, Response response) {
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
@@ -127,7 +127,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
             mParties = returnObject.getData();
             mPartyAdapter.setParties(mParties);
             mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
-            for (PartyData data : mParties) {
+            for (Party data : mParties) {
               try {
                 mPartyDao.createParty(data);
               } catch (SQLException e) {
@@ -180,16 +180,16 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     new DownloadPartyListAsync().execute();
   }
 
-  class DownloadPartyListAsync extends AsyncTask<Void,Void,Party>{
+  class DownloadPartyListAsync extends AsyncTask<Void,Void,PartyReturnObject>{
 
-    @Override protected Party doInBackground(Void... voids) {
+    @Override protected PartyReturnObject doInBackground(Void... voids) {
       return mPartyAPIHelper.getParties(PartyListActivity.this,true);
     }
 
-    @Override protected void onPostExecute(Party party) {
+    @Override protected void onPostExecute(PartyReturnObject partyReturnObject) {
       viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
-      if(party!=null){
-        mParties = party.getData();
+      if(partyReturnObject !=null){
+        mParties = partyReturnObject.getData();
         mPartyAdapter.setParties(mParties);
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
       } else{
@@ -197,7 +197,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
             .show();
         loadFromCache();
       }
-      super.onPostExecute(party);
+      super.onPostExecute(partyReturnObject);
     }
   }
 }

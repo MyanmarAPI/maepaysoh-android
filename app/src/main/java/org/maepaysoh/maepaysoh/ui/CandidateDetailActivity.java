@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysohsdk.models.CandidateData;
+import org.maepaysoh.maepaysohsdk.models.Candidate;
 
 /**
  * Created by yemyatthu on 8/5/15.
@@ -34,7 +34,7 @@ public class CandidateDetailActivity extends BaseActivity {
   private TextView mMotherName;
   private TextView mFatherName;
 
-  private CandidateData mCandidateData;
+  private Candidate mCandidate;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -63,19 +63,19 @@ public class CandidateDetailActivity extends BaseActivity {
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    mCandidateData = (CandidateData) getIntent().getSerializableExtra(CANDIDATE_CONSTANT);
-    if (mCandidateData != null) {
-      mCandidateName.setText(mCandidateData.getName());
-      mLegislature.setText(mCandidateData.getLegislature());
-      mNationalId.setText(mCandidateData.getNationalId());
-      mBirthDate.setText(String.valueOf(mCandidateData.getBirthdate()));
-      mReligion.setText(mCandidateData.getNationalityReligion());
-      mConstituency.setText(mCandidateData.getConstituency().getName());
-      mResidency.setText(mCandidateData.getResidency().getName());
-      mMotherName.setText(mCandidateData.getMother().getName());
-      mFatherName.setText(mCandidateData.getFather().getName());
-      List<String> occupations = mCandidateData.getOccupation();
-      List<String> educations = mCandidateData.getEducation();
+    mCandidate = (Candidate) getIntent().getSerializableExtra(CANDIDATE_CONSTANT);
+    if (mCandidate != null) {
+      mCandidateName.setText(mCandidate.getName());
+      mLegislature.setText(mCandidate.getLegislature());
+      mNationalId.setText(mCandidate.getNationalId());
+      mBirthDate.setText(String.valueOf(mCandidate.getBirthdate()));
+      mReligion.setText(mCandidate.getNationalityReligion());
+      mConstituency.setText(mCandidate.getConstituency().getName());
+      mResidency.setText(mCandidate.getResidency().getName());
+      mMotherName.setText(mCandidate.getMother().getName());
+      mFatherName.setText(mCandidate.getFather().getName());
+      List<String> occupations = mCandidate.getOccupation();
+      List<String> educations = mCandidate.getEducation();
       for (String occupation : occupations) {
         if (occupations.indexOf(occupation) == occupations.size() - 1) {
           mOccupation.append(occupation);
@@ -106,7 +106,7 @@ public class CandidateDetailActivity extends BaseActivity {
         return true;
       case R.id.candidate_detail_action_share:
         // TODO What do we want to share
-        share(mCandidateData.getName(), mCandidateData.getId());
+        share(mCandidate.getName(), mCandidate.getId());
       default:
         return super.onOptionsItemSelected(item);
     }

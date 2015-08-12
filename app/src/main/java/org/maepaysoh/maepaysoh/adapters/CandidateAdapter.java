@@ -9,22 +9,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysohsdk.models.CandidateData;
+import org.maepaysoh.maepaysohsdk.models.Candidate;
 
 /**
  * Created by yemyatthu on 8/4/15.
  */
 public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-  private List<CandidateData> mCandidateDatas;
+  private List<Candidate> mCandidates;
   private Context mContext;
   private ClickInterface mClickInterface;
 
   public CandidateAdapter() {
-    mCandidateDatas = new ArrayList<>();
+    mCandidates = new ArrayList<>();
   }
 
-  public void setCandidates(List<CandidateData> candidateDatas) {
-    mCandidateDatas = candidateDatas;
+  public void setCandidates(List<Candidate> candidates) {
+    mCandidates = candidates;
     notifyDataSetChanged();
   }
 
@@ -35,11 +35,11 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    CandidateData candidateData = mCandidateDatas.get(position);
-    ((CandidateViewHolder) holder).mCandidateName.setText(candidateData.getName());
+    Candidate candidate = mCandidates.get(position);
+    ((CandidateViewHolder) holder).mCandidateName.setText(candidate.getName());
     ((CandidateViewHolder) holder).mCandidateOccupation.setText(
         "");//Reset the textview unless you want some weird shit to happen
-    List<String> occupations = candidateData.getOccupation();
+    List<String> occupations = candidate.getOccupation();
     for (String occupation : occupations) {
       if (occupations.indexOf(occupation) == occupations.size() - 1) {
         ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation);
@@ -50,7 +50,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
   }
 
   @Override public int getItemCount() {
-    return mCandidateDatas != null ? mCandidateDatas.size() : 0;
+    return mCandidates != null ? mCandidates.size() : 0;
   }
 
   public void setOnItemClickListener(ClickInterface clickInterface) {

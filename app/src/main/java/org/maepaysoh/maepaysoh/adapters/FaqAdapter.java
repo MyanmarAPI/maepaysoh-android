@@ -9,22 +9,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysohsdk.models.FaqDatum;
+import org.maepaysoh.maepaysohsdk.models.FAQ;
 
 /**
  * Created by yemyatthu on 8/6/15.
  */
 public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-  private List<FaqDatum> mFaqDatums;
+  private List<FAQ> mFAQs;
   private Context mContext;
   private ClickInterface mClickInterface;
 
   public FaqAdapter() {
-    mFaqDatums = new ArrayList<>();
+    mFAQs = new ArrayList<>();
   }
 
-  public void setFaqs(List<FaqDatum> faqDatums) {
-    mFaqDatums = faqDatums;
+  public void setFaqs(List<FAQ> FAQs) {
+    mFAQs = FAQs;
     notifyDataSetChanged();
   }
 
@@ -35,13 +35,13 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    FaqDatum faqDatum = mFaqDatums.get(position);
-    ((CandidateViewHolder) holder).mFaqQuetion.setText(faqDatum.getQuestion());
-    ((CandidateViewHolder) holder).mFaqAnswer.setText(faqDatum.getAnswer());
+    FAQ FAQ = mFAQs.get(position);
+    ((CandidateViewHolder) holder).mFaqQuetion.setText(FAQ.getQuestion());
+    ((CandidateViewHolder) holder).mFaqAnswer.setText(FAQ.getAnswer());
   }
 
   @Override public int getItemCount() {
-    return mFaqDatums != null ? mFaqDatums.size() : 0;
+    return mFAQs != null ? mFAQs.size() : 0;
   }
 
   public void setOnItemClickListener(ClickInterface clickInterface) {

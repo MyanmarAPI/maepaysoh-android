@@ -1,41 +1,116 @@
 package org.maepaysoh.maepaysohsdk.models;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Ye Lin Aung on 15/08/06.
  */
-public class FAQ {
-  private List<FaqDatum> data = new ArrayList<>();
-  @SerializedName("_meta") private FaqMeta meta;
+public class FAQ implements Serializable {
+  private String id;
+  private String question;
+  private String answer;
+  private String type;
+  private String basis;
+  private List<String> sections = new ArrayList<>();
+  private String url;
 
   /**
-   * @return The data
+   * @return The id
    */
-  public List<FaqDatum> getData() {
-    return data;
+  public String getId() {
+    return id;
   }
 
   /**
-   * @param data The data
+   * @param id The id
    */
-  public void setData(List<FaqDatum> data) {
-    this.data = data;
+  public void setId(String id) {
+    this.id = id;
   }
 
   /**
-   * @return The meta
+   * @return The question
    */
-  public FaqMeta getMeta() {
-    return meta;
+  public String getQuestion() {
+    return question;
   }
 
   /**
-   * @param meta The meta
+   * @param question The question
    */
-  public void setMeta(FaqMeta meta) {
-    this.meta = meta;
+  public void setQuestion(String question) {
+    this.question = question;
+  }
+
+  /**
+   * @return The answer
+   */
+  public String getAnswer() {
+    return answer;
+  }
+
+  /**
+   * @param answer The answer
+   */
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
+
+  /**
+   * @return The type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * @param type The type
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  /**
+   * @return The basis
+   */
+  public String getBasis() {
+    return basis;
+  }
+
+  /**
+   * @param basis The basis
+   */
+  public void setBasis(String basis) {
+    this.basis = basis;
+  }
+
+  /**
+   * @return The sections
+   */
+  public List<String> getSections() {
+    return sections;
+  }
+
+  /**
+   * @param sections The sections
+   */
+  public void setSections(List<String> sections) {
+    this.sections = sections;
+  }
+
+  /**
+   * @return The url
+   */
+  public String getUrl() {
+    return url;
+  }
+
+  /**
+   * @param url The url
+   */
+  public void setUrl(String url) {
+    this.url = url;
   }
 }

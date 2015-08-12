@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysohsdk.models.PartyData;
+import org.maepaysoh.maepaysohsdk.models.Party;
 
 /**
  * Created by yemyatthu on 8/4/15.
@@ -41,7 +41,7 @@ public class PartyDetailActivity extends BaseActivity {
   private TextView mPartyHeadquarters;
   private TextView mPartyContact;
   private TextView mPartyPolicy;
-  private PartyData mPartyData;
+  private Party mParty;
   private ImageView mPartySeal;
 
   private ShareActionProvider mShareActionProvider;
@@ -78,13 +78,13 @@ public class PartyDetailActivity extends BaseActivity {
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    mPartyData = (PartyData) getIntent().getSerializableExtra(PARTY_CONSTANT);
-    if (mPartyData != null) {
-      Glide.with(this).load(mPartyData.getPartyFlag()).into(mPartyFlag);
-      Glide.with(this).load(mPartyData.getPartySeal()).into(mPartySeal);
-      mPartyNameEnglish.setText(mPartyData.getPartyNameEnglish());
-      mPartyNameMyanmar.setText(mPartyData.getPartyName());
-      List<String> leaders = mPartyData.getLeadership();
+    mParty = (Party) getIntent().getSerializableExtra(PARTY_CONSTANT);
+    if (mParty != null) {
+      Glide.with(this).load(mParty.getPartyFlag()).into(mPartyFlag);
+      Glide.with(this).load(mParty.getPartySeal()).into(mPartySeal);
+      mPartyNameEnglish.setText(mParty.getPartyNameEnglish());
+      mPartyNameMyanmar.setText(mParty.getPartyName());
+      List<String> leaders = mParty.getLeadership();
       for (String leader : leaders) {
         if (leaders.indexOf(leader) == leaders.size() - 1) {
           mPartyLeader.append(leader);
@@ -92,7 +92,7 @@ public class PartyDetailActivity extends BaseActivity {
           mPartyLeader.append(leader + "၊ ");
         }
       }
-      List<String> chairmen = mPartyData.getChairman();
+      List<String> chairmen = mParty.getChairman();
       for (String chairman : chairmen) {
         if (leaders.indexOf(chairman) == chairmen.size() - 1) {
           mPartyChairman.append(chairman);
@@ -100,15 +100,15 @@ public class PartyDetailActivity extends BaseActivity {
           mPartyChairman.append(chairman + "၊ ");
         }
       }
-      mPartyMemberCount.setText(mPartyData.getMemberCount());
-      mPartyEstbDate.setText(mPartyData.getEstablishmentDate());
-      mPartyEstbApprovalDate.setText(mPartyData.getEstablishmentApprovalDate());
-      mPartyRegApplicationDate.setText(mPartyData.getRegistrationApplicationDate());
-      mPartyRegApprovalDate.setText(mPartyData.getRegistrationApprovalDate());
-      mPartyApprovedNo.setText(mPartyData.getApprovedPartyNumber());
-      mPartyRegion.setText(mPartyData.getRegion());
-      mPartyHeadquarters.setText(mPartyData.getHeadquarters());
-      List<String> contacts = mPartyData.getContact();
+      mPartyMemberCount.setText(mParty.getMemberCount());
+      mPartyEstbDate.setText(mParty.getEstablishmentDate());
+      mPartyEstbApprovalDate.setText(mParty.getEstablishmentApprovalDate());
+      mPartyRegApplicationDate.setText(mParty.getRegistrationApplicationDate());
+      mPartyRegApprovalDate.setText(mParty.getRegistrationApprovalDate());
+      mPartyApprovedNo.setText(mParty.getApprovedPartyNumber());
+      mPartyRegion.setText(mParty.getRegion());
+      mPartyHeadquarters.setText(mParty.getHeadquarters());
+      List<String> contacts = mParty.getContact();
       for (String contact : contacts) {
         if (contacts.indexOf(contact) == contacts.size() - 1) {
           mPartyContact.append(contact);
@@ -116,7 +116,7 @@ public class PartyDetailActivity extends BaseActivity {
           mPartyContact.append(contact + "၊ ");
         }
       }
-      mPartyPolicy.setText(mPartyData.getPolicy());
+      mPartyPolicy.setText(mParty.getPolicy());
       Linkify.addLinks(mPartyPolicy, Linkify.WEB_URLS);
     }
   }
@@ -133,7 +133,7 @@ public class PartyDetailActivity extends BaseActivity {
         return true;
       case R.id.party_detail_action_share:
         // TODO What do we want to share
-        share(mPartyData.getPartyName(), mPartyData.getChairman().get(0));
+        share(mParty.getPartyName(), mParty.getChairman().get(0));
         return true;
       default:
         return super.onOptionsItemSelected(item);

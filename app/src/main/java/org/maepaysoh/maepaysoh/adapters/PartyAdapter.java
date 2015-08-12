@@ -11,21 +11,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysohsdk.models.PartyData;
+import org.maepaysoh.maepaysohsdk.models.Party;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
   private Context mContext;
-  private List<PartyData> mParties;
+  private List<Party> mParties;
   private ClickInterface mClickInterface;
 
   public PartyAdapter() {
     mParties = new ArrayList<>();
   }
 
-  public void setParties(List<PartyData> parties) {
+  public void setParties(List<Party> parties) {
     mParties = parties;
     notifyDataSetChanged();
   }
@@ -37,10 +37,10 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
   }
 
   @Override public void onBindViewHolder(PartyViewHolder holder, int position) {
-    PartyData partyData = mParties.get(position);
-    holder.mPartyNameMyanmar.setText(partyData.getPartyName());
-    holder.mPartyNameEnglish.setText(partyData.getPartyNameEnglish());
-    List<String> leaders = partyData.getLeadership();
+    Party party = mParties.get(position);
+    holder.mPartyNameMyanmar.setText(party.getPartyName());
+    holder.mPartyNameEnglish.setText(party.getPartyNameEnglish());
+    List<String> leaders = party.getLeadership();
     holder.mPartyLeader.setText(""); //Reset the textview unless you want some weird shit to happen
     for (String leader : leaders) {
       if (leaders.indexOf(leader) == leaders.size() - 1) {
@@ -50,7 +50,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
       }
     }
     Glide.with(mContext)
-        .load(partyData.getPartyFlag())
+        .load(party.getPartyFlag())
         .centerCrop()
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(holder.mPartyFlag);

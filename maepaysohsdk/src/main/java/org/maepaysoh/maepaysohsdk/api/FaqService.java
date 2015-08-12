@@ -2,7 +2,7 @@ package org.maepaysoh.maepaysohsdk.api;
 
 import java.util.Map;
 import org.maepaysoh.maepaysohsdk.FaqAPIHelper;
-import org.maepaysoh.maepaysohsdk.models.FAQ;
+import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -13,17 +13,17 @@ import retrofit.http.QueryMap;
  */
 public interface FaqService {
   @GET("/faq/list") void listFaqsAsync(@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options,
-      Callback<FAQ> faqCallback);
+      Callback<FAQReturnObject> faqCallback);
 
   @GET("/faq/search") void searchFaqsAsync(@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options,
-      Callback<FAQ> faqCallback);
+      Callback<FAQReturnObject> faqCallback);
 
   @GET("/faq/{faq_id}") void searchFaqByIdAsync(@Path("faq_id") String faqId,
-      @QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options, Callback<FAQ> faqCallback);
+      @QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options, Callback<FAQReturnObject> faqCallback);
 
-  @GET("/faq/list") FAQ listFaqs(@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options);
+  @GET("/faq/list") FAQReturnObject listFaqs(@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options);
 
-  @GET("/faq/search") FAQ searchFaq(@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options);
+  @GET("/faq/search") FAQReturnObject searchFaq(@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options);
 
-  @GET("/faq/{faq_id}") FAQ searchFaqById(@Path("faq_id") String faqId,@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options);
+  @GET("/faq/{faq_id}") FAQReturnObject searchFaqById(@Path("faq_id") String faqId,@QueryMap Map<FaqAPIHelper.PARAM_FIELD, String> options);
 }

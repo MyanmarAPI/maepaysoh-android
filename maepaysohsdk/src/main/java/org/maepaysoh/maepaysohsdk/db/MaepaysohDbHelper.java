@@ -23,7 +23,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   private static final String TEXT_TYPE = " TEXT";
   private static final String NUMERIC_TYPE = " LONG";
 
-  // Party
+  // PartyReturnObject
   public static final String TABLE_NAME_PARTY = "parties";
   public static final String COLUMN_PARTY_ID = "_id";
   public static final String COLUMN_PARTY_NAME = "name";

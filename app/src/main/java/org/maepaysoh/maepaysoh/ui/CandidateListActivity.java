@@ -24,8 +24,8 @@ import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.CandidateAPIHelper;
 import org.maepaysoh.maepaysohsdk.api.CandidateService;
+import org.maepaysoh.maepaysohsdk.models.CandidateReturnObject;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
-import org.maepaysoh.maepaysohsdk.models.CandidateData;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -54,7 +54,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private CandidateService mCandidateListService;
 
   private ViewUtils viewUtils;
-  private List<CandidateData> mCandidateDatas;
+  private List<Candidate> mCandidates;
   private LinearLayoutManager mLayoutManager;
   private CandidateAdapter mCandidateAdapter;
   private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
@@ -124,22 +124,22 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void downloadCandidateList() {
-    mCandidateAPIHelper.getCandidates(true,true,mCurrentPage,15,new Callback<Candidate>() {
-      @Override public void success(Candidate returnObject, Response response) {
+    mCandidateAPIHelper.getCandidates(true,true,mCurrentPage,15,new Callback<CandidateReturnObject>() {
+      @Override public void success(CandidateReturnObject returnObject, Response response) {
         // Hide Progress on success
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {
           case 200:
             if (returnObject.getData() != null && returnObject.getData().size() > 0) {
-              for (CandidateData candidateData : returnObject.getData()) {
-                mCandidateDao.createCandidate(candidateData);
+              for (Candidate candidate : returnObject.getData()) {
+                mCandidateDao.createCandidate(candidate);
               }
               if (mCurrentPage == 1) {
-                mCandidateDatas = returnObject.getData();
+                mCandidates = returnObject.getData();
               } else {
-                mCandidateDatas.addAll(returnObject.getData());
+                mCandidates.addAll(returnObject.getData());
               }
-              mCandidateAdapter.setCandidates(mCandidateDatas);
+              mCandidateAdapter.setCandidates(mCandidates);
               mEndlessRecyclerViewAdapter.onDataReady(true);
               mCurrentPage++;
             } else {
@@ -179,7 +179,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     Intent goToCandiDetailIntent = new Intent();
     goToCandiDetailIntent.setClass(CandidateListActivity.this, CandidateDetailActivity.class);
     goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
-        mCandidateDatas.get(position));
+        mCandidates.get(position));
     startActivity(goToCandiDetailIntent);
   }
 
@@ -187,10 +187,10 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     //Disable pagination in cache
     mEndlessRecyclerViewAdapter.onDataReady(false);
     try {
-      mCandidateDatas = mCandidateDao.getAllCandidateData();
-      if (mCandidateDatas != null && mCandidateDatas.size() > 0) {
+      mCandidates = mCandidateDao.getAllCandidateData();
+      if (mCandidates != null && mCandidates.size() > 0) {
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
-        mCandidateAdapter.setCandidates(mCandidateDatas);
+        mCandidateAdapter.setCandidates(mCandidates);
         mCandidateAdapter.setOnItemClickListener(CandidateListActivity.this);
       }else{
         viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);

@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import org.maepaysoh.maepaysoh.R;
-import org.maepaysoh.maepaysohsdk.models.FaqDatum;
+import org.maepaysoh.maepaysohsdk.models.FAQ;
 
 /**
  * Created by yemyatthu on 8/6/15.
@@ -21,7 +21,7 @@ public class FaqDetailActivity extends BaseActivity {
   private TextView mQuestion;
   private TextView mAnswer;
 
-  private FaqDatum mFaqDatum;
+  private FAQ mFAQ;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -38,10 +38,10 @@ public class FaqDetailActivity extends BaseActivity {
       // Showing Back Arrow  <-
       mActionBar.setDisplayHomeAsUpEnabled(true);
     }
-    mFaqDatum = (FaqDatum) getIntent().getSerializableExtra(FAQ_CONSTANT);
-    if (mFaqDatum != null) {
-      mQuestion.setText(mFaqDatum.getQuestion());
-      mAnswer.setText(mFaqDatum.getAnswer());
+    mFAQ = (FAQ) getIntent().getSerializableExtra(FAQ_CONSTANT);
+    if (mFAQ != null) {
+      mQuestion.setText(mFAQ.getQuestion());
+      mAnswer.setText(mFAQ.getAnswer());
     }
   }
 

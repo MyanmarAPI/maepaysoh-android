@@ -25,8 +25,8 @@ import org.maepaysoh.maepaysoh.db.FaqDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.FaqAPIHelper;
+import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
-import org.maepaysoh.maepaysohsdk.models.FaqDatum;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -51,7 +51,7 @@ public class FaqListActivity extends BaseActivity
   private FaqAdapter mFaqAdapter;
   private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
   private int mCurrentPage = 1;
-  private List<FaqDatum> mFaqDatas;
+  private List<FAQ> mFaqDatas;
   private android.support.v7.widget.SearchView mSearchView;
   private MenuItem mSearchMenu;
   private FaqDao mFaqDao;
@@ -134,8 +134,8 @@ public class FaqListActivity extends BaseActivity
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     }
     if (query != null && query.length() > 0) {
-      mFaqAPIHelper.searchFaqs(query, new Callback<FAQ>() {
-        @Override public void success(FAQ returnObject, Response response) {
+      mFaqAPIHelper.searchFaqs(query, new Callback<FAQReturnObject>() {
+        @Override public void success(FAQReturnObject returnObject, Response response) {
           //Hide Progress on success
           viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
           switch (response.getStatus()) {
@@ -191,16 +191,16 @@ public class FaqListActivity extends BaseActivity
               }
       });
     } else {
-      mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQ>() {
-        @Override public void success(FAQ returnObject, Response response) {
+      mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQReturnObject>() {
+        @Override public void success(FAQReturnObject returnObject, Response response) {
 
           // Hide Progress on success
           viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
           switch (response.getStatus()) {
             case 200:
               if (returnObject.getData() != null && returnObject.getData().size() > 0) {
-                for (FaqDatum faqDatum : returnObject.getData()) {
-                  mFaqDao.createFaq(faqDatum);
+                for (FAQ FAQ : returnObject.getData()) {
+                  mFaqDao.createFaq(FAQ);
                 }
                 if (mCurrentPage == 1) {
                   mFaqDatas = returnObject.getData();

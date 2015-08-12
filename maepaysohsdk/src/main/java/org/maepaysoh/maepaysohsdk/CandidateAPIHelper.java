@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.maepaysoh.maepaysohsdk.api.CandidateService;
 import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
-import org.maepaysoh.maepaysohsdk.models.Candidate;
+import org.maepaysoh.maepaysohsdk.models.CandidateReturnObject;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
@@ -23,7 +23,7 @@ public class CandidateAPIHelper{
    *
    * @param callback
    */
-  public void getCandidates(Callback<Candidate> callback){
+  public void getCandidates(Callback<CandidateReturnObject> callback){
     getCandidates(false,true,1,15,callback);
   }
 
@@ -32,7 +32,7 @@ public class CandidateAPIHelper{
    * @param withParty
    * @param callback
    */
-  public void getCandidates(boolean withParty,Callback<Candidate> callback){
+  public void getCandidates(boolean withParty,Callback<CandidateReturnObject> callback){
     getCandidates(withParty,true,1,15,callback);
   }
 
@@ -43,7 +43,7 @@ public class CandidateAPIHelper{
    * @param unicode
    * @param callback
    */
-  public void getCandidates(Boolean withParty,boolean unicode,Callback<Candidate> callback){
+  public void getCandidates(Boolean withParty,boolean unicode,Callback<CandidateReturnObject> callback){
     getCandidates(withParty,unicode,1,15,callback);
   }
 
@@ -54,7 +54,7 @@ public class CandidateAPIHelper{
    * @param firstPage
    * @param callback
    */
-  public void getCandidates(Boolean withParty,boolean unicode,int firstPage,Callback<Candidate> callback){
+  public void getCandidates(Boolean withParty,boolean unicode,int firstPage,Callback<CandidateReturnObject> callback){
     getCandidates(withParty, unicode, firstPage, 15, callback);
   }
 
@@ -66,7 +66,7 @@ public class CandidateAPIHelper{
    * @param perPage
    * @param callback
    */
-  public void getCandidates(boolean withParty,boolean unicode,int firstPage,int perPage,Callback<Candidate> callback){
+  public void getCandidates(boolean withParty,boolean unicode,int firstPage,int perPage,Callback<CandidateReturnObject> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -86,7 +86,7 @@ public class CandidateAPIHelper{
    * @param candidateId
    * @param callback
    */
-  public void getCandidateById(String candidateId,Callback<Candidate> callback){
+  public void getCandidateById(String candidateId,Callback<CandidateReturnObject> callback){
     getCandidateById(candidateId,true,true,callback);
   }
 
@@ -96,7 +96,7 @@ public class CandidateAPIHelper{
    * @param withParty
    * @param callback
    */
-  public void getCandidateById(String candidateId,boolean withParty,Callback<Candidate> callback){
+  public void getCandidateById(String candidateId,boolean withParty,Callback<CandidateReturnObject> callback){
     getCandidateById(candidateId,withParty,true,callback);
   }
 
@@ -107,7 +107,7 @@ public class CandidateAPIHelper{
    * @param unicode
    * @param callback
    */
-  public void getCandidateById(String candidateId,Boolean withParty,boolean unicode,Callback<Candidate> callback){
+  public void getCandidateById(String candidateId,Boolean withParty,boolean unicode,Callback<CandidateReturnObject> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);

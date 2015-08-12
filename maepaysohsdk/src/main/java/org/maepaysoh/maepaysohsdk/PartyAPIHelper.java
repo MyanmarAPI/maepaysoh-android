@@ -6,8 +6,8 @@ import java.util.List;
 import org.maepaysoh.maepaysohsdk.api.PartyService;
 import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
 import org.maepaysoh.maepaysohsdk.db.PartyDao;
+import org.maepaysoh.maepaysohsdk.models.PartyReturnObject;
 import org.maepaysoh.maepaysohsdk.models.Party;
-import org.maepaysoh.maepaysohsdk.models.PartyData;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
@@ -18,30 +18,30 @@ public class PartyAPIHelper {
   private RestAdapter mPartyRestAdapter;
   private PartyService mPartyService;
   private PartyDao mPartyDao;
-  public PartyAPIHelper(String token){
+  private Context mContext;
+  protected PartyAPIHelper(String token,Context context){
     mPartyRestAdapter = RetrofitHelper.getResAdapter(token);
     mPartyService = mPartyRestAdapter.create(PartyService.class);
+    context = mContext;
   }
 
   /**
    * 
    * @param party
    */
-  public void getPartiesAsync(Callback<Party> party){
+  public void getPartiesAsync(Callback<PartyReturnObject> party){
     mPartyService.listPartiesAsync(party);
   }
 
   /**
-   *
-   * @param context
    * @param cache
    * @return
    */
-  public Party getParties(Context context,boolean cache){
-    mPartyDao = new PartyDao(context);
-    Party party = mPartyService.listParties();
+  public PartyReturnObject getParties(boolean cache){
+    mPartyDao = new PartyDao(mContext);
+    PartyReturnObject partyReturnObject = mPartyService.listParties();
     if(cache){
-    for (PartyData data : party.getData()) {
+    for (Party data : partyReturnObject.getData()) {
       try {
         mPartyDao.createParty(data);
       } catch (java.sql.SQLException e) {
@@ -49,7 +49,7 @@ public class PartyAPIHelper {
       }
     }
     }
-    return party;
+    return partyReturnObject;
   }
 
   /**
@@ -57,7 +57,7 @@ public class PartyAPIHelper {
    * @param context
    * @return
    */
-  public List<PartyData> getPartiesFromCache(Context context){
+  public List<Party> getPartiesFromCache(Context context){
     mPartyDao = new PartyDao(context);
     try {
       return mPartyDao.getAllPartyData();
