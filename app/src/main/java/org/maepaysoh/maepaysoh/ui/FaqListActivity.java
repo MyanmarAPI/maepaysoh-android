@@ -134,58 +134,6 @@ public class FaqListActivity extends BaseActivity
     if (query != null && query.length() > 0) {
      new SearchFAQAsync().execute(query);
     } else {
-      //mFAQAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQListReturnObject>() {
-      //  @Override public void success(FAQListReturnObject returnObject, Response response) {
-      //
-      //    // Hide Progress on success
-      //    viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-      //    switch (response.getStatus()) {
-      //      case 200:
-      //        if (returnObject.getData() != null && returnObject.getData().size() > 0) {
-      //          for (FAQ FAQ : returnObject.getData()) {
-      //            mFaqDao.createFaq(FAQ);
-      //          }
-      //          if (mCurrentPage == 1) {
-      //            mFaqDatas = returnObject.getData();
-      //          } else {
-      //            mFaqDatas.addAll(returnObject.getData());
-      //          }
-      //          mFaqAdapter.setFaqs(mFaqDatas);
-      //          mEndlessRecyclerViewAdapter.onDataReady(true);
-      //          mCurrentPage++;
-      //        } else {
-      //          mEndlessRecyclerViewAdapter.onDataReady(false);
-      //        }
-      //        LOGI(TAG, "total candidate : " + returnObject.getData().size());
-      //        break;
-      //    }
-      //  }
-      //
-      //  @Override public void failure(RetrofitError error) {
-      //    switch (error.getKind()) {
-      //      case HTTP:
-      //        org.maepaysoh.maepaysohsdk.models.Error mError =
-      //            (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(
-      //                org.maepaysoh.maepaysohsdk.models.Error.class);
-      //        Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
-      //            Toast.LENGTH_SHORT).show();
-      //        break;
-      //      case NETWORK:
-      //        Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
-      //            Toast.LENGTH_SHORT).show();
-      //        break;
-      //    }
-      //
-      //    // Hide Progress on failure too
-      //    if (mCurrentPage == 1) {
-      //      loadFromCache();
-      //    } else {
-      //      viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-      //      mEndlessRecyclerViewAdapter.onDataReady(false);
-      //      mErrorView.setVisibility(View.VISIBLE);
-      //    }
-      //  }
-      //});
       new DownFaqListAsync().execute(mCurrentPage);
     }
   }
