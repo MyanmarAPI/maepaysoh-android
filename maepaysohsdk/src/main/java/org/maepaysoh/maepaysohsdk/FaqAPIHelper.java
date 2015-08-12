@@ -3,12 +3,13 @@ package org.maepaysoh.maepaysohsdk;
 import android.content.Context;
 import android.database.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.maepaysoh.maepaysohsdk.api.FaqService;
 import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
 import org.maepaysoh.maepaysohsdk.db.FaqDao;
-import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
+import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
@@ -88,7 +89,7 @@ public class FaqAPIHelper {
    * @param cache
    * @return
    */
-  public FAQReturnObject getFaqs(boolean unicode, int page, int per_page,boolean cache){
+  public List<FAQ> getFaqs(boolean unicode, int page, int per_page,boolean cache){
     mFaqDao = new FaqDao(mContext);
     Map<PARAM_FIELD,String> optionParams = new HashMap<>();
     if(unicode) {
@@ -108,7 +109,7 @@ public class FaqAPIHelper {
         }
       }
     }
-    return faqReturnObject;
+    return faqReturnObject.getData();
   }
 
   /**
@@ -117,8 +118,8 @@ public class FaqAPIHelper {
    * @param cache
    * @return
    */
-  public FAQReturnObject getFaqs(boolean unicode,boolean cache){
-    return getFaqs(unicode,1,15,cache);
+  public List<FAQ> getFaqs(boolean unicode,boolean cache){
+    return getFaqs(unicode, 1, 15, cache);
   }
 
   /**
@@ -127,7 +128,7 @@ public class FaqAPIHelper {
    * @param cache
    * @return
    */
-  public FAQReturnObject getFaqs(int page,boolean cache){
+  public List<FAQ> getFaqs(int page,boolean cache){
     return getFaqs(true,page,15,cache);
   }
 
@@ -138,7 +139,7 @@ public class FaqAPIHelper {
    * @param cache
    * @return
    */
-  public FAQReturnObject getFaqs(int page,int page_number,boolean cache){
+  public List<FAQ> getFaqs(int page,int page_number,boolean cache){
     return getFaqs(true,page,page_number,cache);
   }
 
@@ -149,19 +150,25 @@ public class FaqAPIHelper {
    * @param cache
    * @return
    */
-  public FAQReturnObject getFaqs(boolean unicode,int page,boolean cache){
+  public List<FAQ> getFaqs(boolean unicode,int page,boolean cache){
     return getFaqs(unicode,page,15,cache);
   }
-  
+
   /**
    *
    * @param keyword
    * @param callback
    */
-  public void searchFaqs(String keyword,Callback<FAQReturnObject> callback){
+  public void searchFaqsAsync(String keyword, Callback<FAQReturnObject> callback){
     Map<PARAM_FIELD,String> optionParams = new HashMap<>();
     optionParams.put(PARAM_FIELD.q,keyword);
     mFaqService.searchFaqsAsync(optionParams, callback);
+  }
+
+  public List<FAQ> searchFaq(String keyword){
+    Map<PARAM_FIELD,String> optionParams = new HashMap<>();
+    optionParams.put(PARAM_FIELD.q,keyword);
+    return mFaqService.searchFaq(optionParams).getData();
   }
 
   public enum PARAM_FIELD {

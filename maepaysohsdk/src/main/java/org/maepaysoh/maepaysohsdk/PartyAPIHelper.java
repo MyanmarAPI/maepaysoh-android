@@ -37,7 +37,7 @@ public class PartyAPIHelper {
    * @param cache
    * @return
    */
-  public PartyReturnObject getParties(boolean cache){
+  public List<Party> getParties(boolean cache){
     mPartyDao = new PartyDao(mContext);
     PartyReturnObject partyReturnObject = mPartyService.listParties();
     if(cache){
@@ -49,7 +49,7 @@ public class PartyAPIHelper {
       }
     }
     }
-    return partyReturnObject;
+    return partyReturnObject.getData();
   }
 
   /**
