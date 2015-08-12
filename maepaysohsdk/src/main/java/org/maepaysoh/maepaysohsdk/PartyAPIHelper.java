@@ -22,7 +22,7 @@ public class PartyAPIHelper {
   protected PartyAPIHelper(String token,Context context){
     mPartyRestAdapter = RetrofitHelper.getResAdapter(token);
     mPartyService = mPartyRestAdapter.create(PartyService.class);
-    context = mContext;
+    mContext = context;
   }
 
   /**
@@ -44,7 +44,7 @@ public class PartyAPIHelper {
     for (Party data : partyReturnObject.getData()) {
       try {
         mPartyDao.createParty(data);
-      } catch (java.sql.SQLException e) {
+      } catch (SQLException e) {
         e.printStackTrace();
       }
     }
@@ -53,12 +53,10 @@ public class PartyAPIHelper {
   }
 
   /**
-   *
-   * @param context
    * @return
    */
-  public List<Party> getPartiesFromCache(Context context){
-    mPartyDao = new PartyDao(context);
+  public List<Party> getPartiesFromCache(){
+    mPartyDao = new PartyDao(mContext);
     try {
       return mPartyDao.getAllPartyData();
     } catch (SQLException e) {

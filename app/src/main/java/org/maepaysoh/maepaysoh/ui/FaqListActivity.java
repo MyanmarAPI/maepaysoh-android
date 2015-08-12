@@ -22,13 +22,12 @@ import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
 import org.maepaysoh.maepaysoh.adapters.FaqAdapter;
-import org.maepaysoh.maepaysoh.db.FaqDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.FaqAPIHelper;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
-import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
+import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -56,7 +55,6 @@ public class FaqListActivity extends BaseActivity
   private List<FAQ> mFaqDatas;
   private android.support.v7.widget.SearchView mSearchView;
   private MenuItem mSearchMenu;
-  private FaqDao mFaqDao;
   private FaqAPIHelper mFaqAPIHelper;
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
 
@@ -99,7 +97,6 @@ public class FaqListActivity extends BaseActivity
           }
         });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    mFaqDao = new FaqDao(this);
     if(InternetUtils.isNetworkAvailable(this)) {
       loadFaqData(null);
     }else{
@@ -276,7 +273,7 @@ public class FaqListActivity extends BaseActivity
     //Disable pagination in cache
     mEndlessRecyclerViewAdapter.onDataReady(false);
     try {
-      mFaqDatas = mFaqDao.getAllFaqData();
+      mFaqDatas = mFaqAPIHelper.getFaqsFromCache();
       if (mFaqDatas != null && mFaqDatas.size() > 0) {
         viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
         mFaqAdapter.setFaqs(mFaqDatas);
@@ -318,6 +315,9 @@ public class FaqListActivity extends BaseActivity
         mEndlessRecyclerViewAdapter.onDataReady(true);
         mCurrentPage++;
       }else{
+        if(mCurrentPage==1){
+          loadFromCache();
+        }
         mEndlessRecyclerViewAdapter.onDataReady(false);
       }
     }

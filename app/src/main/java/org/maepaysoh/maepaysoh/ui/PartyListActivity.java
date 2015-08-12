@@ -168,7 +168,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
   private void loadFromCache() {
       //mParties = mPartyDao.getAllPartyData();
-      mParties = mPartyAPIHelper.getPartiesFromCache(PartyListActivity.this);
+      mParties = mPartyAPIHelper.getPartiesFromCache();
       if (mParties != null && mParties.size() > 0) {
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         mPartyAdapter.setParties(mParties);

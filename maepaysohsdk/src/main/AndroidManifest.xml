@@ -2,9 +2,7 @@
     package="org.maepaysohsdk.maepaysohsdk">
 
   <application android:allowBackup="true"
-      android:label="@string/app_name"
-      >
-
+      android:label="@string/app_name">
   </application>
 
 </manifest>
