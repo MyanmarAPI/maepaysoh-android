@@ -165,12 +165,22 @@ public class FaqAPIHelper {
     mFaqService.searchFaqsAsync(optionParams, callback);
   }
 
+  /**
+   *
+   * @param keyword
+   * @return
+   */
   public List<FAQ> searchFaq(String keyword){
     Map<PARAM_FIELD,String> optionParams = new HashMap<>();
-    optionParams.put(PARAM_FIELD.q,keyword);
+    optionParams.put(PARAM_FIELD.q, keyword);
     return mFaqService.searchFaq(optionParams).getData();
   }
 
+
+  public List<FAQ> getFaqsFromCache(){
+    mFaqDao = new FaqDao(mContext);
+    return mFaqDao.getAllFaqData();
+  }
   public enum PARAM_FIELD {
     font, per_page, page, q
   }
