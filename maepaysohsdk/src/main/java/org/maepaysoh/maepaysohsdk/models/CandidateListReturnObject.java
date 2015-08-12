@@ -6,11 +6,11 @@ import java.util.List;
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
-public class CandidateReturnObject {
+public class CandidateListReturnObject {
   private List<Candidate> data = new ArrayList<Candidate>();
   private CandidateMeta meta;
 
-  public CandidateReturnObject() {
+  public CandidateListReturnObject() {
   }
 
   /**

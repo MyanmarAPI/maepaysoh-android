@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by yemyatthu on 8/4/15.
  */
-public class PartyReturnObject {
+public class PartyListReturnObject {
   @SerializedName("_meta") private PartyMetaData meta;
 
   private List<Party> data;

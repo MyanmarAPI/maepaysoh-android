@@ -75,7 +75,7 @@ public class FaqDao {
     return FAQs;
   }
 
-  public FAQ get(String id) throws SQLException {
+  public FAQ getFaqById(String id) throws SQLException {
     open();
     Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_FAQ, null,
         MaepaysohDbHelper.COLUMN_FAQ_ID + " = " + id, null, null, null, null);

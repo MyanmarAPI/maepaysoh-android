@@ -18,19 +18,18 @@ import java.util.List;
 import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
-import org.maepaysoh.maepaysoh.db.PartyDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.PartyAPIHelper;
-import org.maepaysoh.maepaysohsdk.models.PartyReturnObject;
+import org.maepaysoh.maepaysohsdk.db.PartyDao;
 import org.maepaysoh.maepaysohsdk.models.Party;
+import org.maepaysoh.maepaysohsdk.models.PartyListReturnObject;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface {
-
   private RecyclerView mPartyListRecyclerView;
   private ProgressBar mProgressView;
   private View mErrorView;
@@ -121,8 +120,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void downloadPartyList() {
-    mPartyAPIHelper.getPartiesAsync(new Callback<PartyReturnObject>() {
-      @Override public void success(PartyReturnObject returnObject, Response response) {
+    mPartyAPIHelper.getPartiesAsync(new Callback<PartyListReturnObject>() {
+      @Override public void success(PartyListReturnObject returnObject, Response response) {
         // Hide Progress on success
         viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
         switch (response.getStatus()) {

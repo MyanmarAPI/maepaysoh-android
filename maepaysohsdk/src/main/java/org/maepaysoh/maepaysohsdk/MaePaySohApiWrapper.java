@@ -19,8 +19,8 @@ public class MaePaySohApiWrapper {
     return new PartyAPIHelper(mToken,mContext);
   }
 
-  public FaqAPIHelper getFaqApiHelper(){
-    return new FaqAPIHelper(mToken,mContext);
+  public FAQAPIHelper getFaqApiHelper(){
+    return new FAQAPIHelper(mToken,mContext);
   }
 
   public CandidateAPIHelper getCandidateApiHelper(){

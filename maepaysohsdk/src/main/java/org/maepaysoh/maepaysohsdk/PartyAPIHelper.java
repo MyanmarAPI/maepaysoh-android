@@ -6,7 +6,7 @@ import java.util.List;
 import org.maepaysoh.maepaysohsdk.api.PartyService;
 import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
 import org.maepaysoh.maepaysohsdk.db.PartyDao;
-import org.maepaysoh.maepaysohsdk.models.PartyReturnObject;
+import org.maepaysoh.maepaysohsdk.models.PartyListReturnObject;
 import org.maepaysoh.maepaysohsdk.models.Party;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -29,7 +29,7 @@ public class PartyAPIHelper {
    * 
    * @param party
    */
-  public void getPartiesAsync(Callback<PartyReturnObject> party){
+  public void getPartiesAsync(Callback<PartyListReturnObject> party){
     mPartyService.listPartiesAsync(party);
   }
 
@@ -39,9 +39,9 @@ public class PartyAPIHelper {
    */
   public List<Party> getParties(boolean cache){
     mPartyDao = new PartyDao(mContext);
-    PartyReturnObject partyReturnObject = mPartyService.listParties();
+    PartyListReturnObject partyListReturnObject = mPartyService.listParties();
     if(cache){
-    for (Party data : partyReturnObject.getData()) {
+    for (Party data : partyListReturnObject.getData()) {
       try {
         mPartyDao.createParty(data);
       } catch (SQLException e) {
@@ -49,7 +49,7 @@ public class PartyAPIHelper {
       }
     }
     }
-    return partyReturnObject.getData();
+    return partyListReturnObject.getData();
   }
 
   /**

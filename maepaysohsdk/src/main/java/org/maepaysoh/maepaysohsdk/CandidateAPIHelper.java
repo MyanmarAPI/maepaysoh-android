@@ -9,7 +9,8 @@ import org.maepaysoh.maepaysohsdk.api.CandidateService;
 import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
 import org.maepaysoh.maepaysohsdk.db.CandidateDao;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
-import org.maepaysoh.maepaysohsdk.models.CandidateReturnObject;
+import org.maepaysoh.maepaysohsdk.models.CandidateDetailReturnObject;
+import org.maepaysoh.maepaysohsdk.models.CandidateListReturnObject;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
@@ -31,7 +32,7 @@ public class CandidateAPIHelper{
    *
    * @param callback
    */
-  public void getCandidatesAsync(Callback<CandidateReturnObject> callback){
+  public void getCandidatesAsync(Callback<CandidateListReturnObject> callback){
     getCandidatesAsync(false, true, 1, 15, callback);
   }
 
@@ -40,7 +41,7 @@ public class CandidateAPIHelper{
    * @param withParty
    * @param callback
    */
-  public void getCandidatesAsync(boolean withParty, Callback<CandidateReturnObject> callback){
+  public void getCandidatesAsync(boolean withParty, Callback<CandidateListReturnObject> callback){
     getCandidatesAsync(withParty, true, 1, 15, callback);
   }
 
@@ -52,7 +53,7 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidatesAsync(Boolean withParty, boolean unicode,
-      Callback<CandidateReturnObject> callback){
+      Callback<CandidateListReturnObject> callback){
     getCandidatesAsync(withParty, unicode, 1, 15, callback);
   }
 
@@ -64,7 +65,7 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidatesAsync(Boolean withParty, boolean unicode, int firstPage,
-      Callback<CandidateReturnObject> callback){
+      Callback<CandidateListReturnObject> callback){
     getCandidatesAsync(withParty, unicode, firstPage, 15, callback);
   }
 
@@ -77,7 +78,7 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidatesAsync(boolean withParty, boolean unicode, int firstPage, int perPage,
-      Callback<CandidateReturnObject> callback){
+      Callback<CandidateListReturnObject> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -156,7 +157,7 @@ public class CandidateAPIHelper{
     }
     optionParams.put(CandidateService.PARAM_FIELD.page,String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page,String.valueOf(perPage));
-    CandidateReturnObject returnObject = mCandidateService.listCandidates(optionParams);
+    CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     if(cache){
       for (Candidate data : returnObject.getData()) {
         try {
@@ -174,7 +175,7 @@ public class CandidateAPIHelper{
    * @param candidateId
    * @param callback
    */
-  public void getCandidateByIdAsync(String candidateId, Callback<CandidateReturnObject> callback){
+  public void getCandidateByIdAsync(String candidateId, Callback<CandidateDetailReturnObject> callback){
     getCandidateByIdAsync(candidateId, true, true, callback);
   }
 
@@ -185,7 +186,7 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidateByIdAsync(String candidateId, boolean withParty,
-      Callback<CandidateReturnObject> callback){
+      Callback<CandidateDetailReturnObject> callback){
     getCandidateByIdAsync(candidateId, withParty, true, callback);
   }
 
@@ -197,7 +198,7 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidateByIdAsync(String candidateId, Boolean withParty, boolean unicode,
-      Callback<CandidateReturnObject> callback){
+      Callback<CandidateDetailReturnObject> callback){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -213,7 +214,7 @@ public class CandidateAPIHelper{
    *
    * @param candidateId
    */
-  public List<Candidate> getCandidateById(String candidateId,boolean cache){
+  public Candidate getCandidateById(String candidateId,boolean cache){
     return getCandidateById(candidateId, true, true, cache);
   }
 
@@ -222,7 +223,7 @@ public class CandidateAPIHelper{
    * @param candidateId
    * @param withParty
    */
-  public List<Candidate> getCandidateById(String candidateId, boolean withParty,boolean cache){
+  public Candidate getCandidateById(String candidateId, boolean withParty,boolean cache){
     return getCandidateById(candidateId, withParty, true, cache);
   }
 
@@ -232,7 +233,7 @@ public class CandidateAPIHelper{
    * @param withParty
    * @param unicode
    */
-  public List<Candidate> getCandidateById(String candidateId, Boolean withParty, boolean unicode,boolean cache){
+  public Candidate getCandidateById(String candidateId, Boolean withParty, boolean unicode,boolean cache){
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -242,21 +243,22 @@ public class CandidateAPIHelper{
     }else{
       optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    CandidateReturnObject returnObject = mCandidateService.getCandidateById(candidateId,optionParams);
+    CandidateDetailReturnObject returnObject = mCandidateService.getCandidateById(candidateId,optionParams);
+    Candidate candidate = returnObject.getCandidate();
     if(cache){
-      for (Candidate data : returnObject.getData()) {
-        try {
-          mCandidateDao.createCandidate(data);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+          mCandidateDao.createCandidate(candidate);
+
       }
-    }
-   return returnObject.getData();
+   return candidate;
   }
 
   public List<Candidate> getCandidatesFromCache(){
     mCandidateDao = new CandidateDao(mContext);
     return mCandidateDao.getAllCandidateData();
+  }
+
+  public Candidate getCandidateByIdFromCache(String candidateId){
+    mCandidateDao = new CandidateDao(mContext);
+    return mCandidateDao.getCandidateById(candidateId);
   }
 }

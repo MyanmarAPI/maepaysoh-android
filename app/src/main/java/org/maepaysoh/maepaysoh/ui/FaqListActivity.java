@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.List;
 import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
@@ -24,16 +23,11 @@ import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
 import org.maepaysoh.maepaysoh.adapters.FaqAdapter;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
-import org.maepaysoh.maepaysohsdk.FaqAPIHelper;
+import org.maepaysoh.maepaysohsdk.FAQAPIHelper;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
-import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 import static org.maepaysoh.maepaysoh.utils.Logger.LOGD;
-import static org.maepaysoh.maepaysoh.utils.Logger.LOGI;
 import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 
 /**
@@ -55,7 +49,7 @@ public class FaqListActivity extends BaseActivity
   private List<FAQ> mFaqDatas;
   private android.support.v7.widget.SearchView mSearchView;
   private MenuItem mSearchMenu;
-  private FaqAPIHelper mFaqAPIHelper;
+  private FAQAPIHelper mFAQAPIHelper;
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +83,7 @@ public class FaqListActivity extends BaseActivity
     mFaqAdapter = new FaqAdapter();
     mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
     mMaePaySohApiWrapper.setApiKey(Constants.API_KEY);
-    mFaqAPIHelper =mMaePaySohApiWrapper.getFaqApiHelper();
+    mFAQAPIHelper =mMaePaySohApiWrapper.getFaqApiHelper();
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
@@ -138,65 +132,10 @@ public class FaqListActivity extends BaseActivity
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     }
     if (query != null && query.length() > 0) {
-      mFaqAPIHelper.searchFaqsAsync(query, new Callback<FAQReturnObject>() {
-        @Override public void success(FAQReturnObject returnObject, Response response) {
-          //Hide Progress on success
-          viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-          switch (response.getStatus()) {
-            case 200:
-              if (returnObject.getData() != null && returnObject.getData().size() > 0) {
-                mFaqListRecyclerView.setVisibility(View.VISIBLE);
-                if (mCurrentPage == 1) {
-                  mFaqDatas = returnObject.getData();
-                } else {
-                  mFaqDatas.addAll(returnObject.getData());
-                }
-                mFaqAdapter.setFaqs(mFaqDatas);
-                mEndlessRecyclerViewAdapter.onDataReady(true);
-                mCurrentPage++;
-              } else {
-                mEndlessRecyclerViewAdapter.onDataReady(false);
-                if (mCurrentPage == 1) {
-                  mFaqDatas = returnObject.getData();
-                } else {
-                  mFaqDatas.addAll(returnObject.getData());
-                }
-                mFaqAdapter.setFaqs(mFaqDatas);
-                mErrorView.setVisibility(View.VISIBLE);
-                TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
-                errorText.setText(R.string.search_not_found);
-                mRetryBtn.setVisibility(View.GONE);
-              }
-              LOGI(TAG, "total candidate : " + returnObject.getData().size());
-              break;
-          }
-        }
-
-        @Override public void failure(RetrofitError error) {
-          switch (error.getKind()) {
-            case HTTP:
-              org.maepaysoh.maepaysohsdk.models.Error mError =
-                  (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(
-                      org.maepaysoh.maepaysohsdk.models.Error.class);
-              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
-                  Toast.LENGTH_SHORT).show();
-              break;
-            case NETWORK:
-              Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
-                  Toast.LENGTH_SHORT).show();
-              break;
-          }
-
-          // Hide Progress on failure too
-          viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-          mFaqAdapter.setFaqs(null);
-          mEndlessRecyclerViewAdapter.onDataReady(false);
-          mErrorView.setVisibility(View.VISIBLE);
-        }
-      });
+     new SearchFAQAsync().execute(query);
     } else {
-      //mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQReturnObject>() {
-      //  @Override public void success(FAQReturnObject returnObject, Response response) {
+      //mFAQAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQListReturnObject>() {
+      //  @Override public void success(FAQListReturnObject returnObject, Response response) {
       //
       //    // Hide Progress on success
       //    viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
@@ -273,7 +212,7 @@ public class FaqListActivity extends BaseActivity
     //Disable pagination in cache
     mEndlessRecyclerViewAdapter.onDataReady(false);
     try {
-      mFaqDatas = mFaqAPIHelper.getFaqsFromCache();
+      mFaqDatas = mFAQAPIHelper.getFaqsFromCache();
       if (mFaqDatas != null && mFaqDatas.size() > 0) {
         viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
         mFaqAdapter.setFaqs(mFaqDatas);
@@ -293,7 +232,7 @@ public class FaqListActivity extends BaseActivity
 
     @Override protected List<FAQ> doInBackground(Integer... integer) {
       mCurrentPage = integer[0];
-      return mFaqAPIHelper.getFaqs(true,integer[0],true);
+      return mFAQAPIHelper.getFaqs(true,integer[0],true);
     }
 
     @Override protected void onPostExecute(List<FAQ> faqs) {
@@ -319,6 +258,35 @@ public class FaqListActivity extends BaseActivity
           loadFromCache();
         }
         mEndlessRecyclerViewAdapter.onDataReady(false);
+      }
+    }
+  }
+
+  class SearchFAQAsync extends AsyncTask<String,Void,List<FAQ>>{
+
+    @Override protected List<FAQ> doInBackground(String... strings) {
+      return mFAQAPIHelper.searchFaq(strings[0]);
+    }
+
+    @Override protected void onPostExecute(List<FAQ> faqs) {
+      super.onPostExecute(faqs);
+      //Hide Progress on success
+      viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+      if(faqs.size()>0){
+        mFaqListRecyclerView.setVisibility(View.VISIBLE);
+        if (mCurrentPage == 1) {
+          mFaqDatas = faqs;
+        } else {
+          mFaqDatas.addAll(faqs);
+        }
+        mFaqAdapter.setFaqs(mFaqDatas);
+        mEndlessRecyclerViewAdapter.onDataReady(true);
+        mCurrentPage++;
+      }else{
+        mErrorView.setVisibility(View.VISIBLE);
+        TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
+        errorText.setText(R.string.search_not_found);
+        mRetryBtn.setVisibility(View.GONE);
       }
     }
   }

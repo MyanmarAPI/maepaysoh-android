@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Ye Lin Aung on 15/08/06.
  */
-public class FAQReturnObject {
+public class FAQListReturnObject {
   private List<FAQ> data = new ArrayList<>();
   @SerializedName("_meta") private FaqMeta meta;
 
