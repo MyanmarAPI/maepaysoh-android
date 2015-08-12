@@ -3,6 +3,7 @@ package org.maepaysoh.maepaysoh.ui;
 import android.content.Intent;
 import android.database.SQLException;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -25,6 +26,7 @@ import org.maepaysoh.maepaysoh.db.FaqDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.FaqAPIHelper;
+import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.FAQReturnObject;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
 import retrofit.Callback;
@@ -56,6 +58,7 @@ public class FaqListActivity extends BaseActivity
   private MenuItem mSearchMenu;
   private FaqDao mFaqDao;
   private FaqAPIHelper mFaqAPIHelper;
+  private MaePaySohApiWrapper mMaePaySohApiWrapper;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -86,7 +89,9 @@ public class FaqListActivity extends BaseActivity
     mLayoutManager = new LinearLayoutManager(this);
     mFaqListRecyclerView.setLayoutManager(mLayoutManager);
     mFaqAdapter = new FaqAdapter();
-    mFaqAPIHelper = new FaqAPIHelper(Constants.API_KEY);
+    mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
+    mMaePaySohApiWrapper.setApiKey(Constants.API_KEY);
+    mFaqAPIHelper =mMaePaySohApiWrapper.getFaqApiHelper();
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
@@ -122,6 +127,8 @@ public class FaqListActivity extends BaseActivity
     }
     return super.onOptionsItemSelected(item);
   }
+
+
 
   private void loadFaqData(@Nullable String query) {
     TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
@@ -281,6 +288,34 @@ public class FaqListActivity extends BaseActivity
       viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);
       mErrorView.setVisibility(View.VISIBLE);
       e.printStackTrace();
+    }
+  }
+
+  class DownFaqListAsync extends AsyncTask<Integer,Void,List<FAQ>>{
+
+    @Override protected List<FAQ> doInBackground(Integer... integer) {
+      mCurrentPage = integer[0];
+      return mFaqAPIHelper.getFaqs(true,integer[0],true);
+    }
+
+    @Override protected void onPostExecute(List<FAQ> faqs) {
+      super.onPostExecute(faqs);
+
+      TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
+      errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
+      mRetryBtn.setVisibility(View.VISIBLE);
+      if (mErrorView.getVisibility() == View.VISIBLE) {
+        mErrorView.setVisibility(View.GONE);
+      }
+      if (mCurrentPage == 1) {
+        viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+        mFaqDatas =faqs;
+      } else {
+        mFaqDatas.addAll(faqs);
+      }
+      mFaqAdapter.setFaqs(mFaqDatas);
+      mEndlessRecyclerViewAdapter.onDataReady(true);
+      mCurrentPage++;
     }
   }
 }

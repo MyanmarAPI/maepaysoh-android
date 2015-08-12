@@ -176,11 +176,15 @@ public class FaqAPIHelper {
     return mFaqService.searchFaq(optionParams).getData();
   }
 
-
+  /**
+   *
+   * @return
+   */
   public List<FAQ> getFaqsFromCache(){
     mFaqDao = new FaqDao(mContext);
     return mFaqDao.getAllFaqData();
   }
+
   public enum PARAM_FIELD {
     font, per_page, page, q
   }
