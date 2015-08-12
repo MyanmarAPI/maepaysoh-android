@@ -21,6 +21,7 @@ import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.db.PartyDao;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
+import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.PartyAPIHelper;
 import org.maepaysoh.maepaysohsdk.models.PartyReturnObject;
 import org.maepaysoh.maepaysohsdk.models.Party;
@@ -74,7 +75,9 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
-    mPartyAPIHelper = new PartyAPIHelper(Constants.API_KEY);
+    MaePaySohApiWrapper wrapper = new MaePaySohApiWrapper(this);
+    wrapper.setApiKey(Constants.API_KEY);
+    mPartyAPIHelper = wrapper.getPartyApiHelper();
     mPartyDao = new PartyDao(this);
     if (InternetUtils.isNetworkAvailable(this)) {
       //downloadPartyList();
@@ -180,16 +183,16 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     new DownloadPartyListAsync().execute();
   }
 
-  class DownloadPartyListAsync extends AsyncTask<Void,Void,PartyReturnObject>{
+  class DownloadPartyListAsync extends AsyncTask<Void,Void,List<Party>>{
 
-    @Override protected PartyReturnObject doInBackground(Void... voids) {
-      return mPartyAPIHelper.getParties(PartyListActivity.this,true);
+    @Override protected List<Party> doInBackground(Void... voids) {
+      return mPartyAPIHelper.getParties(true);
     }
 
-    @Override protected void onPostExecute(PartyReturnObject partyReturnObject) {
+    @Override protected void onPostExecute(List<Party> parties) {
       viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
-      if(partyReturnObject !=null){
-        mParties = partyReturnObject.getData();
+      if(parties.size()>0){
+        mParties = parties;
         mPartyAdapter.setParties(mParties);
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
       } else{
@@ -197,7 +200,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
             .show();
         loadFromCache();
       }
-      super.onPostExecute(partyReturnObject);
+      super.onPostExecute(parties);
     }
   }
 }

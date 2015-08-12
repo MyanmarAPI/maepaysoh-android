@@ -134,7 +134,7 @@ public class FaqListActivity extends BaseActivity
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     }
     if (query != null && query.length() > 0) {
-      mFaqAPIHelper.searchFaqs(query, new Callback<FAQReturnObject>() {
+      mFaqAPIHelper.searchFaqsAsync(query, new Callback<FAQReturnObject>() {
         @Override public void success(FAQReturnObject returnObject, Response response) {
           //Hide Progress on success
           viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
@@ -170,25 +170,25 @@ public class FaqListActivity extends BaseActivity
 
         @Override public void failure(RetrofitError error) {
           switch (error.getKind()) {
-                  case HTTP:
-                    org.maepaysoh.maepaysohsdk.models.Error mError =
-                        (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(
-                            org.maepaysoh.maepaysohsdk.models.Error.class);
-                    Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
-                        Toast.LENGTH_SHORT).show();
-                    break;
-                  case NETWORK:
-                    Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
-                        Toast.LENGTH_SHORT).show();
-                    break;
-                }
+            case HTTP:
+              org.maepaysoh.maepaysohsdk.models.Error mError =
+                  (org.maepaysoh.maepaysohsdk.models.Error) error.getBodyAs(
+                      org.maepaysoh.maepaysohsdk.models.Error.class);
+              Toast.makeText(FaqListActivity.this, mError.getError().getMessage(),
+                  Toast.LENGTH_SHORT).show();
+              break;
+            case NETWORK:
+              Toast.makeText(FaqListActivity.this, getString(R.string.PleaseCheckNetwork),
+                  Toast.LENGTH_SHORT).show();
+              break;
+          }
 
-                // Hide Progress on failure too
-                viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-                mFaqAdapter.setFaqs(null);
-                mEndlessRecyclerViewAdapter.onDataReady(false);
-                mErrorView.setVisibility(View.VISIBLE);
-              }
+          // Hide Progress on failure too
+          viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
+          mFaqAdapter.setFaqs(null);
+          mEndlessRecyclerViewAdapter.onDataReady(false);
+          mErrorView.setVisibility(View.VISIBLE);
+        }
       });
     } else {
       mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQReturnObject>() {
