@@ -31,6 +31,12 @@ public class PartyAPIHelper {
     mPartyService.listPartiesAsync(party);
   }
 
+  /**
+   *
+   * @param context
+   * @param cache
+   * @return
+   */
   public Party getParties(Context context,boolean cache){
     mPartyDao = new PartyDao(context);
     Party party = mPartyService.listParties();
@@ -46,6 +52,11 @@ public class PartyAPIHelper {
     return party;
   }
 
+  /**
+   *
+   * @param context
+   * @return
+   */
   public List<PartyData> getPartiesFromCache(Context context){
     mPartyDao = new PartyDao(context);
     try {

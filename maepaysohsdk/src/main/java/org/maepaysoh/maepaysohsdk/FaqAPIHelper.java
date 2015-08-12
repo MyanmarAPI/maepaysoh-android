@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysohsdk;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.maepaysoh.maepaysohsdk.api.FaqService;
 import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
@@ -23,8 +24,8 @@ public class FaqAPIHelper {
    *
    * @param callback
    */
-  public void getFaqs(Callback<FAQ> callback){
-    getFaqs(true,1,15,callback);
+  public void getFaqsAsync(Callback<FAQ> callback){
+    getFaqsAsync(true, 1, 15, callback);
   }
 
   /**
@@ -32,8 +33,8 @@ public class FaqAPIHelper {
    * @param page
    * @param callback
    */
-  public void getFaqs(int page,Callback<FAQ> callback){
-    getFaqs(true,page,15,callback);
+  public void getFaqsAsync(int page, Callback<FAQ> callback){
+    getFaqsAsync(true, page, 15, callback);
   }
 
   /**
@@ -42,8 +43,8 @@ public class FaqAPIHelper {
    * @param page
    * @param callback
    */
-  public void getFaqs(boolean unicode,int page,Callback<FAQ> callback){
-    getFaqs(unicode,page,callback);
+  public void getFaqsAsync(boolean unicode, int page, Callback<FAQ> callback){
+    getFaqsAsync(unicode, page, callback);
   }
 
   /**
@@ -53,7 +54,7 @@ public class FaqAPIHelper {
    * @param per_page
    * @param callback
    */
-  public void getFaqs(boolean unicode, int page,int per_page,Callback<FAQ> callback){
+  public void getFaqsAsync(boolean unicode, int page, int per_page, Callback<FAQ> callback){
     Map<PARAM_FIELD,String> optionParams = new HashMap<>();
     if(unicode) {
       optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
@@ -62,9 +63,13 @@ public class FaqAPIHelper {
     }
     optionParams.put(PARAM_FIELD.page,String.valueOf(page));
     optionParams.put(PARAM_FIELD.per_page,String.valueOf(per_page));
-    mFaqService.listFaqs(optionParams, callback);
+    mFaqService.listFaqsAsync(optionParams, callback);
   }
 
+  public List<FAQ> getFaqs(){
+
+    return null;
+  }
   /**
    *
    * @param keyword
@@ -73,7 +78,7 @@ public class FaqAPIHelper {
   public void searchFaqs(String keyword,Callback<FAQ> callback){
     Map<PARAM_FIELD,String> optionParams = new HashMap<>();
     optionParams.put(PARAM_FIELD.q,keyword);
-    mFaqService.searchFaqs(optionParams, callback);
+    mFaqService.searchFaqsAsync(optionParams, callback);
   }
 
   public enum PARAM_FIELD {

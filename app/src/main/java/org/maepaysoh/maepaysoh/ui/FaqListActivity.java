@@ -191,7 +191,7 @@ public class FaqListActivity extends BaseActivity
               }
       });
     } else {
-      mFaqAPIHelper.getFaqs(mCurrentPage,new Callback<FAQ>() {
+      mFaqAPIHelper.getFaqsAsync(mCurrentPage, new Callback<FAQ>() {
         @Override public void success(FAQ returnObject, Response response) {
 
           // Hide Progress on success
