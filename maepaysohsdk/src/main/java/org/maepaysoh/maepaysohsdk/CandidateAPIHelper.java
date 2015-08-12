@@ -107,6 +107,13 @@ public class CandidateAPIHelper{
     return getCandidates(withParty, true, 1, 15, cache);
   }
 
+  /**
+   *
+   * @param firstPage
+   */
+  public List<Candidate> getCandidates(int firstPage,boolean cache){
+    return getCandidates(true, true, firstPage, 15, cache);
+  }
 
   /**
    *
@@ -137,6 +144,7 @@ public class CandidateAPIHelper{
    */
   public List<Candidate> getCandidates(boolean withParty, boolean unicode, int firstPage, int perPage,
       boolean cache){
+    mCandidateDao = new CandidateDao(mContext);
     Map<CandidateService.PARAM_FIELD,String> optionParams = new HashMap<>();
     if(withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -247,4 +255,8 @@ public class CandidateAPIHelper{
    return returnObject.getData();
   }
 
+  public List<Candidate> getCandidatesFromCache(){
+    mCandidateDao = new CandidateDao(mContext);
+    return mCandidateDao.getAllCandidateData();
+  }
 }
