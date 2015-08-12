@@ -48,8 +48,7 @@ public class FaqDao {
         JsonUtils.convertToJson(FAQ.getSections()));
     mMaepaysohDb.beginTransaction();
     try {
-      long insertId =
-          mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_FAQ, null, faqContentValues);
+      long insertId = mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_FAQ, null, faqContentValues);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
       Log.e("error: ", e.getLocalizedMessage());

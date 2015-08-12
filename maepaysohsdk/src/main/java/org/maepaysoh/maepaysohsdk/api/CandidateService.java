@@ -19,9 +19,12 @@ public interface CandidateService {
       @Path("candidate_id") String candidateId, @QueryMap Map<PARAM_FIELD, String> options,
       Callback<CandidateDetailReturnObject> candidateCallback);
 
-  @GET("/candidate/list") CandidateListReturnObject listCandidates(@QueryMap Map<PARAM_FIELD, String> options);
+  @GET("/candidate/list") CandidateListReturnObject listCandidates(
+      @QueryMap Map<PARAM_FIELD, String> options);
 
-  @GET("/candidates/{candidate_id}") CandidateDetailReturnObject getCandidateById(@Path("candidate_id") String candidateId, @QueryMap Map<PARAM_FIELD, String> options);
+  @GET("/candidates/{candidate_id}") CandidateDetailReturnObject getCandidateById(
+      @Path("candidate_id") String candidateId, @QueryMap Map<PARAM_FIELD, String> options);
+
   enum PARAM_FIELD {
     _with, font, per_page, page
   }

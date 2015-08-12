@@ -83,7 +83,7 @@ public class FaqListActivity extends BaseActivity
     mFaqAdapter = new FaqAdapter();
     mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
     mMaePaySohApiWrapper.setApiKey(Constants.API_KEY);
-    mFAQAPIHelper =mMaePaySohApiWrapper.getFaqApiHelper();
+    mFAQAPIHelper = mMaePaySohApiWrapper.getFaqApiHelper();
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
@@ -91,9 +91,9 @@ public class FaqListActivity extends BaseActivity
           }
         });
     mFaqListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    if(InternetUtils.isNetworkAvailable(this)) {
+    if (InternetUtils.isNetworkAvailable(this)) {
       loadFaqData(null);
-    }else{
+    } else {
       loadFromCache();
     }
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
@@ -119,8 +119,6 @@ public class FaqListActivity extends BaseActivity
     return super.onOptionsItemSelected(item);
   }
 
-
-
   private void loadFaqData(@Nullable String query) {
     TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
     errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
@@ -132,7 +130,7 @@ public class FaqListActivity extends BaseActivity
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     }
     if (query != null && query.length() > 0) {
-     new SearchFAQAsync().execute(query);
+      new SearchFAQAsync().execute(query);
     } else {
       new DownFaqListAsync().execute(mCurrentPage);
     }
@@ -165,22 +163,22 @@ public class FaqListActivity extends BaseActivity
         viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
         mFaqAdapter.setFaqs(mFaqDatas);
         mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
-      }else{
-        viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);
+      } else {
+        viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
         mErrorView.setVisibility(View.VISIBLE);
       }
     } catch (SQLException e) {
-      viewUtils.showProgress(mFaqListRecyclerView,mProgressView,false);
+      viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
       mErrorView.setVisibility(View.VISIBLE);
       e.printStackTrace();
     }
   }
 
-  class DownFaqListAsync extends AsyncTask<Integer,Void,List<FAQ>>{
+  class DownFaqListAsync extends AsyncTask<Integer, Void, List<FAQ>> {
 
     @Override protected List<FAQ> doInBackground(Integer... integer) {
       mCurrentPage = integer[0];
-      return mFAQAPIHelper.getFaqs(true,integer[0],true);
+      return mFAQAPIHelper.getFaqs(true, integer[0], true);
     }
 
     @Override protected void onPostExecute(List<FAQ> faqs) {
@@ -201,8 +199,8 @@ public class FaqListActivity extends BaseActivity
         mFaqAdapter.setFaqs(mFaqDatas);
         mEndlessRecyclerViewAdapter.onDataReady(true);
         mCurrentPage++;
-      }else{
-        if(mCurrentPage==1){
+      } else {
+        if (mCurrentPage == 1) {
           loadFromCache();
         }
         mEndlessRecyclerViewAdapter.onDataReady(false);
@@ -210,7 +208,7 @@ public class FaqListActivity extends BaseActivity
     }
   }
 
-  class SearchFAQAsync extends AsyncTask<String,Void,List<FAQ>>{
+  class SearchFAQAsync extends AsyncTask<String, Void, List<FAQ>> {
 
     @Override protected List<FAQ> doInBackground(String... strings) {
       return mFAQAPIHelper.searchFaq(strings[0]);
@@ -220,7 +218,7 @@ public class FaqListActivity extends BaseActivity
       super.onPostExecute(faqs);
       //Hide Progress on success
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, false);
-      if(faqs.size()>0){
+      if (faqs.size() > 0) {
         mFaqListRecyclerView.setVisibility(View.VISIBLE);
         if (mCurrentPage == 1) {
           mFaqDatas = faqs;
@@ -230,7 +228,7 @@ public class FaqListActivity extends BaseActivity
         mFaqAdapter.setFaqs(mFaqDatas);
         mEndlessRecyclerViewAdapter.onDataReady(true);
         mCurrentPage++;
-      }else{
+      } else {
         mFaqListRecyclerView.setVisibility(View.GONE);
         mErrorView.setVisibility(View.VISIBLE);
         TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);

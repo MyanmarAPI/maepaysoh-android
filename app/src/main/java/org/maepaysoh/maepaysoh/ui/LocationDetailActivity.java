@@ -39,7 +39,8 @@ public class LocationDetailActivity extends FragmentActivity {
     // Do a null check to confirm that we have not already instantiated the map.
     if (mMap == null) {
       // Try to obtain the map from the SupportMapFragment.
-      mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
+      mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
+          R.id.location_detail_map)).getMap();
       if (mMap != null) {
         setUpMap();
       }

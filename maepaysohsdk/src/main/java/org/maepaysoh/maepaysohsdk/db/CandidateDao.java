@@ -57,14 +57,14 @@ public class CandidateDao {
         JsonUtils.convertToJson(candidate.getOccupation()));
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE,
         candidate.getLegislature());
-    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY,gson.toJson(
-        candidate.getResidency()));
-    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY, gson.toJson(
-        candidate.getConstituency()));
-    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER, gson.toJson(
-        candidate.getMother()));
-    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER, gson.toJson(
-        candidate.getFather()));
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY,
+        gson.toJson(candidate.getResidency()));
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY,
+        gson.toJson(candidate.getConstituency()));
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER,
+        gson.toJson(candidate.getMother()));
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER,
+        gson.toJson(candidate.getFather()));
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID, candidate.getPartyId());
     mMaepaysohDb.beginTransaction();
     try {
@@ -83,7 +83,8 @@ public class CandidateDao {
     open();
     List<Candidate> candidates = new ArrayList<>();
     Cursor cursor =
-        mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null, null, null, null, null, null);
+        mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null, null, null, null, null,
+            null);
     cursor.moveToFirst();
     while (!cursor.isAfterLast()) {
       Candidate candidate = cursorToCandidate(cursor);
@@ -116,8 +117,7 @@ public class CandidateDao {
         cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NAME)));
     candidate.setNationalId(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID)));
-    candidate.setBirthdate(
-        (int) cursor.getLong(
+    candidate.setBirthdate((int) cursor.getLong(
             cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE)));
     candidate.setConstituency(gson.fromJson(cursor.getString(
             cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY)),
@@ -138,8 +138,9 @@ public class CandidateDao {
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION)));
     candidate.setPartyId(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID)));
-    candidate.setResidency(gson.fromJson(cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY)), Residency.class));
+    candidate.setResidency(gson.fromJson(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY)),
+        Residency.class));
     return candidate;
   }
-
 }

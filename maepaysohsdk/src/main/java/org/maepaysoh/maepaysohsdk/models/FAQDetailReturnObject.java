@@ -5,15 +5,14 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by yemyatthu on 8/12/15.
  */
-public class FAQDetailReturnObject{
-  @SerializedName("data")
-  private FAQ mFAQ;
-  public FAQDetailReturnObject(){
+public class FAQDetailReturnObject {
+  @SerializedName("data") private FAQ mFAQ;
+
+  public FAQDetailReturnObject() {
 
   }
 
   /**
-   *
    * @return FAQ
    */
   public FAQ getFAQ() {

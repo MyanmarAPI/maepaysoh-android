@@ -19,10 +19,6 @@ import org.maepaysoh.maepaysohsdk.models.Residency;
 public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final int DATABASE_VERSION = 1;
   public static final String DATABASE_NAME = "maepaesoh.db";
-  private static final String COMMA_SEP = ",";
-  private static final String TEXT_TYPE = " TEXT";
-  private static final String NUMERIC_TYPE = " LONG";
-
   // PartyListReturnObject
   public static final String TABLE_NAME_PARTY = "parties";
   public static final String COLUMN_PARTY_ID = "_id";
@@ -44,7 +40,32 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String COLUMN_PARTY_POLICY = "policy";
   public static final String COLUMN_PARTY_HEADQUARTER = "party_headquarter";
   public static final String COLUMN_PARTY_LEADERSHIP = "leadership";
-
+  //FAQs
+  public static final String TABLE_NAME_FAQ = "faqs";
+  public static final String COLUMN_FAQ_ID = "_id";
+  public static final String COLUMN_FAQ_question = "question";
+  public static final String COLUMN_FAQ_answer = "answer";
+  public static final String COLUMN_FAQ_type = "type";
+  public static final String COLUMN_FAQ_basis = "basis";
+  public static final String COLUMN_FAQ_sections = "sections";
+  public static final String COLUMN_FAQ_url = "url";
+  public static final String TABLE_NAME_CANDIDATE = "candidates";
+  public static final String COLUMN_CANDIDATE_ID = "_id";
+  public static final String COLUMN_CANDIDATE_NAME = "name";
+  public static final String COLUMN_CANDIDATE_LEGISLATURE = "legislature";
+  public static final String COLUMN_CANDIDATE_NATIONAL_ID = "national_id";
+  public static final String COLUMN_CANDIDATE_BIRTHDATE = "birthdate";
+  public static final String COLUMN_CANDIDATE_EDUCATION = "education";
+  public static final String COLUMN_CANDIDATE_OCCUPATION = "occupation";
+  public static final String COLUMN_CANDIDATE_RESIDENCY = "residence";
+  public static final String COLUMN_CANDIDATE_CONSTITUENCY = "constituency";
+  public static final String COLUMN_CANDIDATE_NATIONALITY_RELIGION = "nationality_religion";
+  public static final String COLUMN_CANDIDATE_PARTY_ID = "party_id";
+  public static final String COLUMN_CANDIDATE_FATHER = "father";
+  public static final String COLUMN_CANDIDATE_MOTHER = "mother";
+  private static final String COMMA_SEP = ",";
+  private static final String TEXT_TYPE = " TEXT";
+  private static final String NUMERIC_TYPE = " LONG";
   private static final String SQL_CREATE_PARTY_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_PARTY + " (" +
           MaepaysohDbHelper.COLUMN_PARTY_ID + TEXT_TYPE + COMMA_SEP +
@@ -65,20 +86,8 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_PARTY_CONTACT + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_POLICY + TEXT_TYPE +
           " )";
-
   private static final String SQL_DELETE_PARTIES =
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_PARTY;
-
-  //FAQs
-  public static final String TABLE_NAME_FAQ = "faqs";
-  public static final String COLUMN_FAQ_ID = "_id";
-  public static final String COLUMN_FAQ_question = "question";
-  public static final String COLUMN_FAQ_answer = "answer";
-  public static final String COLUMN_FAQ_type = "type";
-  public static final String COLUMN_FAQ_basis = "basis";
-  public static final String COLUMN_FAQ_sections = "sections";
-  public static final String COLUMN_FAQ_url = "url";
-
   private static final String SQL_CREATE_FAQ_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_FAQ + " (" +
           MaepaysohDbHelper.COLUMN_FAQ_ID + TEXT_TYPE + COMMA_SEP +
@@ -89,40 +98,8 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_FAQ_sections + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_url + TEXT_TYPE +
           " )";
-
   private static final String SQL_DELETE_FAQS =
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_FAQ;
-
-
-  //candidate
-  private String id;
-  private String name;
-  private String legislature;
-  @SerializedName("national_id") private String nationalId;
-  private int birthdate;
-  private List<String> education = new ArrayList<String>();
-  private List<String> occupation = new ArrayList<String>();
-  @SerializedName("nationality_religion") private String nationalityReligion;
-  private Residency residency;
-  private Constituency constituency;
-  @SerializedName("party_id") private String partyId;
-  private Mother mother;
-  private Father father;
-  public static final String TABLE_NAME_CANDIDATE = "candidates";
-  public static final String COLUMN_CANDIDATE_ID = "_id";
-  public static final String COLUMN_CANDIDATE_NAME = "name";
-  public static final String COLUMN_CANDIDATE_LEGISLATURE = "legislature";
-  public static final String COLUMN_CANDIDATE_NATIONAL_ID = "national_id";
-  public static final String COLUMN_CANDIDATE_BIRTHDATE = "birthdate";
-  public static final String COLUMN_CANDIDATE_EDUCATION= "education";
-  public static final String COLUMN_CANDIDATE_OCCUPATION = "occupation";
-  public static final String COLUMN_CANDIDATE_RESIDENCY = "residence";
-  public static final String COLUMN_CANDIDATE_CONSTITUENCY = "constituency";
-  public static final String COLUMN_CANDIDATE_NATIONALITY_RELIGION = "nationality_religion";
-  public static final String COLUMN_CANDIDATE_PARTY_ID = "party_id";
-  public static final String COLUMN_CANDIDATE_FATHER = "father";
-  public static final String COLUMN_CANDIDATE_MOTHER = "mother";
-
   private static final String SQL_CREATE_CANDIDATE_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE + " (" +
           MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE + COMMA_SEP +
@@ -139,9 +116,22 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER + TEXT_TYPE +
           " )";
-
   private static final String SQL_DELETE_CANDIDATES =
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE;
+  //candidate
+  private String id;
+  private String name;
+  private String legislature;
+  @SerializedName("national_id") private String nationalId;
+  private int birthdate;
+  private List<String> education = new ArrayList<String>();
+  private List<String> occupation = new ArrayList<String>();
+  @SerializedName("nationality_religion") private String nationalityReligion;
+  private Residency residency;
+  private Constituency constituency;
+  @SerializedName("party_id") private String partyId;
+  private Mother mother;
+  private Father father;
 
   public MaepaysohDbHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);

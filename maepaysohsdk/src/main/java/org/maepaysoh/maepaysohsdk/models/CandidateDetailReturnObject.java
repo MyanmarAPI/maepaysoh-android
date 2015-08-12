@@ -7,14 +7,12 @@ import com.google.gson.annotations.SerializedName;
  */
 public class CandidateDetailReturnObject {
 
-  @SerializedName("data")
-  private Candidate mCandidate;
+  @SerializedName("data") private Candidate mCandidate;
 
   public CandidateDetailReturnObject() {
   }
 
   /**
-   *
    * @return candidate
    */
   public Candidate getCandidate() {
@@ -28,5 +26,4 @@ public class CandidateDetailReturnObject {
   public void setCandidate(Candidate candidate) {
     mCandidate = candidate;
   }
-
 }

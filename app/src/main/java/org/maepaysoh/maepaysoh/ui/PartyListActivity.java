@@ -149,8 +149,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
                 Toast.LENGTH_SHORT).show();
             break;
           case NETWORK:
-            Toast.makeText(PartyListActivity.this,  getString(R.string.PleaseCheckNetwork), Toast.LENGTH_SHORT)
-                .show();
+            Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork),
+                Toast.LENGTH_SHORT).show();
             break;
           case CONVERSION:
             Toast.makeText(PartyListActivity.this, getString(R.string.SomethingWentWrong),
@@ -166,23 +166,23 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void loadFromCache() {
-      //mParties = mPartyDao.getAllPartyData();
-      mParties = mPartyAPIHelper.getPartiesFromCache();
-      if (mParties != null && mParties.size() > 0) {
-        viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
-        mPartyAdapter.setParties(mParties);
-        mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
-      }else{
-        viewUtils.showProgress(mPartyListRecyclerView,mProgressView,false);
-        mErrorView.setVisibility(View.VISIBLE);
-      }
+    //mParties = mPartyDao.getAllPartyData();
+    mParties = mPartyAPIHelper.getPartiesFromCache();
+    if (mParties != null && mParties.size() > 0) {
+      viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
+      mPartyAdapter.setParties(mParties);
+      mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+    } else {
+      viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
+      mErrorView.setVisibility(View.VISIBLE);
+    }
   }
 
-  private void downloadListSync(){
+  private void downloadListSync() {
     new DownloadPartyListAsync().execute();
   }
 
-  class DownloadPartyListAsync extends AsyncTask<Void,Void,List<Party>>{
+  class DownloadPartyListAsync extends AsyncTask<Void, Void, List<Party>> {
 
     @Override protected List<Party> doInBackground(Void... voids) {
       return mPartyAPIHelper.getParties(true);
@@ -190,13 +190,13 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
 
     @Override protected void onPostExecute(List<Party> parties) {
       viewUtils.showProgress(mPartyListRecyclerView, mProgressView, false);
-      if(parties.size()>0){
+      if (parties.size() > 0) {
         mParties = parties;
         mPartyAdapter.setParties(mParties);
         mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
-      } else{
-        Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork), Toast.LENGTH_SHORT)
-            .show();
+      } else {
+        Toast.makeText(PartyListActivity.this, getString(R.string.PleaseCheckNetwork),
+            Toast.LENGTH_SHORT).show();
         loadFromCache();
       }
       super.onPostExecute(parties);

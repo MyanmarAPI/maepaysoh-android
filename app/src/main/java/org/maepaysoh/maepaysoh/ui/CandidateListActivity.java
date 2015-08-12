@@ -92,12 +92,11 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
           }
         });
     mCandidateListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
-    if(InternetUtils.isNetworkAvailable(this)){
+    if (InternetUtils.isNetworkAvailable(this)) {
       downloadCandidateList();
-    }else{
+    } else {
       loadFromCache();
     }
-
 
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -118,7 +117,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     new DownloadCandidateListAsync().execute(mCurrentPage);
   }
 
-    @Override public void onItemClick(View view, int position) {
+  @Override public void onItemClick(View view, int position) {
     Intent goToCandiDetailIntent = new Intent();
     goToCandiDetailIntent.setClass(CandidateListActivity.this, CandidateDetailActivity.class);
     goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
@@ -135,27 +134,28 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         mCandidateAdapter.setCandidates(mCandidates);
         mCandidateAdapter.setOnItemClickListener(CandidateListActivity.this);
-      }else{
-        viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);
+      } else {
+        viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
         mErrorView.setVisibility(View.VISIBLE);
       }
     } catch (SQLException e) {
-      viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);
+      viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
       mErrorView.setVisibility(View.VISIBLE);
       e.printStackTrace();
     }
   }
-  class DownloadCandidateListAsync extends AsyncTask<Integer,Void,List<Candidate>>{
+
+  class DownloadCandidateListAsync extends AsyncTask<Integer, Void, List<Candidate>> {
 
     @Override protected List<Candidate> doInBackground(Integer... integers) {
       mCurrentPage = integers[0];
-      return mCandidateAPIHelper.getCandidates(integers[0],true);
+      return mCandidateAPIHelper.getCandidates(integers[0], true);
     }
 
     @Override protected void onPostExecute(List<Candidate> candidates) {
       super.onPostExecute(candidates);
       viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
-      if(candidates.size()>0) {
+      if (candidates.size() > 0) {
         if (mCurrentPage == 1) {
           mCandidates = candidates;
         } else {
@@ -164,7 +164,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         mCandidateAdapter.setCandidates(mCandidates);
         mEndlessRecyclerViewAdapter.onDataReady(true);
         mCurrentPage++;
-      }else{
+      } else {
         if (mCurrentPage == 1) {
           loadFromCache();
         } else {
