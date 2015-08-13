@@ -15,7 +15,7 @@ android {
   buildToolsVersion "23.0.0 rc3"
 
   defaultConfig {
-    applicationId "org.maepaesoh.maepaesoh"
+    applicationId "org.maepaysoh.maepaysoh"
     minSdkVersion 15
     targetSdkVersion 22
     buildConfigField "String", "BUILD_TIME", "\"${buildTime()}\""

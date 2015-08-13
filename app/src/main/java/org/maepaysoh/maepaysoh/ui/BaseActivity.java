@@ -7,12 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
 /**
  * Created by Ye Lin Aung on 15/08/03.
  */
 public class BaseActivity extends AppCompatActivity {
-
+  private MaePaySohApiWrapper mMaePaySohApiWrapper;
   @Override public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
     super.onCreate(savedInstanceState, persistentState);
   }
@@ -31,5 +32,14 @@ public class BaseActivity extends AppCompatActivity {
     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
     startActivity(Intent.createChooser(sharingIntent, "Share via"));
+  }
+
+  protected MaePaySohApiWrapper getMaePaySohWrapper(){
+    if(mMaePaySohApiWrapper==null){
+      mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
+      mMaePaySohApiWrapper.setApiKey(org.maepaysoh.maepaysoh.Constants.API_KEY);
+      mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.zawgyi);
+    }
+    return mMaePaySohApiWrapper;
   }
 }

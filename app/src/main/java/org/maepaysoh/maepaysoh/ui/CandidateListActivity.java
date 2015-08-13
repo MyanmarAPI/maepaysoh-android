@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import java.util.List;
-import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
 import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
@@ -61,8 +60,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
     mErrorView = findViewById(R.id.candidate_list_error_view);
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
-    mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
-    mMaePaySohApiWrapper.setApiKey(Constants.API_KEY);
+    mMaePaySohApiWrapper = getMaePaySohWrapper();
     mCandidateAPIHelper = mMaePaySohApiWrapper.getCandidateApiHelper();
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);

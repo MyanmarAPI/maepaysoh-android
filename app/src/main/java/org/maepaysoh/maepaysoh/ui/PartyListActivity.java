@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.sql.SQLException;
 import java.util.List;
-import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.PartyAdapter;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
@@ -74,8 +73,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyListRecyclerView.setLayoutManager(mLayoutManager);
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
-    MaePaySohApiWrapper wrapper = new MaePaySohApiWrapper(this);
-    wrapper.setApiKey(Constants.API_KEY);
+    MaePaySohApiWrapper wrapper = getMaePaySohWrapper();
     mPartyAPIHelper = wrapper.getPartyApiHelper();
     mPartyDao = new PartyDao(this);
     if (InternetUtils.isNetworkAvailable(this)) {
