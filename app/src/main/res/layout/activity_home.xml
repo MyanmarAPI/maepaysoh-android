@@ -25,13 +25,19 @@
 
       <Button
           android:id="@+id/home_party_list_btn"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_margin="@dimen/spacing_minor"
+          android:background="@drawable/blue_btn_bg"
           android:text="@string/PartyList"
           />
 
       <Button
           android:id="@+id/home_candidate_list_btn"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
+          android:layout_margin="@dimen/spacing_minor"
+          android:background="@drawable/blue_btn_bg"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/CandidateList"
@@ -39,6 +45,9 @@
 
       <Button
           android:id="@+id/home_faq_list_btn"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
+          android:layout_margin="@dimen/spacing_minor"
+          android:background="@drawable/blue_btn_bg"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/FaqList"
@@ -46,6 +55,9 @@
 
       <Button
           android:id="@+id/home_location_list_btn"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
+          android:layout_margin="@dimen/spacing_minor"
+          android:background="@drawable/blue_btn_bg"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/LocationList"
