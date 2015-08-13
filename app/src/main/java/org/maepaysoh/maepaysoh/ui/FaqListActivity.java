@@ -81,6 +81,7 @@ public class FaqListActivity extends BaseActivity
     mLayoutManager = new LinearLayoutManager(this);
     mFaqListRecyclerView.setLayoutManager(mLayoutManager);
     mFaqAdapter = new FaqAdapter();
+    mFaqAdapter.setOnItemClickListener(this);
     mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
     mMaePaySohApiWrapper.setApiKey(Constants.API_KEY);
     mFAQAPIHelper = mMaePaySohApiWrapper.getFaqApiHelper();
