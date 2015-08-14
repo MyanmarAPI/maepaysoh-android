@@ -101,10 +101,11 @@ public class PartyDetailActivity extends BaseActivity {
         }
       }
       mPartyMemberCount.setText(mParty.getMemberCount());
-      mPartyEstbDate.setText(mParty.getEstablishmentDate());
-      mPartyEstbApprovalDate.setText(mParty.getEstablishmentApprovalDate());
-      mPartyRegApplicationDate.setText(mParty.getRegistrationApplicationDate());
-      mPartyRegApprovalDate.setText(mParty.getRegistrationApprovalDate());
+      mPartyEstbDate.setText(convertISO8601toString(mParty.getEstablishmentDate()));
+      mPartyEstbApprovalDate.setText(convertISO8601toString(mParty.getEstablishmentApprovalDate()));
+      mPartyRegApplicationDate.setText(convertISO8601toString(
+          mParty.getRegistrationApplicationDate()));
+      mPartyRegApprovalDate.setText(convertISO8601toString(mParty.getRegistrationApprovalDate()));
       mPartyApprovedNo.setText(mParty.getApprovedPartyNumber());
       mPartyRegion.setText(mParty.getRegion());
       mPartyHeadquarters.setText(mParty.getHeadquarters());

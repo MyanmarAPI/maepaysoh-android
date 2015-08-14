@@ -85,4 +85,8 @@ public class BaseActivity extends AppCompatActivity {
     }
     builder.show();
   }
+
+  protected String convertISO8601toString(String iso8601){
+    return iso8601.replaceAll("T.*?Z","");
+  }
 }
