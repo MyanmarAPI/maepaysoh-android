@@ -50,4 +50,8 @@
   <string name="search_not_found">No FAQ found. Please search with a different keyword.</string>
   <string name="title_activity_maps">Geolocations</string>
   <string name="change_font">Change Font</string>
+  <string name="general_info">General Info</string>
+  <string name="estb_date">Established Date</string>
+  <string name="contact">Contact</string>
+  <string name="other">Other</string>
 </resources>

@@ -105,7 +105,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           style="@style/TextAppearance.AppCompat.Title"
-                          android:text="General Info"
+                          android:text="@string/general_info"
                           android:padding="@dimen/spacing_minor"
                           />
 
@@ -234,7 +234,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           style="@style/TextAppearance.AppCompat.Title"
-                          android:text="Established Date"
+                          android:text="@string/estb_date"
                           android:padding="@dimen/spacing_minor"
                           />
                       <LinearLayout
@@ -364,7 +364,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           style="@style/TextAppearance.AppCompat.Title"
-                          android:text="Contact"
+                          android:text="@string/contact"
                           android:padding="@dimen/spacing_minor"
                           />
                       <LinearLayout
@@ -439,7 +439,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           style="@style/TextAppearance.AppCompat.Title"
-                          android:text="Contact"
+                          android:text="@string/other"
                           android:padding="@dimen/spacing_minor"
                           />
 
@@ -452,7 +452,7 @@
                           <TextView
                               android:layout_width="0dp"
                               android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Title"
+                              style="@style/TextAppearance.AppCompat.Subhead"
                               android:layout_weight="1"
                               android:text="@string/PartyRegion"
                               android:padding="@dimen/spacing_minor"
@@ -462,7 +462,7 @@
                               android:id="@+id/party_region"
                               android:layout_width="0dp"
                               android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Title"
+                              style="@style/TextAppearance.AppCompat.Subhead"
                               android:layout_weight="2"
                               tools:text="Kokk Mhuu"
                               android:padding="@dimen/spacing_minor"
@@ -480,7 +480,7 @@
                           <TextView
                               android:layout_width="0dp"
                               android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Title"
+                              style="@style/TextAppearance.AppCompat.Subhead"
                               android:layout_weight="1"
                               android:text="@string/PartyPolicy"
                               android:padding="@dimen/spacing_minor"
@@ -489,7 +489,7 @@
                               android:id="@+id/party_policy"
                               android:layout_width="0dp"
                               android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Title"
+                              style="@style/TextAppearance.AppCompat.Subhead"
                               android:layout_weight="2"
                               tools:text="31.1.1990"
                               android:padding="@dimen/spacing_minor"
@@ -506,7 +506,7 @@
                           <TextView
                               android:layout_width="0dp"
                               android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Title"
+                              style="@style/TextAppearance.AppCompat.Subhead"
                               android:layout_weight="1"
                               android:text="@string/PartySeal"
                               android:padding="@dimen/spacing_minor"
