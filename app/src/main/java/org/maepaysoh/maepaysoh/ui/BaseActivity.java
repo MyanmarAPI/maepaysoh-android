@@ -70,7 +70,7 @@ public class BaseActivity extends AppCompatActivity {
             }
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
                 .edit()
-                .putBoolean(Constants.FIRST_TIME, false);
+                .putBoolean(Constants.FIRST_TIME, false).apply();
             dialogInterface.dismiss();
           }
         });
