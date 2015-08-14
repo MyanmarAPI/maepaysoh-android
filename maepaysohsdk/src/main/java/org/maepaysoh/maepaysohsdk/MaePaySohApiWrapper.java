@@ -8,34 +8,36 @@ import android.content.Context;
 public class MaePaySohApiWrapper {
   protected Context mContext;
   protected String mToken;
-  public MaePaySohApiWrapper(Context context){
+
+  public MaePaySohApiWrapper(Context context) {
     mContext = context;
   }
 
-  public void setApiKey(String token){
+  public void setApiKey(String token) {
     mToken = token;
   }
-  public PartyAPIHelper getPartyApiHelper(){
-    return new PartyAPIHelper(mToken,mContext);
+
+  public PartyAPIHelper getPartyApiHelper() {
+    return new PartyAPIHelper(mToken, mContext);
   }
 
-  public FAQAPIHelper getFaqApiHelper(){
-    return new FAQAPIHelper(mToken,mContext);
+  public FAQAPIHelper getFaqApiHelper() {
+    return new FAQAPIHelper(mToken, mContext);
   }
 
-  public CandidateAPIHelper getCandidateApiHelper(){
-    return new CandidateAPIHelper(mToken,mContext);
+  public CandidateAPIHelper getCandidateApiHelper() {
+    return new CandidateAPIHelper(mToken, mContext);
   }
 
-  public void setFont(FONT font){
-    Utils.saveFontPref(font,mContext);
+  public void setFont(FONT font) {
+    Utils.saveFontPref(font, mContext);
   }
 
-  public boolean isUsingUnicode(){
+  public boolean isUsingUnicode() {
     return Utils.isUniCode(mContext);
   }
 
-  public enum FONT{
-    unicode,zawgyi
+  public enum FONT {
+    unicode, zawgyi
   }
 }

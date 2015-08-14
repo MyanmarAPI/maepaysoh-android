@@ -134,7 +134,7 @@ public class FaqListActivity extends BaseActivity
       mSearchFAQAsync = new SearchFAQAsync();
       mSearchFAQAsync.execute(query);
     } else {
-      mDownFaqListAsync =  new DownFaqListAsync();
+      mDownFaqListAsync = new DownFaqListAsync();
       mDownFaqListAsync.execute(mCurrentPage);
     }
   }
@@ -243,10 +243,10 @@ public class FaqListActivity extends BaseActivity
 
   @Override protected void onPause() {
     super.onPause();
-    if(mDownFaqListAsync!=null){
+    if (mDownFaqListAsync != null) {
       mDownFaqListAsync.cancel(true);
     }
-    if(mSearchFAQAsync!=null){
+    if (mSearchFAQAsync != null) {
       mSearchFAQAsync.cancel(true);
     }
   }

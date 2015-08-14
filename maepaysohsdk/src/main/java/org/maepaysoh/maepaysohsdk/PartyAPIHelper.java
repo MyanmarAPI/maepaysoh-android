@@ -21,59 +21,60 @@ public class PartyAPIHelper {
   private PartyService mPartyService;
   private PartyDao mPartyDao;
   private Context mContext;
-  protected PartyAPIHelper(String token,Context context){
+
+  protected PartyAPIHelper(String token, Context context) {
     mPartyRestAdapter = RetrofitHelper.getResAdapter(token);
     mPartyService = mPartyRestAdapter.create(PartyService.class);
     mContext = context;
   }
 
   /**
-   * 
+   *
    * @param party
    */
 
-  public void getPartiesAsync(Callback<PartyListReturnObject> party){
+  public void getPartiesAsync(Callback<PartyListReturnObject> party) {
     boolean unicode = Utils.isUniCode(mContext);
-    getPartiesAsync(unicode,party);
+    getPartiesAsync(unicode, party);
   }
 
-  public void getPartiesAsync(boolean unicode,Callback<PartyListReturnObject> party){
-    Map<PARAM_FIELD,String> optionParams = new HashMap<>();
+  public void getPartiesAsync(boolean unicode, Callback<PartyListReturnObject> party) {
+    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
-    if(unicode) {
+    if (unicode) {
       optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.UNICODE);
-    }else{
+    } else {
       optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.ZAWGYI);
     }
     mPartyService.listPartiesAsync(optionParams, party);
   }
 
-  public List<Party> getParties(boolean cache){
+  public List<Party> getParties(boolean cache) {
     boolean unicode = Utils.isUniCode(mContext);
-    return getParties(unicode,cache);
+    return getParties(unicode, cache);
   }
 
   /**
    * @param cache
    * @return
    */
-  public List<Party> getParties(boolean unicode,boolean cache){
-    Map<PARAM_FIELD,String> optionParams = new HashMap<>();
+  public List<Party> getParties(boolean unicode, boolean cache) {
+    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
-    if(unicode) {
+    if (unicode) {
       optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.UNICODE);
-    }else{
+    } else {
       optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.ZAWGYI);
     }
     PartyListReturnObject partyListReturnObject = mPartyService.listParties(optionParams);
-    if(cache){
-    for (Party data : partyListReturnObject.getData()) {
-      try {
-        mPartyDao.createParty(data);
-      } catch (SQLException e) {
-        e.printStackTrace();
+    if (cache) {
+      for (Party data : partyListReturnObject.getData()) {
+        try {
+          mPartyDao.createParty(data);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
       }
-    }
     }
     return partyListReturnObject.getData();
   }
@@ -81,7 +82,7 @@ public class PartyAPIHelper {
   /**
    * @return
    */
-  public List<Party> getPartiesFromCache(){
+  public List<Party> getPartiesFromCache() {
     mPartyDao = new PartyDao(mContext);
     try {
       return mPartyDao.getAllPartyData();

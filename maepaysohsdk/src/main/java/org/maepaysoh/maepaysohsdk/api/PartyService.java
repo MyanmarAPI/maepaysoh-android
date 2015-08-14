@@ -11,8 +11,9 @@ import retrofit.http.QueryMap;
  * Created by Ye Lin Aung on 15/08/04.
  */
 public interface PartyService {
-  @GET("/party") void listPartiesAsync(@QueryMap Map<PartyAPIHelper.PARAM_FIELD, String> options,Callback<PartyListReturnObject> partyCallback);
+  @GET("/party") void listPartiesAsync(@QueryMap Map<PartyAPIHelper.PARAM_FIELD, String> options,
+      Callback<PartyListReturnObject> partyCallback);
 
-  @GET("/party") PartyListReturnObject listParties(@QueryMap
-  Map<PartyAPIHelper.PARAM_FIELD, String> options);
+  @GET("/party") PartyListReturnObject listParties(
+      @QueryMap Map<PartyAPIHelper.PARAM_FIELD, String> options);
 }
