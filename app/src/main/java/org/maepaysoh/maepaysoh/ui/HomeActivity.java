@@ -31,10 +31,8 @@ public class HomeActivity extends BaseActivity {
     mCandidateListBtn = (Button) findViewById(R.id.home_candidate_list_btn);
     mFaqListBtn = (Button) findViewById(R.id.home_faq_list_btn);
     mLocationListBtn = (Button) findViewById(R.id.home_location_list_btn);
-
-    mToolbar.setTitle(getString(R.string.app_name));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
-
+    setSupportActionBar(mToolbar);
 
     boolean firstTime = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
         .getBoolean(Constants.FIRST_TIME,true);
@@ -72,7 +70,7 @@ public class HomeActivity extends BaseActivity {
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_home,menu);
-    return super.onCreateOptionsMenu(menu);
+    return true;
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
