@@ -1,7 +1,6 @@
 package org.maepaysoh.maepaysohsdk;
 
 import android.content.Context;
-import org.maepaysoh.maepaysohsdk.utils.Utils;
 
 /**
  * Created by yemyatthu on 8/12/15.

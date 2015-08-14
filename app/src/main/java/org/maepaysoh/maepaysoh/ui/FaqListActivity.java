@@ -177,7 +177,7 @@ public class FaqListActivity extends BaseActivity
 
     @Override protected List<FAQ> doInBackground(Integer... integer) {
       mCurrentPage = integer[0];
-      return mFAQAPIHelper.getFaqs(true, integer[0], true);
+      return mFAQAPIHelper.getFaqs(integer[0], true);
     }
 
     @Override protected void onPostExecute(List<FAQ> faqs) {

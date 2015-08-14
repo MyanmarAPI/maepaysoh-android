@@ -11,7 +11,6 @@ import org.maepaysoh.maepaysohsdk.db.FaqDao;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
 import org.maepaysoh.maepaysohsdk.models.FAQDetailReturnObject;
 import org.maepaysoh.maepaysohsdk.models.FAQListReturnObject;
-import org.maepaysoh.maepaysohsdk.utils.Utils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 

@@ -33,7 +33,8 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidatesAsync(Callback<CandidateListReturnObject> callback){
-    getCandidatesAsync(false, true, 1, 15, callback);
+    boolean unicode = Utils.isUniCode(mContext);
+    getCandidatesAsync(false, unicode, 1, 15, callback);
   }
 
   /**
@@ -42,7 +43,8 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidatesAsync(boolean withParty, Callback<CandidateListReturnObject> callback){
-    getCandidatesAsync(withParty, true, 1, 15, callback);
+    boolean unicode = Utils.isUniCode(mContext);
+    getCandidatesAsync(withParty, unicode, 1, 15, callback);
   }
 
 
@@ -97,7 +99,8 @@ public class CandidateAPIHelper{
    *
    */
   public List<Candidate> getCandidates(boolean cache){
-    return getCandidates(false, true, 1, 15, cache);
+    boolean unicode = Utils.isUniCode(mContext);
+    return getCandidates(false, unicode, 1, 15, cache);
   }
 
   /**
@@ -105,7 +108,8 @@ public class CandidateAPIHelper{
    * @param withParty
    */
   public List<Candidate> getCandidates(boolean withParty,boolean cache){
-    return getCandidates(withParty, true, 1, 15, cache);
+    boolean unicode = Utils.isUniCode(mContext);
+    return getCandidates(withParty, unicode, 1, 15, cache);
   }
 
   /**
@@ -113,7 +117,8 @@ public class CandidateAPIHelper{
    * @param firstPage
    */
   public List<Candidate> getCandidates(int firstPage,boolean cache){
-    return getCandidates(true, true, firstPage, 15, cache);
+    boolean unicode = Utils.isUniCode(mContext);
+    return getCandidates(true, unicode, firstPage, 15, cache);
   }
 
   /**
@@ -176,7 +181,8 @@ public class CandidateAPIHelper{
    * @param callback
    */
   public void getCandidateByIdAsync(String candidateId, Callback<CandidateDetailReturnObject> callback){
-    getCandidateByIdAsync(candidateId, true, true, callback);
+    boolean unicode = Utils.isUniCode(mContext);
+    getCandidateByIdAsync(candidateId, true, unicode, callback);
   }
 
   /**
@@ -187,7 +193,8 @@ public class CandidateAPIHelper{
    */
   public void getCandidateByIdAsync(String candidateId, boolean withParty,
       Callback<CandidateDetailReturnObject> callback){
-    getCandidateByIdAsync(candidateId, withParty, true, callback);
+    boolean unicode = Utils.isUniCode(mContext);
+    getCandidateByIdAsync(candidateId, withParty, unicode, callback);
   }
 
   /**
@@ -215,7 +222,8 @@ public class CandidateAPIHelper{
    * @param candidateId
    */
   public Candidate getCandidateById(String candidateId,boolean cache){
-    return getCandidateById(candidateId, true, true, cache);
+    boolean unicode = Utils.isUniCode(mContext);
+    return getCandidateById(candidateId, true, unicode, cache);
   }
 
   /**
@@ -224,7 +232,8 @@ public class CandidateAPIHelper{
    * @param withParty
    */
   public Candidate getCandidateById(String candidateId, boolean withParty,boolean cache){
-    return getCandidateById(candidateId, withParty, true, cache);
+    boolean unicode = Utils.isUniCode(mContext);
+    return getCandidateById(candidateId, withParty, unicode, cache);
   }
 
   /**

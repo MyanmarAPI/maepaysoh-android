@@ -10,7 +10,6 @@ import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
 import org.maepaysoh.maepaysohsdk.db.PartyDao;
 import org.maepaysoh.maepaysohsdk.models.Party;
 import org.maepaysoh.maepaysohsdk.models.PartyListReturnObject;
-import org.maepaysoh.maepaysohsdk.utils.Utils;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 

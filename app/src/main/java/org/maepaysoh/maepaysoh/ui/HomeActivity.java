@@ -2,6 +2,7 @@ package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,6 @@ public class HomeActivity extends BaseActivity {
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
-
     mToolbar = (Toolbar) findViewById(R.id.home_toolbar);
     mToolbarShadow = findViewById(R.id.home_toolbar_shadow);
     mPartyListBtn = (Button) findViewById(R.id.home_party_list_btn);
@@ -31,7 +31,11 @@ public class HomeActivity extends BaseActivity {
 
     mToolbar.setTitle(getString(R.string.app_name));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
-
+    new AlertDialog.Builder(this)
+        .setView(R.layout.font_dialog)
+        .setTitle("Please Choose Font")
+        .setCancelable(false)
+        .show();
     mPartyListBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Intent goToPartyList = new Intent(HomeActivity.this, PartyListActivity.class);
