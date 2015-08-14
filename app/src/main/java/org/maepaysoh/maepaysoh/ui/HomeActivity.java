@@ -2,10 +2,13 @@ package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 
 /**
@@ -31,11 +34,13 @@ public class HomeActivity extends BaseActivity {
 
     mToolbar.setTitle(getString(R.string.app_name));
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
-    new AlertDialog.Builder(this)
-        .setView(R.layout.font_dialog)
-        .setTitle("Please Choose Font")
-        .setCancelable(false)
-        .show();
+
+
+    boolean firstTime = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+        .getBoolean(Constants.FIRST_TIME,true);
+    if(firstTime) {
+      showFontChooserDialog(false);
+    }
     mPartyListBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Intent goToPartyList = new Intent(HomeActivity.this, PartyListActivity.class);
@@ -63,5 +68,20 @@ public class HomeActivity extends BaseActivity {
         startActivity(goToLocationList);
       }
     });
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_home,menu);
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()){
+      case R.id.change_font:
+        showFontChooserDialog(true);
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 }

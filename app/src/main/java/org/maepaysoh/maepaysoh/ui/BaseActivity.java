@@ -1,11 +1,16 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.RadioGroup;
+import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
@@ -38,8 +43,46 @@ public class BaseActivity extends AppCompatActivity {
     if(mMaePaySohApiWrapper==null){
       mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
       mMaePaySohApiWrapper.setApiKey(org.maepaysoh.maepaysoh.Constants.API_KEY);
-      mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.zawgyi);
     }
     return mMaePaySohApiWrapper;
+  }
+
+  protected void showFontChooserDialog(boolean cancellable){
+    View view = getLayoutInflater().inflate(R.layout.font_dialog,null);
+    final RadioGroup fontRbg = (RadioGroup) view.findViewById(R.id.font_rbg);
+    int padding = (int) getResources().getDimension(R.dimen.spacing_major);
+    AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(view, padding, padding,
+        padding, padding)
+        .setTitle("Please Choose Font")
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialogInterface, int i) {
+            mMaePaySohApiWrapper = getMaePaySohWrapper();
+            switch (fontRbg.getCheckedRadioButtonId()) {
+              case R.id.unicode_rb:
+                mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
+                break;
+              case R.id.zawgyi_rb:
+                mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.zawgyi);
+                break;
+              default:
+                mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
+                break;
+            }
+            PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .edit()
+                .putBoolean(Constants.FIRST_TIME, false);
+            dialogInterface.dismiss();
+          }
+        });
+    if(!cancellable){
+      builder.setCancelable(false);
+    }else{
+      builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+        @Override public void onClick(DialogInterface dialogInterface, int i) {
+          dialogInterface.dismiss();
+        }
+      });
+    }
+    builder.show();
   }
 }
