@@ -66,6 +66,7 @@ public class CandidateDetailActivity extends BaseActivity {
     mCandidate = (Candidate) getIntent().getSerializableExtra(CANDIDATE_CONSTANT);
     if (mCandidate != null) {
       mCandidateName.setText(mCandidate.getName());
+      mActionBar.setTitle(mCandidate.getName());
       mLegislature.setText(mCandidate.getLegislature());
       mNationalId.setText(mCandidate.getNationalId());
       mBirthDate.setText(String.valueOf(mCandidate.getBirthdate()));

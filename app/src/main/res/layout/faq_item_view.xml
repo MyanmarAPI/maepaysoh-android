@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/faq_question"
-        style="@style/TextAppearance.AppCompat.Headline"
+        style="@style/TextAppearance.AppCompat.Title"
         android:padding="@dimen/spacing_minor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
