@@ -41,23 +41,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_minor"
+            android:weightSum="3"
             >
 
           <ImageView
               android:id="@+id/party_flag"
-              android:layout_width="wrap_content"
-              android:layout_height="match_parent"
+              android:layout_width="0dp"
+              android:layout_height="120dp"
               android:scaleType="fitCenter"
-              android:layout_marginRight="@dimen/spacing_major"
-              android:layout_marginEnd="@dimen/spacing_major"
+              android:layout_weight="1"
               android:contentDescription="@string/PartyFlag"
               />
 
           <LinearLayout
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              >
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="2"
+              android:gravity="center">
             <TextView
                 android:id="@+id/party_name_myanmar"
                 android:layout_width="wrap_content"
@@ -83,7 +84,12 @@
           </LinearLayout>
 
         </LinearLayout>
-
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="@dimen/spacing_minor"
+              android:layout_marginTop="@dimen/spacing_minor">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -401,14 +407,15 @@
           <ImageView
               android:id="@+id/party_seal"
               android:layout_width="0dp"
-              android:layout_height="wrap_content"
+              android:layout_height="120dp"
               android:layout_weight="2"
+              android:scaleType="fitCenter"
               android:layout_margin="@dimen/spacing_minor"
               android:contentDescription="@string/PartySeal"
               />
 
         </LinearLayout>
-
+          </LinearLayout>
       </LinearLayout>
 
     </ScrollView>
