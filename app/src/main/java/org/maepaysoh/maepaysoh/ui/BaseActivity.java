@@ -48,15 +48,21 @@ public class BaseActivity extends AppCompatActivity {
   }
 
   protected void showFontChooserDialog(boolean cancellable){
+    mMaePaySohApiWrapper = getMaePaySohWrapper();
     View view = getLayoutInflater().inflate(R.layout.font_dialog,null);
     final RadioGroup fontRbg = (RadioGroup) view.findViewById(R.id.font_rbg);
+    boolean isUsingUnicode = mMaePaySohApiWrapper.isUsingUnicode();
+    if (isUsingUnicode){
+      fontRbg.check(R.id.unicode_rb);
+    }else{
+      fontRbg.check(R.id.zawgyi_rb);
+    }
     int padding = (int) getResources().getDimension(R.dimen.spacing_major);
     AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(view, padding, padding,
         padding, padding)
         .setTitle("Please Choose Font")
         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
-            mMaePaySohApiWrapper = getMaePaySohWrapper();
             switch (fontRbg.getCheckedRadioButtonId()) {
               case R.id.unicode_rb:
                 mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
@@ -87,6 +93,6 @@ public class BaseActivity extends AppCompatActivity {
   }
 
   protected String convertISO8601toString(String iso8601){
-    return iso8601.replaceAll("T.*?Z","");
+    return iso8601.replaceAll("T.*?Z", "");
   }
 }

@@ -31,6 +31,10 @@ public class MaePaySohApiWrapper {
     Utils.saveFontPref(font,mContext);
   }
 
+  public boolean isUsingUnicode(){
+    return Utils.isUniCode(mContext);
+  }
+
   public enum FONT{
     unicode,zawgyi
   }

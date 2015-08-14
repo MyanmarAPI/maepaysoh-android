@@ -31,7 +31,6 @@
           android:layout_margin="@dimen/spacing_minor"
           android:background="@drawable/blue_btn_bg"
           android:textColor="@android:color/white"
-          android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
           android:text="@string/PartyList"
           />
 
@@ -41,7 +40,6 @@
           android:layout_margin="@dimen/spacing_minor"
           android:background="@drawable/blue_btn_bg"
           android:textColor="@android:color/white"
-          android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/CandidateList"
@@ -53,7 +51,6 @@
           android:layout_margin="@dimen/spacing_minor"
           android:background="@drawable/blue_btn_bg"
           android:textColor="@android:color/white"
-          android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/FaqList"
@@ -65,7 +62,6 @@
           android:layout_margin="@dimen/spacing_minor"
           android:background="@drawable/blue_btn_bg"
           android:textColor="@android:color/white"
-          android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/LocationList"
