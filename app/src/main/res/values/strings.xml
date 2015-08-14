@@ -54,4 +54,6 @@
   <string name="estb_date">Established Date</string>
   <string name="contact">Contact</string>
   <string name="other">Other</string>
+  <string name="personal_detail">Personal Detail</string>
+  <string name="family">Family</string>
 </resources>

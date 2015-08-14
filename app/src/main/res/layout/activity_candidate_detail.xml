@@ -2,10 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
   <include
       android:id="@+id/candidate_detail_toolbar"
       layout="@layout/include_toolbar"
@@ -56,241 +56,326 @@
             tools:text="National Democratic Party"
             />
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_minor"
+            android:layout_marginTop="@dimen/spacing_minor">
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateLegislature"
-              android:padding="@dimen/spacing_minor"
-              />
-          <TextView
-              android:id="@+id/candidate_legislature"
-              android:layout_width="0dp"
+              app:cardUseCompatPadding="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/personal_detail"
+                  android:padding="@dimen/spacing_minor"
+                  />
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateNationalID"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/candidate_national_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="12/Ah Sa Na (N) 208573"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/CandidateBirthDate"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/candidate_birth_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateEducation"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/candidate_education"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Phd (Pharmactual Science) \nBsc (Computer Science)"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateOccupation"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/candidate_occupation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Associate Professor (RIT)"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateResidency"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/candidate_residency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Bld. 21, Rm. 302, Aung Zaya Housing, Insein, Yangon"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateReligion"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/candidate_religion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Atheist"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Pyi Thu Hlut Taw"
-              android:padding="@dimen/spacing_minor"
-              />
+              app:cardUseCompatPadding="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/family"
+                  android:padding="@dimen/spacing_minor"
+                  />
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateMother"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/candidate_mother"
+                    android:layout_width="0dp"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    tools:text="Daw Soe Soe Yi"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/CandidateFather"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/candidate_father"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="U Aung Kyaw Myint"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:cardUseCompatPadding="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/other"
+                  android:padding="@dimen/spacing_minor"
+                  />
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateLegislature"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/candidate_legislature"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Pyi Thu Hlut Taw"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/CandidateConstituency"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/candidate_constituency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Bahan"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateNationalID"
-              android:padding="@dimen/spacing_minor"
-              />
-
-          <TextView
-              android:id="@+id/candidate_national_id"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="12/Ah Sa Na (N) 208573"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateBirthDate"
-              android:padding="@dimen/spacing_minor"
-              />
-
-          <TextView
-              android:id="@+id/candidate_birth_date"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="31.1.1990"
-              android:padding="@dimen/spacing_minor"
-              />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateEducation"
-              android:padding="@dimen/spacing_minor"
-              />
-
-          <TextView
-              android:id="@+id/candidate_education"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Phd (Pharmactual Science) \nBsc (Computer Science)"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateOccupation"
-              android:padding="@dimen/spacing_minor"
-              />
-
-          <TextView
-              android:id="@+id/candidate_occupation"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Associate Professor (RIT)"
-              android:padding="@dimen/spacing_minor"
-              />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateReligion"
-              android:padding="@dimen/spacing_minor"
-              />
-          <TextView
-              android:id="@+id/candidate_religion"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Atheist"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateResidency"
-              android:padding="@dimen/spacing_minor"
-              />
-          <TextView
-              android:id="@+id/candidate_residency"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Bld. 21, Rm. 302, Aung Zaya Housing, Insein, Yangon"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateConstituency"
-              android:padding="@dimen/spacing_minor"
-              />
-          <TextView
-              android:id="@+id/candidate_constituency"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Bahan"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateMother"
-              android:padding="@dimen/spacing_minor"
-              />
-          <TextView
-              android:id="@+id/candidate_mother"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="Daw Soe Soe Yi"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:text="@string/CandidateFather"
-              android:padding="@dimen/spacing_minor"
-              />
-
-          <TextView
-              android:id="@+id/candidate_father"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              tools:text="U Aung Kyaw Myint"
-              android:padding="@dimen/spacing_minor"
-              />
-        </LinearLayout>
-
       </LinearLayout>
 
     </ScrollView>
