@@ -49,6 +49,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
   private int mCurrentPage = 1;
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
+  private DownloadCandidateListAsync mDownloadCandidateListAsync;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -112,7 +113,15 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void downloadCandidateList() {
-    new DownloadCandidateListAsync().execute(mCurrentPage);
+    mDownloadCandidateListAsync = new DownloadCandidateListAsync();
+    mDownloadCandidateListAsync.execute(mCurrentPage);
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if(mDownloadCandidateListAsync!=null){
+      mDownloadCandidateListAsync.cancel(true);
+    }
   }
 
   @Override public void onItemClick(View view, int position) {

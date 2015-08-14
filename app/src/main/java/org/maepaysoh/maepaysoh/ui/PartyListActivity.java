@@ -39,6 +39,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   private ViewUtils viewUtils;
   private PartyDao mPartyDao;
   private PartyAPIHelper mPartyAPIHelper;
+  private DownloadPartyListAsync mDownloadPartyListAsync;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -177,7 +178,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   }
 
   private void downloadListSync() {
-    new DownloadPartyListAsync().execute();
+    mDownloadPartyListAsync = new DownloadPartyListAsync();
+    mDownloadPartyListAsync.execute();
   }
 
   class DownloadPartyListAsync extends AsyncTask<Void, Void, List<Party>> {
@@ -198,6 +200,13 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         loadFromCache();
       }
       super.onPostExecute(parties);
+    }
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if(mDownloadPartyListAsync!=null){
+      mDownloadPartyListAsync.cancel(true);
     }
   }
 }

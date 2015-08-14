@@ -50,6 +50,8 @@ public class FaqListActivity extends BaseActivity
   private MenuItem mSearchMenu;
   private FAQAPIHelper mFAQAPIHelper;
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
+  private DownFaqListAsync mDownFaqListAsync;
+  private SearchFAQAsync mSearchFAQAsync;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -129,9 +131,11 @@ public class FaqListActivity extends BaseActivity
       viewUtils.showProgress(mFaqListRecyclerView, mProgressView, true);
     }
     if (query != null && query.length() > 0) {
-      new SearchFAQAsync().execute(query);
+      mSearchFAQAsync = new SearchFAQAsync();
+      mSearchFAQAsync.execute(query);
     } else {
-      new DownFaqListAsync().execute(mCurrentPage);
+      mDownFaqListAsync =  new DownFaqListAsync();
+      mDownFaqListAsync.execute(mCurrentPage);
     }
   }
 
@@ -234,6 +238,16 @@ public class FaqListActivity extends BaseActivity
         errorText.setText(R.string.search_not_found);
         mRetryBtn.setVisibility(View.GONE);
       }
+    }
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if(mDownFaqListAsync!=null){
+      mDownFaqListAsync.cancel(true);
+    }
+    if(mSearchFAQAsync!=null){
+      mSearchFAQAsync.cancel(true);
     }
   }
 }
