@@ -82,6 +82,7 @@ public class PartyDetailActivity extends BaseActivity {
     if (mParty != null) {
       Glide.with(this).load(mParty.getPartyFlag()).into(mPartyFlag);
       Glide.with(this).load(mParty.getPartySeal()).into(mPartySeal);
+      mActionBar.setTitle(mParty.getPartyName());
       mPartyNameEnglish.setText(mParty.getPartyNameEnglish());
       mPartyNameMyanmar.setText(mParty.getPartyName());
       List<String> leaders = mParty.getLeadership();
