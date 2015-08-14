@@ -40,6 +40,7 @@ public class FaqDetailActivity extends BaseActivity {
     }
     mFAQ = (FAQ) getIntent().getSerializableExtra(FAQ_CONSTANT);
     if (mFAQ != null) {
+      mActionBar.setTitle(mFAQ.getQuestion());
       mQuestion.setText(mFAQ.getQuestion());
       mAnswer.setText(mFAQ.getAnswer());
     }
