@@ -256,6 +256,8 @@ public class FaqListActivity extends BaseActivity
     if(keyword.length()>0) {
       mFaqDatas = mFAQAPIHelper.searchFaqFromCache(keyword);
       if (mFaqDatas != null && mFaqDatas.size() > 0) {
+        mFaqListRecyclerView.setVisibility(View.VISIBLE);
+        mErrorView.setVisibility(View.GONE);
         mFaqAdapter.setFaqs(mFaqDatas);
         mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
       } else {
