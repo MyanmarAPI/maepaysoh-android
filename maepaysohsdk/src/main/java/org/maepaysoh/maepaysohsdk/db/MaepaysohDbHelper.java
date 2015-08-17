@@ -66,9 +66,10 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   private static final String COMMA_SEP = ",";
   private static final String TEXT_TYPE = " TEXT";
   private static final String NUMERIC_TYPE = " LONG";
+  private static final String PRIMARY_KEY_NOT_NULL = " PRIMARY KEY NOT NULL";
   private static final String SQL_CREATE_PARTY_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_PARTY + " (" +
-          MaepaysohDbHelper.COLUMN_PARTY_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_ID + TEXT_TYPE+PRIMARY_KEY_NOT_NULL + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_NAME + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER + TEXT_TYPE + COMMA_SEP +
