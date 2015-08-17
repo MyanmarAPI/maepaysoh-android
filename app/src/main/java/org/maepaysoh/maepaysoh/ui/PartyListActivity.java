@@ -8,10 +8,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,7 +30,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface {
+public class PartyListActivity extends BaseActivity implements PartyAdapter.ClickInterface,
+    android.support.v7.widget.SearchView.OnQueryTextListener {
   private RecyclerView mPartyListRecyclerView;
   private ProgressBar mProgressView;
   private View mErrorView;
@@ -40,7 +43,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   private PartyDao mPartyDao;
   private PartyAPIHelper mPartyAPIHelper;
   private DownloadPartyListAsync mDownloadPartyListAsync;
-
+  private MenuItem mSearchMenu;
+  private android.support.v7.widget.SearchView mSearchView;
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_list);
@@ -91,11 +95,14 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     });
   }
 
-  //@Override public boolean onCreateOptionsMenu(Menu menu) {
-  //  // Inflate the menu; this adds items to the action bar if it is present.
-  //  getMenuInflater().inflate(R.menu.menu_party_list, menu);
-  //  return true;
-  //}
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_faq, menu);
+    mSearchMenu = menu.findItem(R.id.menu_search);
+    mSearchView = (android.support.v7.widget.SearchView) mSearchMenu.getActionView();
+    mSearchView.setOnQueryTextListener(this);
+    return true;
+  }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
@@ -177,12 +184,49 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     }
   }
 
+  private void searchFromCache(String keyword){
+    TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
+    errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
+    mRetryBtn.setVisibility(View.VISIBLE);
+    if (mErrorView.getVisibility() == View.VISIBLE) {
+      mErrorView.setVisibility(View.GONE);
+    }
+
+    if(keyword.length()>0) {
+      mParties = mPartyAPIHelper.searchPartiesFromCache(keyword);
+      if (mParties != null && mParties.size() > 0) {
+        mPartyAdapter.setParties(mParties);
+        mPartyAdapter.setOnItemClickListener(PartyListActivity.this);
+      } else {
+        mPartyListRecyclerView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mRetryBtn.setVisibility(View.GONE);
+        errorText.setText(R.string.search_not_found);
+      }
+    }else{
+      downloadPartyList();
+    }
+  }
+
   private void downloadListSync() {
     mDownloadPartyListAsync = new DownloadPartyListAsync();
     mDownloadPartyListAsync.execute();
   }
 
+  @Override public boolean onQueryTextSubmit(String query) {
+    return true;
+  }
+
+  @Override public boolean onQueryTextChange(String newText) {
+    searchFromCache(newText);
+    return true;
+  }
+
   class DownloadPartyListAsync extends AsyncTask<Void, Void, List<Party>> {
+    @Override protected void onPreExecute() {
+      super.onPreExecute();
+      mErrorView.setVisibility(View.GONE);
+    }
 
     @Override protected List<Party> doInBackground(Void... voids) {
       return mPartyAPIHelper.getParties(true);

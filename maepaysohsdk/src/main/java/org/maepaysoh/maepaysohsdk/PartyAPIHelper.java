@@ -92,6 +92,16 @@ public class PartyAPIHelper {
     }
   }
 
+  public List<Party> searchPartiesFromCache(String keyword){
+    mPartyDao = new PartyDao(mContext);
+    try {
+      return mPartyDao.searchPartiesFromCache(keyword);
+    }catch (SQLException e){
+      e.printStackTrace();
+      return null;
+    }
+  }
+
   public enum PARAM_FIELD {
     font
   }
