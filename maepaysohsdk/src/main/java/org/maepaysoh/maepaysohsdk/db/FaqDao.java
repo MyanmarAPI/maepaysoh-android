@@ -48,7 +48,8 @@ public class FaqDao {
         JsonUtils.convertToJson(FAQ.getSections()));
     mMaepaysohDb.beginTransaction();
     try {
-      long insertId = mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_FAQ, null, faqContentValues,SQLiteDatabase.CONFLICT_REPLACE);
+      long insertId = mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_FAQ, null,
+          faqContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
       Log.e("error: ", e.getLocalizedMessage());
@@ -68,6 +69,25 @@ public class FaqDao {
       FAQ FAQ = cursorToFaq(cursor);
       FAQs.add(FAQ);
       cursor.moveToNext();
+    }
+    cursor.close();
+    close();
+    return FAQs;
+  }
+
+  public List<FAQ> searchFAQsFromDb(String keyword) {
+    open();
+    List<FAQ> FAQs = new ArrayList<>();
+    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_FAQ, null,
+        MaepaysohDbHelper.COLUMN_FAQ_question + " LIKE " + "'%" + keyword + "%'", null, null, null,
+        null);
+
+    if (cursor.moveToFirst()) {
+      while (!cursor.isAfterLast()) {
+        FAQ FAQ = cursorToFaq(cursor);
+        FAQs.add(FAQ);
+        cursor.moveToNext();
+      }
     }
     cursor.close();
     close();

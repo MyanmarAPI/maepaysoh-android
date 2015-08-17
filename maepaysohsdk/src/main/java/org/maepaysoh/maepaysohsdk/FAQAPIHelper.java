@@ -209,6 +209,15 @@ public class FAQAPIHelper {
     return mFaqService.searchFaq(optionParams).getData();
   }
 
+  public List<FAQ> searchFaqFromCache(String keyword){
+    mFaqDao = new FaqDao(mContext);
+    try {
+      return mFaqDao.searchFAQsFromDb(keyword);
+    }catch (SQLException e){
+      e.printStackTrace();
+      return null;
+    }
+  }
   /**
    *
    * @return

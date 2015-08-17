@@ -66,7 +66,8 @@ public class PartyDao {
     mMaepaysohDb.beginTransaction();
     try {
       long insertId =
-          mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_PARTY, null, partyContentValues,SQLiteDatabase.CONFLICT_REPLACE);
+          mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_PARTY, null,
+              partyContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
       Log.e("error: ", e.getLocalizedMessage());
@@ -102,7 +103,7 @@ public class PartyDao {
     return party;
   }
 
-  public List<Party> searchPartiesFromCache(String keyword) throws SQLException {
+  public List<Party> searchPartiesFromDb(String keyword) throws SQLException {
     open();
     List<Party> parties = new ArrayList<>();
     Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY,null,MaepaysohDbHelper.COLUMN_PARTY_NAME + " LIKE "
