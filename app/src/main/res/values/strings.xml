@@ -46,7 +46,7 @@
   <string name="CandidateFather">Father</string>
 
   //Menu Title
-  <string name="search_faq">Search FAQs</string>
+  <string name="search_faq">Search</string>
   <string name="search_not_found">No Search found. Please refine your searchgit </string>
   <string name="title_activity_maps">Geolocations</string>
   <string name="change_font">Change Font</string>
