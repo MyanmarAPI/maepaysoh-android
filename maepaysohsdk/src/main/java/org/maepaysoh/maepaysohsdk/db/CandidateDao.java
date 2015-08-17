@@ -143,4 +143,24 @@ public class CandidateDao {
         Residency.class));
     return candidate;
   }
+
+  public List<Candidate> searchCandidatesFromDb(String keyword) {
+    open();
+    List<Candidate> candidates = new ArrayList<>();
+    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null,
+        MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + " LIKE " + "'%" + keyword + "%'", null, null, null,
+        null);
+
+    if (cursor.moveToFirst()) {
+      while (!cursor.isAfterLast()) {
+        Candidate candidate = cursorToCandidate(cursor);
+        candidates.add(candidate);
+        cursor.moveToNext();
+      }
+    }
+    cursor.close();
+    close();
+    return candidates;
+  }
+
 }

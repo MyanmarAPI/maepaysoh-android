@@ -9,11 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
@@ -25,11 +28,13 @@ import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
 
 import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
+import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGD;
 
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
-public class CandidateListActivity extends BaseActivity implements CandidateAdapter.ClickInterface {
+public class CandidateListActivity extends BaseActivity implements CandidateAdapter.ClickInterface,
+    SearchView.OnQueryTextListener {
 
   private static String TAG = makeLogTag(CandidateListActivity.class);
 
@@ -50,6 +55,8 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private int mCurrentPage = 1;
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
   private DownloadCandidateListAsync mDownloadCandidateListAsync;
+  private MenuItem mSearchMenu;
+  private SearchView mSearchView;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -152,6 +159,17 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     }
   }
 
+  @Override public boolean onQueryTextSubmit(String query) {
+    return true;
+  }
+
+  @Override public boolean onQueryTextChange(String newText) {
+    mCurrentPage = 1;
+    searchCandidateFromCache(newText);
+    LOGD(TAG, "searching");
+    return true;
+  }
+
   class DownloadCandidateListAsync extends AsyncTask<Integer, Void, List<Candidate>> {
 
     @Override protected List<Candidate> doInBackground(Integer... integers) {
@@ -179,5 +197,38 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         }
       }
     }
+  }
+  private void searchCandidateFromCache(String keyword){
+    TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
+    errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
+    mRetryBtn.setVisibility(View.VISIBLE);
+    if (mErrorView.getVisibility() == View.VISIBLE) {
+      mErrorView.setVisibility(View.GONE);
+    }
+
+    if(keyword.length()>0) {
+      mCandidates = mCandidateAPIHelper.searchCandidateFromCache(keyword);
+      if (mCandidates != null && mCandidates.size() > 0) {
+        mCandidateListRecyclerView.setVisibility(View.VISIBLE);
+        mErrorView.setVisibility(View.GONE);
+        mCandidateAdapter.setCandidates(mCandidates);
+        mCandidateAdapter.setOnItemClickListener(CandidateListActivity.this);
+      } else {
+        mCandidateListRecyclerView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mRetryBtn.setVisibility(View.GONE);
+        errorText.setText(R.string.search_not_found);
+      }
+    }else{
+      loadFromCache();
+    }
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_faq, menu);
+    mSearchMenu = menu.findItem(R.id.menu_search);
+    mSearchView = (android.support.v7.widget.SearchView) mSearchMenu.getActionView();
+    mSearchView.setOnQueryTextListener(this);
+    return true;
   }
 }

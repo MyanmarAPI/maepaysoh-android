@@ -274,4 +274,14 @@ public class CandidateAPIHelper {
     mCandidateDao = new CandidateDao(mContext);
     return mCandidateDao.getCandidateById(candidateId);
   }
+
+  public List<Candidate> searchCandidateFromCache(String keyword){
+    mCandidateDao = new CandidateDao(mContext);
+    try {
+      return mCandidateDao.searchCandidatesFromDb(keyword);
+    }catch (SQLException e){
+      e.printStackTrace();
+      return null;
+    }
+  }
 }
