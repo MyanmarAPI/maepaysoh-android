@@ -3,13 +3,6 @@ package org.maepaysoh.maepaysohsdk.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
-import java.util.List;
-import org.maepaysoh.maepaysohsdk.models.Constituency;
-import org.maepaysoh.maepaysohsdk.models.Father;
-import org.maepaysoh.maepaysohsdk.models.Mother;
-import org.maepaysoh.maepaysohsdk.models.Residency;
 
 /**
  * Created by Ye Lin Aung on 15/08/07.
@@ -103,7 +96,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_FAQ;
   private static final String SQL_CREATE_CANDIDATE_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE + " (" +
-          MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE +PRIMARY_KEY_NOT_NULL+ COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID + TEXT_TYPE + COMMA_SEP +
@@ -119,20 +112,6 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           " )";
   private static final String SQL_DELETE_CANDIDATES =
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE;
-  //candidate
-  private String id;
-  private String name;
-  private String legislature;
-  @SerializedName("national_id") private String nationalId;
-  private int birthdate;
-  private List<String> education = new ArrayList<String>();
-  private List<String> occupation = new ArrayList<String>();
-  @SerializedName("nationality_religion") private String nationalityReligion;
-  private Residency residency;
-  private Constituency constituency;
-  @SerializedName("party_id") private String partyId;
-  private Mother mother;
-  private Father father;
 
   public MaepaysohDbHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);

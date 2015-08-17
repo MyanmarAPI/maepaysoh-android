@@ -193,6 +193,8 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     }
 
     if(keyword.length()>0) {
+      mPartyListRecyclerView.setVisibility(View.VISIBLE);
+      mErrorView.setVisibility(View.GONE);
       mParties = mPartyAPIHelper.searchPartiesFromCache(keyword);
       if (mParties != null && mParties.size() > 0) {
         mPartyAdapter.setParties(mParties);
