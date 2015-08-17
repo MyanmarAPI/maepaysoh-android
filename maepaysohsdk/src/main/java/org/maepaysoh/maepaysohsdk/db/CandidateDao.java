@@ -69,7 +69,7 @@ public class CandidateDao {
     mMaepaysohDb.beginTransaction();
     try {
       long insertId =
-          mMaepaysohDb.insert(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null, candidateContentValues);
+          mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null, candidateContentValues,SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
       Log.e("error: ", e.getLocalizedMessage());
