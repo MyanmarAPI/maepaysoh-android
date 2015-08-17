@@ -91,7 +91,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_PARTY;
   private static final String SQL_CREATE_FAQ_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_FAQ + " (" +
-          MaepaysohDbHelper.COLUMN_FAQ_ID + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_FAQ_ID + TEXT_TYPE +PRIMARY_KEY_NOT_NULL+ COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_question + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_answer + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_basis + TEXT_TYPE + COMMA_SEP +
