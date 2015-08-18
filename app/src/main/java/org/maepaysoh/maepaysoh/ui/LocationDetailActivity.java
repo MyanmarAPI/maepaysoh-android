@@ -50,7 +50,6 @@ public class LocationDetailActivity extends FragmentActivity {
   private void setUpMap() {
     try {
       GeoJsonLayer layer = new GeoJsonLayer(mMap, R.raw.yangon_west, getApplicationContext());
-
       GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
       for (GeoJsonFeature feature : layer.getFeatures()) {
         GeoJsonGeometry geoJsonGeometry = feature.getGeometry();
