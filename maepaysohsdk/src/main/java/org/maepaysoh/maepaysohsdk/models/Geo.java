@@ -2,7 +2,6 @@
 package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.Expose;
-import java.util.Properties;
 
 public class Geo {
 

@@ -29,6 +29,10 @@ public class MaePaySohApiWrapper {
     return new CandidateAPIHelper(mToken, mContext);
   }
 
+  public GeoAPIHelper getGeoApiHelper() {
+    return new GeoAPIHelper(mToken, mContext);
+  }
+
   public void setFont(FONT font) {
     Utils.saveFontPref(font, mContext);
   }

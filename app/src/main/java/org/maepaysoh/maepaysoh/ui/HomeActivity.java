@@ -33,7 +33,6 @@ public class HomeActivity extends BaseActivity {
     mLocationListBtn = (Button) findViewById(R.id.home_location_list_btn);
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
     setSupportActionBar(mToolbar);
-
     boolean firstTime = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
         .getBoolean(Constants.FIRST_TIME,true);
     if(firstTime) {

@@ -1,7 +1,7 @@
 package org.maepaysoh.maepaysohsdk.api;
 
+import com.google.gson.JsonObject;
 import java.util.Map;
-import org.maepaysoh.maepaysohsdk.models.GeoReturnObject;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.QueryMap;
@@ -11,11 +11,13 @@ import retrofit.http.QueryMap;
  */
 public interface GeoService {
   @GET("/geo/district") void getLocationByRegionAsync(@QueryMap Map<PARAM_FIELD,String> options,
-      Callback<GeoReturnObject> callback);
+      Callback<JsonObject> callback);
 
-  @GET("/geo")
+  @GET("/geo/district") void getAllLocationAsync(@QueryMap Map<PARAM_FIELD,String> options,
+      Callback<JsonObject> callback);
 
+  @GET("/geo/district") JsonObject getAllLocation(@QueryMap Map<PARAM_FIELD,String> options);
   enum PARAM_FIELD{
-    st_name,dt_name,per_page
+    st_name,dt_name,per_page,page,no_geo
   }
 }

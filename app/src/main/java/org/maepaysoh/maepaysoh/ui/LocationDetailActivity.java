@@ -56,7 +56,6 @@ public class LocationDetailActivity extends FragmentActivity {
         geoJsonFeature = new GeoJsonFeature(geoJsonGeometry, null, null, null);
         pointStyle = feature.getPointStyle();
       }
-
       geoJsonPolygonStyle = layer.getDefaultPolygonStyle();
       geoJsonPolygonStyle.setFillColor(getResources().getColor(R.color.geojson_background_color));
       geoJsonPolygonStyle.setStrokeColor(getResources().getColor(R.color.geojson_stroke_color));
