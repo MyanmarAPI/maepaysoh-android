@@ -3,6 +3,8 @@ package org.maepaysoh.maepaysoh.ui;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,28 +29,21 @@ import org.maepaysoh.maepaysohsdk.models.Geo;
 public class LocationDetailActivity extends BaseActivity {
   private GeoAPIHelper mGeoAPIHelper;
   private GoogleMap mMap;
-
+  private ProgressBar mapProgressBar;
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
     String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
     System.out.println(pCode);
+    mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000,96.1500),4));
+    mapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
     mGeoAPIHelper = getMaePaySohWrapper().getGeoApiHelper();
     new GetGeoByID().execute(pCode);
   }
 
   @Override protected void onResume() {
     super.onResume();
-  }
-  public void setUpMapIfNeeded(AppCompatActivity activity,int fragmentId,Geo geo) {
-    // Do a null check to confirm that we have not already instantiated the map.
-    if (mMap == null) {
-      // Try to obtain the map from the SupportMapFragment.
-      mMap = ((SupportMapFragment) activity.getSupportFragmentManager().findFragmentById(fragmentId)).getMap();
-      if (mMap != null) {
-        setUpMap(activity,geo);
-      }
-    }
   }
 
   private void setUpMap(AppCompatActivity activity,Geo geo) {
@@ -87,8 +82,9 @@ public class LocationDetailActivity extends BaseActivity {
     } catch (JSONException e) {
       e.printStackTrace();
     }
-    LatLng ygnLatLng = new LatLng(((geo.getGeometry().getCoordinates().get(0)).get(0)).get(1),((geo.getGeometry().getCoordinates().get(0)).get(0)).get(0));
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ygnLatLng, 12));
+    LatLng ygnLatLng = new LatLng(((geo.getGeometry().getCoordinates().get(0)).get(0)).get(1),
+        ((geo.getGeometry().getCoordinates().get(0)).get(0)).get(0));
+    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ygnLatLng, 8));
   }
   class GetGeoByID extends AsyncTask<String,Void,List<Geo>>{
 
@@ -98,7 +94,8 @@ public class LocationDetailActivity extends BaseActivity {
 
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
-      setUpMapIfNeeded(LocationDetailActivity.this,R.id.location_detail_map,geos.get(0));
+      mapProgressBar.setVisibility(View.GONE);
+     setUpMap(LocationDetailActivity.this,geos.get(0));
     }
   }
 }

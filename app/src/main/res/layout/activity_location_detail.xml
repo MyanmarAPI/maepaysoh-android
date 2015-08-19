@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<fragment
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/location_detail_map"
     tools:context="org.maepaysoh.maepaysoh.ui.LocationDetailActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     />
+    <ProgressBar
+        android:id="@+id/map_progress_bar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"/>
+    </FrameLayout>
