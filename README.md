@@ -75,3 +75,5 @@ Followings methods are available for PartyAPIHelper
 
 * Repo owner or admin
 * Other community or team contact
+
+END OF README
