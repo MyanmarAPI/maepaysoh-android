@@ -75,14 +75,14 @@ public class FAQAPIHelper {
    */
   public void getFaqsAsync(boolean unicode, int page, int per_page,
       Callback<FAQListReturnObject> callback) {
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
-      optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    optionParams.put(PARAM_FIELD.page, String.valueOf(page));
-    optionParams.put(PARAM_FIELD.per_page, String.valueOf(per_page));
+    optionParams.put(FaqService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(FaqService.PARAM_FIELD.per_page, String.valueOf(per_page));
     mFaqService.listFaqsAsync(optionParams, callback);
   }
 
@@ -96,14 +96,14 @@ public class FAQAPIHelper {
    */
   public List<FAQ> getFaqs(boolean unicode, int page, int per_page, boolean cache) {
     mFaqDao = new FaqDao(mContext);
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
-      optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    optionParams.put(PARAM_FIELD.page, String.valueOf(page));
-    optionParams.put(PARAM_FIELD.per_page, String.valueOf(per_page));
+    optionParams.put(FaqService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(FaqService.PARAM_FIELD.per_page, String.valueOf(per_page));
     FAQListReturnObject faqListReturnObject = mFaqService.listFaqs(optionParams);
     if (cache) {
       for (FAQ FAQ : faqListReturnObject.getData()) {
@@ -178,13 +178,13 @@ public class FAQAPIHelper {
    */
   public void searchFaqsAsync(boolean unicode, String keyword,
       Callback<FAQListReturnObject> callback) {
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
-      optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    optionParams.put(PARAM_FIELD.q, keyword);
+    optionParams.put(FaqService.PARAM_FIELD.q, keyword);
     mFaqService.searchFaqsAsync(optionParams, callback);
   }
 
@@ -199,13 +199,13 @@ public class FAQAPIHelper {
    * @return
    */
   public List<FAQ> searchFaq(boolean unicode, String keyword) {
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
-      optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    optionParams.put(PARAM_FIELD.q, keyword);
+    optionParams.put(FaqService.PARAM_FIELD.q, keyword);
     return mFaqService.searchFaq(optionParams).getData();
   }
 
@@ -245,11 +245,11 @@ public class FAQAPIHelper {
    */
   public void getFaqByIdAsync(String faqId, boolean unicode,
       Callback<FAQDetailReturnObject> callback) {
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
-      optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
     mFaqService.searchFaqByIdAsync(faqId, optionParams, callback);
   }
@@ -272,11 +272,11 @@ public class FAQAPIHelper {
    */
   public FAQ getFaqById(String faqId, boolean unicode, boolean cache) {
     mFaqDao = new FaqDao(mContext);
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
-      optionParams.put(PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(FaqService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
     FAQDetailReturnObject returnObject = mFaqService.searchFaqById(faqId, optionParams);
     FAQ faq = returnObject.getFAQ();
@@ -289,9 +289,5 @@ public class FAQAPIHelper {
   public FAQ getFaqByIdFromCache(String faqId) {
     mFaqDao = new FaqDao(mContext);
     return mFaqDao.getFaqById(faqId);
-  }
-
-  public enum PARAM_FIELD {
-    font, per_page, page, q
   }
 }

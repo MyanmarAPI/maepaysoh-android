@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/maepaesoh.iml" filepath="$PROJECT_DIR$/maepaesoh.iml" />
-      <module fileurl="file://$PROJECT_DIR$/maepaysoh.iml" filepath="$PROJECT_DIR$/maepaysoh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maepaysoh-android.iml" filepath="$PROJECT_DIR$/maepaysoh-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/maepaysohsdk/maepaysohsdk.iml" filepath="$PROJECT_DIR$/maepaysohsdk/maepaysohsdk.iml" />
     </modules>
   </component>

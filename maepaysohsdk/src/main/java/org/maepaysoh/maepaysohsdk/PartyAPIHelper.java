@@ -39,12 +39,12 @@ public class PartyAPIHelper {
   }
 
   public void getPartiesAsync(boolean unicode, Callback<PartyListReturnObject> party) {
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
-      optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(PartyService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(PartyService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
     mPartyService.listPartiesAsync(optionParams, party);
   }
@@ -59,12 +59,12 @@ public class PartyAPIHelper {
    * @return
    */
   public List<Party> getParties(boolean unicode, boolean cache) {
-    Map<PARAM_FIELD, String> optionParams = new HashMap<>();
+    Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
-      optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.UNICODE);
+      optionParams.put(PartyService.PARAM_FIELD.font, Constants.UNICODE);
     } else {
-      optionParams.put(PartyAPIHelper.PARAM_FIELD.font, Constants.ZAWGYI);
+      optionParams.put(PartyService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
     PartyListReturnObject partyListReturnObject = mPartyService.listParties(optionParams);
     if (cache) {
@@ -102,7 +102,4 @@ public class PartyAPIHelper {
     }
   }
 
-  public enum PARAM_FIELD {
-    font
-  }
 }
