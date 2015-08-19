@@ -10,8 +10,7 @@
     android:layout_marginTop="@dimen/spacing_micro"
     android:layout_marginBottom="@dimen/spacing_micro"
     app:cardUseCompatPadding="true"
-    android:background="?attr/selectableItemBackground"
-    >
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:orientation="vertical"
