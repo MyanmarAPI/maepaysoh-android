@@ -3,8 +3,8 @@
 ### What is this repository for? ###
 
 * This repository contains 2 parts.
- * 1. Sample Android Application (maepaysoh-sample-app Module) and
- * 2. Android SDK (maepaysoh-sdk Module) for MaePaySoh API
+ - Sample Android Application (maepaysoh-sample-app Module) and
+ - Android SDK (maepaysoh-sdk Module) for MaePaySoh API
 
 Sample Android Application uses SDK functions.
 
@@ -16,7 +16,7 @@ Sample Android Application uses SDK functions.
 
 ### MaePaySoh API ###
 
-"maepaysoh-sdk" is programmed to be compitable with MaePaySoh API, specified at http://myanmarapi.github.io/endpoints.html
+`maepaysohsdk` is programmed to be compitable with MaePaySoh API, specified at http://myanmarapi.github.io/endpoints.html
 
 ### How To Add MaePaySoh Android SDK for your Android Project ###
 
@@ -39,10 +39,10 @@ Get your own APK Key at http://myanmarapi.github.io/
 
 SDK includes following classes;
 
-* MaePaySohApiWrapper, this is helper class generator for various API endpoints.
-* PartyAPIHelper, wrapper class for Party API endpoints.
-* CandidateAPIHelper, wrapper class for Candidate API endpoints.
-* FAQAPIHelper, wrapper class for FAQ API endpoints. 
+* `MaePaySohApiWrapper`, this is helper class generator for various API endpoints.
+* `PartyAPIHelper`, wrapper class for Party API endpoints.
+* `CandidateAPIHelper`, wrapper class for Candidate API endpoints.
+* `FAQAPIHelper`, wrapper class for FAQ API endpoints. 
 
 ### Setting Up API Wrapper ###
 
