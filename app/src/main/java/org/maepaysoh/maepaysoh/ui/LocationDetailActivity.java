@@ -1,8 +1,8 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -14,6 +14,7 @@ import com.google.maps.android.geojson.GeoJsonGeometry;
 import com.google.maps.android.geojson.GeoJsonLayer;
 import com.google.maps.android.geojson.GeoJsonPointStyle;
 import com.google.maps.android.geojson.GeoJsonPolygonStyle;
+import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.maepaysoh.maepaysoh.R;
@@ -30,9 +31,10 @@ public class LocationDetailActivity extends BaseActivity {
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
+    String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
+    System.out.println(pCode);
     mGeoAPIHelper = getMaePaySohWrapper().getGeoApiHelper();
-    setUpMapIfNeeded(this, R.id.location_detail_map,
-        (Geo) getIntent().getSerializableExtra("GEO_OBJECT"));
+    new GetGeoByID().execute(pCode);
   }
 
   @Override protected void onResume() {
@@ -50,9 +52,11 @@ public class LocationDetailActivity extends BaseActivity {
   }
 
   private void setUpMap(AppCompatActivity activity,Geo geo) {
+    for(List cordinates:geo.getGeometry().getCoordinates()){
+      System.out.println(cordinates);
+    }
     Gson gson = new GsonBuilder().create();
     String object = gson.toJson(geo);
-    Log.d("jsonobject", object);
     try {
       GeoJsonLayer layer = new GeoJsonLayer(mMap,new JSONObject(object));
       GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
@@ -65,8 +69,7 @@ public class LocationDetailActivity extends BaseActivity {
       GeoJsonPolygonStyle geoJsonPolygonStyle = layer.getDefaultPolygonStyle();
       geoJsonPolygonStyle.setFillColor(
           activity.getResources().getColor(R.color.geojson_background_color));
-      geoJsonPolygonStyle.setStrokeColor(
-          activity.getResources().getColor(R.color.geojson_stroke_color));
+      geoJsonPolygonStyle.setStrokeColor(activity.getResources().getColor(R.color.geojson_stroke_color));
       geoJsonPolygonStyle.setStrokeWidth(2);
 
       pointStyle.setTitle(geo.getProperties().getDT());
@@ -84,8 +87,18 @@ public class LocationDetailActivity extends BaseActivity {
     } catch (JSONException e) {
       e.printStackTrace();
     }
-    LatLng ygnLatLng = new LatLng(16.8000, 96.1500);
+    LatLng ygnLatLng = new LatLng(((geo.getGeometry().getCoordinates().get(0)).get(0)).get(1),((geo.getGeometry().getCoordinates().get(0)).get(0)).get(0));
     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ygnLatLng, 12));
   }
+  class GetGeoByID extends AsyncTask<String,Void,List<Geo>>{
 
+    @Override protected List<Geo> doInBackground(String... strings) {
+      return mGeoAPIHelper.getLocationByObjectId(strings[0]);
+    }
+
+    @Override protected void onPostExecute(List<Geo> geos) {
+      super.onPostExecute(geos);
+      setUpMapIfNeeded(LocationDetailActivity.this,R.id.location_detail_map,geos.get(0));
+    }
+  }
 }

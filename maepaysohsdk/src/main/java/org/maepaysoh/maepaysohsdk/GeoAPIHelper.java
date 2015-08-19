@@ -61,6 +61,75 @@ public class GeoAPIHelper {
     optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
     optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
     optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(!withGeoJson));
-    mGeoService.getAllLocationAsync(optionParams,returnObjectCallback);
+    mGeoService.getAllLocationAsync(optionParams, returnObjectCallback);
+  }
+
+  public List<Geo> getLocationByRegion(String dt_name,String st_name,int per_page,int page,boolean withGeoJson){
+    Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
+    optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(!withGeoJson));
+    optionParams.put(GeoService.PARAM_FIELD.dt_name,dt_name);
+    optionParams.put(GeoService.PARAM_FIELD.st_name, st_name);
+    return mGeoService.getLocationByRegion(optionParams).getData();
+  }
+
+  public List<Geo> getLocationByRegion(String dt_name,String st_name,int page,boolean withGeoJson){
+    return getLocationByRegion(dt_name, st_name, 5, page, withGeoJson);
+  }
+
+  public List<Geo> getLocationByRegion(String dt_name,String st_name,boolean withGeoJson){
+    return getLocationByRegion(dt_name,st_name,5,1,withGeoJson);
+  }
+
+  public List<Geo> getLocationByRegion(String dt_name,String st_name){
+    return getLocationByRegion(dt_name,st_name,5,1,true);
+  }
+
+  public void getLocationByRegionByAsync(String dt_name,String st_name,int per_page,int page,boolean withGeoJson,Callback<GeoReturnObject> returnObjectCallback){
+    Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
+    optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(!withGeoJson));
+    optionParams.put(GeoService.PARAM_FIELD.dt_name,dt_name);
+    optionParams.put(GeoService.PARAM_FIELD.st_name, st_name);
+    mGeoService.getLocationByRegionAsync(optionParams, returnObjectCallback);
+  }
+
+  public void getLocationByRegionByAsync(String dt_name,String st_name,int page,boolean withGeoJson
+      ,Callback<GeoReturnObject> returnObjectCallback){
+    getLocationByRegionByAsync(dt_name, st_name, 5, page, withGeoJson,returnObjectCallback);
+  }
+
+  public void getLocationByRegionByAsync(String dt_name,String st_name,boolean withGeoJson
+      ,Callback<GeoReturnObject> returnObjectCallback){
+    getLocationByRegionByAsync(dt_name,st_name,5,1,withGeoJson,returnObjectCallback);
+  }
+
+  public void getLocationByRegionByAsync(String dt_name,String st_name,Callback<GeoReturnObject> returnObjectCallback){
+    getLocationByRegionByAsync(dt_name, st_name, 5, 1, true, returnObjectCallback);
+  }
+
+
+  public List<Geo> getLocationByObjectId(String pCode,int per_page,int page,boolean withGeoJson){
+    Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    optionParams.put(GeoService.PARAM_FIELD.dt_pcode, pCode);
+    optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(!withGeoJson));
+    optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
+    return mGeoService.getLocationByPcode(optionParams).getData();
+
+  }
+
+  public List<Geo> getLocationByObjectId(String pCode, int page, boolean withGeoJson){
+    return getLocationByObjectId(pCode, 5, page, withGeoJson);
+  }
+
+  public List<Geo> getLocationByObjectId(String pCode,boolean withGeoJson){
+    return getLocationByObjectId(pCode,5,1,withGeoJson);
+  }
+
+  public List<Geo> getLocationByObjectId(String pCode){
+    return getLocationByObjectId(pCode,5,1,true);
   }
 }

@@ -10,7 +10,7 @@ public class Geometry implements Serializable{
 @Expose
 private String type;
 @Expose
-private List<List<List<List<Double>>>> coordinates = new ArrayList<List<List<List<Double>>>>();
+private List<List<List<Double>>> coordinates = new ArrayList<List<List<Double>>>();
 
 /**
 * 
@@ -35,16 +35,16 @@ this.type = type;
 * @return
 * The coordinates
 */
-public List<List<List<List<Double>>>> getCoordinates() {
+public List<List<List<Double>>> getCoordinates() {
 return coordinates;
 }
 
 /**
-* 
-* @param coordinates
-* The coordinates
-*/
-public void setCoordinates(List<List<List<List<Double>>>> coordinates) {
+*
+ * @param coordinates
+ * The coordinates
+ */
+public void setCoordinates(List<List<List<Double>>> coordinates) {
 this.coordinates = coordinates;
 }
 

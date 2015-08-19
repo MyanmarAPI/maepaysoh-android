@@ -15,7 +15,7 @@
       android:layout_height="match_parent"
       >
     <ProgressBar
-        android:id="@+id/faq_list_progress_bar"
+        android:id="@+id/location_list_progress_bar"
         style="?android:progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
