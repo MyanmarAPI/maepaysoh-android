@@ -2,8 +2,9 @@ package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public class Properties {
+public class Properties implements Serializable{
 
 @Expose
 private Integer OBJECTID;

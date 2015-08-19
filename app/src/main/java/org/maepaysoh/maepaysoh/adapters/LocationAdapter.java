@@ -36,9 +36,8 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     Geo geo = mGeos.get(position);
-    ((LocationViewHolder) holder).mLocationDivision.setText(geo.getProperties().getDTMya()+" ("+geo.getProperties().getDT()+") ");
+    ((LocationViewHolder) holder).mLocationDivision.setText(geo.getProperties().getDT());
     ((LocationViewHolder)holder).mLocationTownship.setText(geo.getProperties().getST());
-    //((CandidateViewHolder) holder).mFaqAnswer.setText(FAQ.getAnswer());
   }
 
   @Override public int getItemCount() {

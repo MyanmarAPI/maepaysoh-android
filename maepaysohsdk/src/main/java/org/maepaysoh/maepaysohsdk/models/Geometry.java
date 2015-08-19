@@ -1,10 +1,11 @@
 package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.Expose;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Geometry {
+public class Geometry implements Serializable{
 
 @Expose
 private String type;

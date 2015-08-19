@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -18,7 +19,7 @@ import org.maepaysoh.maepaysohsdk.GeoAPIHelper;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.Geo;
 
-public class LocationListActivity extends BaseActivity {
+public class LocationListActivity extends BaseActivity implements LocationAdapter.ClickInterface {
 
   private Button ygnWestBtn;
   private ViewUtils viewUtils;
@@ -28,6 +29,7 @@ public class LocationListActivity extends BaseActivity {
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
   private GeoAPIHelper mGeoAPIHelper;
   private View mRetryBtn;
+  private List<Geo> mGeos;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class LocationListActivity extends BaseActivity {
     mLayoutManager = new LinearLayoutManager(this);
     mLocationListRecyclerView.setLayoutManager(mLayoutManager);
     mLocationAdapter = new LocationAdapter();
-    //mLocationAdapter.setOnItemClickListener(this);
+    mLocationAdapter.setOnItemClickListener(this);
     mMaePaySohApiWrapper = getMaePaySohWrapper();
     mGeoAPIHelper = mMaePaySohApiWrapper.getGeoApiHelper();
     //mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
@@ -68,6 +70,7 @@ public class LocationListActivity extends BaseActivity {
     }
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+        loadLocationData();
       }
     });
   }
@@ -84,6 +87,12 @@ public class LocationListActivity extends BaseActivity {
     new LocationDownloadAsync().execute();
   }
 
+  @Override public void onItemClick(View view, int position) {
+    Intent locationDetailIntent = new Intent(LocationListActivity.this,LocationDetailActivity.class);
+    locationDetailIntent.putExtra("GEO_OBJECT",mGeos.get(position));
+    startActivity(locationDetailIntent);
+  }
+
   class LocationDownloadAsync extends AsyncTask<Void,Void,List<Geo>>{
     @Override protected List<Geo> doInBackground(Void... voids) {
       List<Geo> geos = mGeoAPIHelper.getLocationList(15,1,true);
@@ -92,6 +101,7 @@ public class LocationListActivity extends BaseActivity {
 
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
+      mGeos = geos;
       mLocationAdapter.setGeos(geos);
     }
   }

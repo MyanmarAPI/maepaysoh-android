@@ -10,6 +10,7 @@
     android:layout_marginTop="@dimen/spacing_micro"
     android:layout_marginBottom="@dimen/spacing_micro"
     app:cardUseCompatPadding="true"
+    android:background="?attr/selectableItemBackground"
     >
 
     <LinearLayout
@@ -24,7 +25,6 @@
             android:padding="@dimen/spacing_minor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
             tools:text="Ye Myat Thu"
             />
 
@@ -34,7 +34,6 @@
             android:padding="@dimen/spacing_minor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
             tools:text="Ye Myat Thu"
             />
         <!--<org.maepaysoh.maepaysoh.ui.widget.ExpandableTextView-->

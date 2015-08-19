@@ -2,8 +2,9 @@
 package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.Expose;
+import java.io.Serializable;
 
-public class Geo {
+public class Geo implements Serializable{
 
 @Expose
 private String id;
