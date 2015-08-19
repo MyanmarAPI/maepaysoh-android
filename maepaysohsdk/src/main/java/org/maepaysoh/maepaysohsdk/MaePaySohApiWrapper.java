@@ -17,6 +17,9 @@ public class MaePaySohApiWrapper {
     mToken = token;
   }
 
+  public void getTokenKeyAsync(String apiKey){
+  }
+
   public PartyAPIHelper getPartyApiHelper() {
     return new PartyAPIHelper(mToken, mContext);
   }

@@ -34,7 +34,7 @@ this.Meta = Meta;
 * @return
 * The data
 */
-public TokenData getData() {
+public TokenData getTokenData() {
 return data;
 }
 
@@ -43,7 +43,7 @@ return data;
 * @param data
 * The data
 */
-public void setData(TokenData data) {
+public void setTokenData(TokenData data) {
 this.data = data;
 }
 
