@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
@@ -128,7 +129,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     }
   }
 
-  private void downloadCandidateList() {
+  private void downloadCandidateList(String gender, String religion) {
     mDownloadCandidateListAsync = new DownloadCandidateListAsync();
     mDownloadCandidateListAsync.execute(mCurrentPage);
   }
@@ -180,10 +181,15 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   class DownloadCandidateListAsync extends AsyncTask<Integer, Void, List<Candidate>> {
-
+    String gender;
+    String religion;
+    public DownloadCandidateListAsync(String gender, String religion){
+      this.gender = gender;
+      this.religion = religion;
+    }
     @Override protected List<Candidate> doInBackground(Integer... integers) {
       mCurrentPage = integers[0];
-      return mCandidateAPIHelper.getCandidates(integers[0], true);
+      return mCandidateAPIHelper.getCandidates(integers[0],gender,religion, true);
     }
 
     @Override protected void onPostExecute(List<Candidate> candidates) {
@@ -242,7 +248,18 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void showFilterDialog(){
+    String gender="";
+    String religon="";
     View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
+    RadioGroup genderRg = (RadioGroup) view.findViewById(R.id.gender_radio_group);
+    genderRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+      @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (i){
+          case R.id.gender_male_rb:
+            dow
+        }
+      }
+    });
     Dialog filterDialog = new AlertDialog.Builder(CandidateListActivity.this)
         .setCustomTitle(null)
         .setView(view)
