@@ -30,6 +30,8 @@ import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.CandidateAPIHelper;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
+import org.maepaysoh.maepaysohsdk.utils.CandidateAPIProperties;
+import org.maepaysoh.maepaysohsdk.utils.CandidateAPIPropertiesMap;
 
 import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
 import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGD;
@@ -129,7 +131,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     }
   }
 
-  private void downloadCandidateList(String gender, String religion) {
+  private void downloadCandidateList() {
     mDownloadCandidateListAsync = new DownloadCandidateListAsync();
     mDownloadCandidateListAsync.execute(mCurrentPage);
   }
@@ -181,15 +183,15 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   class DownloadCandidateListAsync extends AsyncTask<Integer, Void, List<Candidate>> {
-    String gender;
-    String religion;
-    public DownloadCandidateListAsync(String gender, String religion){
-      this.gender = gender;
-      this.religion = religion;
+
+    public DownloadCandidateListAsync(){
     }
     @Override protected List<Candidate> doInBackground(Integer... integers) {
       mCurrentPage = integers[0];
-      return mCandidateAPIHelper.getCandidates(integers[0],gender,religion, true);
+      CandidateAPIPropertiesMap propertiesMap = new CandidateAPIPropertiesMap()
+          .with(CandidateAPIProperties.CACHE,true)
+          .with(CandidateAPIProperties.FIRST_PAGE,mCurrentPage);
+      return mCandidateAPIHelper.getCandidates(propertiesMap);
     }
 
     @Override protected void onPostExecute(List<Candidate> candidates) {
@@ -256,7 +258,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
         switch (i){
           case R.id.gender_male_rb:
-            dow
+
         }
       }
     });

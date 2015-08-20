@@ -45,12 +45,12 @@ public class CandidateAPIHelper {
    * @param callback
    */
   public void getCandidatesAsync(CandidateAPIPropertiesMap propertiesMap, Callback<CandidateListReturnObject> callback) {
-    String gender = propertiesMap.get(CandidateAPIProperties.GENDER);
-    String religion = propertiesMap.get(CandidateAPIProperties.RELIGION);
-    boolean withParty = propertiesMap.get(CandidateAPIProperties.WITH_PARTY);
-    boolean unicode = propertiesMap.get(CandidateAPIProperties.IS_UNICODE);
-    int firstPage = propertiesMap.get(CandidateAPIProperties.FIRST_PAGE);
-    int perPage = propertiesMap.get(CandidateAPIProperties.PER_PAGE);
+    String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
+    String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
+    boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
+    boolean unicode = propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
+    int firstPage = propertiesMap.getInteger(CandidateAPIProperties.FIRST_PAGE,1);
+    int perPage = propertiesMap.getInteger(CandidateAPIProperties.PER_PAGE,15);
 
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (withParty) {
@@ -77,13 +77,13 @@ public class CandidateAPIHelper {
    *
    */
   public List<Candidate> getCandidates(CandidateAPIPropertiesMap propertiesMap) {
-    String gender = propertiesMap.get(CandidateAPIProperties.GENDER);
-    String religion = propertiesMap.get(CandidateAPIProperties.RELIGION);
-    boolean withParty = propertiesMap.get(CandidateAPIProperties.WITH_PARTY);
-    boolean unicode = propertiesMap.get(CandidateAPIProperties.IS_UNICODE);
-    int firstPage = propertiesMap.get(CandidateAPIProperties.FIRST_PAGE);
-    int perPage = propertiesMap.get(CandidateAPIProperties.PER_PAGE);
-    boolean cache = propertiesMap.get(CandidateAPIProperties.CACHE);
+    String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
+    String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
+    boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
+    boolean unicode = propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
+    int firstPage = propertiesMap.getInteger(CandidateAPIProperties.FIRST_PAGE, 1);
+    int perPage = propertiesMap.getInteger(CandidateAPIProperties.PER_PAGE, 15);
+    boolean cache = propertiesMap.getBoolean(CandidateAPIProperties.CACHE, true);
 
     mCandidateDao = new CandidateDao(mContext);
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
