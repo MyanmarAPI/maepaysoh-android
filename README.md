@@ -47,7 +47,7 @@ SDK includes following classes;
 ### Setting Up API Wrapper ###
 
 You can setup the API Wrapper as follow;
-```
+```java
 MaePaySohApiWrapper apiWrapper = new MaePaySohApiWrapper(this);
 apiWrapper.setApiKey(API_KEY); // Put your own API Key
 apiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode); // Set Unicode/Zawgyi response from server
@@ -58,7 +58,7 @@ apiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode); // Set Unicode/Zawgyi resp
 #### Party API Helper ####
 
 You can setup Party API Helper as follow;
-```
+```java
 PartyAPIHelper partyWrapper = apiWrapper.getPartyApiHelper();
 ```
 
