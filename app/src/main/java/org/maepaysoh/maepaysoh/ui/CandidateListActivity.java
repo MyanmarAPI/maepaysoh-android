@@ -1,5 +1,8 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.graphics.PorterDuff;
@@ -113,10 +116,16 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
-    if (id == android.R.id.home) {
-      onBackPressed();
+    switch (id){
+      case android.R.id.home:
+        onBackPressed();
+        return true;
+      case R.id.menu_filter:
+        showFilterDialog();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
-    return super.onOptionsItemSelected(item);
   }
 
   private void downloadCandidateList() {
@@ -231,4 +240,24 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mSearchView.setOnQueryTextListener(this);
     return true;
   }
+
+  private void showFilterDialog(){
+    View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
+    Dialog filterDialog = new AlertDialog.Builder(CandidateListActivity.this)
+        .setCustomTitle(null)
+        .setView(view)
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
+          }
+        })
+        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
+          }
+        })
+        .create();
+    filterDialog.show();
+  }
+
 }
