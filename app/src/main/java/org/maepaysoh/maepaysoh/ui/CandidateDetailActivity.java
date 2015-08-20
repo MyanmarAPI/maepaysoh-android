@@ -33,6 +33,7 @@ public class CandidateDetailActivity extends BaseActivity {
   private TextView mParty;
   private TextView mMotherName;
   private TextView mFatherName;
+  private TextView mGender;
 
   private Candidate mCandidate;
 
@@ -55,6 +56,7 @@ public class CandidateDetailActivity extends BaseActivity {
     mParty = (TextView) findViewById(R.id.candidate_party);
     mMotherName = (TextView) findViewById(R.id.candidate_mother);
     mFatherName = (TextView) findViewById(R.id.candidate_father);
+    mGender = (TextView) findViewById(R.id.candidate_gender);
 
     setSupportActionBar(mToolbar);
     ActionBar mActionBar = getSupportActionBar();
@@ -75,6 +77,7 @@ public class CandidateDetailActivity extends BaseActivity {
       mResidency.setText(mCandidate.getResidency().getName());
       mMotherName.setText(mCandidate.getMother().getName());
       mFatherName.setText(mCandidate.getFather().getName());
+      mGender.setText(mCandidate.getGender());
       List<String> occupations = mCandidate.getOccupation();
       List<String> educations = mCandidate.getEducation();
       for (String occupation : occupations) {
