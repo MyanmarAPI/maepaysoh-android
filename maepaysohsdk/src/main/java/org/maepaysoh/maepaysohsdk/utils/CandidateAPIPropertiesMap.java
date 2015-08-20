@@ -31,7 +31,7 @@ public class CandidateAPIPropertiesMap {
     return result;
   }
 
-  public int getInteger(CandidateAPIProperties<Integer> property,int defaultValue){
+  public int getInteger(CandidateAPIProperties<Integer> property,int defaultValue) {
     try {
       int result = property.propertyClass.cast(properties.get(property));
       if (result == -1) {
@@ -39,11 +39,16 @@ public class CandidateAPIPropertiesMap {
       } else {
         return result;
       }
-    }catch (Exception e){
+    } catch (Exception e) {
       return defaultValue;
     }
   }
-  
+
+
+  public <T> T get(CandidateAPIProperties<T> property) {
+    return property.propertyClass.cast(properties.get(property));
+  }
+
   public <T> CandidateAPIPropertiesMap with(CandidateAPIProperties<T> property, T value) {
     put(property, value);
     return this;
