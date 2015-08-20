@@ -100,19 +100,20 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(this, mCandidateAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
-            downloadCandidateList();
+            downloadCandidateList(new CandidateAPIPropertiesMap());
           }
         });
     mCandidateListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
     if (InternetUtils.isNetworkAvailable(this)) {
-      downloadCandidateList();
+      downloadCandidateList(new CandidateAPIPropertiesMap());
     } else {
       loadFromCache();
     }
 
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        downloadCandidateList();
+
+        downloadCandidateList(new CandidateAPIPropertiesMap());
       }
     });
   }
@@ -131,9 +132,13 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     }
   }
 
-  private void downloadCandidateList() {
-    mDownloadCandidateListAsync = new DownloadCandidateListAsync();
-    mDownloadCandidateListAsync.execute(mCurrentPage);
+  private void downloadCandidateList(CandidateAPIPropertiesMap propertiesMap) {
+    if(propertiesMap==null){
+      propertiesMap = new CandidateAPIPropertiesMap();
+    }
+    propertiesMap.put(CandidateAPIProperties.FIRST_PAGE,mCurrentPage);
+    mDownloadCandidateListAsync = new DownloadCandidateListAsync(propertiesMap);
+    mDownloadCandidateListAsync.execute();
   }
 
   @Override protected void onPause() {
@@ -182,15 +187,12 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     return true;
   }
 
-  class DownloadCandidateListAsync extends AsyncTask<Integer, Void, List<Candidate>> {
-
-    public DownloadCandidateListAsync(){
+  class DownloadCandidateListAsync extends AsyncTask<Void, Void, List<Candidate>> {
+    CandidateAPIPropertiesMap propertiesMap;
+    public DownloadCandidateListAsync(CandidateAPIPropertiesMap propertiesMap){
+      this.propertiesMap = propertiesMap;
     }
-    @Override protected List<Candidate> doInBackground(Integer... integers) {
-      mCurrentPage = integers[0];
-      CandidateAPIPropertiesMap propertiesMap = new CandidateAPIPropertiesMap()
-          .with(CandidateAPIProperties.CACHE,true)
-          .with(CandidateAPIProperties.FIRST_PAGE,mCurrentPage);
+    @Override protected List<Candidate> doInBackground(Void... voids) {
       return mCandidateAPIHelper.getCandidates(propertiesMap);
     }
 
@@ -252,13 +254,22 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private void showFilterDialog(){
     String gender="";
     String religon="";
+    mCurrentPage = 1;
     View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
     RadioGroup genderRg = (RadioGroup) view.findViewById(R.id.gender_radio_group);
+    final CandidateAPIPropertiesMap propertiesMap = new CandidateAPIPropertiesMap();
     genderRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
         switch (i){
           case R.id.gender_male_rb:
-
+            propertiesMap.put(CandidateAPIProperties.GENDER,"male");
+            break;
+          case R.id.gender_female_rb:
+            propertiesMap.put(CandidateAPIProperties.GENDER,"female");
+            break;
+          case R.id.gender_all_rb:
+            propertiesMap.put(CandidateAPIProperties.GENDER,"");
+            break;
         }
       }
     });
@@ -268,6 +279,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
+            downloadCandidateList(propertiesMap);
           }
         })
         .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
