@@ -26,6 +26,6 @@ public interface CandidateService {
       @Path("candidate_id") String candidateId, @QueryMap Map<PARAM_FIELD, String> options);
 
   enum PARAM_FIELD {
-    _with, font, per_page, page
+    _with, font, per_page, page,gender,religion
   }
 }

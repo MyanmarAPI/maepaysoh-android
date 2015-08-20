@@ -35,7 +35,7 @@ public class CandidateAPIHelper {
    */
   public void getCandidatesAsync(Callback<CandidateListReturnObject> callback) {
     boolean unicode = Utils.isUniCode(mContext);
-    getCandidatesAsync(false, unicode, 1, 15, callback);
+    getCandidatesAsync(false, unicode, 1, 15,"","",callback);
   }
 
   /**
@@ -45,7 +45,7 @@ public class CandidateAPIHelper {
    */
   public void getCandidatesAsync(boolean withParty, Callback<CandidateListReturnObject> callback) {
     boolean unicode = Utils.isUniCode(mContext);
-    getCandidatesAsync(withParty, unicode, 1, 15, callback);
+    getCandidatesAsync(withParty, unicode, 1, 15,"","", callback);
   }
 
   /**
@@ -56,7 +56,7 @@ public class CandidateAPIHelper {
    */
   public void getCandidatesAsync(Boolean withParty, boolean unicode,
       Callback<CandidateListReturnObject> callback) {
-    getCandidatesAsync(withParty, unicode, 1, 15, callback);
+    getCandidatesAsync(withParty, unicode, 1, 15,"","", callback);
   }
 
   /**
@@ -68,7 +68,7 @@ public class CandidateAPIHelper {
    */
   public void getCandidatesAsync(Boolean withParty, boolean unicode, int firstPage,
       Callback<CandidateListReturnObject> callback) {
-    getCandidatesAsync(withParty, unicode, firstPage, 15, callback);
+    getCandidatesAsync(withParty, unicode, firstPage, 15,"","", callback);
   }
 
   /**
@@ -79,8 +79,8 @@ public class CandidateAPIHelper {
    * @param perPage
    * @param callback
    */
-  public void getCandidatesAsync(boolean withParty, boolean unicode, int firstPage, int perPage,
-      Callback<CandidateListReturnObject> callback) {
+  public void getCandidatesAsync(boolean withParty, boolean unicode, int firstPage, int perPage,String gender,
+      String religion, Callback<CandidateListReturnObject> callback) {
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -100,7 +100,7 @@ public class CandidateAPIHelper {
    */
   public List<Candidate> getCandidates(boolean cache) {
     boolean unicode = Utils.isUniCode(mContext);
-    return getCandidates(false, unicode, 1, 15, cache);
+    return getCandidates(false, unicode, 1, 15,"","", cache);
   }
 
   /**
@@ -109,7 +109,7 @@ public class CandidateAPIHelper {
    */
   public List<Candidate> getCandidates(boolean withParty, boolean cache) {
     boolean unicode = Utils.isUniCode(mContext);
-    return getCandidates(withParty, unicode, 1, 15, cache);
+    return getCandidates(withParty, unicode, 1, 15,"","",cache);
   }
 
   /**
@@ -118,7 +118,7 @@ public class CandidateAPIHelper {
    */
   public List<Candidate> getCandidates(int firstPage, boolean cache) {
     boolean unicode = Utils.isUniCode(mContext);
-    return getCandidates(true, unicode, firstPage, 15, cache);
+    return getCandidates(true, unicode, firstPage, 15,"","",cache);
   }
 
   /**
@@ -127,7 +127,7 @@ public class CandidateAPIHelper {
    * @param unicode
    */
   public List<Candidate> getCandidates(Boolean withParty, boolean unicode, boolean cache) {
-    return getCandidates(withParty, unicode, 1, 15, cache);
+    return getCandidates(withParty, unicode, 1, 15,"","", cache);
   }
 
   /**
@@ -138,7 +138,7 @@ public class CandidateAPIHelper {
    */
   public List<Candidate> getCandidates(Boolean withParty, boolean unicode, int firstPage,
       boolean cache) {
-    return getCandidates(withParty, unicode, firstPage, 15, cache);
+    return getCandidates(withParty, unicode, firstPage, 15,"","", cache);
   }
 
   /**
@@ -150,7 +150,7 @@ public class CandidateAPIHelper {
    * @return
    */
   public List<Candidate> getCandidates(boolean withParty, boolean unicode, int firstPage,
-      int perPage, boolean cache) {
+      int perPage,String gender, String religion, boolean cache) {
     mCandidateDao = new CandidateDao(mContext);
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (withParty) {
@@ -163,6 +163,8 @@ public class CandidateAPIHelper {
     }
     optionParams.put(CandidateService.PARAM_FIELD.page, String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
+
+
     CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     if (cache) {
       for (Candidate data : returnObject.getData()) {
