@@ -15,7 +15,7 @@ public class MaePaySohApiWrapper {
     mContext = context;
   }
 
-  public void setApiKey(String token) {
+  public void setTokenKey(String token) {
     mToken = token;
   }
 

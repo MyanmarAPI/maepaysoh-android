@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
   protected MaePaySohApiWrapper getMaePaySohWrapper(){
     if(mMaePaySohApiWrapper==null){
       mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
-      mMaePaySohApiWrapper.setApiKey(org.maepaysoh.maepaysoh.Constants.API_KEY);
+      mMaePaySohApiWrapper.setTokenKey(org.maepaysoh.maepaysoh.Constants.API_KEY);
     }
     return mMaePaySohApiWrapper;
   }

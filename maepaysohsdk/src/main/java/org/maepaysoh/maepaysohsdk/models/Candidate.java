@@ -23,6 +23,7 @@ public class Candidate implements Serializable {
   @SerializedName("party_id") private String partyId;
   private Mother mother;
   private Father father;
+  private String gender;
 
   public Candidate() {
   }
@@ -207,5 +208,13 @@ public class Candidate implements Serializable {
    */
   public void setFather(Father father) {
     this.father = father;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 }
