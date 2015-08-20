@@ -57,4 +57,5 @@
   <string name="personal_detail">Personal Detail</string>
   <string name="family">Family</string>
   <string name="gender">Gender</string>
+  <string name="filter">Filter</string>
 </resources>

@@ -225,7 +225,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_faq, menu);
+    getMenuInflater().inflate(R.menu.menu_candidate_list, menu);
     mSearchMenu = menu.findItem(R.id.menu_search);
     mSearchView = (android.support.v7.widget.SearchView) mSearchMenu.getActionView();
     mSearchView.setOnQueryTextListener(this);
