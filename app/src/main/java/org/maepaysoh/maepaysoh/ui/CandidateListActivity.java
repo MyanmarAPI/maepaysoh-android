@@ -252,12 +252,11 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void showFilterDialog(){
-    String gender="";
-    String religon="";
     mCurrentPage = 1;
     View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
     RadioGroup genderRg = (RadioGroup) view.findViewById(R.id.gender_radio_group);
     final CandidateAPIPropertiesMap propertiesMap = new CandidateAPIPropertiesMap();
+    propertiesMap.put(CandidateAPIProperties.CACHE,false); // Don't cache on filter result
     genderRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
         switch (i){
