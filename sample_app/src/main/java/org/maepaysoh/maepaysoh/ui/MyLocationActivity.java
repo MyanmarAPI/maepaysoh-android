@@ -14,7 +14,9 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -60,6 +62,8 @@ public class MyLocationActivity extends BaseActivity {
   private LinearLayoutManager mLayoutManager;
   private CandidateAdapter mCandidateAdapter;
   private TextView mValidCandidates;
+  private Toolbar mToolbar;
+  private View mToolbarShadow;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -179,9 +183,13 @@ public class MyLocationActivity extends BaseActivity {
     mCandidateListRecyclerView.setAdapter(mCandidateAdapter);
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
-
+    mToolbar = (Toolbar) findViewById(R.id.location_detail_toolbar);
+    mToolbarShadow = findViewById(R.id.location_detail_toolbar_shadow);
     mViewUtils.showProgress(mCandidateListRecyclerView, mProgressView, true);
     mValidCandidates = (TextView) findViewById(R.id.valid_candidates);
+    setSupportActionBar(mToolbar);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
   }
 
   class GetGeoByLocation extends AsyncTask<String,Void,List<Geo>>{
@@ -221,6 +229,16 @@ public class MyLocationActivity extends BaseActivity {
       }
 
 
+    }
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()){
+      case android.R.id.home:
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
   }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -53,6 +55,9 @@ public class LocationDetailActivity extends BaseActivity {
   private CandidateAdapter mCandidateAdapter;
   private LinearLayoutManager mLayoutManager;
   private TextView mValidCandidates;
+  private Toolbar mToolbar;
+  private View mToolbarShadow;
+
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
@@ -79,6 +84,11 @@ public class LocationDetailActivity extends BaseActivity {
     mCandidateAdapter = new CandidateAdapter();
     mCandidateListRecyclerView.setLayoutManager(mLayoutManager);
     mCandidateListRecyclerView.setAdapter(mCandidateAdapter);
+    mToolbar = (Toolbar) findViewById(R.id.location_detail_toolbar);
+    setSupportActionBar(mToolbar);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    mToolbarShadow = findViewById(R.id.location_detail_toolbar_shadow);
+    hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
@@ -165,6 +175,15 @@ public class LocationDetailActivity extends BaseActivity {
       }
 
 
+    }
+  }
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()){
+      case android.R.id.home:
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
   }
 }
