@@ -100,12 +100,10 @@ PartyAPIHelper partyApiHelper = apiWrapper.getPartyApiHelper();
 
 Followings methods are available for PartyAPIHelper
 
-* `getParties()` returns `List<Party>` list of `Party` Objects.
-* `getParties(PartyAPIPropertiesMap)` returns `List<Party>` list of `Party` Objects for search criterias provided in PropertiesMap.
-* `getPartiesAsync(callbackFunction)` pre-included AsyncTask call to provide Callback Function.
-* `getPartiesAsync(PartyAPIPropertiesMap, callbackFunction)`
-* `getPartiesFromCache` loads `List<Party>` from cache in case of Offline.
-* `searchPartiesFromCache(string)` returns `List<Party>` list of `Party` Objects in cache, matches with search `string`.
+* `getParties()` [:page_facing_up:](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/maepaysohsdk/src/main/java/org/maepaysoh/maepaysohsdk/PartyAPIHelper.java#L55) returns `List<Party>` list of `Party` Objects.
+* `getPartiesAsync` [:page_facing_up:](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/maepaysohsdk/src/main/java/org/maepaysoh/maepaysohsdk/PartyAPIHelper.java#L38) pre-included AsyncTask call to provide Callback Function.
+* `getPartiesFromCache`[:page_facing_up:](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/maepaysohsdk/src/main/java/org/maepaysoh/maepaysohsdk/PartyAPIHelper.java#L86) loads `List<Party>` from cache in case of Offline.
+* `searchPartiesFromCache`[:page_facing_up:](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/maepaysohsdk/src/main/java/org/maepaysoh/maepaysohsdk/PartyAPIHelper.java#L96) returns `List<Party>` list of `Party` Objects in cache, matches with search `string`.
 
 ##### <a id="542"></a> 5.4.2 How to use CandidateAPIHelper  #####
 
