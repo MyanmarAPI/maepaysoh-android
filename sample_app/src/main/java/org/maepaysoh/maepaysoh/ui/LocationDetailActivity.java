@@ -1,5 +1,6 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -113,7 +114,7 @@ public class LocationDetailActivity extends BaseActivity {
     Gson gson = new GsonBuilder().create();
     String object = gson.toJson(geo);
     mLocationName.setVisibility(View.VISIBLE);
-    mLocationName.setText(geo.getProperties().getST());
+    mLocationName.setText(geo.getProperties().getDT());
     try {
       GeoJsonLayer layer = new GeoJsonLayer(mMap,new JSONObject(object));
       GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
@@ -182,14 +183,24 @@ public class LocationDetailActivity extends BaseActivity {
   class GetCandidateBYDTCODE extends AsyncTask<String,Void,List<Candidate>>{
 
     @Override protected List<Candidate> doInBackground(String... strings) {
-      mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE,false);
-      mCandidateAPIPropertiesMap.put(CandidateAPIProperties.PER_PAGE,20);
+      mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE, false);
+      mCandidateAPIPropertiesMap.put(CandidateAPIProperties.PER_PAGE, 20);
       return mCandidateAPIHelper.getCandidatesByConstituency(strings[0],strings[1],mCandidateAPIPropertiesMap);
     }
 
-    @Override protected void onPostExecute(List<Candidate> candidates) {
+    @Override protected void onPostExecute(final List<Candidate> candidates) {
       super.onPostExecute(candidates);
       mViewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+      mCandidateAdapter.setOnItemClickListener(new CandidateAdapter.ClickInterface() {
+        @Override public void onItemClick(View view, int position) {
+            Intent goToCandiDetailIntent = new Intent();
+            goToCandiDetailIntent.setClass(LocationDetailActivity.this, CandidateDetailActivity.class);
+            goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
+                candidates.get(position));
+            startActivity(goToCandiDetailIntent);
+
+        }
+      });
       if(candidates.size()>0) {
         mValidCandidates.setVisibility(View.VISIBLE);
         mCandidateAdapter.setCandidates(candidates);

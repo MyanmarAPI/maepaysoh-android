@@ -226,9 +226,19 @@ public class MyLocationActivity extends BaseActivity {
       return mCandidateAPIHelper.getCandidatesByConstituency(strings[0],strings[1],mCandidateAPIPropertiesMap);
     }
 
-    @Override protected void onPostExecute(List<Candidate> candidates) {
+    @Override protected void onPostExecute(final List<Candidate> candidates) {
       super.onPostExecute(candidates);
       mViewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+      mCandidateAdapter.setOnItemClickListener(new CandidateAdapter.ClickInterface() {
+        @Override public void onItemClick(View view, int position) {
+          Intent goToCandiDetailIntent = new Intent();
+          goToCandiDetailIntent.setClass(MyLocationActivity.this,
+              CandidateDetailActivity.class);
+          goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
+              candidates.get(position));
+          startActivity(goToCandiDetailIntent);
+        }
+      });
       if(candidates.size()>0) {
         mValidCandidates.setVisibility(View.VISIBLE);
         mCandidateAdapter.setCandidates(candidates);
@@ -257,7 +267,7 @@ public class MyLocationActivity extends BaseActivity {
   private void setUpMap(AppCompatActivity activity,Geo geo) {
     Gson gson = new GsonBuilder().create();
     mLocationName.setVisibility(View.VISIBLE);
-    mLocationName.setText(geo.getProperties().getST());
+    mLocationName.setText(geo.getProperties().getDT());
     String object = gson.toJson(geo);
     try {
       GeoJsonLayer layer = new GeoJsonLayer(mMap,new JSONObject(object));
