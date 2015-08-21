@@ -64,8 +64,11 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private DownloadCandidateListAsync mDownloadCandidateListAsync;
   private MenuItem mSearchMenu;
   private SearchView mSearchView;
+  private int genderIDRB = R.id.gender_all_rb;
+  private int religionIDRB = R.id.religion_all_rb;
+  private CandidateAPIPropertiesMap mCandidateAPIPropertiesMap;
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_candidate_list);
 
@@ -77,6 +80,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mCandidateAPIHelper = mMaePaySohApiWrapper.getCandidateApiHelper();
+    mCandidateAPIPropertiesMap = new CandidateAPIPropertiesMap();
     mProgressView.getIndeterminateDrawable()
         .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
@@ -101,12 +105,12 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(this, mCandidateAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
           @Override public void onLoadMoreRequested() {
-            downloadCandidateList(new CandidateAPIPropertiesMap());
+            downloadCandidateList();
           }
         });
     mCandidateListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
     if (InternetUtils.isNetworkAvailable(this)) {
-      downloadCandidateList(new CandidateAPIPropertiesMap());
+      downloadCandidateList();
     } else {
       loadFromCache();
     }
@@ -114,7 +118,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mRetryBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-        downloadCandidateList(new CandidateAPIPropertiesMap());
+        downloadCandidateList();
       }
     });
   }
@@ -133,12 +137,9 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     }
   }
 
-  private void downloadCandidateList(CandidateAPIPropertiesMap propertiesMap) {
-    if(propertiesMap==null){
-      propertiesMap = new CandidateAPIPropertiesMap();
-    }
-    propertiesMap.put(CandidateAPIProperties.FIRST_PAGE,mCurrentPage);
-    mDownloadCandidateListAsync = new DownloadCandidateListAsync(propertiesMap);
+  private void downloadCandidateList() {
+    mCandidateAPIPropertiesMap.put(CandidateAPIProperties.FIRST_PAGE,mCurrentPage);
+    mDownloadCandidateListAsync = new DownloadCandidateListAsync(mCandidateAPIPropertiesMap);
     mDownloadCandidateListAsync.execute();
   }
 
@@ -256,23 +257,51 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     mCurrentPage = 1;
     View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
     RadioGroup genderRg = (RadioGroup) view.findViewById(R.id.gender_radio_group);
-    final CandidateAPIPropertiesMap propertiesMap = new CandidateAPIPropertiesMap();
-    propertiesMap.put(CandidateAPIProperties.CACHE,false); // Don't cache on filter result
+    RadioGroup religionRg = (RadioGroup) view.findViewById(R.id.religion_radio_group);
+    genderRg.check(genderIDRB);
+    religionRg.check(religionIDRB);
+
+    mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE,false); // Don't cache on filter result
     genderRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (i){
+        genderIDRB = i;
+        switch (i) {
           case R.id.gender_male_rb:
-            propertiesMap.put(CandidateAPIProperties.GENDER,"male");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.GENDER, "male");
             break;
           case R.id.gender_female_rb:
-            propertiesMap.put(CandidateAPIProperties.GENDER,"female");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.GENDER, "female");
             break;
           case R.id.gender_all_rb:
-            propertiesMap.put(CandidateAPIProperties.GENDER,"");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.GENDER, "");
             break;
         }
       }
     });
+
+    religionRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+      @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        religionIDRB = i;
+        switch (i){
+          case R.id.religion_all_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"");
+            break;
+          case R.id.religion_buddhism_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"buddhism");
+            break;
+          case R.id.religion_christian_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"christian");
+            break;
+          case R.id.religion_Islam_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"islam");
+            break;
+          case R.id.religion_hindu_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"hindu");
+            break;
+        }
+      }
+    });
+
     Dialog filterDialog = new AlertDialog.Builder(CandidateListActivity.this)
         .setCustomTitle(null)
         .setView(view)
@@ -280,7 +309,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
           @Override public void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
             viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,true);
-            downloadCandidateList(propertiesMap);
+            downloadCandidateList();
           }
         })
         .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
