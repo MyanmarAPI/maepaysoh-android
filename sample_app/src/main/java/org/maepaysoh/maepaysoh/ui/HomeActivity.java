@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,6 +49,8 @@ public class HomeActivity extends BaseActivity {
     mMyLocationBtn = (Button) findViewById(R.id.my_location);
     mMainContent = (LinearLayout) findViewById(R.id.main_content);
     mProgressBar = (ProgressBar) findViewById(R.id.home_progress_bar);
+    mProgressBar.getIndeterminateDrawable()
+        .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
     mViewUtils = new ViewUtils(this);
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
     setSupportActionBar(mToolbar);
