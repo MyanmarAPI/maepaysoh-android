@@ -157,8 +157,6 @@ public class MyLocationActivity extends BaseActivity {
   }
   private void doGeoThing(){
     mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
-    String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
-    System.out.println(pCode);
     mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
     if(mMap!=null) {
       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000, 96.1500), 4));
@@ -168,7 +166,7 @@ public class MyLocationActivity extends BaseActivity {
     mViewUtils = new ViewUtils(this);
 
     mGeoAPIHelper = MaePaySoh.getMaePaySohWrapper().getGeoApiHelper();
-    new GetGeoByLocation().execute(pCode);
+    new GetGeoByLocation().execute(String.valueOf(latitude),String.valueOf(longitude));
     mCandidateListRecyclerView = (RecyclerView) findViewById(R.id.candidate_list_recycler_view);
     mErrorView = findViewById(R.id.candidate_list_error_view);
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
