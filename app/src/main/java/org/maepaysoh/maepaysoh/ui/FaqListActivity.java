@@ -25,6 +25,8 @@ import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.FAQAPIHelper;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
+import org.maepaysoh.maepaysohsdk.utils.FaqAPIProperties;
+import org.maepaysoh.maepaysohsdk.utils.FaqAPIPropertiesMap;
 
 import static org.maepaysoh.maepaysoh.utils.Logger.LOGD;
 import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
@@ -185,7 +187,9 @@ public class FaqListActivity extends BaseActivity
 
     @Override protected List<FAQ> doInBackground(Integer... integer) {
       mCurrentPage = integer[0];
-      return mFAQAPIHelper.getFaqs(integer[0], true);
+      FaqAPIPropertiesMap faqAPIPropertiesMap = new FaqAPIPropertiesMap();
+      faqAPIPropertiesMap.put(FaqAPIProperties.FIRST_PAGE,mCurrentPage);
+      return mFAQAPIHelper.getFaqs(faqAPIPropertiesMap);
     }
 
     @Override protected void onPostExecute(List<FAQ> faqs) {

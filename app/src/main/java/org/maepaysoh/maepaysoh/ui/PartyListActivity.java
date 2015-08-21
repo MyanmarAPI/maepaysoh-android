@@ -231,7 +231,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     }
 
     @Override protected List<Party> doInBackground(Void... voids) {
-      return mPartyAPIHelper.getParties(true);
+      return mPartyAPIHelper.getParties();
     }
 
     @Override protected void onPostExecute(List<Party> parties) {
