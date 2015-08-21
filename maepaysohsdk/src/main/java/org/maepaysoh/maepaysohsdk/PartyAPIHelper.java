@@ -10,6 +10,8 @@ import org.maepaysoh.maepaysohsdk.api.RetrofitHelper;
 import org.maepaysoh.maepaysohsdk.db.PartyDao;
 import org.maepaysoh.maepaysohsdk.models.Party;
 import org.maepaysoh.maepaysohsdk.models.PartyListReturnObject;
+import org.maepaysoh.maepaysohsdk.utils.PartyAPIProperties;
+import org.maepaysoh.maepaysohsdk.utils.PartyAPIPropertiesMap;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
@@ -35,10 +37,11 @@ public class PartyAPIHelper {
 
   public void getPartiesAsync(Callback<PartyListReturnObject> party) {
     boolean unicode = Utils.isUniCode(mContext);
-    getPartiesAsync(unicode, party);
+    getPartiesAsync(new PartyAPIPropertiesMap(), party);
   }
 
-  public void getPartiesAsync(boolean unicode, Callback<PartyListReturnObject> party) {
+  public void getPartiesAsync(PartyAPIPropertiesMap partyAPIPropertiesMap,Callback<PartyListReturnObject> party) {
+    boolean unicode = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
     Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
@@ -49,16 +52,14 @@ public class PartyAPIHelper {
     mPartyService.listPartiesAsync(optionParams, party);
   }
 
-  public List<Party> getParties(boolean cache) {
+  public List<Party> getParties() {
     boolean unicode = Utils.isUniCode(mContext);
-    return getParties(unicode, cache);
+    return getParties(new PartyAPIPropertiesMap());
   }
-
-  /**
-   * @param cache
-   * @return
-   */
-  public List<Party> getParties(boolean unicode, boolean cache) {
+  
+  public List<Party> getParties(PartyAPIPropertiesMap partyAPIPropertiesMap) {
+    boolean unicode = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
+    boolean cache = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.CACHE,true);
     Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
