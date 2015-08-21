@@ -28,6 +28,7 @@ public class HomeActivity extends BaseActivity {
   private Button mCandidateListBtn;
   private Button mFaqListBtn;
   private Button mLocationListBtn;
+  private Button mMyLocationBtn;
   private LinearLayout mMainContent;
   private ProgressBar mProgressBar;
   private ViewUtils mViewUtils;
@@ -42,6 +43,7 @@ public class HomeActivity extends BaseActivity {
     mCandidateListBtn = (Button) findViewById(R.id.home_candidate_list_btn);
     mFaqListBtn = (Button) findViewById(R.id.home_faq_list_btn);
     mLocationListBtn = (Button) findViewById(R.id.home_location_list_btn);
+    mMyLocationBtn = (Button) findViewById(R.id.my_location);
     mMainContent = (LinearLayout) findViewById(R.id.main_content);
     mProgressBar = (ProgressBar) findViewById(R.id.home_progress_bar);
     mViewUtils = new ViewUtils(this);
@@ -125,6 +127,13 @@ public class HomeActivity extends BaseActivity {
       @Override public void onClick(View v) {
         Intent goToLocationList = new Intent(HomeActivity.this, LocationListActivity.class);
         startActivity(goToLocationList);
+      }
+    });
+
+    mMyLocationBtn.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        Intent goToMyLocation = new Intent(HomeActivity.this, MyLocationActivity.class);
+        startActivity(goToMyLocation);
       }
     });
   }
