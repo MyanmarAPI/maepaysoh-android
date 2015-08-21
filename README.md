@@ -1,77 +1,113 @@
-# README #
+# QUICK OVERVIEW #
 
-### What is this repository for? ###
+### Content မာတိကာ ###
 
-* This repository contains 2 parts.
- - Sample Android Application (maepaysoh-sample-app Module) and
- - Android SDK (maepaysoh-sdk Module) for MaePaySoh API
+1. What is this Repository [:arrow_heading_down:](#1)?
+2. Minimum requirements.
+3. MaePaySoh API.
+4. MaePaySoh SDK Overview.
+5. How to use this Repository?
+    - 5.1 Add MaePaySoh Android SDK for your Android Project
+    - 5.2 Get MaePaySoh API Key
+    - 5.3 Setup API Wrapper
+    - 5.4 Use of API Helpers
+    - 5.4.1 How to use PartyAPIHelper
+    - 5.4.2 How to use CandidateAPIHelper
+    - 5.4.3 How to use FAQAPIHelper
+    - 5.4.4 How to use GeoAPIHelper
+6. Contributions
 
-Sample Android Application uses SDK functions.
+---
 
-### Minimum Requirements ###
+### <a id="1"></a> 1. What is this Repository? ###
+
+This is part of the [Opensource Libraries](http://myanmarapi.github.io/) for [MaePaySoh မဲပေးစို့](http://maepaysoh.org) project.
+
+This repository is an Android Project which comprises of 2 major parts;
+
+ 1. Sample Android Application (`sample-app` Module) and
+ 2. Android SDK (`maepaysohsdk` Module) for MaePaySoh API
+
+The `sample-app` module utilizes `maepaysohsdk` as a dependency.
+
+### <a id="2"></a> 2. Minimum Requirements ###
+
+Followings are required to build this project folder;
 
 * Android SDK API 14
 * Build Tool Version 23.0.0 rc3 or higher
 * Gradle Version 2.4
 
-### MaePaySoh API ###
+### <a id="3"></a> 3. MaePaySoh API ###
 
-`maepaysohsdk` is programmed to be compitable with MaePaySoh API, specified at http://myanmarapi.github.io/endpoints.html
+MaePaySoh API is the primary data provider for this Android Application `sample-app`.
+The SDK `maepaysohsdk` module is the client library and complys to [MaePaySoh API specification](http://myanmarapi.github.io/endpoints.html).
 
-### How To Add MaePaySoh Android SDK for your Android Project ###
+API features are tested with [this PostMan Collection](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/MaePaySohAPI-20150821.json.postman_collection) for the development of SDK.
 
-* Clone this repository "maepaysoh-android".
+### <a id="4"></a> 4. MaePaySoh SDK Overview ###
+
+Followings are primary utility functions of SDK to get data from API.
+
+1. `MaePaySohApiWrapper`, this is helper-class-generator.
+2. `PartyAPIHelper`, wrapper class for Party API endpoints.
+3. `CandidateAPIHelper`, wrapper class for Candidate API endpoints.
+4. `FAQAPIHelper`, wrapper class for FAQ API endpoints. 
+5. `GeoAPIHelper`, wrapper class for Geolocation endponts.
+
+### <a id="5"></a> 5. How to use this Repository? ###
+
+The SDK in this repository can be used as dependency for your Android Application, or you can fork and transform the Sample Application to further creative ideas.
+
+#### <a id="51"></a> 5.1 Add MaePaySoh Android SDK for your Android Project ####
+
+To use the SDK as dependency for your own Android Project.
+
+* Clone this repository `maepaysoh-android`.
 * Create your own new Android Project in Android Studio.
-* Open File > New > Import Module.
-* Select "maepaysoh-sdk" folder in "maepaysoh-android" project folder.
-* Open File > Project Structure to open "Project Structure" dialog.
-* Select your own project module (e.g app) under "Modules" selection.
-* Select "Dependencies" tab.
-* Add new "Module depedency" by clicking "+" button.
-* Select "maepaysoh-sdk" and click "OK"
+* Open `File > New > Import Module`.
+* Select `maepaysohsdk` folder in `maepaysoh-android` project folder.
+* Open `File > Project Structure` to open `Project Structure` dialog.
+* Select your own project module (e.g app) under `Modules` selection.
+* Select `Dependencies` tab.
+* Add new `Module depedency` by clicking `+` button.
+* Select `maepaysohsdk` and click `OK`
 
-### MaePaySoh API Key ###
+#### <a id="52"></a> 5.2 Get MaePaySoh API Key ####
 
-You will need your own API key to use Android SDK for API.
-Get your own APK Key at http://myanmarapi.github.io/
+Own API key is required to connect to Mae Pay Soh API. It is required to put into SDK to connect to API. You can get your own APK Key at [MaePaySoh Website](http://maepaysoh.org/dashboard/applications/create).
 
-### Basic Structure of SDK ###
-
-SDK includes following classes;
-
-* `MaePaySohApiWrapper`, this is helper class generator for various API endpoints.
-* `PartyAPIHelper`, wrapper class for Party API endpoints.
-* `CandidateAPIHelper`, wrapper class for Candidate API endpoints.
-* `FAQAPIHelper`, wrapper class for FAQ API endpoints. 
-
-### Setting Up API Wrapper ###
+#### <a id="53"></a> 5.3 Setup API Wrapper ####
 
 You can setup the API Wrapper as follow;
 ```java
 MaePaySohApiWrapper apiWrapper = new MaePaySohApiWrapper(this);
 apiWrapper.setApiKey(API_KEY); // Put your own API Key
-apiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode); // Set Unicode/Zawgyi response from server
+apiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode); // Set Unicode/Zawgyi
 ```
 
-### Setup and Use of API Helpers ###
+#### <a id="54"></a> 5.4 Use of API Helpers ####
 
-#### Party API Helper ####
+`APIHelper`s are generated from `MaePaySohApiWrapper` object.
 
-You can setup Party API Helper as follow;
+##### <a id="541"></a> 5.4.1 How to use PartyAPIHelper #####
+
+Party API Helper is created as follow;
+
 ```java
-PartyAPIHelper partyWrapper = apiWrapper.getPartyApiHelper();
+PartyAPIHelper partyApiHelper = apiWrapper.getPartyApiHelper();
 ```
 
 Followings methods are available for PartyAPIHelper
+
 * `getParties` returns `List<Party>` list of `Party` Objects.
 * `getPartiesAsync` pre-includes AsyncTask call to provide Callback Function.
 * `getPartiesFromCache` loads `List<Party>` from cache in case of Offline.
 
-#### Candidate API Helper ####
+##### <a id="542"></a> 5.4.2 How to use CandidateAPIHelper  #####
+##### <a id="543"></a> 5.4.3 How to use FAQAPIHelper  #####
+##### <a id="544"></a> 5.4.4 How to use GeoAPIHelper  #####
 
-#### FAQ API Helper ####
 
-### Who do I talk to? ###
+### <a id="6"></a> 6. Contributions ###
 
-* Repo owner or admin
-* Other community or team contact
