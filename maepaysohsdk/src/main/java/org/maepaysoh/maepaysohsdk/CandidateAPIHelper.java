@@ -48,6 +48,7 @@ public class CandidateAPIHelper {
       Callback<CandidateListReturnObject> callback) {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
+    String legislature = propertiesMap.getString(CandidateAPIProperties.LEGISLATURE,"");
     boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
     boolean unicode =
         propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
@@ -67,6 +68,7 @@ public class CandidateAPIHelper {
     optionParams.put(CandidateService.PARAM_FIELD.religion, religion);
     optionParams.put(CandidateService.PARAM_FIELD.page, String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
+    optionParams.put(CandidateService.PARAM_FIELD.legislature,legislature);
     mCandidateService.listCandidatesAsync(optionParams, callback);
   }
 
@@ -82,6 +84,7 @@ public class CandidateAPIHelper {
   public List<Candidate> getCandidates(CandidateAPIPropertiesMap propertiesMap) {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
+    String legislature = propertiesMap.getString(CandidateAPIProperties.LEGISLATURE,"");
     boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
     boolean unicode =
         propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
@@ -103,6 +106,7 @@ public class CandidateAPIHelper {
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
     optionParams.put(CandidateService.PARAM_FIELD.gender, gender);
     optionParams.put(CandidateService.PARAM_FIELD.religion, religion);
+    optionParams.put(CandidateService.PARAM_FIELD.legislature,legislature);
 
     CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     if (cache) {
