@@ -2,7 +2,7 @@
 
 ### Content မာတိကာ ###
 
-1. What is this Repository [:arrow_heading_down:](#1)?
+1. [What is this Repository [:arrow_heading_down:]](#1-what-is-this-repository)?
 2. Minimum requirements.
 3. MaePaySoh API.
 4. MaePaySoh SDK Overview.
@@ -19,7 +19,7 @@
 
 ---
 
-### <a id="1"></a> 1. What is this Repository? ###
+### 1. What is this Repository?
 
 This is part of the [Opensource Libraries](http://myanmarapi.github.io/) for [MaePaySoh မဲပေးစို့](http://maepaysoh.org) project.
 
