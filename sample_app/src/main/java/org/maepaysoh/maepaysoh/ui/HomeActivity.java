@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
@@ -57,6 +59,10 @@ public class HomeActivity extends BaseActivity {
       maePaySohApiWrapper.setTokenKey(apiKey);
       inflateLayout();
     }else {
+      if(!InternetUtils.isNetworkAvailable(this)){
+        Toast.makeText(this, "You need to enable Internet first time",Toast.LENGTH_LONG).show();
+        return;
+      }
       mTokenClass = new TokenKeyGenerateClass();
       mViewUtils.showProgress(mMainContent, mProgressBar, true);
       mTokenClass.execute();

@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +31,7 @@ import java.util.List;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.CandidateAPIHelper;
 import org.maepaysoh.maepaysohsdk.GeoAPIHelper;
@@ -68,6 +70,10 @@ public class MyLocationActivity extends BaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
+    if(!InternetUtils.isNetworkAvailable(this)){
+      Toast.makeText(this, "You need to enable Internet for location", Toast.LENGTH_LONG).show();
+      return;
+    }
     /** PROCESS for Get Longitude and Latitude **/
     locationManager
         = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

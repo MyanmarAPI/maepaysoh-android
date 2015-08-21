@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.CandidateAPIHelper;
 import org.maepaysoh.maepaysohsdk.GeoAPIHelper;
@@ -63,7 +65,10 @@ public class LocationDetailActivity extends BaseActivity {
     setContentView(R.layout.activity_location_detail);
     mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
     String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
-    System.out.println(pCode);
+    if(!InternetUtils.isNetworkAvailable(this)){
+      Toast.makeText(this, "You need to enable Internet for location", Toast.LENGTH_LONG).show();
+      return;
+    }
     mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
     if(mMap!=null) {
       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000, 96.1500), 4));
