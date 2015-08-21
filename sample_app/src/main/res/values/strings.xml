@@ -59,4 +59,5 @@
   <string name="gender">Gender</string>
   <string name="filter">Filter</string>
   <string name="my_location">My Location</string>
+  <string name="no_candidate">There is no candidate available</string>
 </resources>

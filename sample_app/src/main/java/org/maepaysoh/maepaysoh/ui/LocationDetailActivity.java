@@ -149,14 +149,23 @@ public class LocationDetailActivity extends BaseActivity {
 
     @Override protected List<Candidate> doInBackground(String... strings) {
       mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE,false);
+      mCandidateAPIPropertiesMap.put(CandidateAPIProperties.PER_PAGE,20);
       return mCandidateAPIHelper.getCandidatesByConstituency(strings[0],strings[1],mCandidateAPIPropertiesMap);
     }
 
     @Override protected void onPostExecute(List<Candidate> candidates) {
       super.onPostExecute(candidates);
-      mViewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);
-      mValidCandidates.setVisibility(View.VISIBLE);
-      mCandidateAdapter.setCandidates(candidates);
+      mViewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+      if(candidates.size()>0) {
+        mValidCandidates.setVisibility(View.VISIBLE);
+        mCandidateAdapter.setCandidates(candidates);
+      }else{
+        mErrorView.setVisibility(View.VISIBLE);
+        TextView mErrorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
+        Button mErrorBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
+        mErrorText.setText(R.string.no_candidate);
+        mErrorBtn.setVisibility(View.GONE);
+      }
 
 
     }
