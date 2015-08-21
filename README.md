@@ -3,8 +3,8 @@
 ### Content မာတိကာ ###
 
 1. [What is this Repository [:arrow_heading_down:]](#1-what-is-this-repository)?
-2. Minimum requirements.
-3. MaePaySoh API.
+2. [Minimum requirements.](#2-Minimum-Requirements)
+3. [MaePaySoh API.](#3-MaePaySoh-API)
 4. MaePaySoh SDK Overview.
 5. How to use this Repository?
     - 5.1 Add MaePaySoh Android SDK for your Android Project
@@ -30,7 +30,7 @@ This repository is an Android Project which comprises of 2 major parts;
 
 The `sample-app` module utilizes `maepaysohsdk` as a dependency.
 
-### <a id="2"></a> 2. Minimum Requirements ###
+### 2. Minimum Requirements
 
 Followings are required to build this project folder;
 
@@ -38,7 +38,7 @@ Followings are required to build this project folder;
 * Build Tool Version 23.0.0 rc3 or higher
 * Gradle Version 2.4
 
-### <a id="3"></a> 3. MaePaySoh API ###
+### 3. MaePaySoh API
 
 MaePaySoh API is the primary data provider for this Android Application `sample-app`.
 The SDK `maepaysohsdk` module is the client library and complys to [MaePaySoh API specification](http://myanmarapi.github.io/endpoints.html).
