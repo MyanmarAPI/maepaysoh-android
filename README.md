@@ -6,15 +6,15 @@
 2. [Minimum requirements.](#2-minimum-requirements)
 3. [MaePaySoh API.](#3-maepaysoh-api)
 4. [MaePaySoh SDK Overview.](#maepaysoh-sdk-overview)
-5. [How to use this Repository?]()
-    - 5.1 Add MaePaySoh Android SDK for your Android Project
+5. [How to use this Repository?](#-5-how-to-use-this-repository)
+    - 5.1 Add MaePaySoh Android SDK for your Android Project [:arrow_heading_down:](#51)
     - 5.2 Get MaePaySoh API Key
-    - 5.3 Setup API Wrapper
+    - 5.3 Setup API Wrapper [:arrow_heading_down:](#53)
     - 5.4 Use of API Helpers
-    - 5.4.1 How to use PartyAPIHelper
-    - 5.4.2 How to use CandidateAPIHelper
-    - 5.4.3 How to use FAQAPIHelper
-    - 5.4.4 How to use GeoAPIHelper
+    - 5.4.1 How to use PartyAPIHelper [:arrow_heading_down:](#541)
+    - 5.4.2 How to use CandidateAPIHelper [:arrow_heading_down:](#542)
+    - 5.4.3 How to use FAQAPIHelper [:arrow_heading_down:](#543)
+    - 5.4.4 How to use GeoAPIHelper [:arrow_heading_down:](#544)
 6. Contributions
 
 ---
@@ -100,12 +100,50 @@ PartyAPIHelper partyApiHelper = apiWrapper.getPartyApiHelper();
 
 Followings methods are available for PartyAPIHelper
 
-* `getParties` returns `List<Party>` list of `Party` Objects.
-* `getPartiesAsync` pre-includes AsyncTask call to provide Callback Function.
+* `getParties()` returns `List<Party>` list of `Party` Objects.
+* `getParties(PartyAPIPropertiesMap)` returns `List<Party>` list of `Party` Objects for search criterias provided in PropertiesMap.
+* `getPartiesAsync(callbackFunction)` pre-included AsyncTask call to provide Callback Function.
+* `getPartiesAsync(PartyAPIPropertiesMap, callbackFunction)`
 * `getPartiesFromCache` loads `List<Party>` from cache in case of Offline.
+* `searchPartiesFromCache(string)` returns `List<Party>` list of `Party` Objects in cache, matches with search `string`.
 
 ##### <a id="542"></a> 5.4.2 How to use CandidateAPIHelper  #####
+
+Candidate API Helper is created as follow;
+
+```java
+CandidateAPIHelper candidateApiHelper = apiWrapper.getCandidateAPIHelper();
+```
+
+Following methods are available for CandidateAPIHelper;
+
+* `getCandidates` retrieve candidate list from API.
+* `getCandidatesAsync` function with AsyncTask, which accepts callback function.
+* `getCandidatesFromCache` retrieve candidate list from cached data.
+* `searchCandidateFromCache` search candidate list from cached data.
+* `getCandidateById` retrieve candidate by given ID from API.
+* `getCandidateByIdAsync` function with AsyncTask, which accepts callback function.
+* `getCandidateByIdFromCache` retrieve candidate for given ID from cached data.
+
 ##### <a id="543"></a> 5.4.3 How to use FAQAPIHelper  #####
+
+FAQ API Helper is created as follow;
+
+```java
+FAQAPIHelper faqApiHelper = apiWrapper.getFAQAPIHelper();
+```
+
+Following methods are available for FAQ API Helper.
+
+* `getFaqs` retrieve FAQ data from API.
+* `getFaqsAsync` included AsyncTask, which accepts callback function.
+* `getFaqsFromCache` retrieve FAQ data from cache.
+* `searchFaq` search in FAQ data from API.
+* `searchFaqsAsync`  included AsyncTask, which accepts callback function.
+* `searchFaqFromCache` search in FAQ data from cache.
+* `getFaqById` retrieve FAQ entry for given ID from API.
+* `getFaqByIdAsync` included AsyncTask, which accepts callback function.
+
 ##### <a id="544"></a> 5.4.4 How to use GeoAPIHelper  #####
 
 

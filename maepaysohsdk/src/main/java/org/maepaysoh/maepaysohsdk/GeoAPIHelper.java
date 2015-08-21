@@ -88,7 +88,7 @@ public class GeoAPIHelper {
 
   public void getLocationByRegionByAsync(String dt_name,String st_name
       ,Callback<GeoReturnObject> returnObjectCallback){
-    getLocationByRegionByAsync(dt_name,st_name,new GeoAPIPropertiesMap(),returnObjectCallback);
+    getLocationByRegionByAsync(dt_name, st_name, new GeoAPIPropertiesMap(), returnObjectCallback);
   }
 
   public List<Geo> getLocationByObjectId(String pCode,GeoAPIPropertiesMap geoAPIPropertiesMap){
@@ -105,6 +105,56 @@ public class GeoAPIHelper {
   }
 
   public List<Geo> getLocationByObjectId(String pCode){
-    return getLocationByObjectId(pCode,new GeoAPIPropertiesMap());
+    return getLocationByObjectId(pCode, new GeoAPIPropertiesMap());
+  }
+
+  public void getLocationByObjectIdAsync(String pCode,GeoAPIPropertiesMap geoAPIPropertiesMap,Callback<GeoReturnObject> callback){
+    int per_page = geoAPIPropertiesMap.getInteger(GeoAPIProperties.PER_PAGE,15);
+    int page = geoAPIPropertiesMap.getInteger(GeoAPIProperties.FIRST_PAGE,1);
+    boolean noGeo = geoAPIPropertiesMap.getBoolean(GeoAPIProperties.NO_GEO,false);
+    Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    optionParams.put(GeoService.PARAM_FIELD.dt_pcode, pCode);
+    optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(noGeo));
+    optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
+    mGeoService.getLocationByPcodeAsync(optionParams, callback);
+  }
+
+  public void getLocationByObjectIdAsync(String pCode,Callback<GeoReturnObject> callback){
+    getLocationByObjectIdAsync(pCode, new GeoAPIPropertiesMap(), callback);
+  }
+
+  public void getLocationByLatLongAsync(String lat,String lon,GeoAPIPropertiesMap geoAPIPropertiesMap,Callback<GeoReturnObject> callback){
+    int per_page = geoAPIPropertiesMap.getInteger(GeoAPIProperties.PER_PAGE,15);
+    int page = geoAPIPropertiesMap.getInteger(GeoAPIProperties.FIRST_PAGE,1);
+    boolean noGeo = geoAPIPropertiesMap.getBoolean(GeoAPIProperties.NO_GEO,false);
+    Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    optionParams.put(GeoService.PARAM_FIELD.lat, lat);
+    optionParams.put(GeoService.PARAM_FIELD.lon,lon);
+    optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(noGeo));
+    optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
+    mGeoService.getLocationByLatLongAsync(optionParams, callback);
+  }
+
+  public void getLocationByLatLongAsync(String lat,String lon,Callback<GeoReturnObject> callback){;
+    getLocationByLatLongAsync(lat, lon, new GeoAPIPropertiesMap(), callback);
+  }
+
+  public List<Geo> getLocationByLatLong(String lat,String lon,GeoAPIPropertiesMap geoAPIPropertiesMap){
+    int per_page = geoAPIPropertiesMap.getInteger(GeoAPIProperties.PER_PAGE,15);
+    int page = geoAPIPropertiesMap.getInteger(GeoAPIProperties.FIRST_PAGE,1);
+    boolean noGeo = geoAPIPropertiesMap.getBoolean(GeoAPIProperties.NO_GEO,false);
+    Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    optionParams.put(GeoService.PARAM_FIELD.lat, lat);
+    optionParams.put(GeoService.PARAM_FIELD.lon,lon);
+    optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));
+    optionParams.put(GeoService.PARAM_FIELD.no_geo, String.valueOf(noGeo));
+    optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
+    return mGeoService.getLocationByLatLong(optionParams).getData();
+  }
+
+  public List<Geo> getLocationByLatLong(String lat,String lon){
+    return getLocationByLatLong(lat,lon,new GeoAPIPropertiesMap());
   }
 }
