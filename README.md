@@ -3,10 +3,10 @@
 ### Content မာတိကာ ###
 
 1. [What is this Repository [:arrow_heading_down:]](#1-what-is-this-repository)?
-2. [Minimum requirements.](#2-Minimum-Requirements)
-3. [MaePaySoh API.](#3-MaePaySoh-API)
-4. MaePaySoh SDK Overview.
-5. How to use this Repository?
+2. [Minimum requirements.](#2-minimum-requirements)
+3. [MaePaySoh API.](#3-maepaysoh-api)
+4. [MaePaySoh SDK Overview.](#maepaysoh-sdk-overview)
+5. [How to use this Repository?]()
     - 5.1 Add MaePaySoh Android SDK for your Android Project
     - 5.2 Get MaePaySoh API Key
     - 5.3 Setup API Wrapper
@@ -45,7 +45,7 @@ The SDK `maepaysohsdk` module is the client library and complys to [MaePaySoh AP
 
 API features are tested with [this PostMan Collection](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/MaePaySohAPI-20150821.json.postman_collection) for the development of SDK.
 
-### <a id="4"></a> 4. MaePaySoh SDK Overview ###
+### MaePaySoh SDK Overview
 
 Followings are primary utility functions of SDK to get data from API.
 
