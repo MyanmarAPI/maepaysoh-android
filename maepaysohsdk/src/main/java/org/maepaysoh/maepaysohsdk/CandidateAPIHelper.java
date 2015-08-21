@@ -36,7 +36,7 @@ public class CandidateAPIHelper {
    * @param callback
    */
   public void getCandidatesAsync(Callback<CandidateListReturnObject> callback) {
-    getCandidatesAsync(new CandidateAPIPropertiesMap(),callback);
+    getCandidatesAsync(new CandidateAPIPropertiesMap(), callback);
   }
 
   /**
@@ -44,13 +44,15 @@ public class CandidateAPIHelper {
    * @param propertiesMap
    * @param callback
    */
-  public void getCandidatesAsync(CandidateAPIPropertiesMap propertiesMap, Callback<CandidateListReturnObject> callback) {
+  public void getCandidatesAsync(CandidateAPIPropertiesMap propertiesMap,
+      Callback<CandidateListReturnObject> callback) {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
     boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
-    boolean unicode = propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
-    int firstPage = propertiesMap.getInteger(CandidateAPIProperties.FIRST_PAGE,1);
-    int perPage = propertiesMap.getInteger(CandidateAPIProperties.PER_PAGE,15);
+    boolean unicode =
+        propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
+    int firstPage = propertiesMap.getInteger(CandidateAPIProperties.FIRST_PAGE, 1);
+    int perPage = propertiesMap.getInteger(CandidateAPIProperties.PER_PAGE, 15);
 
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (withParty) {
@@ -61,16 +63,17 @@ public class CandidateAPIHelper {
     } else {
       optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    optionParams.put(CandidateService.PARAM_FIELD.gender,gender);
-    optionParams.put(CandidateService.PARAM_FIELD.religion,religion);
+    optionParams.put(CandidateService.PARAM_FIELD.gender, gender);
+    optionParams.put(CandidateService.PARAM_FIELD.religion, religion);
     optionParams.put(CandidateService.PARAM_FIELD.page, String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
     mCandidateService.listCandidatesAsync(optionParams, callback);
   }
 
-  public List<Candidate> getCandidates(){
+  public List<Candidate> getCandidates() {
     return getCandidates(new CandidateAPIPropertiesMap());
   }
+
   /**
    *
    * @param propertiesMap
@@ -80,7 +83,8 @@ public class CandidateAPIHelper {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
     boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
-    boolean unicode = propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
+    boolean unicode =
+        propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
     int firstPage = propertiesMap.getInteger(CandidateAPIProperties.FIRST_PAGE, 1);
     int perPage = propertiesMap.getInteger(CandidateAPIProperties.PER_PAGE, 15);
     boolean cache = propertiesMap.getBoolean(CandidateAPIProperties.CACHE, true);
@@ -97,8 +101,8 @@ public class CandidateAPIHelper {
     }
     optionParams.put(CandidateService.PARAM_FIELD.page, String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
-    optionParams.put(CandidateService.PARAM_FIELD.gender,gender);
-    optionParams.put(CandidateService.PARAM_FIELD.religion,religion);
+    optionParams.put(CandidateService.PARAM_FIELD.gender, gender);
+    optionParams.put(CandidateService.PARAM_FIELD.religion, religion);
 
     CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     if (cache) {
@@ -113,38 +117,24 @@ public class CandidateAPIHelper {
     return returnObject.getData();
   }
 
+  public void getCandidateByIdAsync(String candidateId,
+      Callback<CandidateDetailReturnObject> returnObjectCallback) {
+    getCandidateByIdAsync(candidateId, new CandidateAPIPropertiesMap(), returnObjectCallback);
+  }
+
   /**
    *
    * @param candidateId
+   * @param candidateAPIPropertiesMap
    * @param callback
    */
   public void getCandidateByIdAsync(String candidateId,
+      CandidateAPIPropertiesMap candidateAPIPropertiesMap,
       Callback<CandidateDetailReturnObject> callback) {
-    boolean unicode = Utils.isUniCode(mContext);
-    getCandidateByIdAsync(candidateId, true, unicode, callback);
-  }
-
-  /**
-   *
-   * @param candidateId
-   * @param withParty
-   * @param callback
-   */
-  public void getCandidateByIdAsync(String candidateId, boolean withParty,
-      Callback<CandidateDetailReturnObject> callback) {
-    boolean unicode = Utils.isUniCode(mContext);
-    getCandidateByIdAsync(candidateId, withParty, unicode, callback);
-  }
-
-  /**
-   *
-   * @param candidateId
-   * @param withParty
-   * @param unicode
-   * @param callback
-   */
-  public void getCandidateByIdAsync(String candidateId, Boolean withParty, boolean unicode,
-      Callback<CandidateDetailReturnObject> callback) {
+    boolean withParty =
+        candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
+    boolean unicode = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE,
+        Utils.isUniCode(mContext));
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -157,33 +147,22 @@ public class CandidateAPIHelper {
     mCandidateService.getCandidateByIdAsync(candidateId, optionParams, callback);
   }
 
-  /**
-   *
-   * @param candidateId
-   */
-  public Candidate getCandidateById(String candidateId, boolean cache) {
-    boolean unicode = Utils.isUniCode(mContext);
-    return getCandidateById(candidateId, true, unicode, cache);
+  public Candidate getCandidateById(String candidateId) {
+    return getCandidateById(candidateId, new CandidateAPIPropertiesMap());
   }
 
   /**
    *
    * @param candidateId
-   * @param withParty
+   * @param candidateAPIPropertiesMap
    */
-  public Candidate getCandidateById(String candidateId, boolean withParty, boolean cache) {
-    boolean unicode = Utils.isUniCode(mContext);
-    return getCandidateById(candidateId, withParty, unicode, cache);
-  }
-
-  /**
-   *
-   * @param candidateId
-   * @param withParty
-   * @param unicode
-   */
-  public Candidate getCandidateById(String candidateId, Boolean withParty, boolean unicode,
-      boolean cache) {
+  public Candidate getCandidateById(String candidateId,
+      CandidateAPIPropertiesMap candidateAPIPropertiesMap) {
+    boolean withParty =
+        candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
+    boolean unicode = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE,
+        Utils.isUniCode(mContext));
+    boolean cache = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.CACHE, true);
     Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (withParty) {
       optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
@@ -212,11 +191,11 @@ public class CandidateAPIHelper {
     return mCandidateDao.getCandidateById(candidateId);
   }
 
-  public List<Candidate> searchCandidateFromCache(String keyword){
+  public List<Candidate> searchCandidateFromCache(String keyword) {
     mCandidateDao = new CandidateDao(mContext);
     try {
       return mCandidateDao.searchCandidatesFromDb(keyword);
-    }catch (SQLException e){
+    } catch (SQLException e) {
       e.printStackTrace();
       return null;
     }
