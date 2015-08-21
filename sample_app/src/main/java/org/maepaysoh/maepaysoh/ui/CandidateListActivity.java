@@ -66,6 +66,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   private SearchView mSearchView;
   private int genderIDRB = R.id.gender_all_rb;
   private int religionIDRB = R.id.religion_all_rb;
+  private int legiIDRB = R.id.lgei_all_rb;
   private CandidateAPIPropertiesMap mCandidateAPIPropertiesMap;
 
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,7 +139,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
   }
 
   private void downloadCandidateList() {
-    mCandidateAPIPropertiesMap.put(CandidateAPIProperties.FIRST_PAGE,mCurrentPage);
+    mCandidateAPIPropertiesMap.put(CandidateAPIProperties.FIRST_PAGE, mCurrentPage);
     mDownloadCandidateListAsync = new DownloadCandidateListAsync(mCandidateAPIPropertiesMap);
     mDownloadCandidateListAsync.execute();
   }
@@ -258,10 +259,11 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
     RadioGroup genderRg = (RadioGroup) view.findViewById(R.id.gender_radio_group);
     RadioGroup religionRg = (RadioGroup) view.findViewById(R.id.religion_radio_group);
+    RadioGroup legRg = (RadioGroup) view.findViewById(R.id.legi_radio_group);
     genderRg.check(genderIDRB);
     religionRg.check(religionIDRB);
+    legRg.check(legiIDRB);
 
-    mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE,false); // Don't cache on filter result
     genderRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
         genderIDRB = i;
@@ -302,6 +304,27 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
       }
     });
 
+    legRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+      @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (i){
+          case R.id.lgei_all_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"");
+            break;
+          case R.id.legi_amyotha_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"amyotha_hluttaw");
+            break;
+          case R.id.legi_pyitthu_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"pyithu_hluttaw");
+            break;
+          case R.id.legi_region_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"region");
+            break;
+          case R.id.legi_state_rb:
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"state");
+            break;
+        }
+      }
+    });
     Dialog filterDialog = new AlertDialog.Builder(CandidateListActivity.this)
         .setCustomTitle(null)
         .setView(view)
