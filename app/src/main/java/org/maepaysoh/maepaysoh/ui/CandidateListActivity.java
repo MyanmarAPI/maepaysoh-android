@@ -278,6 +278,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
+            viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,true);
             downloadCandidateList(propertiesMap);
           }
         })
