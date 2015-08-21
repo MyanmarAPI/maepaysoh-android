@@ -35,7 +35,7 @@ public class GeoAPIHelper {
   public List<Geo> getLocationList(GeoAPIPropertiesMap propertiesMap){
     int per_page = propertiesMap.getInteger(GeoAPIProperties.PER_PAGE,15);
     int page = propertiesMap.getInteger(GeoAPIProperties.FIRST_PAGE,1);
-    boolean noGeo = propertiesMap.getBoolean(GeoAPIProperties.NO_GEO,false);
+    boolean noGeo = propertiesMap.getBoolean(GeoAPIProperties.NO_GEO,true);
     Map<GeoService.PARAM_FIELD, String> optionParams = new HashMap<>();
     optionParams.put(GeoService.PARAM_FIELD.per_page, String.valueOf(per_page));
     optionParams.put(GeoService.PARAM_FIELD.page, String.valueOf(page));

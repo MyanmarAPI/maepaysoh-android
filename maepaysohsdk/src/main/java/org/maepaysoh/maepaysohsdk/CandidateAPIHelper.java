@@ -204,4 +204,27 @@ public class CandidateAPIHelper {
       return null;
     }
   }
+
+  public List<Candidate> getCandidatesByConstituency(String stPcode,String dtPcode,
+      CandidateAPIPropertiesMap candidateAPIPropertiesMap){
+    boolean withParty =
+        candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
+    boolean unicode = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE,
+        Utils.isUniCode(mContext));
+    Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    if (withParty) {
+      optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
+    }
+    if (unicode) {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.UNICODE);
+    } else {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
+    }
+    optionParams.put(CandidateService.PARAM_FIELD.constituency_st_pcode,stPcode);
+    optionParams.put(CandidateService.PARAM_FIELD.constituency_dt_pcode,dtPcode);
+    CandidateListReturnObject returnObject =
+        mCandidateService.listCandidates(optionParams);
+    List<Candidate> candidates = returnObject.getData();
+    return candidates;
+  }
 }

@@ -1,10 +1,15 @@
 package org.maepaysoh.maepaysoh.ui;
 
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -21,8 +26,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
+import org.maepaysoh.maepaysoh.utils.ViewUtils;
+import org.maepaysoh.maepaysohsdk.CandidateAPIHelper;
 import org.maepaysoh.maepaysohsdk.GeoAPIHelper;
+import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
+import org.maepaysoh.maepaysohsdk.models.Candidate;
 import org.maepaysoh.maepaysohsdk.models.Geo;
+import org.maepaysoh.maepaysohsdk.utils.CandidateAPIProperties;
+import org.maepaysoh.maepaysohsdk.utils.CandidateAPIPropertiesMap;
 
 /**
  * Created by Ye Lin Aung on 15/08/10.
@@ -31,26 +43,56 @@ public class LocationDetailActivity extends BaseActivity {
   private GeoAPIHelper mGeoAPIHelper;
   private GoogleMap mMap;
   private ProgressBar mapProgressBar;
+  private RecyclerView mCandidateListRecyclerView;
+  private ProgressBar mProgressView;
+  private View mErrorView;
+  private Button mRetryBtn;
+  private MaePaySohApiWrapper mMaePaySohApiWrapper;
+  private CandidateAPIPropertiesMap mCandidateAPIPropertiesMap;
+  private CandidateAPIHelper mCandidateAPIHelper;
+  private ViewUtils mViewUtils;
+  private CandidateAdapter mCandidateAdapter;
+  private LinearLayoutManager mLayoutManager;
+  private TextView mValidCandidates;
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
+
     String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
     System.out.println(pCode);
     mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000,96.1500),4));
+    if(mMap!=null) {
+      mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000, 96.1500), 4));
+    }
+    mViewUtils = new ViewUtils(this);
+
     mapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
     mGeoAPIHelper = MaePaySoh.getMaePaySohWrapper().getGeoApiHelper();
     new GetGeoByID().execute(pCode);
+    mCandidateListRecyclerView = (RecyclerView) findViewById(R.id.candidate_list_recycler_view);
+    mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
+    mErrorView = findViewById(R.id.candidate_list_error_view);
+    mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
+    mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
+    mCandidateAPIHelper = mMaePaySohApiWrapper.getCandidateApiHelper();
+    mCandidateAPIPropertiesMap = new CandidateAPIPropertiesMap();
+    mLayoutManager = new LinearLayoutManager(this);
+    mCandidateAdapter = new CandidateAdapter();
+    mCandidateListRecyclerView.setLayoutManager(mLayoutManager);
+    mCandidateListRecyclerView.setAdapter(mCandidateAdapter);
+    mProgressView.getIndeterminateDrawable()
+        .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+
+    mViewUtils.showProgress(mCandidateListRecyclerView, mProgressView, true);
+    mValidCandidates = (TextView) findViewById(R.id.valid_candidates);
   }
+
 
   @Override protected void onResume() {
     super.onResume();
   }
 
   private void setUpMap(AppCompatActivity activity,Geo geo) {
-    for(List cordinates:geo.getGeometry().getCoordinates()){
-      System.out.println(cordinates);
-    }
     Gson gson = new GsonBuilder().create();
     String object = gson.toJson(geo);
     try {
@@ -83,9 +125,9 @@ public class LocationDetailActivity extends BaseActivity {
     } catch (JSONException e) {
       e.printStackTrace();
     }
-    LatLng ygnLatLng = new LatLng(((geo.getGeometry().getCoordinates().get(0)).get(0)).get(1),
-        ((geo.getGeometry().getCoordinates().get(0)).get(0)).get(0));
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ygnLatLng, 8));
+    //LatLng ygnLatLng = new LatLng(((geo.getGeometry().getCoordinates().get(0)).get(0)).get(1),
+    //    ((geo.getGeometry().getCoordinates().get(0)).get(0)).get(0));
+    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ygnLatLng, 8));
   }
   class GetGeoByID extends AsyncTask<String,Void,List<Geo>>{
 
@@ -95,8 +137,28 @@ public class LocationDetailActivity extends BaseActivity {
 
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
+      Geo geo = geos.get(0);
       mapProgressBar.setVisibility(View.GONE);
-     setUpMap(LocationDetailActivity.this,geos.get(0));
+
+      new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),geo.getProperties().getDTPCODE());
+     //setUpMap(LocationDetailActivity.this,geos.get(0));
+    }
+  }
+
+  class GetCandidateBYDTCODE extends AsyncTask<String,Void,List<Candidate>>{
+
+    @Override protected List<Candidate> doInBackground(String... strings) {
+      mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE,false);
+      return mCandidateAPIHelper.getCandidatesByConstituency(strings[0],strings[1],mCandidateAPIPropertiesMap);
+    }
+
+    @Override protected void onPostExecute(List<Candidate> candidates) {
+      super.onPostExecute(candidates);
+      mViewUtils.showProgress(mCandidateListRecyclerView,mProgressView,false);
+      mValidCandidates.setVisibility(View.VISIBLE);
+      mCandidateAdapter.setCandidates(candidates);
+
+
     }
   }
 }
