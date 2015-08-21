@@ -35,7 +35,7 @@ The `sample-app` module utilizes `maepaysohsdk` as a dependency.
 Followings are required to build this project folder;
 
 * Android SDK API 14
-* Build Tool Version 23.0.0 rc3 or higher
+* Build Tool Version 23
 * Gradle Version 2.4
 
 ### <a id="3"></a> 3. MaePaySoh API ###
@@ -146,6 +146,19 @@ Following methods are available for FAQ API Helper.
 
 ##### <a id="544"></a> 5.4.4 How to use GeoAPIHelper  #####
 
+Geo API Helper is created as follow;
+
+```java
+GeoAPIHelper geoApiHelper = apiWrapper.getGeoAPIHelper();
+```
+
+Following methods are available for Geo API Helper
+
+* `getLocationList` retrieve geo location list.
+* `getLocationListAsync` added AsyncTask which accepts callback function.
+* `getLocationByObjectId` retrieve geo location by given `pcode`.
+* `getLocationByRegion` retrieve geo location for given Region names.
+* `getLocationByRegionByAsync` added AsyncTask which accepts callback function.
 
 ### <a id="6"></a> 6. Contributions ###
 
