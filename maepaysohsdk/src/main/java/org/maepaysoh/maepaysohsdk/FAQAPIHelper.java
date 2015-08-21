@@ -11,6 +11,8 @@ import org.maepaysoh.maepaysohsdk.db.FaqDao;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
 import org.maepaysoh.maepaysohsdk.models.FAQDetailReturnObject;
 import org.maepaysoh.maepaysohsdk.models.FAQListReturnObject;
+import org.maepaysoh.maepaysohsdk.utils.FaqAPIProperties;
+import org.maepaysoh.maepaysohsdk.utils.FaqAPIPropertiesMap;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 
@@ -28,53 +30,24 @@ public class FAQAPIHelper {
     mFaqService = mFaqRestAdapter.create(FaqService.class);
     mContext = context;
   }
-
   /**
-   *
    * @param callback
    */
   public void getFaqsAsync(Callback<FAQListReturnObject> callback) {
-    boolean unicode = Utils.isUniCode(mContext);
-    getFaqsAsync(unicode, 1, 15, callback);
-  }
-
-  /**
-   * @param unicode
-   * @param callback
-   */
-  public void getFaqsAsync(boolean unicode, Callback<FAQListReturnObject> callback) {
-    getFaqsAsync(unicode, 1, 15, callback);
+    getFaqsAsync(new FaqAPIPropertiesMap(),callback);
   }
 
   /**
    *
-   * @param page
+   * @param faqAPIPropertiesMap
    * @param callback
    */
-  public void getFaqsAsync(int page, Callback<FAQListReturnObject> callback) {
-    boolean unicode = Utils.isUniCode(mContext);
-    getFaqsAsync(unicode, page, 15, callback);
-  }
-
-  /**
-   *
-   * @param unicode
-   * @param page
-   * @param callback
-   */
-  public void getFaqsAsync(boolean unicode, int page, Callback<FAQListReturnObject> callback) {
-    getFaqsAsync(unicode, page, callback);
-  }
-
-  /**
-   *
-   * @param unicode
-   * @param page
-   * @param per_page
-   * @param callback
-   */
-  public void getFaqsAsync(boolean unicode, int page, int per_page,
+  public void getFaqsAsync(FaqAPIPropertiesMap faqAPIPropertiesMap,
       Callback<FAQListReturnObject> callback) {
+    boolean unicode = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.IS_UNICODE,
+        Utils.isUniCode(mContext));
+    int page = faqAPIPropertiesMap.getInteger(FaqAPIProperties.FIRST_PAGE, 1);
+    int per_page = faqAPIPropertiesMap.getInteger(FaqAPIProperties.PER_PAGE,15);
     Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
       optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
@@ -88,13 +61,14 @@ public class FAQAPIHelper {
 
   /**
    *
-   * @param unicode
-   * @param page
-   * @param per_page
-   * @param cache
+   * @param faqAPIPropertiesMap
    * @return
    */
-  public List<FAQ> getFaqs(boolean unicode, int page, int per_page, boolean cache) {
+  public List<FAQ> getFaqs(FaqAPIPropertiesMap faqAPIPropertiesMap) {
+    boolean unicode = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
+    int page = faqAPIPropertiesMap.getInteger(FaqAPIProperties.FIRST_PAGE, 1);
+    int per_page = faqAPIPropertiesMap.getInteger(FaqAPIProperties.PER_PAGE,15);
+    boolean cache = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.CACHE,true);
     mFaqDao = new FaqDao(mContext);
     Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
@@ -117,49 +91,10 @@ public class FAQAPIHelper {
     return faqListReturnObject.getData();
   }
 
-  /**
-   *
-   * @param unicode
-   * @param cache
-   * @return
-   */
-  public List<FAQ> getFaqs(boolean unicode, boolean cache) {
-    return getFaqs(unicode, 1, 15, cache);
+  public List<FAQ> getFaqs() {
+    return getFaqs(new FaqAPIPropertiesMap());
   }
 
-  /**
-   *
-   * @param page
-   * @param cache
-   * @return
-   */
-  public List<FAQ> getFaqs(int page, boolean cache) {
-    boolean unicode = Utils.isUniCode(mContext);
-    return getFaqs(unicode, page, 15, cache);
-  }
-
-  /**
-   *
-   * @param page
-   * @param page_number
-   * @param cache
-   * @return
-   */
-  public List<FAQ> getFaqs(int page, int page_number, boolean cache) {
-    boolean unicode = Utils.isUniCode(mContext);
-    return getFaqs(unicode, page, page_number, cache);
-  }
-
-  /**
-   *
-   * @param unicode
-   * @param page
-   * @param cache
-   * @return
-   */
-  public List<FAQ> getFaqs(boolean unicode, int page, boolean cache) {
-    return getFaqs(unicode, page, 15, cache);
-  }
 
   /**
    *
@@ -168,7 +103,7 @@ public class FAQAPIHelper {
    */
   public void searchFaqsAsync(String keyword, Callback<FAQListReturnObject> callback) {
     boolean unicode = Utils.isUniCode(mContext);
-    searchFaqsAsync(unicode, keyword, callback);
+    searchFaqsAsync(keyword,new FaqAPIPropertiesMap(),callback);
   }
 
   /**
@@ -176,8 +111,9 @@ public class FAQAPIHelper {
    * @param keyword
    * @param callback
    */
-  public void searchFaqsAsync(boolean unicode, String keyword,
+  public void searchFaqsAsync(String keyword,FaqAPIPropertiesMap faqAPIPropertiesMap,
       Callback<FAQListReturnObject> callback) {
+    boolean unicode = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
     Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
       optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
@@ -190,7 +126,7 @@ public class FAQAPIHelper {
 
   public List<FAQ> searchFaq(String keyword) {
     boolean unicode = Utils.isUniCode(mContext);
-    return searchFaq(unicode, keyword);
+    return searchFaq(keyword,new FaqAPIPropertiesMap());
   }
 
   /**
@@ -198,7 +134,8 @@ public class FAQAPIHelper {
    * @param keyword
    * @return
    */
-  public List<FAQ> searchFaq(boolean unicode, String keyword) {
+  public List<FAQ> searchFaq(String keyword,FaqAPIPropertiesMap faqAPIPropertiesMap) {
+    boolean unicode = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
     Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
       optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
@@ -234,17 +171,17 @@ public class FAQAPIHelper {
    */
   public void getFaqByIdAsync(String faqId, Callback<FAQDetailReturnObject> callback) {
     boolean unicode = Utils.isUniCode(mContext);
-    getFaqByIdAsync(faqId, unicode, callback);
+    getFaqByIdAsync(faqId,new FaqAPIPropertiesMap(), callback);
   }
 
   /**
    *
    * @param faqId
-   * @param unicode
    * @param callback
    */
-  public void getFaqByIdAsync(String faqId, boolean unicode,
+  public void getFaqByIdAsync(String faqId,FaqAPIPropertiesMap faqAPIPropertiesMap,
       Callback<FAQDetailReturnObject> callback) {
+    boolean unicode = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
     Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
       optionParams.put(FaqService.PARAM_FIELD.font, Constants.UNICODE);
@@ -257,20 +194,19 @@ public class FAQAPIHelper {
   /**
    *
    * @param faqId
-   * @param cache
    */
-  public FAQ getFaqById(String faqId, boolean cache) {
+  public FAQ getFaqById(String faqId) {
     boolean unicode = Utils.isUniCode(mContext);
-    return getFaqById(faqId, unicode, cache);
+    return getFaqById(faqId,new FaqAPIPropertiesMap());
   }
 
   /**
    *
    * @param faqId
-   * @param unicode
-   * @param cache
    */
-  public FAQ getFaqById(String faqId, boolean unicode, boolean cache) {
+  public FAQ getFaqById(String faqId,FaqAPIPropertiesMap faqAPIPropertiesMap) {
+    boolean unicode = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
+    boolean cache = faqAPIPropertiesMap.getBoolean(FaqAPIProperties.CACHE,true);
     mFaqDao = new FaqDao(mContext);
     Map<FaqService.PARAM_FIELD, String> optionParams = new HashMap<>();
     if (unicode) {
@@ -284,10 +220,5 @@ public class FAQAPIHelper {
       mFaqDao.createFaq(faq);
     }
     return faq;
-  }
-
-  public FAQ getFaqByIdFromCache(String faqId) {
-    mFaqDao = new FaqDao(mContext);
-    return mFaqDao.getFaqById(faqId);
   }
 }
