@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.maps.android.geojson.GeoJsonFeature;
 import com.google.maps.android.geojson.GeoJsonGeometry;
 import com.google.maps.android.geojson.GeoJsonLayer;
@@ -59,6 +60,7 @@ public class LocationDetailActivity extends BaseActivity {
   private TextView mValidCandidates;
   private Toolbar mToolbar;
   private View mToolbarShadow;
+  private TextView mLocationName;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -84,6 +86,7 @@ public class LocationDetailActivity extends BaseActivity {
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mCandidateAPIHelper = mMaePaySohApiWrapper.getCandidateApiHelper();
+    mLocationName = (TextView)findViewById(R.id.location_name);
     mCandidateAPIPropertiesMap = new CandidateAPIPropertiesMap();
     mLayoutManager = new LinearLayoutManager(this);
     mCandidateAdapter = new CandidateAdapter();
@@ -109,6 +112,8 @@ public class LocationDetailActivity extends BaseActivity {
   private void setUpMap(AppCompatActivity activity,Geo geo) {
     Gson gson = new GsonBuilder().create();
     String object = gson.toJson(geo);
+    mLocationName.setVisibility(View.VISIBLE);
+    mLocationName.setText(geo.getProperties().getST());
     try {
       GeoJsonLayer layer = new GeoJsonLayer(mMap,new JSONObject(object));
       GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
@@ -121,7 +126,8 @@ public class LocationDetailActivity extends BaseActivity {
       GeoJsonPolygonStyle geoJsonPolygonStyle = layer.getDefaultPolygonStyle();
       geoJsonPolygonStyle.setFillColor(
           activity.getResources().getColor(R.color.geojson_background_color));
-      geoJsonPolygonStyle.setStrokeColor(activity.getResources().getColor(R.color.geojson_stroke_color));
+      geoJsonPolygonStyle.setStrokeColor(
+          activity.getResources().getColor(R.color.geojson_stroke_color));
       geoJsonPolygonStyle.setStrokeWidth(2);
 
       pointStyle.setTitle(geo.getProperties().getDT());
@@ -131,17 +137,33 @@ public class LocationDetailActivity extends BaseActivity {
         geoJsonFeature.setPointStyle(pointStyle);
         geoJsonFeature.setPolygonStyle(geoJsonPolygonStyle);
         layer.addFeature(geoJsonFeature);
-      }
 
+      }
+      JsonArray jsonElements = geo.getGeometry().getCoordinates().getAsJsonArray();
+      JsonArray latLangArray = jsonElements.getAsJsonArray().get(0).getAsJsonArray().get(
+          0).getAsJsonArray();
+      double lon;
+      double lat;
+      try {
+
+        lat = latLangArray.get(1).getAsDouble();
+        lon = latLangArray.get(0).getAsDouble();
+      }catch (IllegalStateException e){
+        lat = latLangArray.get(0).getAsJsonArray().get(1).getAsDouble();
+        lon = latLangArray.get(0).getAsJsonArray().get(0).getAsDouble();
+      }
+      if(mMap==null){
+        mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
+            R.id.location_detail_map)).getMap();
+      }
+      mMap.moveCamera(
+          CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 8));
 
 
       layer.addLayerToMap();
     } catch (JSONException e) {
       e.printStackTrace();
     }
-    //LatLng ygnLatLng = new LatLng(((geo.getGeometry().getCoordinates().get(0)).get(0)).get(1),
-    //    ((geo.getGeometry().getCoordinates().get(0)).get(0)).get(0));
-    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ygnLatLng, 8));
   }
   class GetGeoByID extends AsyncTask<String,Void,List<Geo>>{
 
@@ -153,7 +175,7 @@ public class LocationDetailActivity extends BaseActivity {
       super.onPostExecute(geos);
       Geo geo = geos.get(0);
       new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),geo.getProperties().getDTPCODE());
-     //setUpMap(LocationDetailActivity.this,geos.get(0));
+      setUpMap(LocationDetailActivity.this, geo);
     }
   }
 

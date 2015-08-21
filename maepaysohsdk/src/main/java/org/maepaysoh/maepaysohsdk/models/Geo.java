@@ -9,8 +9,8 @@ public class Geo implements Serializable {
   @Expose private String id;
   @Expose private String type;
   @Expose private Properties properties;
-  //@Expose
-  //private Geometry geometry;
+  @Expose
+  private Geometry geometry;
 
   /**
    * @return The id
@@ -53,26 +53,25 @@ public class Geo implements Serializable {
   public void setProperties(Properties properties) {
     this.properties = properties;
   }
+
+
+
+/**
+*
+* @return
+* The geometry
+*/
+public Geometry getGeometry() {
+return geometry;
 }
 
+/**
+*
+* @param geometry
+* The geometry
+*/
+public void setGeometry(Geometry geometry) {
+this.geometry = geometry;
+}
 
-
-///**
-//*
-//* @return
-//* The geometry
-//*/
-//public Geometry getGeometry() {
-//return geometry;
-//}
-//
-///**
-//*
-//* @param geometry
-//* The geometry
-//*/
-//public void setGeometry(Geometry geometry) {
-//this.geometry = geometry;
-//}
-//
-//}
+}

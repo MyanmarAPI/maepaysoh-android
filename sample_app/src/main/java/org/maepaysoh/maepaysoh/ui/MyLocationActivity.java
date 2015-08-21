@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,7 +28,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.maps.android.geojson.GeoJsonFeature;
+import com.google.maps.android.geojson.GeoJsonGeometry;
+import com.google.maps.android.geojson.GeoJsonLayer;
+import com.google.maps.android.geojson.GeoJsonPointStyle;
+import com.google.maps.android.geojson.GeoJsonPolygonStyle;
 import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.CandidateAdapter;
@@ -66,6 +77,7 @@ public class MyLocationActivity extends BaseActivity {
   private TextView mValidCandidates;
   private Toolbar mToolbar;
   private View mToolbarShadow;
+  private TextView mLocationName;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -79,21 +91,14 @@ public class MyLocationActivity extends BaseActivity {
         = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
     // getting GPS status
-    boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    Log.d("msg", "GPS:" + isGPSEnabled);
+    boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
     // check if GPS enabled
-    if (isGPSEnabled) {
+    if (isNetworkEnabled) {
       progressDialog = ProgressDialog.show(this, null, "Searching for location", true, false);
       progressDialog.show();
-    /*
-    longitude = 70.80079728674089;
-    latitude =  22.29090332494221;
-     */
       String provider = locationManager.getProvider(LocationManager.NETWORK_PROVIDER).getName();
       Location location = locationManager.getLastKnownLocation(provider);
-
-      //new LoadPlaces().execute();
 
       if (location != null) {
         progressDialog.cancel();
@@ -178,6 +183,7 @@ public class MyLocationActivity extends BaseActivity {
     mGeoAPIHelper = MaePaySoh.getMaePaySohWrapper().getGeoApiHelper();
     new GetGeoByLocation().execute(String.valueOf(latitude),String.valueOf(longitude));
     mCandidateListRecyclerView = (RecyclerView) findViewById(R.id.candidate_list_recycler_view);
+    mLocationName = (TextView)findViewById(R.id.location_name);
     mErrorView = findViewById(R.id.candidate_list_error_view);
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
@@ -208,7 +214,7 @@ public class MyLocationActivity extends BaseActivity {
       super.onPostExecute(geos);
       Geo geo = geos.get(0);
       new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),geo.getProperties().getDTPCODE());
-      //setUpMap(LocationDetailActivity.this,geos.get(0));
+      setUpMap(MyLocationActivity.this,geos.get(0));
     }
   }
 
@@ -245,6 +251,64 @@ public class MyLocationActivity extends BaseActivity {
         return true;
       default:
         return super.onOptionsItemSelected(item);
+    }
+  }
+
+  private void setUpMap(AppCompatActivity activity,Geo geo) {
+    Gson gson = new GsonBuilder().create();
+    mLocationName.setVisibility(View.VISIBLE);
+    mLocationName.setText(geo.getProperties().getST());
+    String object = gson.toJson(geo);
+    try {
+      GeoJsonLayer layer = new GeoJsonLayer(mMap,new JSONObject(object));
+      GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
+      GeoJsonFeature geoJsonFeature = null;
+      for (GeoJsonFeature feature : layer.getFeatures()) {
+        GeoJsonGeometry geoJsonGeometry = feature.getGeometry();
+        geoJsonFeature = new GeoJsonFeature(geoJsonGeometry, null, null, null);
+        pointStyle = feature.getPointStyle();
+      }
+      GeoJsonPolygonStyle geoJsonPolygonStyle = layer.getDefaultPolygonStyle();
+      geoJsonPolygonStyle.setFillColor(
+          activity.getResources().getColor(R.color.geojson_background_color));
+      geoJsonPolygonStyle.setStrokeColor(
+          activity.getResources().getColor(R.color.geojson_stroke_color));
+      geoJsonPolygonStyle.setStrokeWidth(2);
+
+      pointStyle.setTitle(geo.getProperties().getDT());
+      pointStyle.setSnippet(geo.getProperties().getDT());
+
+      if (geoJsonFeature != null) {
+        geoJsonFeature.setPointStyle(pointStyle);
+        geoJsonFeature.setPolygonStyle(geoJsonPolygonStyle);
+        layer.addFeature(geoJsonFeature);
+
+      }
+      JsonArray jsonElements = geo.getGeometry().getCoordinates().getAsJsonArray();
+      JsonArray latLangArray = jsonElements.getAsJsonArray().get(0).getAsJsonArray().get(
+          0).getAsJsonArray();
+      double lon;
+      double lat;
+      try {
+
+        lat = latLangArray.get(1).getAsDouble();
+        lon = latLangArray.get(0).getAsDouble();
+      }catch (IllegalStateException e){
+        lat = latLangArray.get(0).getAsJsonArray().get(1).getAsDouble();
+        lon = latLangArray.get(0).getAsJsonArray().get(0).getAsDouble();
+      }
+      System.out.println(lat +"   "+ lon);
+      if(mMap==null){
+        mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
+            R.id.location_detail_map)).getMap();
+      }
+      mMap.moveCamera(
+          CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 8));
+
+
+      layer.addLayerToMap();
+    } catch (JSONException e) {
+      e.printStackTrace();
     }
   }
 }
