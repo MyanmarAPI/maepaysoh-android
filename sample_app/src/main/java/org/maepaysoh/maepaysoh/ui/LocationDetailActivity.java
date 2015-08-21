@@ -42,7 +42,6 @@ import org.maepaysoh.maepaysohsdk.utils.CandidateAPIPropertiesMap;
 public class LocationDetailActivity extends BaseActivity {
   private GeoAPIHelper mGeoAPIHelper;
   private GoogleMap mMap;
-  private ProgressBar mapProgressBar;
   private RecyclerView mCandidateListRecyclerView;
   private ProgressBar mProgressView;
   private View mErrorView;
@@ -57,20 +56,20 @@ public class LocationDetailActivity extends BaseActivity {
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
-
+    mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
     String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
     System.out.println(pCode);
     mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
     if(mMap!=null) {
       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000, 96.1500), 4));
+    }else{
+      mProgressView.setVisibility(View.GONE);
     }
     mViewUtils = new ViewUtils(this);
 
-    mapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
     mGeoAPIHelper = MaePaySoh.getMaePaySohWrapper().getGeoApiHelper();
     new GetGeoByID().execute(pCode);
     mCandidateListRecyclerView = (RecyclerView) findViewById(R.id.candidate_list_recycler_view);
-    mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
     mErrorView = findViewById(R.id.candidate_list_error_view);
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
@@ -138,8 +137,6 @@ public class LocationDetailActivity extends BaseActivity {
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
       Geo geo = geos.get(0);
-      mapProgressBar.setVisibility(View.GONE);
-
       new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),geo.getProperties().getDTPCODE());
      //setUpMap(LocationDetailActivity.this,geos.get(0));
     }

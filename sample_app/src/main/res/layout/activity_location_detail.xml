@@ -52,8 +52,4 @@
 
         </FrameLayout>
     </LinearLayout>
-    <ProgressBar
-        android:id="@+id/map_progress_bar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"/>
-    </FrameLayout>
+</FrameLayout>
