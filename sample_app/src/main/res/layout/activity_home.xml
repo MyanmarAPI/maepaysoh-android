@@ -15,8 +15,17 @@
       android:layout_height="match_parent"
       >
 
+      <ProgressBar
+          android:id="@+id/home_progress_bar"
+          style="?android:progressBarStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:visibility="gone"
+          />
     <!-- Main Content -->
     <LinearLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/spacing_minor"
@@ -74,6 +83,7 @@
         layout="@layout/include_toolbar_shadow"
         android:id="@+id/home_toolbar_shadow"
         />
+
 
   </FrameLayout>
 

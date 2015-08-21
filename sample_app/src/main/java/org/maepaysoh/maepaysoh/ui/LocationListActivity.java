@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import java.util.List;
+import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.LocationAdapter;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
@@ -61,7 +62,7 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     mLocationListRecyclerView.setLayoutManager(mLayoutManager);
     mLocationAdapter = new LocationAdapter();
     mLocationAdapter.setOnItemClickListener(this);
-    mMaePaySohApiWrapper = getMaePaySohWrapper();
+    mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mGeoAPIHelper = mMaePaySohApiWrapper.getGeoApiHelper();
     //mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
     //    new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {

@@ -1,1 +1,1 @@
-include ':app',':maepaysohsdk'
+include ':sample_app',':maepaysohsdk'

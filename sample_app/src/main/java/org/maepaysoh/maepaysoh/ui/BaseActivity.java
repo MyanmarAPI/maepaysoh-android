@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioGroup;
 import org.maepaysoh.maepaysoh.Constants;
+import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
@@ -18,7 +19,7 @@ import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
  * Created by Ye Lin Aung on 15/08/03.
  */
 public class BaseActivity extends AppCompatActivity {
-  private MaePaySohApiWrapper mMaePaySohApiWrapper;
+  private static MaePaySohApiWrapper mMaePaySohApiWrapper;
   @Override public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
     super.onCreate(savedInstanceState, persistentState);
   }
@@ -39,16 +40,8 @@ public class BaseActivity extends AppCompatActivity {
     startActivity(Intent.createChooser(sharingIntent, "Share via"));
   }
 
-  protected MaePaySohApiWrapper getMaePaySohWrapper(){
-    if(mMaePaySohApiWrapper==null){
-      mMaePaySohApiWrapper = new MaePaySohApiWrapper(this);
-      mMaePaySohApiWrapper.setTokenKey(org.maepaysoh.maepaysoh.Constants.API_KEY);
-    }
-    return mMaePaySohApiWrapper;
-  }
-
   protected void showFontChooserDialog(boolean cancellable){
-    mMaePaySohApiWrapper = getMaePaySohWrapper();
+    mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     View view = getLayoutInflater().inflate(R.layout.font_dialog,null);
     final RadioGroup fontRbg = (RadioGroup) view.findViewById(R.id.font_rbg);
     boolean isUsingUnicode = mMaePaySohApiWrapper.isUsingUnicode();

@@ -1,15 +1,22 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import org.maepaysoh.maepaysoh.Constants;
+import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.utils.ViewUtils;
+import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
 /**
  * Created by Ye Lin Aung on 15/08/03.
@@ -21,7 +28,11 @@ public class HomeActivity extends BaseActivity {
   private Button mCandidateListBtn;
   private Button mFaqListBtn;
   private Button mLocationListBtn;
-
+  private LinearLayout mMainContent;
+  private ProgressBar mProgressBar;
+  private ViewUtils mViewUtils;
+  private TokenKeyGenerateClass mTokenClass;
+  MaePaySohApiWrapper maePaySohApiWrapper;
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
@@ -31,8 +42,59 @@ public class HomeActivity extends BaseActivity {
     mCandidateListBtn = (Button) findViewById(R.id.home_candidate_list_btn);
     mFaqListBtn = (Button) findViewById(R.id.home_faq_list_btn);
     mLocationListBtn = (Button) findViewById(R.id.home_location_list_btn);
+    mMainContent = (LinearLayout) findViewById(R.id.main_content);
+    mProgressBar = (ProgressBar) findViewById(R.id.home_progress_bar);
+    mViewUtils = new ViewUtils(this);
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
     setSupportActionBar(mToolbar);
+    String apiKey = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+        .getString(Constants.API_KEY,"");
+    Log.d("apikey",apiKey);
+    if(apiKey.length()>0){
+      maePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
+      maePaySohApiWrapper.setTokenKey(apiKey);
+      inflateLayout();
+    }else {
+      mTokenClass = new TokenKeyGenerateClass();
+      mViewUtils.showProgress(mMainContent, mProgressBar, true);
+      mTokenClass.execute();
+    }
+
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_home,menu);
+    return true;
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()){
+      case R.id.change_font:
+        showFontChooserDialog(true);
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
+
+  class TokenKeyGenerateClass extends AsyncTask<Void,Void,String>{
+
+    @Override protected String doInBackground(Void... voids) {
+      maePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
+      return maePaySohApiWrapper.getTokenKey();
+    }
+
+    @Override protected void onPostExecute(String s) {
+      super.onPostExecute(s);
+      mViewUtils.showProgress(mMainContent, mProgressBar, false);
+      maePaySohApiWrapper.setTokenKey(s);
+      PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+          .edit().putString(Constants.API_KEY,s).apply();
+      inflateLayout();
+    }
+  }
+
+  private void inflateLayout(){
     boolean firstTime = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
         .getBoolean(Constants.FIRST_TIME,true);
     if(firstTime) {
@@ -67,18 +129,10 @@ public class HomeActivity extends BaseActivity {
     });
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_home,menu);
-    return true;
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()){
-      case R.id.change_font:
-        showFontChooserDialog(true);
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+  @Override protected void onPause() {
+    super.onPause();
+    if(mTokenClass!=null && !mTokenClass.isCancelled()){
+      mTokenClass.cancel(true);
     }
   }
 }

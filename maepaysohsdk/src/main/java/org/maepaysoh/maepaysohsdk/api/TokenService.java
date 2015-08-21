@@ -13,5 +13,6 @@ public interface TokenService {
   @FormUrlEncoded
   @POST("/token/generate") void generateTokenAsync(@Field("api_key") String apiKey, Callback<TokenReturnObject> tokenReturnCallback);
 
+  @FormUrlEncoded
   @POST("/token/generate") TokenReturnObject generateToken(@Field("api_key") String apiKey);
 }

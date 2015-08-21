@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysohsdk;
 
 import android.content.Context;
+import android.util.Log;
 import org.maepaysoh.maepaysohsdk.models.TokenReturnObject;
 import retrofit.Callback;
 
@@ -16,15 +17,16 @@ public class MaePaySohApiWrapper {
   }
 
   public void setTokenKey(String token) {
+    Log.d("here",token);
     mToken = token;
   }
 
-  public String getTokenKey(String apiKey) {
-    return new TokenAPIHelper(mContext).getTokenKey(apiKey);
+  public String getTokenKey() {
+    return new TokenAPIHelper(mContext).getTokenKey(Constants.API_KEY);
   }
 
-  public void getTokenKeyAsync(String apiKey, Callback<TokenReturnObject> returnObjectCallback){
-    new TokenAPIHelper(mContext).getTokenKeyAsync(apiKey,returnObjectCallback);
+  public void getTokenKeyAsync(Callback<TokenReturnObject> returnObjectCallback){
+    new TokenAPIHelper(mContext).getTokenKeyAsync(Constants.API_KEY,returnObjectCallback);
   }
   
   public PartyAPIHelper getPartyApiHelper() {

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
+import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
 import org.maepaysoh.maepaysoh.adapters.FaqAdapter;
@@ -85,7 +86,7 @@ public class FaqListActivity extends BaseActivity
     mFaqListRecyclerView.setLayoutManager(mLayoutManager);
     mFaqAdapter = new FaqAdapter();
     mFaqAdapter.setOnItemClickListener(this);
-    mMaePaySohApiWrapper = getMaePaySohWrapper();
+    mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mFAQAPIHelper = mMaePaySohApiWrapper.getFaqApiHelper();
     mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
         new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {

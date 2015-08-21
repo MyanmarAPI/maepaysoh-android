@@ -19,6 +19,7 @@ import com.google.maps.android.geojson.GeoJsonPolygonStyle;
 import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysohsdk.GeoAPIHelper;
 import org.maepaysoh.maepaysohsdk.models.Geo;
@@ -38,7 +39,7 @@ public class LocationDetailActivity extends BaseActivity {
     mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000,96.1500),4));
     mapProgressBar = (ProgressBar) findViewById(R.id.map_progress_bar);
-    mGeoAPIHelper = getMaePaySohWrapper().getGeoApiHelper();
+    mGeoAPIHelper = MaePaySoh.getMaePaySohWrapper().getGeoApiHelper();
     new GetGeoByID().execute(pCode);
   }
 
