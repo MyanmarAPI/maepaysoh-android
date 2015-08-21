@@ -106,7 +106,8 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     }
 
     @Override protected List<Geo> doInBackground(Void... voids) {
-      List<Geo> geos = mGeoAPIHelper.getLocationList(15,1,false);
+
+      List<Geo> geos = mGeoAPIHelper.getLocationList();
       return geos;
     }
 
