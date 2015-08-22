@@ -2,11 +2,11 @@
 
 ### Content မာတိကာ ###
 
-1. [What is this Repository [:arrow_heading_down:]](#1-what-is-this-repository)?
-2. [Minimum requirements.](#2-minimum-requirements)
-3. [MaePaySoh API.](#3-maepaysoh-api)
-4. [MaePaySoh SDK Overview.](#maepaysoh-sdk-overview)
-5. [How to use this Repository?](#-5-how-to-use-this-repository)
+1. What is this Repository? 
+2. Minimum requirements. 
+3. MaePaySoh API. 
+4. MaePaySoh SDK Overview. [:arrow_heading_down:](#1)
+5. How to use this Repository? 
     - 5.1 Add MaePaySoh Android SDK for your Android Project [:arrow_heading_down:](#51)
     - 5.2 Get MaePaySoh API Key
     - 5.3 Setup API Wrapper [:arrow_heading_down:](#53)
@@ -19,7 +19,7 @@
 
 ---
 
-### 1. What is this Repository?
+### <a id="1"></a> 1. What is this Repository? ###
 
 This is part of the [Opensource Libraries](http://myanmarapi.github.io/) for [MaePaySoh မဲပေးစို့](http://maepaysoh.org) project.
 
@@ -30,7 +30,7 @@ This repository is an Android Project which comprises of 2 major parts;
 
 The `sample-app` module utilizes `maepaysohsdk` as a dependency.
 
-### 2. Minimum Requirements
+### <a id="2"></a> 2. Minimum Requirements ###
 
 Followings are required to build this project folder;
 
@@ -38,14 +38,14 @@ Followings are required to build this project folder;
 * Build Tool Version 23
 * Gradle Version 2.4
 
-### 3. MaePaySoh API
+### <a id="3"></a> 3. MaePaySoh API ###
 
 MaePaySoh API is the primary data provider for this Android Application `sample-app`.
 The SDK `maepaysohsdk` module is the client library and complys to [MaePaySoh API specification](http://myanmarapi.github.io/endpoints.html).
 
 API features are tested with [this PostMan Collection](https://github.com/MyanmarAPI/maepaysoh-android/blob/master/MaePaySohAPI-20150821.json.postman_collection) for the development of SDK.
 
-### MaePaySoh SDK Overview
+### <a id="4"></a> 4. MaePaySoh SDK Overview ###
 
 Followings are primary utility functions of SDK to get data from API.
 
@@ -159,4 +159,3 @@ Following methods are available for Geo API Helper
 * `getLocationByRegionByAsync` added AsyncTask which accepts callback function.
 
 ### <a id="6"></a> 6. Contributions ###
-
