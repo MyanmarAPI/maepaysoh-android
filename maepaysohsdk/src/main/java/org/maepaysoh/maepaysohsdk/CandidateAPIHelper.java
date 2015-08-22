@@ -2,6 +2,7 @@ package org.maepaysoh.maepaysohsdk;
 
 import android.content.Context;
 import android.database.SQLException;
+import android.os.AsyncTask;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,17 +33,20 @@ public class CandidateAPIHelper {
   }
 
   /**
+   * Get the List of {@link Candidate} asynchronously.
    *
-   * @param callback
+   * @param callback - Retrofit {@link Callback}
    */
   public void getCandidatesAsync(Callback<CandidateListReturnObject> callback) {
     getCandidatesAsync(new CandidateAPIPropertiesMap(), callback);
   }
 
   /**
+   * Get the List of {@link Candidate} asynchronously.
    *
-   * @param propertiesMap
-   * @param callback
+   * @param propertiesMap - {@link CandidateAPIPropertiesMap} to call with {@link
+   * CandidateAPIProperties}
+   * @param callback - Retrofit {@link Callback}
    */
   public void getCandidatesAsync(CandidateAPIPropertiesMap propertiesMap,
       Callback<CandidateListReturnObject> callback) {
@@ -77,10 +81,15 @@ public class CandidateAPIHelper {
   }
 
   /**
+   * Get the List of {@link Candidate} synchronously.
+   * Please note that Network calls in Android needs to be run with a background thread.
+   * Therefore, you might want to call this method with e.g {@link AsyncTask}.
    *
-   * @param propertiesMap
-   *
+   * @param propertiesMap - {@link CandidateAPIPropertiesMap} to call with {@link
+   * CandidateAPIProperties}
+   * @return List of {@link Candidate}
    */
+
   public List<Candidate> getCandidates(CandidateAPIPropertiesMap propertiesMap) {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
@@ -127,10 +136,12 @@ public class CandidateAPIHelper {
   }
 
   /**
+   * Get the specific {@link Candidate} by Id asynchronously.
    *
-   * @param candidateId
-   * @param candidateAPIPropertiesMap
-   * @param callback
+   * @param candidateId - Candidate Id
+   * @param candidateAPIPropertiesMap - {@link CandidateAPIPropertiesMap} to call with {@link
+   * CandidateAPIProperties}
+   * @param callback - Retrofit {@link Callback}
    */
   public void getCandidateByIdAsync(String candidateId,
       CandidateAPIPropertiesMap candidateAPIPropertiesMap,
@@ -156,9 +167,12 @@ public class CandidateAPIHelper {
   }
 
   /**
+   * Get the specific {@link Candidate} by Id synchronously.
    *
-   * @param candidateId
-   * @param candidateAPIPropertiesMap
+   * @param candidateId - Candidate Id
+   * @param candidateAPIPropertiesMap - {@link CandidateAPIPropertiesMap} to call with {@link
+   * CandidateAPIProperties}
+   * @return The requested {@link Candidate}
    */
   public Candidate getCandidateById(String candidateId,
       CandidateAPIPropertiesMap candidateAPIPropertiesMap) {
@@ -185,11 +199,21 @@ public class CandidateAPIHelper {
     return candidate;
   }
 
+  /**
+   * Get the cached Candidates from Db
+   *
+   * @return List of {@link Candidate}
+   */
   public List<Candidate> getCandidatesFromCache() {
     mCandidateDao = new CandidateDao(mContext);
     return mCandidateDao.getAllCandidateData();
   }
 
+  /**
+   * Get a cached Candidate by Id from Db
+   *
+   * @return The requested {@link Candidate}
+   */
   public Candidate getCandidateByIdFromCache(String candidateId) {
     mCandidateDao = new CandidateDao(mContext);
     return mCandidateDao.getCandidateById(candidateId);
