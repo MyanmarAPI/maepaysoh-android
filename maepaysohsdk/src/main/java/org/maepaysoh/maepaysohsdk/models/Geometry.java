@@ -1,16 +1,15 @@
 package org.maepaysoh.maepaysohsdk.models;
 
+import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Geometry implements Serializable{
 
 @Expose
 private String type;
 @Expose
-private List<List<List<Double>>> coordinates = new ArrayList<List<List<Double>>>();
+private JsonArray coordinates = new JsonArray();
 
 /**
 * 
@@ -35,7 +34,7 @@ this.type = type;
 * @return
 * The coordinates
 */
-public List<List<List<Double>>> getCoordinates() {
+public JsonArray getCoordinates() {
 return coordinates;
 }
 
@@ -44,7 +43,7 @@ return coordinates;
  * @param coordinates
  * The coordinates
  */
-public void setCoordinates(List<List<List<Double>>> coordinates) {
+public void setCoordinates(JsonArray coordinates) {
 this.coordinates = coordinates;
 }
 

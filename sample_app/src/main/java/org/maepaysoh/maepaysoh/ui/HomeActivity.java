@@ -1,6 +1,7 @@
 package org.maepaysoh.maepaysoh.ui;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
@@ -46,6 +49,8 @@ public class HomeActivity extends BaseActivity {
     mMyLocationBtn = (Button) findViewById(R.id.my_location);
     mMainContent = (LinearLayout) findViewById(R.id.main_content);
     mProgressBar = (ProgressBar) findViewById(R.id.home_progress_bar);
+    mProgressBar.getIndeterminateDrawable()
+        .setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
     mViewUtils = new ViewUtils(this);
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
     setSupportActionBar(mToolbar);
@@ -57,6 +62,10 @@ public class HomeActivity extends BaseActivity {
       maePaySohApiWrapper.setTokenKey(apiKey);
       inflateLayout();
     }else {
+      if(!InternetUtils.isNetworkAvailable(this)){
+        Toast.makeText(this, "You need to enable Internet first time",Toast.LENGTH_LONG).show();
+        return;
+      }
       mTokenClass = new TokenKeyGenerateClass();
       mViewUtils.showProgress(mMainContent, mProgressBar, true);
       mTokenClass.execute();

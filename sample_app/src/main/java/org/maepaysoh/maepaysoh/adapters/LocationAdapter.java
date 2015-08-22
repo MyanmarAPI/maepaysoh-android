@@ -24,7 +24,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
   }
 
   public void setGeos(List<Geo> geos) {
-    mGeos = geos;
+    mGeos.addAll(geos);
     notifyDataSetChanged();
   }
 

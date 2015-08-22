@@ -59,4 +59,9 @@
   <string name="gender">Gender</string>
   <string name="filter">Filter</string>
   <string name="my_location">My Location</string>
+  <string name="no_candidate">There is no candidate available</string>
+  <string name="GPSAlertDialogTitle">Turn On GPS!</string>
+  <string name="GPSAlertDialogMessage">You need to turn on GPS for this feature.</string>
+  <string name="action_settings">Go To Settings</string>
+  <string name="cancel">Cancel</string>
 </resources>

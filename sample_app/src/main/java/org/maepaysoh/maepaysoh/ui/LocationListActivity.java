@@ -12,15 +12,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.adapters.EndlessRecyclerViewAdapter;
 import org.maepaysoh.maepaysoh.adapters.LocationAdapter;
 import org.maepaysoh.maepaysoh.utils.InternetUtils;
 import org.maepaysoh.maepaysoh.utils.ViewUtils;
 import org.maepaysoh.maepaysohsdk.GeoAPIHelper;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 import org.maepaysoh.maepaysohsdk.models.Geo;
+import org.maepaysoh.maepaysohsdk.utils.GeoAPIProperties;
+import org.maepaysoh.maepaysohsdk.utils.GeoAPIPropertiesMap;
 
 public class LocationListActivity extends BaseActivity implements LocationAdapter.ClickInterface {
 
@@ -32,8 +36,11 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
   private MaePaySohApiWrapper mMaePaySohApiWrapper;
   private GeoAPIHelper mGeoAPIHelper;
   private View mRetryBtn;
-  private List<Geo> mGeos;
+  private List<Geo> mGeos = new ArrayList<>();
   private ProgressBar mProgressView;
+  private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
+  private int mCurrentPage=1;
+  private GeoAPIPropertiesMap mGeoAPIPropertiesMap;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,6 +57,7 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
 
     setSupportActionBar(mToolbar);
 
+    mGeoAPIPropertiesMap = new GeoAPIPropertiesMap();
     ActionBar mActionBar = getSupportActionBar();
     if (mActionBar != null) {
       // Showing Back Arrow  <-
@@ -58,19 +66,21 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     mLocationListRecyclerView = (RecyclerView) findViewById(R.id.location_list_recycler_view);
     mRetryBtn = findViewById(R.id.location_list_error_view);
     viewUtils = new ViewUtils(this);
+    viewUtils.showProgress(mLocationListRecyclerView, mProgressView, true);
     mLayoutManager = new LinearLayoutManager(this);
     mLocationListRecyclerView.setLayoutManager(mLayoutManager);
     mLocationAdapter = new LocationAdapter();
     mLocationAdapter.setOnItemClickListener(this);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mGeoAPIHelper = mMaePaySohApiWrapper.getGeoApiHelper();
-    //mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(FaqListActivity.this, mFaqAdapter,
-    //    new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
-    //      @Override public void onLoadMoreRequested() {
-    //        loadFaqData(null);
-    //      }
-    //    });
-    mLocationListRecyclerView.setAdapter(mLocationAdapter);
+    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(LocationListActivity.this, mLocationAdapter,
+        new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
+          @Override public void onLoadMoreRequested() {
+            loadLocationData();
+          }
+        });
+
+    mLocationListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
     if (InternetUtils.isNetworkAvailable(this)) {
       loadLocationData();
     } else {
@@ -91,7 +101,7 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
   }
 
   private void loadLocationData(){
-    new LocationDownloadAsync().execute();
+    new LocationDownloadAsync().execute(mCurrentPage);
   }
 
   @Override public void onItemClick(View view, int position) {
@@ -100,23 +110,33 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     startActivity(locationDetailIntent);
   }
 
-  class LocationDownloadAsync extends AsyncTask<Void,Void,List<Geo>>{
-    @Override protected void onPreExecute() {
-      super.onPreExecute();
-      viewUtils.showProgress(mLocationListRecyclerView, mProgressView, true);
-    }
+  class LocationDownloadAsync extends AsyncTask<Integer,Void,List<Geo>>{
 
-    @Override protected List<Geo> doInBackground(Void... voids) {
-
-      List<Geo> geos = mGeoAPIHelper.getLocationList();
+    @Override protected List<Geo> doInBackground(Integer... integers) {
+      mCurrentPage = integers[0];
+      mGeoAPIPropertiesMap.put(GeoAPIProperties.PER_PAGE,15);
+      mGeoAPIPropertiesMap.put(GeoAPIProperties.NO_GEO,true);
+      mGeoAPIPropertiesMap.put(GeoAPIProperties.FIRST_PAGE,mCurrentPage);
+      List<Geo> geos = mGeoAPIHelper.getLocationList(mGeoAPIPropertiesMap);
       return geos;
     }
 
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
-      viewUtils.showProgress(mLocationListRecyclerView,mProgressView,false);
-      mGeos = geos;
-      mLocationAdapter.setGeos(geos);
+      viewUtils.showProgress(mLocationListRecyclerView, mProgressView, false);
+      if(geos.size()>0) {
+        if (mCurrentPage == 1) {
+          mGeos = geos;
+        } else {
+          mGeos.addAll(geos);
+        }
+        mLocationAdapter.setGeos(geos);
+        mCurrentPage++;
+        mEndlessRecyclerViewAdapter.onDataReady(true);
+      }else{
+        mEndlessRecyclerViewAdapter.onDataReady(false);
+      }
+
     }
   }
 }
