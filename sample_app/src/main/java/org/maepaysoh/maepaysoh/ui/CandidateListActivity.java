@@ -40,8 +40,8 @@ import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGD;
 /**
  * Created by Ye Lin Aung on 15/08/04.
  */
-public class CandidateListActivity extends BaseActivity implements CandidateAdapter.ClickInterface,
-    SearchView.OnQueryTextListener {
+public class CandidateListActivity extends BaseActivity
+    implements CandidateAdapter.ClickInterface, SearchView.OnQueryTextListener {
 
   private static String TAG = makeLogTag(CandidateListActivity.class);
 
@@ -126,7 +126,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
-    switch (id){
+    switch (id) {
       case android.R.id.home:
         onBackPressed();
         return true;
@@ -146,7 +146,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
 
   @Override protected void onPause() {
     super.onPause();
-    if(mDownloadCandidateListAsync!=null){
+    if (mDownloadCandidateListAsync != null) {
       mDownloadCandidateListAsync.cancel(true);
     }
   }
@@ -190,37 +190,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     return true;
   }
 
-  class DownloadCandidateListAsync extends AsyncTask<Void, Void, List<Candidate>> {
-    CandidateAPIPropertiesMap propertiesMap;
-    public DownloadCandidateListAsync(CandidateAPIPropertiesMap propertiesMap){
-      this.propertiesMap = propertiesMap;
-    }
-    @Override protected List<Candidate> doInBackground(Void... voids) {
-      return mCandidateAPIHelper.getCandidates(propertiesMap);
-    }
-
-    @Override protected void onPostExecute(List<Candidate> candidates) {
-      super.onPostExecute(candidates);
-      viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
-      if (candidates.size() > 0) {
-        if (mCurrentPage == 1) {
-          mCandidates = candidates;
-        } else {
-          mCandidates.addAll(candidates);
-        }
-        mCandidateAdapter.setCandidates(mCandidates);
-        mEndlessRecyclerViewAdapter.onDataReady(true);
-        mCurrentPage++;
-      } else {
-        if (mCurrentPage == 1) {
-          loadFromCache();
-        } else {
-          mEndlessRecyclerViewAdapter.onDataReady(false);
-        }
-      }
-    }
-  }
-  private void searchCandidateFromCache(String keyword){
+  private void searchCandidateFromCache(String keyword) {
     TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
     errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
     mRetryBtn.setVisibility(View.VISIBLE);
@@ -228,7 +198,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
       mErrorView.setVisibility(View.GONE);
     }
 
-    if(keyword.length()>0) {
+    if (keyword.length() > 0) {
       mCandidates = mCandidateAPIHelper.searchCandidateFromCache(keyword);
       if (mCandidates != null && mCandidates.size() > 0) {
         mCandidateListRecyclerView.setVisibility(View.VISIBLE);
@@ -241,7 +211,7 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
         mRetryBtn.setVisibility(View.GONE);
         errorText.setText(R.string.search_not_found);
       }
-    }else{
+    } else {
       loadFromCache();
     }
   }
@@ -254,9 +224,9 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     return true;
   }
 
-  private void showFilterDialog(){
+  private void showFilterDialog() {
     mCurrentPage = 1;
-    View view = getLayoutInflater().inflate(R.layout.filter_dialog_view,null);
+    View view = getLayoutInflater().inflate(R.layout.filter_dialog_view, null);
     RadioGroup genderRg = (RadioGroup) view.findViewById(R.id.gender_radio_group);
     RadioGroup religionRg = (RadioGroup) view.findViewById(R.id.religion_radio_group);
     RadioGroup legRg = (RadioGroup) view.findViewById(R.id.legi_radio_group);
@@ -284,21 +254,21 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     religionRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
         religionIDRB = i;
-        switch (i){
+        switch (i) {
           case R.id.religion_all_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION, "");
             break;
           case R.id.religion_buddhism_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"buddhism");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION, "buddhism");
             break;
           case R.id.religion_christian_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"christian");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION, "christian");
             break;
           case R.id.religion_Islam_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"islam");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION, "islam");
             break;
           case R.id.religion_hindu_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION,"hindu");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.RELIGION, "hindu");
             break;
         }
       }
@@ -306,32 +276,31 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
 
     legRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
       @Override public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (i){
+        switch (i) {
           case R.id.lgei_all_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE, "");
             break;
           case R.id.legi_amyotha_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"amyotha_hluttaw");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE, "amyotha_hluttaw");
             break;
           case R.id.legi_pyitthu_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"pyithu_hluttaw");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE, "pyithu_hluttaw");
             break;
           case R.id.legi_region_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"region");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE, "region");
             break;
           case R.id.legi_state_rb:
-            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE,"state");
+            mCandidateAPIPropertiesMap.put(CandidateAPIProperties.LEGISLATURE, "state");
             break;
         }
       }
     });
-    Dialog filterDialog = new AlertDialog.Builder(CandidateListActivity.this)
-        .setCustomTitle(null)
+    Dialog filterDialog = new AlertDialog.Builder(CandidateListActivity.this).setCustomTitle(null)
         .setView(view)
         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
             dialogInterface.dismiss();
-            viewUtils.showProgress(mCandidateListRecyclerView,mProgressView,true);
+            viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, true);
             downloadCandidateList();
           }
         })
@@ -344,4 +313,36 @@ public class CandidateListActivity extends BaseActivity implements CandidateAdap
     filterDialog.show();
   }
 
+  class DownloadCandidateListAsync extends AsyncTask<Void, Void, List<Candidate>> {
+    CandidateAPIPropertiesMap propertiesMap;
+
+    public DownloadCandidateListAsync(CandidateAPIPropertiesMap propertiesMap) {
+      this.propertiesMap = propertiesMap;
+    }
+
+    @Override protected List<Candidate> doInBackground(Void... voids) {
+      return mCandidateAPIHelper.getCandidates(propertiesMap);
+    }
+
+    @Override protected void onPostExecute(List<Candidate> candidates) {
+      super.onPostExecute(candidates);
+      viewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
+      if (candidates.size() > 0) {
+        if (mCurrentPage == 1) {
+          mCandidates = candidates;
+        } else {
+          mCandidates.addAll(candidates);
+        }
+        mCandidateAdapter.setCandidates(mCandidates);
+        mEndlessRecyclerViewAdapter.onDataReady(true);
+        mCurrentPage++;
+      } else {
+        if (mCurrentPage == 1) {
+          loadFromCache();
+        } else {
+          mEndlessRecyclerViewAdapter.onDataReady(false);
+        }
+      }
+    }
+  }
 }

@@ -39,7 +39,7 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
   private List<Geo> mGeos = new ArrayList<>();
   private ProgressBar mProgressView;
   private EndlessRecyclerViewAdapter mEndlessRecyclerViewAdapter;
-  private int mCurrentPage=1;
+  private int mCurrentPage = 1;
   private GeoAPIPropertiesMap mGeoAPIPropertiesMap;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +73,13 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     mLocationAdapter.setOnItemClickListener(this);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mGeoAPIHelper = mMaePaySohApiWrapper.getGeoApiHelper();
-    mEndlessRecyclerViewAdapter = new EndlessRecyclerViewAdapter(LocationListActivity.this, mLocationAdapter,
-        new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
-          @Override public void onLoadMoreRequested() {
-            loadLocationData();
-          }
-        });
+    mEndlessRecyclerViewAdapter =
+        new EndlessRecyclerViewAdapter(LocationListActivity.this, mLocationAdapter,
+            new EndlessRecyclerViewAdapter.RequestToLoadMoreListener() {
+              @Override public void onLoadMoreRequested() {
+                loadLocationData();
+              }
+            });
 
     mLocationListRecyclerView.setAdapter(mEndlessRecyclerViewAdapter);
     if (InternetUtils.isNetworkAvailable(this)) {
@@ -100,23 +101,25 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     return super.onOptionsItemSelected(item);
   }
 
-  private void loadLocationData(){
+  private void loadLocationData() {
     new LocationDownloadAsync().execute(mCurrentPage);
   }
 
   @Override public void onItemClick(View view, int position) {
-    Intent locationDetailIntent = new Intent(LocationListActivity.this,LocationDetailActivity.class);
-    locationDetailIntent.putExtra("GEO_OBJECT_ID",mGeos.get(position).getProperties().getDTPCODE());
+    Intent locationDetailIntent =
+        new Intent(LocationListActivity.this, LocationDetailActivity.class);
+    locationDetailIntent.putExtra("GEO_OBJECT_ID",
+        mGeos.get(position).getProperties().getDTPCODE());
     startActivity(locationDetailIntent);
   }
 
-  class LocationDownloadAsync extends AsyncTask<Integer,Void,List<Geo>>{
+  class LocationDownloadAsync extends AsyncTask<Integer, Void, List<Geo>> {
 
     @Override protected List<Geo> doInBackground(Integer... integers) {
       mCurrentPage = integers[0];
-      mGeoAPIPropertiesMap.put(GeoAPIProperties.PER_PAGE,15);
-      mGeoAPIPropertiesMap.put(GeoAPIProperties.NO_GEO,true);
-      mGeoAPIPropertiesMap.put(GeoAPIProperties.FIRST_PAGE,mCurrentPage);
+      mGeoAPIPropertiesMap.put(GeoAPIProperties.PER_PAGE, 15);
+      mGeoAPIPropertiesMap.put(GeoAPIProperties.NO_GEO, true);
+      mGeoAPIPropertiesMap.put(GeoAPIProperties.FIRST_PAGE, mCurrentPage);
       List<Geo> geos = mGeoAPIHelper.getLocationList(mGeoAPIPropertiesMap);
       return geos;
     }
@@ -124,7 +127,7 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
       viewUtils.showProgress(mLocationListRecyclerView, mProgressView, false);
-      if(geos.size()>0) {
+      if (geos.size() > 0) {
         if (mCurrentPage == 1) {
           mGeos = geos;
         } else {
@@ -133,10 +136,9 @@ public class LocationListActivity extends BaseActivity implements LocationAdapte
         mLocationAdapter.setGeos(geos);
         mCurrentPage++;
         mEndlessRecyclerViewAdapter.onDataReady(true);
-      }else{
+      } else {
         mEndlessRecyclerViewAdapter.onDataReady(false);
       }
-
     }
   }
 }

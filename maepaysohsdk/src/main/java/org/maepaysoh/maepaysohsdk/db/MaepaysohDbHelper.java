@@ -62,7 +62,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   private static final String PRIMARY_KEY_NOT_NULL = " PRIMARY KEY NOT NULL";
   private static final String SQL_CREATE_PARTY_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_PARTY + " (" +
-          MaepaysohDbHelper.COLUMN_PARTY_ID + TEXT_TYPE+PRIMARY_KEY_NOT_NULL + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_PARTY_ID + TEXT_TYPE + PRIMARY_KEY_NOT_NULL + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_NAME + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER + TEXT_TYPE + COMMA_SEP +
@@ -84,7 +84,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_PARTY;
   private static final String SQL_CREATE_FAQ_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_FAQ + " (" +
-          MaepaysohDbHelper.COLUMN_FAQ_ID + TEXT_TYPE +PRIMARY_KEY_NOT_NULL+ COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_FAQ_ID + TEXT_TYPE + PRIMARY_KEY_NOT_NULL + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_question + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_answer + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_FAQ_basis + TEXT_TYPE + COMMA_SEP +
@@ -96,7 +96,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
       "DROP TABLE IF EXISTS " + MaepaysohDbHelper.TABLE_NAME_FAQ;
   private static final String SQL_CREATE_CANDIDATE_TABLE =
       "CREATE TABLE " + MaepaysohDbHelper.TABLE_NAME_CANDIDATE + " (" +
-          MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE +PRIMARY_KEY_NOT_NULL+ COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_ID + TEXT_TYPE + PRIMARY_KEY_NOT_NULL + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID + TEXT_TYPE + COMMA_SEP +

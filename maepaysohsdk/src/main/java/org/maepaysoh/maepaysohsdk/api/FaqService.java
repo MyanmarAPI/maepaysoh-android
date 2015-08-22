@@ -19,14 +19,11 @@ public interface FaqService {
       Callback<FAQListReturnObject> faqCallback);
 
   @GET("/faq/{faq_id}") void searchFaqByIdAsync(@Path("faq_id") String faqId,
-      @QueryMap Map<PARAM_FIELD, String> options,
-      Callback<FAQDetailReturnObject> faqCallback);
+      @QueryMap Map<PARAM_FIELD, String> options, Callback<FAQDetailReturnObject> faqCallback);
 
-  @GET("/faq/list") FAQListReturnObject listFaqs(
-      @QueryMap Map<PARAM_FIELD, String> options);
+  @GET("/faq/list") FAQListReturnObject listFaqs(@QueryMap Map<PARAM_FIELD, String> options);
 
-  @GET("/faq/search") FAQListReturnObject searchFaq(
-      @QueryMap Map<PARAM_FIELD, String> options);
+  @GET("/faq/search") FAQListReturnObject searchFaq(@QueryMap Map<PARAM_FIELD, String> options);
 
   @GET("/faq/{faq_id}") FAQDetailReturnObject searchFaqById(@Path("faq_id") String faqId,
       @QueryMap Map<PARAM_FIELD, String> options);

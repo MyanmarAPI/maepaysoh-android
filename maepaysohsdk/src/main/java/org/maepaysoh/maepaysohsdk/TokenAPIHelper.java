@@ -21,12 +21,12 @@ public class TokenAPIHelper {
     mContext = context;
   }
 
-  protected String getTokenKey(String apiKey){
+  protected String getTokenKey(String apiKey) {
     TokenReturnObject returnObject = mTokenService.generateToken(apiKey);
     return returnObject.getTokenData().getToken();
   }
 
-  protected void getTokenKeyAsync(String apiKey,Callback<TokenReturnObject> callback){
-    mTokenService.generateTokenAsync(apiKey,callback);
+  protected void getTokenKeyAsync(String apiKey, Callback<TokenReturnObject> callback) {
+    mTokenService.generateTokenAsync(apiKey, callback);
   }
 }

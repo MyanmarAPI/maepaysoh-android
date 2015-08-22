@@ -35,7 +35,7 @@ public class RetrofitHelper {
     }
   }
 
-  public static RestAdapter getPublicResAdapter(){
+  public static RestAdapter getPublicResAdapter() {
     if (BuildConfig.DEBUG) {
       return new RestAdapter.Builder().setClient(new OkClient(new OkHttpClient()))
           .setEndpoint("http://api.maepaysoh.org")

@@ -11,15 +11,15 @@ public class MaePaySoh extends Application {
   private static Context sContext;
   private static MaePaySohApiWrapper mMaePaySohApiWrapper;
 
-  @Override public void onCreate() {
-    super.onCreate();
-    MaePaySoh.sContext = getApplicationContext();
-  }
-
-  public static MaePaySohApiWrapper getMaePaySohWrapper(){
-    if(mMaePaySohApiWrapper==null){
+  public static MaePaySohApiWrapper getMaePaySohWrapper() {
+    if (mMaePaySohApiWrapper == null) {
       mMaePaySohApiWrapper = new MaePaySohApiWrapper(sContext);
     }
     return mMaePaySohApiWrapper;
+  }
+
+  @Override public void onCreate() {
+    super.onCreate();
+    MaePaySoh.sContext = getApplicationContext();
   }
 }

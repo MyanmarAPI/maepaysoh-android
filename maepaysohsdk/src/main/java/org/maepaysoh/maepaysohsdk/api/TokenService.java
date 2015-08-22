@@ -10,9 +10,9 @@ import retrofit.http.POST;
  * Created by yemyatthu on 8/20/15.
  */
 public interface TokenService {
-  @FormUrlEncoded
-  @POST("/token/generate") void generateTokenAsync(@Field("api_key") String apiKey, Callback<TokenReturnObject> tokenReturnCallback);
+  @FormUrlEncoded @POST("/token/generate") void generateTokenAsync(@Field("api_key") String apiKey,
+      Callback<TokenReturnObject> tokenReturnCallback);
 
-  @FormUrlEncoded
-  @POST("/token/generate") TokenReturnObject generateToken(@Field("api_key") String apiKey);
+  @FormUrlEncoded @POST("/token/generate") TokenReturnObject generateToken(
+      @Field("api_key") String apiKey);
 }

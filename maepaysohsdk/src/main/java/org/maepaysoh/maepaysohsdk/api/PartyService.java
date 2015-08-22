@@ -13,8 +13,7 @@ public interface PartyService {
   @GET("/party") void listPartiesAsync(@QueryMap Map<PARAM_FIELD, String> options,
       Callback<PartyListReturnObject> partyCallback);
 
-  @GET("/party") PartyListReturnObject listParties(
-      @QueryMap Map<PARAM_FIELD, String> options);
+  @GET("/party") PartyListReturnObject listParties(@QueryMap Map<PARAM_FIELD, String> options);
 
   enum PARAM_FIELD {
     font

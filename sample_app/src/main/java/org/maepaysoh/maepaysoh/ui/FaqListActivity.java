@@ -155,12 +155,12 @@ public class FaqListActivity extends BaseActivity
 
   @Override public boolean onQueryTextChange(String newText) {
     mCurrentPage = 1;
-    if(InternetUtils.isNetworkAvailable(this)) {
+    if (InternetUtils.isNetworkAvailable(this)) {
       loadFaqData(newText);
-    }else{
+    } else {
       searchFaqFromCache(newText);
     }
-      LOGD(TAG, "searching");
+    LOGD(TAG, "searching");
     return true;
   }
 
@@ -184,12 +184,48 @@ public class FaqListActivity extends BaseActivity
     }
   }
 
+  private void searchFaqFromCache(String keyword) {
+    TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
+    errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
+    mRetryBtn.setVisibility(View.VISIBLE);
+    if (mErrorView.getVisibility() == View.VISIBLE) {
+      mErrorView.setVisibility(View.GONE);
+    }
+
+    if (keyword.length() > 0) {
+      mFaqDatas = mFAQAPIHelper.searchFaqFromCache(keyword);
+      if (mFaqDatas != null && mFaqDatas.size() > 0) {
+        mFaqListRecyclerView.setVisibility(View.VISIBLE);
+        mErrorView.setVisibility(View.GONE);
+        mFaqAdapter.setFaqs(mFaqDatas);
+        mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
+      } else {
+        mFaqListRecyclerView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.VISIBLE);
+        mRetryBtn.setVisibility(View.GONE);
+        errorText.setText(R.string.search_not_found);
+      }
+    } else {
+      loadFromCache();
+    }
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if (mDownFaqListAsync != null) {
+      mDownFaqListAsync.cancel(true);
+    }
+    if (mSearchFAQAsync != null) {
+      mSearchFAQAsync.cancel(true);
+    }
+  }
+
   class DownFaqListAsync extends AsyncTask<Integer, Void, List<FAQ>> {
 
     @Override protected List<FAQ> doInBackground(Integer... integer) {
       mCurrentPage = integer[0];
       FaqAPIPropertiesMap faqAPIPropertiesMap = new FaqAPIPropertiesMap();
-      faqAPIPropertiesMap.put(FaqAPIProperties.FIRST_PAGE,mCurrentPage);
+      faqAPIPropertiesMap.put(FaqAPIProperties.FIRST_PAGE, mCurrentPage);
       return mFAQAPIHelper.getFaqs(faqAPIPropertiesMap);
     }
 
@@ -247,41 +283,6 @@ public class FaqListActivity extends BaseActivity
         errorText.setText(R.string.search_not_found);
         mRetryBtn.setVisibility(View.GONE);
       }
-    }
-  }
-
-  private void searchFaqFromCache(String keyword){
-    TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
-    errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
-    mRetryBtn.setVisibility(View.VISIBLE);
-    if (mErrorView.getVisibility() == View.VISIBLE) {
-      mErrorView.setVisibility(View.GONE);
-    }
-
-    if(keyword.length()>0) {
-      mFaqDatas = mFAQAPIHelper.searchFaqFromCache(keyword);
-      if (mFaqDatas != null && mFaqDatas.size() > 0) {
-        mFaqListRecyclerView.setVisibility(View.VISIBLE);
-        mErrorView.setVisibility(View.GONE);
-        mFaqAdapter.setFaqs(mFaqDatas);
-        mFaqAdapter.setOnItemClickListener(FaqListActivity.this);
-      } else {
-        mFaqListRecyclerView.setVisibility(View.GONE);
-        mErrorView.setVisibility(View.VISIBLE);
-        mRetryBtn.setVisibility(View.GONE);
-        errorText.setText(R.string.search_not_found);
-      }
-    }else{
-      loadFromCache();
-    }
-  }
-  @Override protected void onPause() {
-    super.onPause();
-    if (mDownFaqListAsync != null) {
-      mDownFaqListAsync.cancel(true);
-    }
-    if (mSearchFAQAsync != null) {
-      mSearchFAQAsync.cancel(true);
     }
   }
 }

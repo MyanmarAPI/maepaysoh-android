@@ -10,7 +10,8 @@
 
   <include
       layout="@layout/include_toolbar"
-      android:id="@+id/party_detail_toolbar"/>
+      android:id="@+id/party_detail_toolbar"
+      />
 
   <FrameLayout
       android:layout_width="match_parent"
@@ -60,7 +61,8 @@
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="2"
-              android:gravity="center">
+              android:gravity="center"
+              >
             <TextView
                 android:id="@+id/party_name_myanmar"
                 android:layout_width="wrap_content"
@@ -72,7 +74,7 @@
                 tools:text="National Democratic Party"
                 />
 
-              <TextView
+            <TextView
                 android:id="@+id/party_name_english"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,450 +88,459 @@
           </LinearLayout>
 
         </LinearLayout>
-          <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_minor"
+            android:layout_marginTop="@dimen/spacing_minor"
+            >
+          <android.support.v7.widget.CardView
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="@dimen/spacing_minor"
-              android:layout_marginTop="@dimen/spacing_minor">
-              <android.support.v7.widget.CardView
+              android:layout_height="wrap_content"
+              app:cardUseCompatPadding="true"
+              >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor"
+                >
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/general_info"
+                  android:padding="@dimen/spacing_minor"
+                  />
+
+              <LinearLayout
+                  android:orientation="horizontal"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  app:cardUseCompatPadding="true">
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:padding="@dimen/spacing_minor"
-                      android:layout_marginTop="@dimen/spacing_minor">
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          style="@style/TextAppearance.AppCompat.Title"
-                          android:text="@string/general_info"
-                          android:padding="@dimen/spacing_minor"
-                          />
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/PartyLeadership"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                      <LinearLayout
-                      android:orientation="horizontal"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:weightSum="3"
-                      >
-                      <TextView
-                          android:layout_width="0dp"
-                          android:layout_height="wrap_content"
-                          android:layout_weight="1"
-                          style="@style/TextAppearance.AppCompat.Subhead"
-                          android:text="@string/PartyLeadership"
-                          android:padding="@dimen/spacing_minor"
-                          />
+                <TextView
+                    android:id="@+id/party_leader"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="Aung San Su Kyi"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                      <TextView
-                          android:id="@+id/party_leader"
-                          android:layout_width="0dp"
-                          android:layout_height="wrap_content"
-                          android:layout_weight="2"
-                          style="@style/TextAppearance.AppCompat.Subhead"
-                          tools:text="Aung San Su Kyi"
-                          android:padding="@dimen/spacing_minor"
-                          />
-
-                  </LinearLayout>
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="1"
-                              android:text="@string/PartyChairman"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                          <TextView
-                              android:id="@+id/party_chairman"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="Aung San Su Kyi"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="1"
-                              android:text="@string/PartyMemberCount"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                          <TextView
-                              android:id="@+id/party_member_count"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="100000"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                      </LinearLayout>
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="1"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:text="@string/PartyApprovedPartyNumber"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                          <TextView
-                              android:id="@+id/party_approved_no"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="2"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                      </LinearLayout>
-                  </LinearLayout>
-              </android.support.v7.widget.CardView>
-
-
-              <android.support.v7.widget.CardView
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  app:cardUseCompatPadding="true">
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:padding="@dimen/spacing_minor"
-                      android:layout_marginTop="@dimen/spacing_minor">
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          style="@style/TextAppearance.AppCompat.Title"
-                          android:text="@string/estb_date"
-                          android:padding="@dimen/spacing_minor"
-                          />
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="1"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:text="@string/PartyEstablishmentDate"
-                              android:padding="@dimen/spacing_minor"
-                              />
+                  android:weightSum="3"
+                  >
 
-                          <TextView
-                              android:id="@+id/party_estb_date"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/PartyChairman"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                      </LinearLayout>
+                <TextView
+                    android:id="@+id/party_chairman"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Aung San Su Kyi"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
+              </LinearLayout>
 
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="1"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:text="@string/PartyEstablishmentApprovalDate"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                          <TextView
-                              android:id="@+id/party_estb_approval_date"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="1"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:text="@string/PartyRegistrationApplicationDate"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                          <TextView
-                              android:id="@+id/party_reg_application_date"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="1"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:text="@string/PartyRegistrationApprovalDate"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                          <TextView
-                              android:id="@+id/party_reg_approval_date"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                      </LinearLayout>
-
-
-                  </LinearLayout>
-              </android.support.v7.widget.CardView>
-
-
-              <android.support.v7.widget.CardView
+              <LinearLayout
+                  android:orientation="horizontal"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  app:cardUseCompatPadding="true">
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:padding="@dimen/spacing_minor"
-                      android:layout_marginTop="@dimen/spacing_minor">
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          style="@style/TextAppearance.AppCompat.Title"
-                          android:text="@string/contact"
-                          android:padding="@dimen/spacing_minor"
-                          />
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
+                  android:weightSum="3"
+                  >
 
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="1"
-                              android:text="@string/PartyHeadquarters"
-                              android:padding="@dimen/spacing_minor"
-                              />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/PartyMemberCount"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                          <TextView
-                              android:id="@+id/party_headquarters"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                      </LinearLayout>
-
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="1"
-                              android:text="@string/PartyContact"
-                              android:padding="@dimen/spacing_minor"
-                              />
-
-                          <TextView
-                              android:id="@+id/party_contact"
-                              android:layout_width="0dp"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_height="wrap_content"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                      </LinearLayout>
-
-
-                  </LinearLayout>
-              </android.support.v7.widget.CardView>
-
-              <android.support.v7.widget.CardView
+                <TextView
+                    android:id="@+id/party_member_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="100000"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+              <LinearLayout
+                  android:orientation="horizontal"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  app:cardUseCompatPadding="true">
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:padding="@dimen/spacing_minor"
-                      android:layout_marginTop="@dimen/spacing_minor">
-                      <TextView
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          style="@style/TextAppearance.AppCompat.Title"
-                          android:text="@string/other"
-                          android:padding="@dimen/spacing_minor"
-                          />
+                  android:weightSum="3"
+                  >
 
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="1"
-                              android:text="@string/PartyRegion"
-                              android:padding="@dimen/spacing_minor"
-                              />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/PartyApprovedPartyNumber"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                          <TextView
-                              android:id="@+id/party_region"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="Kokk Mhuu"
-                              android:padding="@dimen/spacing_minor"
-                              />
+                <TextView
+                    android:id="@+id/party_approved_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                      </LinearLayout>
+              </LinearLayout>
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
 
 
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="1"
-                              android:text="@string/PartyPolicy"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                          <TextView
-                              android:id="@+id/party_policy"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="2"
-                              tools:text="31.1.1990"
-                              android:padding="@dimen/spacing_minor"
-                              />
-                      </LinearLayout>
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:cardUseCompatPadding="true"
+              >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor"
+                >
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/estb_date"
+                  android:padding="@dimen/spacing_minor"
+                  />
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/PartyEstablishmentDate"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                      <LinearLayout
-                          android:orientation="horizontal"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:weightSum="3"
-                          >
+                <TextView
+                    android:id="@+id/party_estb_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
 
-                          <TextView
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              style="@style/TextAppearance.AppCompat.Subhead"
-                              android:layout_weight="1"
-                              android:text="@string/PartySeal"
-                              android:padding="@dimen/spacing_minor"
-                              />
+              </LinearLayout>
 
-                          <ImageView
-                              android:id="@+id/party_seal"
-                              android:layout_width="0dp"
-                              android:layout_height="120dp"
-                              android:layout_weight="2"
-                              android:scaleType="fitCenter"
-                              android:layout_margin="@dimen/spacing_minor"
-                              android:contentDescription="@string/PartySeal"
-                              />
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
 
-                      </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/PartyEstablishmentApprovalDate"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/party_estb_approval_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
 
-                  </LinearLayout>
-              </android.support.v7.widget.CardView>
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/PartyRegistrationApplicationDate"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/party_reg_application_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/PartyRegistrationApprovalDate"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/party_reg_approval_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
 
 
-          </LinearLayout>
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
+
+
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:cardUseCompatPadding="true"
+              >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor"
+                >
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/contact"
+                  android:padding="@dimen/spacing_minor"
+                  />
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/PartyHeadquarters"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/party_headquarters"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/PartyContact"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/party_contact"
+                    android:layout_width="0dp"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+
+
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
+
+          <android.support.v7.widget.CardView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:cardUseCompatPadding="true"
+              >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_minor"
+                android:layout_marginTop="@dimen/spacing_minor"
+                >
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  style="@style/TextAppearance.AppCompat.Title"
+                  android:text="@string/other"
+                  android:padding="@dimen/spacing_minor"
+                  />
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/PartyRegion"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <TextView
+                    android:id="@+id/party_region"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="Kokk Mhuu"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+              </LinearLayout>
+
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/PartyPolicy"
+                    android:padding="@dimen/spacing_minor"
+                    />
+                <TextView
+                    android:id="@+id/party_policy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="2"
+                    tools:text="31.1.1990"
+                    android:padding="@dimen/spacing_minor"
+                    />
+              </LinearLayout>
+
+              <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:weightSum="3"
+                  >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_weight="1"
+                    android:text="@string/PartySeal"
+                    android:padding="@dimen/spacing_minor"
+                    />
+
+                <ImageView
+                    android:id="@+id/party_seal"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="2"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="@dimen/spacing_minor"
+                    android:contentDescription="@string/PartySeal"
+                    />
+
+              </LinearLayout>
+
+            </LinearLayout>
+          </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
       </LinearLayout>
 
     </ScrollView>

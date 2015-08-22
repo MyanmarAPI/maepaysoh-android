@@ -14,7 +14,7 @@ import org.maepaysoh.maepaysohsdk.models.Geo;
 /**
  * Created by yemyatthu on 8/18/15.
  */
-public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private List<Geo> mGeos;
   private Context mContext;
   private ClickInterface mClickInterface;
@@ -37,7 +37,7 @@ public class LocationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     Geo geo = mGeos.get(position);
     ((LocationViewHolder) holder).mLocationDivision.setText(geo.getProperties().getDT());
-    ((LocationViewHolder)holder).mLocationTownship.setText(geo.getProperties().getST());
+    ((LocationViewHolder) holder).mLocationTownship.setText(geo.getProperties().getST());
   }
 
   @Override public int getItemCount() {

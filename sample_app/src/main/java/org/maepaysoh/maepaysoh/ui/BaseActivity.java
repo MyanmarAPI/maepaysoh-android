@@ -20,6 +20,7 @@ import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
  */
 public class BaseActivity extends AppCompatActivity {
   private static MaePaySohApiWrapper mMaePaySohApiWrapper;
+
   @Override public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
     super.onCreate(savedInstanceState, persistentState);
   }
@@ -40,42 +41,43 @@ public class BaseActivity extends AppCompatActivity {
     startActivity(Intent.createChooser(sharingIntent, "Share via"));
   }
 
-  protected void showFontChooserDialog(boolean cancellable){
+  protected void showFontChooserDialog(boolean cancellable) {
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
-    View view = getLayoutInflater().inflate(R.layout.font_dialog,null);
+    View view = getLayoutInflater().inflate(R.layout.font_dialog, null);
     final RadioGroup fontRbg = (RadioGroup) view.findViewById(R.id.font_rbg);
     boolean isUsingUnicode = mMaePaySohApiWrapper.isUsingUnicode();
-    if (isUsingUnicode){
+    if (isUsingUnicode) {
       fontRbg.check(R.id.unicode_rb);
-    }else{
+    } else {
       fontRbg.check(R.id.zawgyi_rb);
     }
     int padding = (int) getResources().getDimension(R.dimen.spacing_major);
-    AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(view, padding, padding,
-        padding, padding)
-        .setTitle("Please Choose Font")
-        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialogInterface, int i) {
-            switch (fontRbg.getCheckedRadioButtonId()) {
-              case R.id.unicode_rb:
-                mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
-                break;
-              case R.id.zawgyi_rb:
-                mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.zawgyi);
-                break;
-              default:
-                mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
-                break;
-            }
-            PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-                .edit()
-                .putBoolean(Constants.FIRST_TIME, false).apply();
-            dialogInterface.dismiss();
-          }
-        });
-    if(!cancellable){
+    AlertDialog.Builder builder =
+        new AlertDialog.Builder(this).setView(view, padding, padding, padding, padding)
+            .setTitle("Please Choose Font")
+            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialogInterface, int i) {
+                switch (fontRbg.getCheckedRadioButtonId()) {
+                  case R.id.unicode_rb:
+                    mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
+                    break;
+                  case R.id.zawgyi_rb:
+                    mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.zawgyi);
+                    break;
+                  default:
+                    mMaePaySohApiWrapper.setFont(MaePaySohApiWrapper.FONT.unicode);
+                    break;
+                }
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                    .edit()
+                    .putBoolean(Constants.FIRST_TIME, false)
+                    .apply();
+                dialogInterface.dismiss();
+              }
+            });
+    if (!cancellable) {
       builder.setCancelable(false);
-    }else{
+    } else {
       builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
         @Override public void onClick(DialogInterface dialogInterface, int i) {
           dialogInterface.dismiss();
@@ -85,7 +87,7 @@ public class BaseActivity extends AppCompatActivity {
     builder.show();
   }
 
-  protected String convertISO8601toString(String iso8601){
+  protected String convertISO8601toString(String iso8601) {
     return iso8601.replaceAll("T.*?Z", "");
   }
 }

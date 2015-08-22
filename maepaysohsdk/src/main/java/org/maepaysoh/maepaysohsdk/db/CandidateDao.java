@@ -69,7 +69,8 @@ public class CandidateDao {
     mMaepaysohDb.beginTransaction();
     try {
       long insertId =
-          mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null, candidateContentValues,SQLiteDatabase.CONFLICT_REPLACE);
+          mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null,
+              candidateContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
       Log.e("error: ", e.getLocalizedMessage());
@@ -148,8 +149,8 @@ public class CandidateDao {
     open();
     List<Candidate> candidates = new ArrayList<>();
     Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_CANDIDATE, null,
-        MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + " LIKE " + "'%" + keyword + "%'", null, null, null,
-        null);
+        MaepaysohDbHelper.COLUMN_CANDIDATE_NAME + " LIKE " + "'%" + keyword + "%'", null, null,
+        null, null);
 
     if (cursor.moveToFirst()) {
       while (!cursor.isAfterLast()) {
@@ -162,5 +163,4 @@ public class CandidateDao {
     close();
     return candidates;
   }
-
 }

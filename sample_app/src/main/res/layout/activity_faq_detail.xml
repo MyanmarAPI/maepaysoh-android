@@ -36,26 +36,30 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_margin="@dimen/spacing_minor"
-          app:cardUseCompatPadding="true">
-      <LinearLayout
-          android:orientation="vertical"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/faq_question"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:padding="@dimen/spacing_major"
+          app:cardUseCompatPadding="true"
+          >
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Can I have Something?"/>
-        <TextView
-            android:id="@+id/faq_answer"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:padding="@dimen/spacing_major"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Can I have Something?"/>
-      </LinearLayout>
+            >
+          <TextView
+              android:id="@+id/faq_question"
+              style="@style/TextAppearance.AppCompat.Title"
+              android:padding="@dimen/spacing_major"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:text="Can I have Something?"
+              />
+          <TextView
+              android:id="@+id/faq_answer"
+              style="@style/TextAppearance.AppCompat.Subhead"
+              android:padding="@dimen/spacing_major"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:text="Can I have Something?"
+              />
+        </LinearLayout>
       </android.support.v7.widget.CardView>
     </ScrollView>
 

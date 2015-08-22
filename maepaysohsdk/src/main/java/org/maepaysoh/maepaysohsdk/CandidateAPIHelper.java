@@ -48,7 +48,7 @@ public class CandidateAPIHelper {
       Callback<CandidateListReturnObject> callback) {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
-    String legislature = propertiesMap.getString(CandidateAPIProperties.LEGISLATURE,"");
+    String legislature = propertiesMap.getString(CandidateAPIProperties.LEGISLATURE, "");
     boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
     boolean unicode =
         propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
@@ -68,7 +68,7 @@ public class CandidateAPIHelper {
     optionParams.put(CandidateService.PARAM_FIELD.religion, religion);
     optionParams.put(CandidateService.PARAM_FIELD.page, String.valueOf(firstPage));
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
-    optionParams.put(CandidateService.PARAM_FIELD.legislature,legislature);
+    optionParams.put(CandidateService.PARAM_FIELD.legislature, legislature);
     mCandidateService.listCandidatesAsync(optionParams, callback);
   }
 
@@ -84,7 +84,7 @@ public class CandidateAPIHelper {
   public List<Candidate> getCandidates(CandidateAPIPropertiesMap propertiesMap) {
     String gender = propertiesMap.getString(CandidateAPIProperties.GENDER, "");
     String religion = propertiesMap.getString(CandidateAPIProperties.RELIGION, "");
-    String legislature = propertiesMap.getString(CandidateAPIProperties.LEGISLATURE,"");
+    String legislature = propertiesMap.getString(CandidateAPIProperties.LEGISLATURE, "");
     boolean withParty = propertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
     boolean unicode =
         propertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
@@ -106,7 +106,7 @@ public class CandidateAPIHelper {
     optionParams.put(CandidateService.PARAM_FIELD.per_page, String.valueOf(perPage));
     optionParams.put(CandidateService.PARAM_FIELD.gender, gender);
     optionParams.put(CandidateService.PARAM_FIELD.religion, religion);
-    optionParams.put(CandidateService.PARAM_FIELD.legislature,legislature);
+    optionParams.put(CandidateService.PARAM_FIELD.legislature, legislature);
 
     CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     if (cache) {
@@ -205,8 +205,8 @@ public class CandidateAPIHelper {
     }
   }
 
-  public List<Candidate> getCandidatesByConstituency(String stPcode,String dtPcode,
-      CandidateAPIPropertiesMap candidateAPIPropertiesMap){
+  public List<Candidate> getCandidatesByConstituency(String stPcode, String dtPcode,
+      CandidateAPIPropertiesMap candidateAPIPropertiesMap) {
     boolean withParty =
         candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY, false);
     boolean unicode = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE,
@@ -220,10 +220,9 @@ public class CandidateAPIHelper {
     } else {
       optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
-    optionParams.put(CandidateService.PARAM_FIELD.constituency_st_pcode,stPcode);
-    optionParams.put(CandidateService.PARAM_FIELD.constituency_dt_pcode,dtPcode);
-    CandidateListReturnObject returnObject =
-        mCandidateService.listCandidates(optionParams);
+    optionParams.put(CandidateService.PARAM_FIELD.constituency_st_pcode, stPcode);
+    optionParams.put(CandidateService.PARAM_FIELD.constituency_dt_pcode, dtPcode);
+    CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     List<Candidate> candidates = returnObject.getData();
     return candidates;
   }

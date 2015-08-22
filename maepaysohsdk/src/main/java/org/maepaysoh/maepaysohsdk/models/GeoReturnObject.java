@@ -9,25 +9,19 @@ import java.util.List;
  */
 public class GeoReturnObject {
 
-  @Expose
-  private List<Geo> data = new ArrayList<Geo>();
+  @Expose private List<Geo> data = new ArrayList<Geo>();
 
   /**
-   *
-   * @return
-   * The data
+   * @return The data
    */
   public List<Geo> getData() {
     return data;
   }
 
   /**
-   *
-   * @param data
-   * The data
+   * @param data The data
    */
   public void setData(List<Geo> data) {
     this.data = data;
   }
-
 }

@@ -7,31 +7,33 @@ import java.util.Map;
  * Created by yemyatthu on 8/20/15.
  */
 public class CandidateAPIPropertiesMap {
-  private final Map<CandidateAPIProperties<?>, Object> properties = new HashMap<CandidateAPIProperties<?>, Object>();
+  private final Map<CandidateAPIProperties<?>, Object> properties =
+      new HashMap<CandidateAPIProperties<?>, Object>();
 
   public <T> void put(CandidateAPIProperties<T> property, T value) {
     properties.put(property, value);
   }
-  public String getString(CandidateAPIProperties<String> property,String defaultValue) {
+
+  public String getString(CandidateAPIProperties<String> property, String defaultValue) {
     String result = property.propertyClass.cast(properties.get(property));
-    if(result==null){
+    if (result == null) {
       return defaultValue;
-    }else{
+    } else {
       return result;
     }
   }
 
-  public boolean getBoolean(CandidateAPIProperties<Boolean> property,boolean defaultValue) {
+  public boolean getBoolean(CandidateAPIProperties<Boolean> property, boolean defaultValue) {
     boolean result;
     try {
       result = property.propertyClass.cast(properties.get(property));
-    }catch (Exception e){
+    } catch (Exception e) {
       return defaultValue;
     }
     return result;
   }
 
-  public int getInteger(CandidateAPIProperties<Integer> property,int defaultValue) {
+  public int getInteger(CandidateAPIProperties<Integer> property, int defaultValue) {
     try {
       int result = property.propertyClass.cast(properties.get(property));
       if (result == -1) {
@@ -43,7 +45,6 @@ public class CandidateAPIPropertiesMap {
       return defaultValue;
     }
   }
-
 
   public <T> T get(CandidateAPIProperties<T> property) {
     return property.propertyClass.cast(properties.get(property));

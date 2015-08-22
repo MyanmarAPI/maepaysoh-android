@@ -65,9 +65,8 @@ public class PartyDao {
     partyContentValues.put(MaepaysohDbHelper.COLUMN_PARTY_HEADQUARTER, party.getHeadquarters());
     mMaepaysohDb.beginTransaction();
     try {
-      long insertId =
-          mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_PARTY, null,
-              partyContentValues, SQLiteDatabase.CONFLICT_REPLACE);
+      long insertId = mMaepaysohDb.insertWithOnConflict(MaepaysohDbHelper.TABLE_NAME_PARTY, null,
+          partyContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
       Log.e("error: ", e.getLocalizedMessage());
@@ -106,9 +105,11 @@ public class PartyDao {
   public List<Party> searchPartiesFromDb(String keyword) throws SQLException {
     open();
     List<Party> parties = new ArrayList<>();
-    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY,null,MaepaysohDbHelper.COLUMN_PARTY_NAME + " LIKE "
-        + "'%"+keyword+"%'"+" OR "+MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH +" LIKE "+"'%"+keyword+"%'",null,null,null,null);
-    if(cursor.moveToFirst()) {
+    Cursor cursor = mMaepaysohDb.query(MaepaysohDbHelper.TABLE_NAME_PARTY, null,
+        MaepaysohDbHelper.COLUMN_PARTY_NAME + " LIKE " + "'%" + keyword + "%'" + " OR "
+            + MaepaysohDbHelper.COLUMN_PARTY_NAME_ENGLISH + " LIKE " + "'%" + keyword + "%'", null,
+        null, null, null);
+    if (cursor.moveToFirst()) {
       while (!cursor.isAfterLast()) {
         Party party = cursorToParty(cursor);
         parties.add(party);

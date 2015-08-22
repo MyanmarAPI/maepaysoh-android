@@ -5,6 +5,6 @@ package org.maepaysoh.maepaysoh;
  */
 public class Constants {
   //Your api key here
-  public static final String API_KEY="API_KEY";
-  public static final String FIRST_TIME ="first_time";
+  public static final String API_KEY = "API_KEY";
+  public static final String FIRST_TIME = "first_time";
 }

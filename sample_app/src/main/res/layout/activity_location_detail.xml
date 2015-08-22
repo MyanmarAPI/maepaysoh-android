@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    >
+
+  <include
+      layout="@layout/include_toolbar"
+      android:id="@+id/location_detail_toolbar"
+      />
+  <FrameLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="2">
-
-      <include
-          layout="@layout/include_toolbar"
-          android:id="@+id/location_detail_toolbar"
-          />
+        android:weightSum="2"
+        >
       <FrameLayout
-
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
           >
-        <LinearLayout
+        <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="2">
-          <FrameLayout
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:layout_weight="1"
-              >
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/location_detail_map"
-                tools:context="org.maepaysoh.maepaysoh.ui.LocationDetailActivity"
-                android:name="com.google.android.gms.maps.SupportMapFragment"/>
+            android:id="@+id/location_detail_map"
+            tools:context="org.maepaysoh.maepaysoh.ui.LocationDetailActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            />
 
-          <TextView
-              android:id="@+id/location_name"
-              android:background="@color/primary"
-              style="@style/TextAppearance.AppCompat.Subhead.Inverse"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="right|bottom"
-              android:padding="@dimen/spacing_minor"
-              android:visibility="gone"
-              tools:text="Myaung Mya"/>
-          </FrameLayout>
-    <TextView
-        android:id="@+id/valid_candidates"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_major"
-        android:text="Candidates"
-        android:visibility="gone"/>
-        <FrameLayout
+        <TextView
+            android:id="@+id/location_name"
+            android:background="@color/primary"
+            style="@style/TextAppearance.AppCompat.Subhead.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:padding="@dimen/spacing_minor"
+            android:visibility="gone"
+            tools:text="Myaung Mya"
+            />
+      </FrameLayout>
+      <TextView
+          android:id="@+id/valid_candidates"
+          style="@style/TextAppearance.AppCompat.Headline"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/spacing_major"
+          android:text="Candidates"
+          android:visibility="gone"
+          />
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          >
+
+        <ProgressBar
+            android:id="@+id/candidate_list_progress_bar"
+            style="?android:progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/candidate_list_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            />
 
-            <ProgressBar
-                android:id="@+id/candidate_list_progress_bar"
-                style="?android:progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/candidate_list_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <include
-                layout="@layout/include_error_view"
-                android:visibility="gone"
-                android:id="@+id/candidate_list_error_view"
-                />
-        </FrameLayout>
-        </LinearLayout>
         <include
-            layout="@layout/include_toolbar_shadow"
-            android:id="@+id/location_detail_toolbar_shadow"
+            layout="@layout/include_error_view"
+            android:visibility="gone"
+            android:id="@+id/candidate_list_error_view"
             />
       </FrameLayout>
     </LinearLayout>
+    <include
+        layout="@layout/include_toolbar_shadow"
+        android:id="@+id/location_detail_toolbar_shadow"
+        />
+  </FrameLayout>
+</LinearLayout>

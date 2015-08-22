@@ -68,14 +68,15 @@ public class LocationDetailActivity extends BaseActivity {
     setContentView(R.layout.activity_location_detail);
     mProgressView = (ProgressBar) findViewById(R.id.candidate_list_progress_bar);
     String pCode = getIntent().getStringExtra("GEO_OBJECT_ID");
-    if(!InternetUtils.isNetworkAvailable(this)){
+    if (!InternetUtils.isNetworkAvailable(this)) {
       Toast.makeText(this, "You need to enable Internet for location", Toast.LENGTH_LONG).show();
       return;
     }
-    mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_detail_map)).getMap();
-    if(mMap!=null) {
+    mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
+        R.id.location_detail_map)).getMap();
+    if (mMap != null) {
       mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(16.8000, 96.1500), 4));
-    }else{
+    } else {
       mProgressView.setVisibility(View.GONE);
     }
     mViewUtils = new ViewUtils(this);
@@ -87,7 +88,7 @@ public class LocationDetailActivity extends BaseActivity {
     mRetryBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
     mMaePaySohApiWrapper = MaePaySoh.getMaePaySohWrapper();
     mCandidateAPIHelper = mMaePaySohApiWrapper.getCandidateApiHelper();
-    mLocationName = (TextView)findViewById(R.id.location_name);
+    mLocationName = (TextView) findViewById(R.id.location_name);
     mCandidateAPIPropertiesMap = new CandidateAPIPropertiesMap();
     mLayoutManager = new LinearLayoutManager(this);
     mCandidateAdapter = new CandidateAdapter();
@@ -105,18 +106,17 @@ public class LocationDetailActivity extends BaseActivity {
     mValidCandidates = (TextView) findViewById(R.id.valid_candidates);
   }
 
-
   @Override protected void onResume() {
     super.onResume();
   }
 
-  private void setUpMap(AppCompatActivity activity,Geo geo) {
+  private void setUpMap(AppCompatActivity activity, Geo geo) {
     Gson gson = new GsonBuilder().create();
     String object = gson.toJson(geo);
     mLocationName.setVisibility(View.VISIBLE);
     mLocationName.setText(geo.getProperties().getDT());
     try {
-      GeoJsonLayer layer = new GeoJsonLayer(mMap,new JSONObject(object));
+      GeoJsonLayer layer = new GeoJsonLayer(mMap, new JSONObject(object));
       GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
       GeoJsonFeature geoJsonFeature = null;
       for (GeoJsonFeature feature : layer.getFeatures()) {
@@ -138,35 +138,43 @@ public class LocationDetailActivity extends BaseActivity {
         geoJsonFeature.setPointStyle(pointStyle);
         geoJsonFeature.setPolygonStyle(geoJsonPolygonStyle);
         layer.addFeature(geoJsonFeature);
-
       }
       JsonArray jsonElements = geo.getGeometry().getCoordinates().getAsJsonArray();
-      JsonArray latLangArray = jsonElements.getAsJsonArray().get(0).getAsJsonArray().get(
-          0).getAsJsonArray();
+      JsonArray latLangArray =
+          jsonElements.getAsJsonArray().get(0).getAsJsonArray().get(0).getAsJsonArray();
       double lon;
       double lat;
       try {
 
         lat = latLangArray.get(1).getAsDouble();
         lon = latLangArray.get(0).getAsDouble();
-      }catch (IllegalStateException e){
+      } catch (IllegalStateException e) {
         lat = latLangArray.get(0).getAsJsonArray().get(1).getAsDouble();
         lon = latLangArray.get(0).getAsJsonArray().get(0).getAsDouble();
       }
-      if(mMap==null){
+      if (mMap == null) {
         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
             R.id.location_detail_map)).getMap();
       }
-      mMap.moveCamera(
-          CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lon), 8));
-
+      mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 8));
 
       layer.addLayerToMap();
     } catch (JSONException e) {
       e.printStackTrace();
     }
   }
-  class GetGeoByID extends AsyncTask<String,Void,List<Geo>>{
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        finish();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
+
+  class GetGeoByID extends AsyncTask<String, Void, List<Geo>> {
 
     @Override protected List<Geo> doInBackground(String... strings) {
       return mGeoAPIHelper.getLocationByObjectId(strings[0]);
@@ -175,17 +183,19 @@ public class LocationDetailActivity extends BaseActivity {
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
       Geo geo = geos.get(0);
-      new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),geo.getProperties().getDTPCODE());
+      new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),
+          geo.getProperties().getDTPCODE());
       setUpMap(LocationDetailActivity.this, geo);
     }
   }
 
-  class GetCandidateBYDTCODE extends AsyncTask<String,Void,List<Candidate>>{
+  class GetCandidateBYDTCODE extends AsyncTask<String, Void, List<Candidate>> {
 
     @Override protected List<Candidate> doInBackground(String... strings) {
       mCandidateAPIPropertiesMap.put(CandidateAPIProperties.CACHE, false);
       mCandidateAPIPropertiesMap.put(CandidateAPIProperties.PER_PAGE, 20);
-      return mCandidateAPIHelper.getCandidatesByConstituency(strings[0],strings[1],mCandidateAPIPropertiesMap);
+      return mCandidateAPIHelper.getCandidatesByConstituency(strings[0], strings[1],
+          mCandidateAPIPropertiesMap);
     }
 
     @Override protected void onPostExecute(final List<Candidate> candidates) {
@@ -193,35 +203,24 @@ public class LocationDetailActivity extends BaseActivity {
       mViewUtils.showProgress(mCandidateListRecyclerView, mProgressView, false);
       mCandidateAdapter.setOnItemClickListener(new CandidateAdapter.ClickInterface() {
         @Override public void onItemClick(View view, int position) {
-            Intent goToCandiDetailIntent = new Intent();
-            goToCandiDetailIntent.setClass(LocationDetailActivity.this, CandidateDetailActivity.class);
-            goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
-                candidates.get(position));
-            startActivity(goToCandiDetailIntent);
-
+          Intent goToCandiDetailIntent = new Intent();
+          goToCandiDetailIntent.setClass(LocationDetailActivity.this,
+              CandidateDetailActivity.class);
+          goToCandiDetailIntent.putExtra(CandidateDetailActivity.CANDIDATE_CONSTANT,
+              candidates.get(position));
+          startActivity(goToCandiDetailIntent);
         }
       });
-      if(candidates.size()>0) {
+      if (candidates.size() > 0) {
         mValidCandidates.setVisibility(View.VISIBLE);
         mCandidateAdapter.setCandidates(candidates);
-      }else{
+      } else {
         mErrorView.setVisibility(View.VISIBLE);
         TextView mErrorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
         Button mErrorBtn = (Button) mErrorView.findViewById(R.id.error_view_retry_btn);
         mErrorText.setText(R.string.no_candidate);
         mErrorBtn.setVisibility(View.GONE);
       }
-
-
-    }
-  }
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()){
-      case android.R.id.home:
-        finish();
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
     }
   }
 }

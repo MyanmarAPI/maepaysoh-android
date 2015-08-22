@@ -40,8 +40,10 @@ public class PartyAPIHelper {
     getPartiesAsync(new PartyAPIPropertiesMap(), party);
   }
 
-  public void getPartiesAsync(PartyAPIPropertiesMap partyAPIPropertiesMap,Callback<PartyListReturnObject> party) {
-    boolean unicode = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
+  public void getPartiesAsync(PartyAPIPropertiesMap partyAPIPropertiesMap,
+      Callback<PartyListReturnObject> party) {
+    boolean unicode =
+        partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
     Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
@@ -56,10 +58,11 @@ public class PartyAPIHelper {
     boolean unicode = Utils.isUniCode(mContext);
     return getParties(new PartyAPIPropertiesMap());
   }
-  
+
   public List<Party> getParties(PartyAPIPropertiesMap partyAPIPropertiesMap) {
-    boolean unicode = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE,Utils.isUniCode(mContext));
-    boolean cache = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.CACHE,true);
+    boolean unicode =
+        partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
+    boolean cache = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.CACHE, true);
     Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
@@ -93,14 +96,13 @@ public class PartyAPIHelper {
     }
   }
 
-  public List<Party> searchPartiesFromCache(String keyword){
+  public List<Party> searchPartiesFromCache(String keyword) {
     mPartyDao = new PartyDao(mContext);
     try {
       return mPartyDao.searchPartiesFromDb(keyword);
-    }catch (SQLException e){
+    } catch (SQLException e) {
       e.printStackTrace();
       return null;
     }
   }
-
 }

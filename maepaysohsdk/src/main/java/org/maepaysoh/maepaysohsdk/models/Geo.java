@@ -1,4 +1,3 @@
-
 package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.Expose;
@@ -9,8 +8,7 @@ public class Geo implements Serializable {
   @Expose private String id;
   @Expose private String type;
   @Expose private Properties properties;
-  @Expose
-  private Geometry geometry;
+  @Expose private Geometry geometry;
 
   /**
    * @return The id
@@ -54,24 +52,17 @@ public class Geo implements Serializable {
     this.properties = properties;
   }
 
+  /**
+   * @return The geometry
+   */
+  public Geometry getGeometry() {
+    return geometry;
+  }
 
-
-/**
-*
-* @return
-* The geometry
-*/
-public Geometry getGeometry() {
-return geometry;
-}
-
-/**
-*
-* @param geometry
-* The geometry
-*/
-public void setGeometry(Geometry geometry) {
-this.geometry = geometry;
-}
-
+  /**
+   * @param geometry The geometry
+   */
+  public void setGeometry(Geometry geometry) {
+    this.geometry = geometry;
+  }
 }

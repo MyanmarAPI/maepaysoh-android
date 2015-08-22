@@ -16,19 +16,19 @@ public class MaePaySohApiWrapper {
     mContext = context;
   }
 
-  public void setTokenKey(String token) {
-    Log.d("here",token);
-    mToken = token;
-  }
-
   public String getTokenKey() {
     return new TokenAPIHelper(mContext).getTokenKey(Constants.API_KEY);
   }
 
-  public void getTokenKeyAsync(Callback<TokenReturnObject> returnObjectCallback){
-    new TokenAPIHelper(mContext).getTokenKeyAsync(Constants.API_KEY,returnObjectCallback);
+  public void setTokenKey(String token) {
+    Log.d("here", token);
+    mToken = token;
   }
-  
+
+  public void getTokenKeyAsync(Callback<TokenReturnObject> returnObjectCallback) {
+    new TokenAPIHelper(mContext).getTokenKeyAsync(Constants.API_KEY, returnObjectCallback);
+  }
+
   public PartyAPIHelper getPartyApiHelper() {
     return new PartyAPIHelper(mToken, mContext);
   }

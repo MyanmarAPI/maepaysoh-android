@@ -46,6 +46,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   private DownloadPartyListAsync mDownloadPartyListAsync;
   private MenuItem mSearchMenu;
   private android.support.v7.widget.SearchView mSearchView;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_party_list);
@@ -185,7 +186,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     }
   }
 
-  private void searchFromCache(String keyword){
+  private void searchFromCache(String keyword) {
     TextView errorText = (TextView) mErrorView.findViewById(R.id.error_view_error_text);
     errorText.setText(getString(R.string.PleaseCheckNetworkAndTryAgain));
     mRetryBtn.setVisibility(View.VISIBLE);
@@ -193,7 +194,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
       mErrorView.setVisibility(View.GONE);
     }
 
-    if(keyword.length()>0) {
+    if (keyword.length() > 0) {
       mPartyListRecyclerView.setVisibility(View.VISIBLE);
       mErrorView.setVisibility(View.GONE);
       mParties = mPartyAPIHelper.searchPartiesFromCache(keyword);
@@ -206,7 +207,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         mRetryBtn.setVisibility(View.GONE);
         errorText.setText(R.string.search_not_found);
       }
-    }else{
+    } else {
       downloadPartyList();
     }
   }
@@ -223,6 +224,13 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
   @Override public boolean onQueryTextChange(String newText) {
     searchFromCache(newText);
     return true;
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if (mDownloadPartyListAsync != null) {
+      mDownloadPartyListAsync.cancel(true);
+    }
   }
 
   class DownloadPartyListAsync extends AsyncTask<Void, Void, List<Party>> {
@@ -247,13 +255,6 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
         loadFromCache();
       }
       super.onPostExecute(parties);
-    }
-  }
-
-  @Override protected void onPause() {
-    super.onPause();
-    if(mDownloadPartyListAsync!=null){
-      mDownloadPartyListAsync.cancel(true);
     }
   }
 }
