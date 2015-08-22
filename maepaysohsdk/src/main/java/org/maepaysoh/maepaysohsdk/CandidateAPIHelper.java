@@ -12,6 +12,7 @@ import org.maepaysoh.maepaysohsdk.db.CandidateDao;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
 import org.maepaysoh.maepaysohsdk.models.CandidateDetailReturnObject;
 import org.maepaysoh.maepaysohsdk.models.CandidateListReturnObject;
+import org.maepaysoh.maepaysohsdk.models.Constituency;
 import org.maepaysoh.maepaysohsdk.utils.CandidateAPIProperties;
 import org.maepaysoh.maepaysohsdk.utils.CandidateAPIPropertiesMap;
 import retrofit.Callback;
@@ -219,6 +220,12 @@ public class CandidateAPIHelper {
     return mCandidateDao.getCandidateById(candidateId);
   }
 
+  /**
+   * Search {@link Candidate} by a keyword
+   *
+   * @param keyword - the keyword you want to search
+   * @return - List of Candidate matches with the keyword
+   */
   public List<Candidate> searchCandidateFromCache(String keyword) {
     mCandidateDao = new CandidateDao(mContext);
     try {
@@ -229,6 +236,15 @@ public class CandidateAPIHelper {
     }
   }
 
+  /**
+   * Get List the {@link Candidate} by {@link Constituency}
+   *
+   * @param stPcode - {@link Constituency} street code
+   * @param dtPcode - {@link Constituency} district code
+   * @param candidateAPIPropertiesMap - {@link CandidateAPIPropertiesMap} to call with {@link
+   * CandidateAPIProperties}
+   * @return List of {@link Candidate}
+   */
   public List<Candidate> getCandidatesByConstituency(String stPcode, String dtPcode,
       CandidateAPIPropertiesMap candidateAPIPropertiesMap) {
     boolean withParty =
@@ -247,7 +263,6 @@ public class CandidateAPIHelper {
     optionParams.put(CandidateService.PARAM_FIELD.constituency_st_pcode, stPcode);
     optionParams.put(CandidateService.PARAM_FIELD.constituency_dt_pcode, dtPcode);
     CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
-    List<Candidate> candidates = returnObject.getData();
-    return candidates;
+    return returnObject.getData();
   }
 }
