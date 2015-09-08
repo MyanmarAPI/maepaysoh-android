@@ -81,7 +81,7 @@ public class PartyListActivity extends BaseActivity implements PartyAdapter.Clic
     mPartyAdapter = new PartyAdapter();
     mPartyListRecyclerView.setAdapter(mPartyAdapter);
     MaePaySohApiWrapper wrapper = MaePaySoh.getMaePaySohWrapper();
-    mPartyAPIHelper = wrapper.getPartyApiHelper();
+    PartyAPIHelper = wrapper.getPartyApiHelper();
     mPartyDao = new PartyDao(this);
     if (InternetUtils.isNetworkAvailable(this)) {
       //downloadPartyList();

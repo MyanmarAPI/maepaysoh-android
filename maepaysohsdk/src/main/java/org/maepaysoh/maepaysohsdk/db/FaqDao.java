@@ -14,6 +14,9 @@ import java.util.List;
 import org.maepaysoh.maepaysohsdk.models.FAQ;
 import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 
+import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGE;
+import static org.maepaysoh.maepaysohsdk.utils.Logger.makeLogTag;
+
 /**
  * Created by yemyatthu on 8/7/15.
  */
@@ -22,6 +25,8 @@ import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 public class FaqDao {
   private SQLiteDatabase mMaepaysohDb;
   private MaepaysohDbHelper mMaepaysohDbHelper;
+
+  private static final String TAG = makeLogTag(FaqDao.class);
 
   public FaqDao(Context context) {
     mMaepaysohDbHelper = new MaepaysohDbHelper(context);
@@ -52,7 +57,7 @@ public class FaqDao {
           faqContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
-      Log.e("error: ", e.getLocalizedMessage());
+      LOGE(TAG, e.getLocalizedMessage());
     } finally {
       mMaepaysohDb.endTransaction();
     }

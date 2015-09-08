@@ -14,6 +14,9 @@ import java.util.List;
 import org.maepaysoh.maepaysohsdk.models.Party;
 import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 
+import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGE;
+import static org.maepaysoh.maepaysohsdk.utils.Logger.makeLogTag;
+
 /**
  * Created by yemyatthu on 8/7/15.
  */
@@ -21,6 +24,8 @@ import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 public class PartyDao {
   private SQLiteDatabase mMaepaysohDb;
   private MaepaysohDbHelper mMaepaysohDbHelper;
+
+  private static final String TAG = makeLogTag(PartyDao.class);
 
   public PartyDao(Context context) {
     mMaepaysohDbHelper = new MaepaysohDbHelper(context);
@@ -69,7 +74,7 @@ public class PartyDao {
           partyContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
-      Log.e("error: ", e.getLocalizedMessage());
+      LOGE(TAG, e.getLocalizedMessage());
     } finally {
       mMaepaysohDb.endTransaction();
     }

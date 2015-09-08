@@ -19,6 +19,9 @@ import org.maepaysoh.maepaysohsdk.models.Mother;
 import org.maepaysoh.maepaysohsdk.models.Residency;
 import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 
+import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGE;
+import static org.maepaysoh.maepaysohsdk.utils.Logger.makeLogTag;
+
 /**
  * Created by yemyatthu on 8/7/15.
  */
@@ -26,6 +29,8 @@ import org.maepaysoh.maepaysohsdk.utils.JsonUtils;
 public class CandidateDao {
   private SQLiteDatabase mMaepaysohDb;
   private MaepaysohDbHelper mMaepaysohDbHelper;
+
+  private static final String TAG = makeLogTag(CandidateDao.class);
 
   public CandidateDao(Context context) {
     mMaepaysohDbHelper = new MaepaysohDbHelper(context);
@@ -73,7 +78,7 @@ public class CandidateDao {
               candidateContentValues, SQLiteDatabase.CONFLICT_REPLACE);
       mMaepaysohDb.setTransactionSuccessful();
     } catch (SQLiteException e) {
-      Log.e("error: ", e.getLocalizedMessage());
+      LOGE(TAG, e.getLocalizedMessage());
     } finally {
       mMaepaysohDb.endTransaction();
     }
