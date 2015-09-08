@@ -36,7 +36,7 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     FAQ FAQ = mFAQs.get(position);
-    ((CandidateViewHolder) holder).mFaqQuetion.setText(FAQ.getQuestion());
+    ((CandidateViewHolder) holder).mFaqQuestion.setText(FAQ.getQuestion());
     //((CandidateViewHolder) holder).mFaqAnswer.setText(FAQ.getAnswer());
   }
 
@@ -53,13 +53,13 @@ public class FaqAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   }
 
   class CandidateViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private TextView mFaqQuetion;
+    private TextView mFaqQuestion;
     //private TextView mFaqAnswer;
 
     public CandidateViewHolder(View itemView) {
       super(itemView);
       itemView.setOnClickListener(this);
-      mFaqQuetion = (TextView) itemView.findViewById(R.id.faq_question);
+      mFaqQuestion = (TextView) itemView.findViewById(R.id.faq_question);
       //mFaqAnswer = (TextView) itemView.findViewById(R.id.faq_answer);
     }
 

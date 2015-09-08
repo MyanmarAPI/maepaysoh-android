@@ -5,12 +5,17 @@ import android.util.Log;
 import org.maepaysoh.maepaysohsdk.models.TokenReturnObject;
 import retrofit.Callback;
 
+import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGD;
+import static org.maepaysoh.maepaysohsdk.utils.Logger.makeLogTag;
+
 /**
  * Created by yemyatthu on 8/12/15.
  */
 public class MaePaySohApiWrapper {
   protected Context mContext;
   protected String mToken;
+
+  private static final String TAG = makeLogTag(MaePaySohApiWrapper.class);
 
   public MaePaySohApiWrapper(Context context) {
     mContext = context;
@@ -21,7 +26,7 @@ public class MaePaySohApiWrapper {
   }
 
   public void setTokenKey(String token) {
-    Log.d("here", token);
+    LOGD(TAG, "token " + token);
     mToken = token;
   }
 
