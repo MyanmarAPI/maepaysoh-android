@@ -56,6 +56,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
   public static final String COLUMN_CANDIDATE_PARTY_ID = "party_id";
   public static final String COLUMN_CANDIDATE_FATHER = "father";
   public static final String COLUMN_CANDIDATE_MOTHER = "mother";
+  public static final String COLUMN_CANDIDATE_PHOTO_URL = "photo_url";
   private static final String COMMA_SEP = ",";
   private static final String TEXT_TYPE = " TEXT";
   private static final String NUMERIC_TYPE = " LONG";
@@ -108,6 +109,7 @@ public class MaepaysohDbHelper extends SQLiteOpenHelper {
           MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER + TEXT_TYPE + COMMA_SEP +
+          MaepaysohDbHelper.COLUMN_CANDIDATE_PHOTO_URL + TEXT_TYPE + COMMA_SEP +
           MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER + TEXT_TYPE +
           " )";
   private static final String SQL_DELETE_CANDIDATES =

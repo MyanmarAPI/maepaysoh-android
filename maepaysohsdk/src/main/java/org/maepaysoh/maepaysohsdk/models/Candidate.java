@@ -24,6 +24,7 @@ public class Candidate implements Serializable {
   private Mother mother;
   private Father father;
   private String gender;
+  @SerializedName("photo_url") private String photoUrl;
 
   public Candidate() {
   }
@@ -216,5 +217,13 @@ public class Candidate implements Serializable {
 
   public void setGender(String gender) {
     this.gender = gender;
+  }
+
+  public String getPhotoUrl() {
+    return photoUrl;
+  }
+
+  public void setPhotoUrl(String photoUrl) {
+    this.photoUrl = photoUrl;
   }
 }

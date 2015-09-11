@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -71,6 +70,7 @@ public class CandidateDao {
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER,
         gson.toJson(candidate.getFather()));
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID, candidate.getPartyId());
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_PHOTO_URL,candidate.getPhotoUrl());
     mMaepaysohDb.beginTransaction();
     try {
       long insertId =
