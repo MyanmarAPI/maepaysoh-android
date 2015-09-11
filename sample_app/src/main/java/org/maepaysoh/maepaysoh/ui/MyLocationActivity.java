@@ -37,7 +37,6 @@ import com.google.maps.android.geojson.GeoJsonLayer;
 import com.google.maps.android.geojson.GeoJsonPointStyle;
 import com.google.maps.android.geojson.GeoJsonPolygonStyle;
 import java.util.List;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
@@ -220,6 +219,7 @@ public class MyLocationActivity extends BaseActivity {
     mLocationName.setVisibility(View.VISIBLE);
     mLocationName.setText(geo.getProperties().getDT());
     String object = gson.toJson(geo);
+    System.out.println(object);
     try {
       GeoJsonLayer layer = new GeoJsonLayer(mMap, new JSONObject(object));
       GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
@@ -265,7 +265,7 @@ public class MyLocationActivity extends BaseActivity {
       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 8));
 
       layer.addLayerToMap();
-    } catch (JSONException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -278,10 +278,12 @@ public class MyLocationActivity extends BaseActivity {
 
     @Override protected void onPostExecute(List<Geo> geos) {
       super.onPostExecute(geos);
+      if(geos.size()>0){
       Geo geo = geos.get(0);
-      new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),
-          geo.getProperties().getDTPCODE());
-      setUpMap(MyLocationActivity.this, geos.get(0));
+        new GetCandidateBYDTCODE().execute(geo.getProperties().getSTPCODE(),
+            geo.getProperties().getDTPCODE());
+        setUpMap(MyLocationActivity.this, geos.get(0));
+      }
     }
   }
 
