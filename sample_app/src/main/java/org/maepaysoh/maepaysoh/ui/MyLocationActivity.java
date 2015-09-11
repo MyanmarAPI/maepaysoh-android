@@ -52,6 +52,9 @@ import org.maepaysoh.maepaysohsdk.models.Geo;
 import org.maepaysoh.maepaysohsdk.utils.CandidateAPIProperties;
 import org.maepaysoh.maepaysohsdk.utils.CandidateAPIPropertiesMap;
 
+import static org.maepaysoh.maepaysoh.utils.Logger.LOGD;
+import static org.maepaysoh.maepaysoh.utils.Logger.makeLogTag;
+
 /**
  * Created by yemyatthu on 8/21/15.
  */
@@ -78,6 +81,8 @@ public class MyLocationActivity extends BaseActivity {
   private Toolbar mToolbar;
   private View mToolbarShadow;
   private TextView mLocationName;
+
+  private static final String TAG = makeLogTag(MyLocationActivity.class);
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -257,7 +262,7 @@ public class MyLocationActivity extends BaseActivity {
         lat = latLangArray.get(0).getAsJsonArray().get(1).getAsDouble();
         lon = latLangArray.get(0).getAsJsonArray().get(0).getAsDouble();
       }
-      System.out.println(lat + "   " + lon);
+      LOGD(TAG, lat + "   " + lon);
       if (mMap == null) {
         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
             R.id.location_detail_map)).getMap();
