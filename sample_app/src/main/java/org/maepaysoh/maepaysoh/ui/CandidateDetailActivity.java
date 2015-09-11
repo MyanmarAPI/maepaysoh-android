@@ -6,7 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
@@ -34,7 +37,7 @@ public class CandidateDetailActivity extends BaseActivity {
   private TextView mMotherName;
   private TextView mFatherName;
   private TextView mGender;
-
+  private ImageView mCandidateImage;
   private Candidate mCandidate;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class CandidateDetailActivity extends BaseActivity {
     hideToolBarShadowForLollipop(mToolbar, mToolbarShadow);
 
     mCandidateName = (TextView) findViewById(R.id.candidate_name);
+    mCandidateImage = (ImageView) findViewById(R.id.candidate_image);
     mLegislature = (TextView) findViewById(R.id.candidate_legislature);
     mNationalId = (TextView) findViewById(R.id.candidate_national_id);
     mBirthDate = (TextView) findViewById(R.id.candidate_birth_date);
@@ -53,7 +57,7 @@ public class CandidateDetailActivity extends BaseActivity {
     mReligion = (TextView) findViewById(R.id.candidate_religion);
     mResidency = (TextView) findViewById(R.id.candidate_residency);
     mConstituency = (TextView) findViewById(R.id.candidate_constituency);
-    mParty = (TextView) findViewById(R.id.candidate_party);
+    //mParty = (TextView) findViewById(R.id.candidate_party);
     mMotherName = (TextView) findViewById(R.id.candidate_mother);
     mFatherName = (TextView) findViewById(R.id.candidate_father);
     mGender = (TextView) findViewById(R.id.candidate_gender);
@@ -69,6 +73,10 @@ public class CandidateDetailActivity extends BaseActivity {
     if (mCandidate != null) {
       mCandidateName.setText(mCandidate.getName());
       mActionBar.setTitle(mCandidate.getName());
+      Glide.with(this)
+          .load(mCandidate.getPhotoUrl())
+          .diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(mCandidateImage);
       mLegislature.setText(mCandidate.getLegislature());
       mNationalId.setText(mCandidate.getNationalId());
       mBirthDate.setText(String.valueOf(mCandidate.getBirthdate()));
