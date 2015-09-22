@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import java.util.List;
 import org.maepaysoh.maepaysoh.R;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
 
@@ -78,31 +77,31 @@ public class CandidateDetailActivity extends BaseActivity {
           .diskCacheStrategy(DiskCacheStrategy.ALL)
           .into(mCandidateImage);
       mLegislature.setText(mCandidate.getLegislature());
-      mNationalId.setText(mCandidate.getNationalId());
+      //mNationalId.setText(mCandidate.getNationalId());
       mBirthDate.setText(String.valueOf(mCandidate.getBirthdate()));
-      mReligion.setText(mCandidate.getNationalityReligion());
+      //mReligion.setText(mCandidate.getNationalityReligion());
       mConstituency.setText(mCandidate.getConstituency().getName());
-      mResidency.setText(mCandidate.getResidency().getName());
-      mMotherName.setText(mCandidate.getMother().getName());
-      mFatherName.setText(mCandidate.getFather().getName());
-      mGender.setText(mCandidate.getGender());
-      List<String> occupations = mCandidate.getOccupation();
-      List<String> educations = mCandidate.getEducation();
-      for (String occupation : occupations) {
-        if (occupations.indexOf(occupation) == occupations.size() - 1) {
-          mOccupation.append(occupation);
-        } else {
-          mOccupation.append(occupation + "၊ ");
-        }
-      }
-
-      for (String education : educations) {
-        if (occupations.indexOf(education) == occupations.size() - 1) {
-          mEducation.append(education);
-        } else {
-          mEducation.append(education + "၊ ");
-        }
-      }
+    //  mResidency.setText(mCandidate.getResidency().getName());
+    //  mMotherName.setText(mCandidate.getMother().getName());
+    //  mFatherName.setText(mCandidate.getFather().getName());
+    //  mGender.setText(mCandidate.getGender());
+    //  List<String> occupations = mCandidate.getOccupation();
+    //  List<String> educations = mCandidate.getEducation();
+    //  for (String occupation : occupations) {
+    //    if (occupations.indexOf(occupation) == occupations.size() - 1) {
+    //      mOccupation.append(occupation);
+    //    } else {
+    //      mOccupation.append(occupation + "၊ ");
+    //    }
+    //  }
+    //
+    //  for (String education : educations) {
+    //    if (occupations.indexOf(education) == occupations.size() - 1) {
+    //      mEducation.append(education);
+    //    } else {
+    //      mEducation.append(education + "၊ ");
+    //    }
+    //  }
     }
   }
 

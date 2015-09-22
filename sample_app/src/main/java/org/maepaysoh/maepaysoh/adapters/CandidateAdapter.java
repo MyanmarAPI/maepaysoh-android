@@ -39,14 +39,14 @@ public class CandidateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     ((CandidateViewHolder) holder).mCandidateName.setText(candidate.getName());
     ((CandidateViewHolder) holder).mCandidateOccupation.setText(
         "");//Reset the textview unless you want some weird shit to happen
-    List<String> occupations = candidate.getOccupation();
-    for (String occupation : occupations) {
-      if (occupations.indexOf(occupation) == occupations.size() - 1) {
-        ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation);
-      } else {
-        ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation + "၊ ");
-      }
-    }
+    //List<String> occupations = candidate.getOccupation();
+    //for (String occupation : occupations) {
+    //  if (occupations.indexOf(occupation) == occupations.size() - 1) {
+    //    ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation);
+    //  } else {
+    //    ((CandidateViewHolder) holder).mCandidateOccupation.append(occupation + "၊ ");
+    //  }
+    //}
   }
 
   @Override public int getItemCount() {

@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import org.maepaysoh.maepaysoh.Constants;
 import org.maepaysoh.maepaysoh.MaePaySoh;
 import org.maepaysoh.maepaysoh.R;
+import org.maepaysoh.maepaysoh.utils.Logger;
 import org.maepaysoh.maepaysohsdk.MaePaySohApiWrapper;
 
 /**
@@ -88,6 +89,8 @@ public class BaseActivity extends AppCompatActivity {
   }
 
   protected String convertISO8601toString(String iso8601) {
-    return iso8601.replaceAll("T.*?Z", "");
+    Logger.LOGD("TAG",iso8601);
+    return iso8601;
+    //return iso8601.replaceAll("T.*?Z", "");
   }
 }
