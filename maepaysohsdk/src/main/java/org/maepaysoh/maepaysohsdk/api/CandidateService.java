@@ -31,9 +31,15 @@ public interface CandidateService {
     per_page,
     page,
     gender,
+    fields,
     religion,
     legislature,
+    party,
     constituency_st_pcode,
-    constituency_dt_pcode
+    constituency_dt_pcode,
+    constituency_ts_pcode,
+    constituency_am_pcode,
+    constituency_name,
+    constituency_number
   }
 }
