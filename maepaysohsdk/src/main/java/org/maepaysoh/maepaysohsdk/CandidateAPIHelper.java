@@ -265,4 +265,48 @@ public class CandidateAPIHelper {
     CandidateListReturnObject returnObject = mCandidateService.listCandidates(optionParams);
     return returnObject.getData();
   }
+
+  public List<Candidate> searchCandidateByName(String name,CandidateAPIPropertiesMap candidateAPIPropertiesMap){
+    boolean withParty = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY,false);
+    boolean unicode = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE,
+        Utils.isUniCode(mContext));
+    Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    if (withParty) {
+      optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
+    }
+    if (unicode) {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.UNICODE);
+    } else {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
+    }
+    CandidateListReturnObject returnObject = mCandidateService.searchCandidateByName(name,
+        optionParams);
+    return returnObject.getData();
+  }
+
+  public List<Candidate> searchCandidateByName(String name){
+    return searchCandidateByName(name, new CandidateAPIPropertiesMap());
+  }
+
+  public void searchCandidateByNameAsync(String name,CandidateAPIPropertiesMap candidateAPIPropertiesMap
+      ,Callback<CandidateListReturnObject> callback){
+    boolean withParty = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.WITH_PARTY,false);
+    boolean unicode = candidateAPIPropertiesMap.getBoolean(CandidateAPIProperties.IS_UNICODE,
+        Utils.isUniCode(mContext));
+    Map<CandidateService.PARAM_FIELD, String> optionParams = new HashMap<>();
+    if (withParty) {
+      optionParams.put(CandidateService.PARAM_FIELD._with, Constants.WITH_PARTY);
+    }
+    if (unicode) {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.UNICODE);
+    } else {
+      optionParams.put(CandidateService.PARAM_FIELD.font, Constants.ZAWGYI);
+    }
+    mCandidateService.searchCandidateByNameAsync(name,
+        optionParams,callback);
+  }
+
+  public void searchCandidateByNameAsync(String name,Callback<CandidateListReturnObject> callback){
+    searchCandidateByNameAsync(name,new CandidateAPIPropertiesMap(),callback);
+  }
 }

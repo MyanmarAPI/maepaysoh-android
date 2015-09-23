@@ -28,6 +28,7 @@ public abstract class CandidateAPIProperties<T> {
   public static final CandidateAPIProperties<Boolean> CACHE =
       new CandidateAPIProperties<Boolean>(Boolean.class) {
       };
+
   public final Class<T> propertyClass;
 
   private CandidateAPIProperties(Class<T> propertyClass) {

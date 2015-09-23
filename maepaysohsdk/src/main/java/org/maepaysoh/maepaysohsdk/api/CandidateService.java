@@ -6,6 +6,7 @@ import org.maepaysoh.maepaysohsdk.models.CandidateListReturnObject;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 import retrofit.http.QueryMap;
 
 /**
@@ -24,6 +25,14 @@ public interface CandidateService {
 
   @GET("/candidates/{candidate_id}") CandidateDetailReturnObject getCandidateById(
       @Path("candidate_id") String candidateId, @QueryMap Map<PARAM_FIELD, String> options);
+
+  @GET("/candidate/search") void
+  searchCandidateByNameAsync(@Query("q") String name,@QueryMap Map<PARAM_FIELD, String> options,
+      Callback<CandidateListReturnObject> candidateCallback);
+
+  @GET("/candidate/search") CandidateListReturnObject
+  searchCandidateByName(@Query("q") String name,@QueryMap Map<PARAM_FIELD, String> options);
+
 
   enum PARAM_FIELD {
     _with,
