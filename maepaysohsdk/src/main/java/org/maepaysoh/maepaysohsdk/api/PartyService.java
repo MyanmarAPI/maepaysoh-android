@@ -16,6 +16,8 @@ public interface PartyService {
   @GET("/party") PartyListReturnObject listParties(@QueryMap Map<PARAM_FIELD, String> options);
 
   enum PARAM_FIELD {
-    font
+    font,
+    per_page,
+    page
   }
 }

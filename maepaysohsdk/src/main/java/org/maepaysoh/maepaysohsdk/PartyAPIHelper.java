@@ -44,6 +44,8 @@ public class PartyAPIHelper {
       Callback<PartyListReturnObject> party) {
     boolean unicode =
         partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
+    int page = partyAPIPropertiesMap.getInteger(PartyAPIProperties.FIRST_PAGE, 1);
+    int per_page = partyAPIPropertiesMap.getInteger(PartyAPIProperties.PER_PAGE,15);
     Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
@@ -51,6 +53,8 @@ public class PartyAPIHelper {
     } else {
       optionParams.put(PartyService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
+    optionParams.put(PartyService.PARAM_FIELD.page,String.valueOf(page));
+    optionParams.put(PartyService.PARAM_FIELD.per_page,String.valueOf(per_page));
     mPartyService.listPartiesAsync(optionParams, party);
   }
 
@@ -63,6 +67,8 @@ public class PartyAPIHelper {
     boolean unicode =
         partyAPIPropertiesMap.getBoolean(PartyAPIProperties.IS_UNICODE, Utils.isUniCode(mContext));
     boolean cache = partyAPIPropertiesMap.getBoolean(PartyAPIProperties.CACHE, true);
+    int page = partyAPIPropertiesMap.getInteger(PartyAPIProperties.FIRST_PAGE, 1);
+    int per_page = partyAPIPropertiesMap.getInteger(PartyAPIProperties.PER_PAGE,15);
     Map<PartyService.PARAM_FIELD, String> optionParams = new HashMap<>();
     mPartyDao = new PartyDao(mContext);
     if (unicode) {
@@ -70,6 +76,8 @@ public class PartyAPIHelper {
     } else {
       optionParams.put(PartyService.PARAM_FIELD.font, Constants.ZAWGYI);
     }
+    optionParams.put(PartyService.PARAM_FIELD.page,String.valueOf(page));
+    optionParams.put(PartyService.PARAM_FIELD.per_page,String.valueOf(per_page));
     PartyListReturnObject partyListReturnObject = mPartyService.listParties(optionParams);
     if (cache) {
       for (Party data : partyListReturnObject.getData()) {
