@@ -2,12 +2,13 @@ package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * Created by Ye Lin Aung on 15/08/03.
- */
 public class Party implements Serializable {
 
   @SerializedName("_id") private String partyId;
@@ -27,6 +28,7 @@ public class Party implements Serializable {
   @SerializedName("headquarters") private String Headquarters;
   @SerializedName("contact") private List<String> Contact = new ArrayList<>();
   @SerializedName("policy") private String Policy;
+  private String establishmentDateString;
 
   public String getPartyId() {
     return partyId;
@@ -259,5 +261,21 @@ public class Party implements Serializable {
    */
   public void setPolicy(String policy) {
     Policy = policy;
+  }
+
+  public String getEstablishmentDateString() {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault());
+    if(getEstablishmentDate()!=null){
+      Calendar calender = Calendar.getInstance();
+      calender.setTimeInMillis(Long.parseLong(getEstablishmentDate()));
+      Date date = calender.getTime();
+      return dateFormat.format(date);
+    }else{
+      return "-";
+    }
+  }
+
+  public void setEstablishmentDateString(String establishmentDateString) {
+    this.establishmentDateString = establishmentDateString;
   }
 }
