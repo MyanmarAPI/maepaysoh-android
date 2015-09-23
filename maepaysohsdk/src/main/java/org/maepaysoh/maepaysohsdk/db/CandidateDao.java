@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.maepaysoh.maepaysohsdk.models.Candidate;
 import org.maepaysoh.maepaysohsdk.models.Constituency;
+import org.maepaysoh.maepaysohsdk.models.Father;
+import org.maepaysoh.maepaysohsdk.models.Mother;
 
 import static org.maepaysoh.maepaysohsdk.utils.Logger.LOGE;
 import static org.maepaysoh.maepaysohsdk.utils.Logger.makeLogTag;
@@ -45,20 +47,17 @@ public class CandidateDao {
     ContentValues candidateContentValues = new ContentValues();
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_ID, candidate.getId());
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_NAME, candidate.getName());
-    //candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONAL_ID,
-    //    candidate.getNationalId());
-    //candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION,
-    //    candidate.getNationalityReligion());
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION,
+        candidate.getReligion());
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_BIRTHDATE,
         (long) candidate.getBirthdate());
-    //candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION,
-    //    JsonUtils.convertToJson(candidate.getEducation()));
-    //candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_OCCUPATION,
-    //    JsonUtils.convertToJson(candidate.getOccupation()));
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION,
+       candidate.getEducation());
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_OCCUPATION,
+       candidate.getOccupation());
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE,
         candidate.getLegislature());
-    //candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY,
-    //    gson.toJson(candidate.getResidency()));
+    candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY,candidate.getWardVillage());
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY,
         gson.toJson(candidate.getConstituency()));
     candidateContentValues.put(MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER,
@@ -124,25 +123,24 @@ public class CandidateDao {
     candidate.setConstituency(gson.fromJson(cursor.getString(
             cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_CONSTITUENCY)),
         Constituency.class));
-    //candidate.setEducation(JsonUtils.convertToJava(cursor.getString(
-    //    cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION)), type));
-    //candidate.setOccupation(JsonUtils.convertToJava(cursor.getString(
-    //    cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_OCCUPATION)), type));
-    //candidate.setFather(gson.fromJson(
-    //    cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER)),
-    //    Father.class));
-    //candidate.setMother(gson.fromJson(
-    //    cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER)),
-    //    Mother.class));
+    candidate.setEducation(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION)));
+    candidate.setEducation(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_EDUCATION)));
+    candidate.setFather(gson.fromJson(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_FATHER)),
+        Father.class));
+    candidate.setMother(gson.fromJson(
+        cursor.getString(cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_MOTHER)),
+        Mother.class));
     candidate.setLegislature(cursor.getString(
         cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_LEGISLATURE)));
-    //candidate.setNationalityReligion(cursor.getString(
-    //    cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION)));
-    //candidate.setPartyId(cursor.getString(
-    //    cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID)));
-    //candidate.setResidency(gson.fromJson(cursor.getString(
-    //        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY)),
-    //    Residency.class));
+    candidate.setReligion(cursor.getString(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_NATIONALITY_RELIGION)));
+    candidate.setPartyId(cursor.getInt(
+        cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_PARTY_ID)));
+    candidate.setWardVillage(cursor.getString(
+            cursor.getColumnIndexOrThrow(MaepaysohDbHelper.COLUMN_CANDIDATE_RESIDENCY)));
     return candidate;
   }
 

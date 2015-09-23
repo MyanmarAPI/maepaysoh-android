@@ -23,8 +23,8 @@ public class Candidate implements Serializable {
   @SerializedName("ward_village") @Expose private String wardVillage;
   @SerializedName("constituency") @Expose private Constituency constituency;
   @SerializedName("party_id") @Expose private Integer partyId;
-  private FatherMother mother;
-  private FatherMother father;
+  private Mother mother;
+  private Father father;
   private Party party;
 
   public String getId() {
@@ -139,19 +139,19 @@ public class Candidate implements Serializable {
     this.partyId = partyId;
   }
 
-  public FatherMother getMother() {
+  public Mother getMother() {
     return mother;
   }
 
-  public void setMother(FatherMother mother) {
+  public void setMother(Mother mother) {
     this.mother = mother;
   }
 
-  public FatherMother getFather() {
+  public Father getFather() {
     return father;
   }
 
-  public void setFather(FatherMother father) {
+  public void setFather(Father father) {
     this.father = father;
   }
 
