@@ -1,26 +1,19 @@
 package org.maepaysoh.maepaysohsdk.models;
 
 import com.google.gson.annotations.Expose;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by yemyatthu on 8/18/15.
+ * Created by yemyatthu on 9/18/15.
  */
-public class GeoReturnObject {
+public class GeoReturnObject implements Serializable {
+  @Expose private List<Geo> data;
 
-  @Expose private List<Geo> data = new ArrayList<Geo>();
-
-  /**
-   * @return The data
-   */
   public List<Geo> getData() {
     return data;
   }
 
-  /**
-   * @param data The data
-   */
   public void setData(List<Geo> data) {
     this.data = data;
   }
