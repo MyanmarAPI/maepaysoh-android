@@ -13,6 +13,7 @@ public class Properties implements Serializable {
   @SerializedName("DT_PCODE") @Expose private String DTPCODE;
   @SerializedName("Shape_Leng") @Expose private Double ShapeLeng;
   @SerializedName("Shape_Area") @Expose private Double ShapeArea;
+  @SerializedName("AM_PCODE") @Expose private String AMPCODE;
   @SerializedName("DT_Mya") @Expose private String DTMya;
 
   /**
@@ -125,5 +126,13 @@ public class Properties implements Serializable {
    */
   public void setDTMya(String DTMya) {
     this.DTMya = DTMya;
+  }
+
+  public String getAMPCODE() {
+    return AMPCODE;
+  }
+
+  public void setAMPCODE(String AMPCODE) {
+    this.AMPCODE = AMPCODE;
   }
 }
