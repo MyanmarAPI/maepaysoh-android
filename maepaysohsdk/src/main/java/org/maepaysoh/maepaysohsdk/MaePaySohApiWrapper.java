@@ -1,7 +1,6 @@
 package org.maepaysoh.maepaysohsdk;
 
 import android.content.Context;
-import android.util.Log;
 import org.maepaysoh.maepaysohsdk.models.TokenReturnObject;
 import retrofit.Callback;
 
@@ -46,6 +45,9 @@ public class MaePaySohApiWrapper {
     return new CandidateAPIHelper(mToken, mContext);
   }
 
+  public OMIAPIHelper getOMIApiHelper(){
+    return new OMIAPIHelper(mToken,mContext);
+  }
   public GeoAPIHelper getGeoApiHelper() {
     return new GeoAPIHelper(mToken, mContext);
   }
